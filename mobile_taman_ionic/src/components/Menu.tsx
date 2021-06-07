@@ -1,0 +1,182 @@
+import {
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonMenu,
+  IonMenuToggle,
+  IonTitle,
+  IonToggle,
+  IonToolbar,
+} from "@ionic/react";
+import {
+  people,
+  informationCircle,
+  logIn,
+  person,
+  swap,
+  construct,
+  create,
+  briefcase,
+} from "ionicons/icons";
+import React, { useEffect, useState } from "react";
+import { RouteComponentProps, withRouter } from "react-router";
+import { connect } from "../data/connect";
+import { AuthService } from "../data/dataApi";
+import { setDarkMode } from "../data/user/user.actions";
+import '../pages/EditPage.scss'
+import { User } from "../pages/user/User";
+
+
+const routes = {
+  appPages: [
+    { title: "Giới Thiệu", path: "/about", icon: informationCircle },
+  ],
+  loggedInPages: [
+    { title: "Quản Lý Nhân Viên", path: "/listUser", icon: people },
+    // { title: "Lương Nhân Viên", path: "/listEmployeeSalary", icon: person },
+    // { title: "Ngày Phép", path: "/listLeaveDay", icon: briefcase },
+  ],
+  labourPages: [
+    { title: "Chấm Công Văn Phòng", path: "/employeeAttendance", icon: create },
+    { title: "Quản Lý Chấm Công VP", path: "/listEmployeeAttendance", icon: briefcase },
+    { title: "Chấm Công Nhân Công", path: "/listLabour", icon: construct },
+    {
+      title: "Thuộc Về Giám Sát",
+      path: "/listLabourAttendanceForSupervisor",
+      icon: person,
+    },
+  ],
+  stockPages: [
+    { title: "Xuất - Nhập - Tổn - Kho", path: "/listStock", icon: swap },
+  ],
+  // projectPages: [{ title: "Dự Án Công Ty", path: "/company", icon: business }],
+  loggedOutPages: [
+    // { title: "Tài Khoản", path: "/account", icon: person },
+    { title: "Đăng Xuất", path: "/login", icon: logIn },
+  ],
+  login: [{ title: "Đăng Xuất", path: "/login", icon: logIn }],
+};
+
+interface Pages {
+  title: string;
+  path: string;
+  icon: { ios: string; md: string };
+  routerDirection?: string;
+}
+interface StateProps {
+  darkMode: boolean;
+  isAuthenticated: boolean;
+  username: any;
+}
+
+interface DispatchProps {
+  setDarkMode: typeof setDarkMode;
+
+  user?: User;
+}
+
+interface MenuProps extends RouteComponentProps, StateProps, DispatchProps {}
+
+const Menu: React.FC<MenuProps> = ({
+  darkMode,
+  history,
+  isAuthenticated,
+  username,
+  setDarkMode,
+  user,
+}) => {
+  const [disableMenu, setDisableMenu] = useState(false);
+  const [currentUser, setCurrentUser] = useState(Object);
+  function renderlistItems(list: Pages[]) {
+    return list
+      .filter((route) => !!route.path)
+      .map((p) => (
+        <IonMenuToggle key={p.title} auto-hide="false">
+          <IonItem button routerLink={p.path} routerDirection="none">
+            <IonIcon className='custom-icon' slot="start" icon={p.icon} />
+            <IonLabel>{p.title}</IonLabel>
+          </IonItem>
+        </IonMenuToggle>
+      ));
+  }
+
+  useEffect(() => {
+    AuthService.current().then((user: User) => {
+      setCurrentUser(user);
+    });
+  }, []);
+
+  // SecurityUtil.hasPermission(currentUser, "admin.mobile.admin")
+
+  if(username){
+
+    return (
+       <IonMenu type="overlay" disabled={disableMenu} contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>{username ? username : ""}</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        {username ? //&& SecurityUtils.hasPermission(currentUser, "admin.mobile.admin")
+          <IonContent class="outer-content">
+            <IonListHeader className='custom-list-header'>Menu</IonListHeader>
+            {renderlistItems(routes.appPages)}
+            <IonListHeader className='custom-list-header'>Quản Lý Nhân Viên</IonListHeader>
+            {isAuthenticated ? renderlistItems(routes.loggedInPages) : renderlistItems(routes.loggedOutPages)}
+            <IonListHeader className='custom-list-header'>Quản Lý Ngày Công</IonListHeader>
+            {isAuthenticated ? renderlistItems(routes.labourPages) : renderlistItems(routes.loggedOutPages)}
+            <IonListHeader className='custom-list-header'>Quản Lý Kho</IonListHeader>
+            {isAuthenticated ? renderlistItems(routes.stockPages) : renderlistItems(routes.loggedOutPages)}
+            {/* <IonListHeader className='custom-list-header'>Công Ty</IonListHeader>
+            {isAuthenticated ? renderlistItems(routes.projectPages) : renderlistItems(routes.loggedOutPages)} */}
+            <IonList>
+              <IonItem>
+                <IonLabel>Dark Theme</IonLabel>
+                <IonToggle color="success" checked={darkMode} onClick={() => setDarkMode(!darkMode)} />
+              </IonItem>
+            </IonList>
+            <IonList>
+              <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
+              {isAuthenticated ? renderlistItems(routes.loggedOutPages) : renderlistItems(routes.loggedOutPages)}
+            </IonList>
+          </IonContent>
+           :
+          <IonContent class="outer-content">
+            <IonList>
+              <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
+              {isAuthenticated ? renderlistItems(routes.loggedOutPages) : renderlistItems(routes.loggedOutPages)}
+            </IonList></IonContent>}
+      </IonMenu>)
+    }else{
+      return (
+      <IonMenu type="overlay" disabled={disableMenu} contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Menu </IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonContent class="outer-content">
+            <IonList>
+              <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
+              {isAuthenticated ? renderlistItems(routes.login) : renderlistItems(routes.login)}
+            </IonList></IonContent>
+        </IonMenu>)
+    }
+};
+
+export default connect<{}, StateProps, {}>({
+  mapStateToProps: (state) => ({
+    darkMode: state.user.darkMode,
+    isAuthenticated: state.user.isLoggedin,
+    username: state.user.username,
+  }),
+  mapDispatchToProps: {
+    setDarkMode,
+  },
+  component: withRouter(Menu),
+});

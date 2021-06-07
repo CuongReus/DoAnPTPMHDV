@@ -1,0 +1,283 @@
+.dashboard-panel{
+
+}
+.dashboard-panel > .col-md-4{
+    text-align: center;
+    padding:30px 0
+}
+.dashboard-panel > .col-md-4 > .glyphicon-user{
+    font-size: 64px;
+    color:#F7941E;
+}
+.dashboard-panel > .col-md-4 > .glyphicon-usd{
+    font-size: 64px;
+    color:#00aa00;
+}
+.dashboard-panel > .col-md-4 > .glyphicon-question-sign{
+    font-size: 64px;
+    color:#55007f;
+}
+.dashboard-panel > .col-md-8{
+    padding-bottom: 20px
+}
+.dashboard-panel > .col-md-8 > h2{
+    font-size: 18px;
+    text-transform: uppercase
+}
+.dashboard-panel > .col-md-8 > a{
+    color:#333;
+}
+.dashboard-panel > .col-md-8 > a:hover{
+    color:#F7941E;
+    text-decoration: underline;
+}
+
+.dashboard-panel > div > ul > li > a{
+     color:#333;
+     font-weight: normal;
+ }
+.dashboard-panel > div > ul > li > a:hover{
+    color:#333;
+}
+.dashboard-panel > div > .navigation > .navigation-header{
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+}
+.dashboard-panel > div > ul > li > .glyphicon-globe,
+.dashboard-panel > div > ul > li > .glyphicon-envelope,
+.dashboard-panel > div > ul > li > .glyphicon-cloud,
+.dashboard-panel > div > ul > li > .glyphicon-hdd{
+    font-size: 32px;
+}
+.dashboard-panel > div > .button-wapper{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.navigation-accordion > li > a > i{
+    font-style: normal;
+}
+.navigation-accordion > li > a > i > span{
+    display: none;
+}
+@media (min-width: 769px) {
+    .navigation-accordion > li > a > i > span{
+        display: block;
+    }
+.date1{
+    float: left;
+}
+.date2{
+    float: left;
+    margin-left: 20px;
+}
+.headbutton{
+    float: left;
+    margin-left: 20px;
+}
+}
+
+.memberelement, .checkoutelement {
+    padding: 20px;
+
+}
+
+.membertitle {
+    color: #333;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.checkoutelement, .hostcartbox {
+    text-align: center;
+    font-size: 14px;
+}
+
+.checkoutelementyes {
+    color: #333;
+
+    background-color: #CCFFFF;
+}
+.product-item{
+    text-align: center;
+    padding:25px 10px;
+}
+.product-item > h1{
+    color: #226a98;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.txtdomainforhost{
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    padding: 7px 12px;
+}
+
+.hostingline {
+    border-bottom: 1px solid #aaa;
+    font-size: 18px;
+    padding: 20px 0;
+}
+
+.has-error {
+    color: red;
+}
+
+.btn-warning {
+    color: #ebecf2;
+    background-color: #F7941E;
+    border-color: #F7941E;
+}
+
+.react-datepicker {
+    font-size: 1.3rem !important;
+}
+
+.react-datepicker__current-month {
+    font-size: 1.5rem !important;
+}
+
+.react-datepicker__header {
+    padding-top: 6px !important;
+}
+
+.react-datepicker__navigation {
+    top: 13px !important;
+}
+
+.react-datepicker__day-name, .react-datepicker__day {
+    margin: 0.5rem !important;
+}
+
+.Select-clear-zone {
+    display: none !important;
+}
+.Select-menu-outer {
+    z-index: 999999 !important;
+}
+
+/* The table responsive conflict with react-select. Need to overflow-x visible on the div table*/
+/*.table-responsive {*/
+    /*overflow-x: visible;*/
+/*}*/
+
+.table-sticky-header thead th { 
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color:#4CAF50;
+    z-index: 1000; /*Lower than modal-backdrop 1040*/
+}
+
+/*Begin Set Color for True False Values (Active User)  */
+.active-font[target="Đang Hoạt Động"] {
+    color: rgb(126, 202, 164);
+  }
+.active-font[target="Vô Hiệu Hoá"]{
+    color: tomato;
+  }
+  .active-font-attendance[target="Đã Có Giờ Về"]{
+    color: rgb(126, 202, 164);
+  }
+  .active-font-attendance[target="Chưa Có Giờ Về"]{
+    color: tomato;
+  }
+  /*End Set Color for True False Values (Active User)  */
+
+  .navigation > li.active > a:focus {
+    background-color:#006233;
+    color: #fff;    
+  }
+
+  .navigation > li > ul li.active > a, .navigation > li > ul li.active > a:hover, .navigation > li > ul li.active > a:focus {
+    background-color:#45555c;
+  }
+
+  .sidebar-xs .sidebar-main .navigation > li > a > span {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: -260px;
+    background-color:#006233;
+    border: 1px solid #006233;
+    padding: 11px 20px;
+    width: 260px;
+    text-align: left;
+    color: #fff;
+    cursor: pointer;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    background-color:#8bc349;
+    border-color: #8bc349;
+    cursor: default;
+  }
+  .navbar-header {
+    min-width: 230px;
+  }
+  .dropdown-menu{
+    min-width:240px;
+  }
+  body {
+    font-size: 13px;
+    line-height: 1.5384616;
+    color: #333333;
+    font-weight: bold;
+    background-color: #f5f5f5;
+  }
+
+  @media (min-width: 769px) {
+    .sidebar {
+      display: table-cell;
+      vertical-align: top;
+      width: 230px;
+    }
+  }
+
+  .table > thead > tr > th,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > td,
+  .table > tfoot > tr > td {
+    padding: 10px 10px;
+  }
+.navigation > li ul li a {
+    padding-left: 30px;
+  }
+ .btn {
+    font-size: 10px;
+  }
+
+  .input-xlg {
+    height: 36px;
+  }
+
+.group-permission {
+    border-bottom: 1px solid #d2d6de;
+    font-size: 16px;
+}
+.entity-permission {
+    font-size: 25px;
+}
+.scroll-wrapper1 {
+    overflow-x: scroll; overflow-y:hidden;
+}
+ .scroll-wrapper2{width: 100%;
+    overflow-x: scroll; overflow-y:hidden;}
+    .scroll-wrapper1{height: 15px; }
+    .scroll-wrapper2{height: 100%; }
+    .div-scroll-1 {height: 1px; }
+    .div-scroll-2 {width:1000px; height: 200px;
+    overflow: auto;}

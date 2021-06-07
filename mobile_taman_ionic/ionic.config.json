@@ -1,0 +1,7 @@
+{
+  "name": "TamAn-Mobile-App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

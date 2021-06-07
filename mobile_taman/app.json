@@ -1,0 +1,62 @@
+{
+  "expo": {
+    "name": "Logizi",
+    "description": "Logizi solutions for enterprises.",
+    "slug": "Logizi",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "*"
+    ],
+    "ios": {
+      "buildNumber": "7",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "This app uses the location to support logistic.",
+        "NSLocationWhenInUseUsageDescription": "This app uses the location to support logistic.",
+        "NSCameraUsageDescription": "This app requires to access your camera to read QR code.",
+        "NSPhotoLibraryUsageDescription": "This app requires to access your photo library to show image on profile."
+      },
+      "bundleIdentifier": "com.logsik.logizi"
+    },
+    "android": {
+      "package": "com.logsik.logizi",
+      "versionCode": 8,
+      "permissions": [
+        "CAMERA",
+        "CAMERA_ROLL",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "VIBRATE",
+        "WAKE_LOCK",
+        "WRITE_EXTERNAL_STORAGE",
+        "com.anddoes.launcher.permission.UPDATE_COUNT",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+        "com.google.android.providers.gsf.permission.READ_GSERVICES",
+        "com.htc.launcher.permission.READ_SETTINGS",
+        "com.htc.launcher.permission.UPDATE_SHORTCUT",
+        "com.majeur.launcher.permission.UPDATE_BADGE",
+        "com.sec.android.provider.badge.permission.READ",
+        "com.sec.android.provider.badge.permission.WRITE",
+        "com.sonyericsson.home.permission.BROADCAST_BADGE"
+      ]
+    }
+  }
+}

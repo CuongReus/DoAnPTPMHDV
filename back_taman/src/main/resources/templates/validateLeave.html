@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<h3 style="font-weight: normal; margin: 20px 0;"
+		th:text="${welcomeMessage}"></h3>
+	<p style="font-size: 11px; line-height: 18px; color: red">Lưu ý:
+		Đây là email tự động, xin vui lòng không trả lời email này.</p>
+	<p style="font-size: 12px; line-height: 18px;">
+		Bạn nhận được yêu cầu duyệt đơn xin nghỉ phép của nhân viên sau đây: <br/> 
+		<span>Họ Tên: </span><span th:text="${staff.fullName}"></span>.<br />
+		<span>Email: </span><span th:text="${staff.email}"></span>.<br />
+		<span>Nghỉ Phép Từ: </span><span th:text="${leaveLetter.startLeaveDate}"></span><br />
+		<span>Đến Hết Ngày: </span><span th:text="${leaveLetter.endLeaveDate}"></span><br />
+		<span>Số Ngày Nghỉ: </span><span th:text="${leaveLetter.leaveDays}"></span><br />
+		<span>Số Ngày Thực Tế: </span><span th:text="${leaveLetter.totalLeaveDays}"></span><br />
+	</p>
+
+	<p style="font-size: 12px; line-height: 18px;">
+		Vui lòng nhấn vào <a
+			th:href="${validateLeaveLetterUrl}" >Duyệt Đơn</a> để
+		duyệt đơn này.
+	</p>
+
+	<p style="font-size: 11px; line-height: 18px;">Trân trọng cảm ơn.</p>
+</body>
+</html>

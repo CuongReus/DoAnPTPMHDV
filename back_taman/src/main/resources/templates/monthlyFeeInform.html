@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="min-width: 1024px; font-family:    Arial, Helvetica, sans-serif;">
+  <div class="header" style="display: flex; justify-content: flex-start; align-items: center;">
+    <div class="header-logo" style="margin: 0px 25px;">
+      <a href="https://giaphatcare.com/"><img src="https://giaphatcare.com/wp-content/uploads/2018/09/logo-128.png"></img></a>
+    </div>
+    <div class="header-content">
+      <h1 style="font-weight: bold; color: rgb(2, 113, 202);; display: inline-block; margin: 0px; font-size: 36px;"> GIA PHÁT CARE</h1>
+      <h2 style="display: inline-block; font-weight: normal; margin-bottom: 0px; color: grey;">(Dịch Vụ Giúp Việc Nhà Theo Giờ)</h2>
+      <p style=" margin: 3px 0px; font-size: 18px;"><span style="color: red;">Địa Chỉ:</span> 326 Nguyễn Trọng Tuyển, Phường1, Quận Tân Bình, TP.HCM</p>
+      <p style="display: inline-block; margin: 3px 0px; font-size: 18px;"><span style="color: red;">Hotline:</span> 0977.478.022 - 0938.772.224</p>
+      <p style="display: inline-block; margin: 3px 0px; font-size: 18px;"><span style="color: red;">Email:</span> giaphatcare@gmail.com</p>
+    </div>
+  </div>
+  <div class="content">
+    <h2 style="background: rgb(7, 126, 194); padding: 5px 0px; color: white; text-align: center;" th:text="${mailTitle}"></h2>
+    <h2 style="text-align: center;" th:text="${welcomeCustomer}"></h2>
+    <div class="content-block1">
+      <table style="text-align: left; margin: 0 auto; padding:0; background:none; border:none; border-collapse:collapse; border-spacing:0; font-size: 14px;">
+        <tbody>
+          <tr style="background-color: rgb(207, 205, 208);">
+            <th style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: white; font-weight: normal;">Người Giúp Việc</th>
+            <th style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: white; font-weight: normal;">Địa Điểm Làm Việc</th>
+            <th style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: white; font-weight: normal;">Ngày Giờ Làm Việc</th>
+            <th style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: white; font-weight: normal;">Đơn Giá Khách Hàng</th>
+            <th style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: white; font-weight: normal;">Tổng Giờ Làm</th>
+            <th style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: white; font-weight: normal;">Thành Tiền</th>
+          </tr>
+          <tr th:each="monthSalary : ${monthSalaries}">
+          	<td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231);" th:text="${monthSalary.employee.code + ' - ' + monthSalary.employee.fullName}"></td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231);" th:text="${monthSalary.contractItem.workAddress}"> </td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231);">Từ <span th:text="${monthSalary.startDateOfMonth}"></span> đến <span th:text="${monthSalary.endDateOfMonth}"></span></td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231);"><span th:text="${monthSalary.unitContractPrice}"></span> VNĐ</td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231);"><span th:text="${#numbers.formatDecimal(monthSalary.totalMinute / 60.0, 0, 2)}"></span> Giờ</td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231);"><span th:text="${monthSalary.totalContractAmount}"></span> VNĐ</td>
+          </tr>
+          <tr th:if="${monthlyFee.vat}">
+            <td colspan="4"></td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: red;">VAT 10%</td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); color: red;" th:text="${monthlyFee.vatAmount}"></td>
+          </tr>
+          <tr>
+            <td colspan="4"></td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); font-weight: bold;">Tổng Cộng</td>
+            <td style="padding: 3px 5px; border: 1px solid rgb(230, 228, 231); font-weight: bold;" th:text="${monthlyFee.totalContractAmountWithVat}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="content-block2">
+      <h3 style="text-align: left; font-size: 16px; color: rgb(28, 126, 175);">1. Khách Hàng Không Lấy Hóa Đơn Vui Lòng Kiểm Tra Số Giờ Và Chuyển Khoản Vào Số Tài Khoản Sau Đây</h3>
+      <div class="content-block2-child" style="display: flex; justify-content: center; align-items: flex-start;">
+      <!-- BOX1 -->
+        <ul style="list-style-type: none; background: rgb(231, 229, 232); padding: 15px 10px; text-align: center;">
+          <li style="padding-bottom: 5px;"><h1 style="color: rgb(18, 85, 8); font-size: 36px; margin: 0px;">VIETCOMBANK</h1><span style="color: grey;">(Ngân Hàng TMCP Ngoại Thương Việt Nam)</span></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Tên Tài Khoản:<span style=" color: red; font-weight: bold;"> PHẠM NGUYỄN THÙY NHUNG</span> </p></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Số Tài Khoản: <span style=" color: red; font-weight: bold;">0071 0012 52107</span> </p></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Chi Nhánh: <span style=" color: black; font-weight: bold;">Tân Bình</span> </p></li>
+        </ul>
+
+      <!-- BOX2 -->
+        <ul style="list-style-type: none; background: rgb(231, 229, 232); padding: 15px 10px; border-left: 1px solid white; border-right: 1px solid white; text-align: center;">
+          <li style="padding-bottom: 5px;"><h1 style="color: rgb(38, 68, 164);; font-size: 36px; margin: 0px;">ACB</h1><span style="color: rgb(98, 212, 223);;">(Ngân Hàng Á Châu)</span></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Tên Tài Khoản:<span style=" color: red; font-weight: bold;"> PHẠM NGUYỄN THÙY NHUNG</span> </p></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Số Tài Khoản: <span style=" color: red; font-weight: bold;">252 352 539</span> </p></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Chi Nhánh: <span style=" color: black; font-weight: bold;">Tân Bình</span> </p></li>
+        </ul>
+
+      <!-- BOX3 -->
+        <ul style="list-style-type: none; background: rgb(231, 229, 232); padding: 15px 10px; text-align: center;">
+          <li style="padding-bottom: 5px;"><h1 style="color: rgb(23, 69, 147); font-size: 36px; margin: 0px;">MB</h1><span style="color: rgb(49, 60, 105);;">(Ngân Hàng Quân Đội)</span></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Tên Tài Khoản:<span style=" color: red; font-weight: bold;"> PHẠM NGUYỄN THÙY NHUNG</span> </p></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Số Tài Khoản: <span style=" color: red; font-weight: bold;">1010 1502 34009</span> </p></li>
+          <li style="font-size: 14px; text-align: left;"><p style="margin: 0px;">Chi Nhánh: <span style=" color: black; font-weight: bold;">Cộng Hoà</span> </p></li>
+        </ul>
+      </div>
+      <div class="title-note" style="text-align: center; font-size: 16px;">
+        <h4 style="font-weight: bold; color: black; margin: 0px; display: inline-block;">*Lưu ý:</h4>
+        <span>Quý khách vui lòng chuyển khoản với nội dung theo cú pháp:</span>
+        <span style="color: red;">Họ Tên + Tên Quận</span>
+      </div>
+      <h3 style="text-align: left; font-size: 16px; color: rgb(28, 126, 175);">2. Khách Hàng Doanh Nghiệp Vui Lòng Kiểm Tra Thông Tin Trên Và Phản Hổi Xác Nhận Mail Để Gia Phát Xuất Hóa Đơn</h3>
+      <h3 style="text-align: left; font-size: 16px; color: rgb(28, 126, 175);">Cảm ơn quý khách đã tin dùng dịch vụ của chúng tôi,</h3>
+      <h3 style="text-align: left; font-size: 16px; color: rgb(28, 126, 175);">Trân trọng</h3>
+    </div>
+  </div>
+</body>
+</html>

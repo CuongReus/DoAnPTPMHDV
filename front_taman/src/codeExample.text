@@ -1,0 +1,9 @@
+
+// Disable minDate or maxDate to build datepicker for birthday
+<DatePicker
+  selected={this.state.startDate}
+  onChange={this.handleChange}
+  minDate={new Date()}
+  maxDate={addMonths(new Date(), 5)}
+  showDisabledMonthNavigation />
+</div>

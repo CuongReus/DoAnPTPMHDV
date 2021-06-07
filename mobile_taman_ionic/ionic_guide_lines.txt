@@ -1,0 +1,47 @@
+* Kiến thức cơ bản về Ionic Framework
+
+Basic info: https://ionicframework.com/docs/react/your-first-app
+=> UI components: https://ionicframework.com/docs/components
+
+https://ionicframework.com/blog/announcing-ionic-react/
+
+
+* Các khái niệm mới trên React:
+
+react context => thay cho redux reducer
+https://reactjs.org/docs/context.html
+
+react hook => thay cho class, state, willMount life cycle
+https://reactjs.org/docs/hooks-intro.html
+https://reactjs.org/docs/hooks-effect.html
+
+* Sample source code.
+https://github.com/ionic-team/ionic-react-conference-app
+
+
+* Building Android & IOS
+
+ionic build
+ionic capacitor add android
+ionic capacitor open android
+
+Hướng dẫn gốc npx -> ionic capacitor
+https://www.joshmorony.com/deploying-capacitor-applications-to-android-development-distribution/
+
+
+ionic build (in Git Bash)
+ionic capacitor add android (in Git Bash)
+ionic cap open android  (in android SDK) // TODO: not run this command
+npx cap open android
+
+--- remember add to gradle.properties
+android.useAndroidX=true
+android.enableJetifier=true
+
+build.gradle
+change appcompat-v7 => 
+androidx.appcompat:appcompat:1.0.0
+
+change in AndroidManifest.xml
+android.support.v4.content.FileProvider
+=> androidx.core.content.FileProvider

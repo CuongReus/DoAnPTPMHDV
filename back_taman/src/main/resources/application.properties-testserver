@@ -1,0 +1,64 @@
+#https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+
+server.port=8080
+server.http2.enabled=true
+
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+#spring.datasource.url = jdbc:mysql://localhost:3306/tadume?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+#spring.datasource.username = tphone
+#spring.datasource.password = RBGCgZe45xKHYKSS
+#spring.datasource.url = jdbc:mysql://125.212.243.69:3306/tadume?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+spring.datasource.url = jdbc:mysql://localhost:3306/tadume?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+spring.datasource.username = tadume
+spring.datasource.password = EXSAL7L3KC
+
+## Hibernate Properties
+# The SQL dialect makes Hibernate generate better SQL for the chosen database
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
+
+#Not lazy load to avoid performance issue - https://vladmihalcea.com/the-hibernate-enable_lazy_load_no_trans-anti-pattern/
+#spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+
+# Hibernate ddl auto (create, create-drop, validate, update)
+#spring.jpa.hibernate.ddl-auto = update
+spring.jpa.hibernate.ddl-auto = validate
+
+#spring.h2.console.enabled=true
+spring.jpa.open-in-view=true
+logging.level.org.hibernate.SQL=debug
+spring.messages.basename=messages
+
+
+#spring security jwt
+security.oauth2.resource.filter-order=3
+
+#security.signing-key=MaYzkSjmkzPC57L
+security.signing-key=MaYzkStizmPC57L
+security.encoding-strength=256
+security.security-realm=TaduWeb Realm
+
+security.jwt.client-id=loghisclientid1
+security.jwt.client-secret=TK7umcdNzl1002
+security.jwt.grant-type=password
+security.jwt.scope-read=read
+security.jwt.scope-write=write
+security.jwt.resource-ids=loghisresourceid
+
+security.cors.Access-Control-Allow-Origin=*
+
+# mail configuration
+#https://app.sendgrid.com/settings/api_keys
+spring.mail.host=smtp.sendgrid.net
+spring.mail.port=587
+spring.mail.username=apikey
+spring.mail.password=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
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+spring.profiles.active=prod
+#spring.profiles.active=dev
+
+# logging
+logging.config=/opt/jetty/resources/logback_prod.xml
+
+# External api

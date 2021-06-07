@@ -1,0 +1,4 @@
+export const LOAD_UPDATING_CONTACT = 'LOAD_UPDATING_CONTACT';
+
+
+

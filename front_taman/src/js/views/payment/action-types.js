@@ -1,0 +1,4 @@
+export const LOAD_UPDATING_PAYMENT = 'LOAD_UPDATING_PAYMENT';
+
+
+

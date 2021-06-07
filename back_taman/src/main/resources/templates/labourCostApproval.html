@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<h3 style="font-weight: normal; margin: 20px 0;"
+		th:text="${welcomeMessage}"></h3>
+	<p style="font-size: 15px; line-height: 18px; color: red">Lưu ý:
+		Đây là email tự động, xin vui lòng không trả lời email này.</p>
+	<p style="line-height: 18px;">
+		<span style="font-size: 18px;font-weight: bold;">Bạn nhận được yêu cầu duyệt đợt thanh toán cho nhân công:</span> <br /> 
+		<span style="font-size: 15px;font-weight: bold;">Người Gửi:</span> <span style="font-size: 14px;" th:text="${sender.fullName}"></span> <br/>
+		<span style="font-size: 15px;font-weight: bold;">Công Ty:</span> <span style="font-size: 14px;" th:text="${company.name}"></span> <br/>
+		<span style="font-size: 15px;font-weight: bold;">Dự Án: </span><span style="font-size: 14px;" th:text="${project.name}"></span><br />
+		 <span style="font-size: 15px;font-weight: bold;">Công
+			Việc: </span><span style="font-size: 14px;" th:text="${projectDetail.name}"></span><br /> 
+			<span style="font-size: 15px;font-weight: bold;">Số Đợt: </span><span style="font-size: 14px;" th:text="${projectCost.lotNumber}"></span><br />
+			 <span style="font-size: 15px;font-weight: bold;">Thanh Toán Từ: </span><span style="font-size: 14px;" th:text="${#dates.format(projectCost.startWorkDate,'dd-MM-yyyy')}"></span><br />
+		<span style="font-size: 15px;font-weight: bold;">Đến Hết Ngày: </span><span style="font-size: 14px;" th:text="${#dates.format(projectCost.endWorkDate,'dd-MM-yyyy')}"></span><br />
+		<span style="font-size: 15px;font-weight: bold;">Tổng Tiền Cần Thanh Toán: </span><span
+			style="font-size: 14px;font-style: italic;" th:text="${#numbers.formatDecimal(projectCost.totalMoney, 0, 'COMMA', 0, 'POINT')}"></span><br />
+			<span style="font-size: 15px;font-weight: bold;">Tổng Tiền Đã Trả: </span><span
+			style="font-size: 14px;font-style: italic;" th:text="${#numbers.formatDecimal(projectCost.totalPaid, 0, 'COMMA', 0, 'POINT')}"></span><br /> 
+			<span style="font-size: 15px;font-weight: bold;">Còn Lại: </span><span
+			style="font-size: 14px;font-style: italic;" th:text="${#numbers.formatDecimal((projectCost.totalMoney)-(projectCost.totalPaid), 0, 'COMMA', 0, 'POINT')}"></span><br />  
+			
+	</p>
+
+	<p style="font-size: 15px; line-height: 18px;">
+		Vui lòng nhấn vào <a th:href="${approvalLabourCostUrl}">Duyệt
+			Thanh Toán Nhân Công </a> để đi đến màn hình duyệt.
+	</p>
+
+	<p style="font-size: 15px; line-height: 18px;">Trân trọng cảm ơn.</p>
+</body>
+</html>
+

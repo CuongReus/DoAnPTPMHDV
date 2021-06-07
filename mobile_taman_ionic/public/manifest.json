@@ -1,0 +1,23 @@
+{
+  "name": "TamAn Mobile",
+  "short_name": "TamAn Mobile",
+  "theme_color": "#fff",
+  "description": "TamAn Mobile App",
+  "background_color": "#fff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+
+    {
+      "src": "assets/icon/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/icon/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

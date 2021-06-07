@@ -1,0 +1,516 @@
+import superagentPromise from 'superagent-promise';
+import _superagent from 'superagent';
+import { CacheService } from './middleware';
+
+const superagent = superagentPromise(_superagent, global.Promise);
+
+// const getApiRoot() = 'http://localhost:8080/api';
+// const getApiToken() = 'http://localhost:8080/oauth/token';
+// const getApiRoot() = 'http://125.212.243.69:8080/api';
+// const getApiToken() = 'http://125.212.243.69:8080/oauth/token';
+
+let backendUrl = null;
+
+let getBackendUrl = () => {
+    return backendUrl;
+}
+
+let setBackendUrl = (_backendUrl) => { backendUrl = _backendUrl };
+
+let getApiRoot = () => {
+    return backendUrl +  '/api';
+}
+let getApiToken = () => {
+    return backendUrl +  '/oauth/token';
+}
+
+const encode = encodeURIComponent;
+const responseBody = res => res.body;
+
+let token = null;
+const tokenPlugin = req => {
+    if (token) {
+        req.set('Authorization', `Bearer ${token}`); // TODO: Check how to set request header
+    }
+};
+
+const requests = {
+    del: url =>
+        superagent.del(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin).then(responseBody),
+    get: url =>
+        superagent.get(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin).then(responseBody),
+    put: (url, body) =>
+        superagent.put(`${getApiRoot()}${url}`, body).withCredentials().use(tokenPlugin).then(responseBody),
+    post: (url, body) =>
+        superagent.post(`${getApiRoot()}${url}`, body).withCredentials().use(tokenPlugin).then(responseBody),
+    getPage: (url, page) => {
+        var size = 20;
+        if (!page) {
+            page = 0;
+        } else {
+            page = page - 1; // to look url same as pagination
+        }
+        if (url.indexOf('?') != -1) {
+            return superagent.get(`${getApiRoot()}${url}` + '&page=' + encode(page) + '&size=' + encode(size)).withCredentials().use(tokenPlugin)
+        } else {
+            return superagent.get(`${getApiRoot()}${url}` + '?page=' + encode(page) + '&size=' + encode(size)).withCredentials().use(tokenPlugin)
+        }
+    }
+
+};
+
+const asyncRequests = {
+    del: url =>
+        superagent.del(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin),
+    get: url =>
+        superagent.get(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin),
+    put: (url, body) =>
+        superagent.put(`${getApiRoot()}${url}`, body).withCredentials().use(tokenPlugin),
+    post: (url, body) =>
+        superagent.post(`${getApiRoot()}${url}`, body).withCredentials().use(tokenPlugin),
+    getPage: (url, page) => {
+            var size = 20;
+            if (!page) {
+                page = 0;
+            } else {
+                page = page - 1; // to look url same as pagination
+            }
+            if (url.indexOf('?') != -1) {
+                return superagent.get(`${getApiRoot()}${url}` + '&page=' + encode(page) + '&size=' + encode(size)).withCredentials().use(tokenPlugin)
+            } else {
+                return superagent.get(`${getApiRoot()}${url}` + '?page=' + encode(page) + '&size=' + encode(size)).withCredentials().use(tokenPlugin)
+            }
+        }
+};
+
+const AuthService = {
+    initBackendUrl: () => {
+        superagent.get("/assets/config_data.json").then((data) => {
+            var backendUrl = data.body.backendUrl;
+            window.sessionStorage.setItem("backendUrl", backendUrl);
+            setBackendUrl(backendUrl);
+        });
+    },
+    current: () =>
+        requests.get('/auth/getCurrentUser'),
+    login: (email, password) => {
+        return superagent.post(`${getApiToken()}`, `username=${encode(email)}&password=${encode(password)}&grant_type=password`)
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .set('Authorization', 'Basic ' + btoa("loghisclientid1:TK7umcdNzl1002"))
+            .withCredentials().then(responseBody);
+    },
+    loginRememberMe: (refreshToken) =>
+        superagent.post(`${getApiToken()}`, `refresh_token=${encode(refreshToken)}&grant_type=refresh_token`)
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .set('Authorization', 'Basic ' + btoa("loghisclientid1:TK7umcdNzl1002"))
+            .withCredentials().then(responseBody),
+};
+
+
+
+const UserApi = {
+    listPersonel: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/user/list?search=' + encode(search), page, 20);
+    },
+    listAllPersonel: () => requests.get('/user/listAll'),
+    getPersonel: (id) => requests.get('/user/' + id),
+    getRole: (id) => requests.get('/role/' + id),
+};
+
+const LeaveDayApi = {
+    listLeaveDay: (year, page) => {
+        return requests.getPage('/leaveLetter/listLeaveDay?year='+year, page, 20);
+    },
+    listAllLeaveDay: () => requests.get('/user/listAll')
+    // getPersonel: (id) => requests.get('/user/' + id)
+};
+
+const LeaveLetterApi = {
+    getLeaveLetter: (id) => requests.get('/leaveLetter/' + id)
+};
+const StorageLocationApi = {
+    listStorageLocation: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/storageLocation/list?search=' + encode(search), page, 20);
+    },
+    listAllStorageLocation: () => requests.get('/storageLocation/listAll'),
+    getStorageLocation: (id) => requests.get('/storageLocation/' + id)
+};
+
+
+const ProjectApi = {
+    listProject: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/project/list?search=' + encode(search), page, 20);
+    },
+    listAllProject: () => requests.get('/project/listAll'),
+    getProject: (id) => requests.get('/project/' + id)
+};
+
+const ProjectDetailApi = {
+    listProjectDetail: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/projectDetail/list?search=' + encode(search), page, 20);
+    },
+    listAllProjectDetail: () => requests.get('/projectDetail/listAll'),
+    getProjectDetail: (id) => requests.get('/projectDetail/' + id)
+};
+const ProjectYearApi = {
+    listProjectYear: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/projectYear/list?search=' + encode(search), page, 20);
+    },
+    listAllProjectYear: () => requests.get('/projectYear/listAll'),
+    getProjectYear: (id) => requests.get('/projectYear/' + id)
+};
+
+const CompanyApi = {
+    listCompany: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/company/list?search=' + encode(search), page, 20);
+    },
+    listAllCompany: () => requests.get('/company/listAll'),
+    getCompany: (id) => requests.get('/company/' + id)
+};
+
+const ConstructionTeamApi = {
+    listConstructionTeam: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/constructionTeam/list?search=' + encode(search), page, 20);
+    },
+    listAllConstructionTeam: () => requests.get('/constructionTeam/listAll'),
+    getConstructionTeam: (id) => requests.get('/constructionTeam/' + id)
+};
+const SupplierApi = {
+    listSupplier: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/supplier/list?search=' + encode(search), page, 20);
+    },
+    listAllSupplier: () => requests.get('/supplier/listAll'),
+    getSupplier: (id) => requests.get('/supplier/' + id)
+};
+
+const QuotationApi = {
+    listQuotation: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/quotation/list?search=' + encode(search), page, 20);
+    },
+    listAllQuotation: () => requests.get('/quotation/listAll'),
+    getQuotation: (id) => requests.get('/quotation/' + id)
+};
+const ApprovalApi = {
+    listApproval: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/approval/list?search=' + encode(search), page, 20);
+    },
+    listAllApproval: () => requests.get('/approval/listAll'),
+    getApproval: (id) => requests.get('/approval/' + id)
+};
+
+
+
+
+const ContractApi = {
+    listContract: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/contract/list?search=' + encode(search), page, 20);
+    },
+    listAllContract: () => requests.get('/contract/listAll'),
+    getContract: (id) => requests.get('/contract/' + id)
+};
+
+const InvoiceVer1Api = {
+    listInvoiceVer1: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/invoiceVer1/list?search=' + encode(search), page, 20);
+    },
+    listAllInvoiceVer1: () => requests.get('/invoiceVer1/listAll'),
+    getInvoiceVer1: (id) => requests.get('/invoiceVer1/' + id)
+};
+const InvoiceVer2Api = {
+    listInvoiceVer2: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/invoiceVer2/list?search=' + encode(search), page, 20);
+    },
+    listAllInvoiceVer2: () => requests.get('/invoiceVer2/listAll'),
+    getInvoiceVer2: (id) => requests.get('/invoiceVer2/' + id)
+};
+const InvoiceVer3Api = {
+    listInvoiceVer3: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/invoiceVer3/list?search=' + encode(search), page, 20);
+    },
+    listAllInvoiceVer3: () => requests.get('/invoiceVer3/listAll'),
+    getInvoiceVer3: (id) => requests.get('/invoiceVer3/' + id)
+};
+
+const IncurredApi = {
+    listIncurred: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/incurred/list?search=' + encode(search), page, 20);
+    },
+    listAllIncurred: () => requests.get('/incurred/listAll'),
+    getIncurred: (id) => requests.get('/incurred/' + id)
+};
+
+const EfficiencyApi = {
+    listEfficiency: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/efficiency/list?search=' + encode(search), page, 20);
+    },
+    listAllEfficiency: () => requests.get('/efficiency/listAll'),
+    getEfficiency: (id) => requests.get('/efficiency/' + id)
+};
+
+
+const CompleteApi = {
+    listComplete: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/complete/list?search=' + encode(search), page, 20);
+    },
+    listAllComplete: () => requests.get('/complete/listAll'),
+    getComplete: (id) => requests.get('/complete/' + id)
+};
+
+const AcceptanceApi = {
+    listAcceptance: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/acceptance/list?search=' + encode(search), page, 20);
+    },
+    listAllAcceptance: () => requests.get('/acceptance/listAll'),
+    getAcceptance: (id) => requests.get('/acceptance/' + id)
+};
+
+const CloseProjectApi = {
+    listCloseProject: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/closeProject/list?search=' + encode(search), page, 20);
+    },
+    listAllCloseProject: () => requests.get('/closeProject/listAll'),
+    getCloseProject: (id) => requests.get('/closeProject/' + id)
+};
+
+const LabourApi = {
+    listLabour: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/labour/list?search=' + encode(search), page, 20);
+    },
+    listAllLabour: () => requests.get('/labour/listAll'),
+    getLabour: (id) => requests.get('/labour/' + id)
+};
+
+const LabourSalaryApi = {
+    listLabourSalary: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/labourSalary/list?search=' + encode(search), page, 20);
+    },
+    listAllLabourSalary: () => requests.get('/labourSalary/listAll'),
+    getLabourSalary: (id) => requests.get('/labourSalary/' + id)
+};
+
+const PaymentSalaryApi = {
+    listPaymentSalary: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/paymentSalary/list?search=' + encode(search), page, 20);
+    },
+    listAllPaymentSalary: () => requests.get('/paymentSalary/listAll'),
+    getPaymentSalary: (id) => requests.get('/paymentSalary/' + id)
+};
+
+const LabourAttendanceApi = {
+    listLabourAttendance: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/labourAttendance/list?search=' + encode(search), page, 20);
+    },
+    listAllLabourAttendance: () => requests.get('/labourAttendance/listAll'),
+    getLabourAttendance: (id) => requests.get('/labourAttendance/' + id)
+};
+
+const EmployeeSalaryApi = {
+    listEmployeeSalary: (search, page) => {
+        if (!search) {
+            search = 0;
+        }
+        return requests.getPage('/employeeSalary/list?search=' + encode(search), page, 20);
+    },
+    listAllEmployeeSalary: () => requests.get('/employeeSalary/listAll'),
+    getEmployeeSalary: (id) => requests.get('/employeeSalary/' + id)
+};
+
+const EmployeeAttendanceApi = {
+    listEmployeeAttendancey: (search, page) => {
+        if (!search) {
+            search = 0;
+        }
+        return requests.getPage('/employeeAttendance/list?search=' + encode(search), page, 20);
+    },
+    listAllEmployeeAttendance: () => requests.get('/employeeAttendance/listAll'),
+    getEmployeeAttendance: (id) => requests.get('/employeeAttendance/' + id)
+};
+
+const ProjectCostApi = {
+    listProjectCost: (search, page) => {
+        if (!search) {
+            search = 0;
+        }
+        return requests.getPage('/projectCost/list?search=' + encode(search), page, 20);
+    },
+    listAllProjectCost: () => requests.get('/projectCost/listAll'),
+    getProjectCost: (id) => requests.get('/projectCost/' + id),
+    getHBEntityProjectCost: (id) => requests.get('/projectCostGetHibernateEntity/' + id)
+    
+};
+
+const ProjectBudgetApi = {
+    listProjectBudget: (search, page) => {
+        if (!search) {
+            search = 0;
+        }
+        return requests.getPage('/projectBudget/list?search=' + encode(search), page, 20);
+    },
+    listAllProjectBudget: () => requests.get('/projectBudget/listAll'),
+    getProjectBudget: (id) => requests.get('/projectBudget/' + id)
+};
+
+const PaymentApi = {
+    listPayment: (search, page) => {
+        if (!search) {
+            search = 0;
+        }
+        return requests.getPage('/payment/list?search=' + encode(search), page, 20);
+    },
+    listAllPayment: () => requests.get('/payment/listAll'),
+    getPayment: (id) => requests.get('/payment/' + id)
+};
+
+const DepartmentApi = {
+    listDepartment: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/department/list?search=' + encode(search), page, 20);
+    },
+    listAllDepartment: () => requests.get('/department/listAll'),
+    getDepartment: (id) => requests.get('/department/' + id)
+};
+
+const ContactApi = {
+    listContact: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/contact/list?search=' + encode(search), page, 20);
+    },
+    listAllContact: () => requests.get('/contact/listAll'),
+    getContact: (id) => requests.get('/contact/' + id)
+};
+
+const ContactDetailApi = {
+    listContactDetail: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/contactDetail/list?search=' + encode(search), page, 20);
+    },
+    listAllContactDetail: () => requests.get('/contactDetail/listAll'),
+    getContactDetail: (id) => requests.get('/contactDetail/' + id)
+};
+
+const InvoiceVATInputAPI = {
+    listInvoiceVATInput: () => requests.get('/invoiceVATInput/listAll'),
+    getInvoiceVATInput: (id) => requests.get('/invoiceVATInput/' + id)
+};
+const InvoiceVATOutputAPI = {
+    getListInvoiceVATOutput: () => requests.get('/invoiceVATOutput/listAll'),
+    getInvoiceVATOutput: (id) => requests.get('/invoiceVATOutput/' + id)
+};
+
+export default {
+    asyncRequests,
+    InvoiceVATInputAPI,
+    InvoiceVATOutputAPI,
+    AuthService,
+    UserApi,
+    LeaveDayApi,
+    LeaveLetterApi,
+    StorageLocationApi,
+    ProjectApi,
+    ProjectDetailApi,
+    ProjectYearApi,
+    CompanyApi,
+    ConstructionTeamApi,
+    SupplierApi,
+    QuotationApi,
+    ApprovalApi,
+    ContractApi,
+    InvoiceVer1Api,
+    InvoiceVer2Api,
+    InvoiceVer3Api,
+    IncurredApi,
+    EfficiencyApi,
+    CompleteApi,
+    CloseProjectApi,
+    AcceptanceApi,
+    LabourApi,
+    LabourSalaryApi,
+    PaymentSalaryApi,
+    LabourAttendanceApi,
+    EmployeeSalaryApi,
+    EmployeeAttendanceApi,
+    ProjectCostApi,
+    ProjectBudgetApi,
+    PaymentApi,
+    DepartmentApi,
+    ContactApi,
+    ContactDetailApi,
+    setToken: _token => { token = _token },
+    setBackendUrl,
+    getBackendUrl,
+}

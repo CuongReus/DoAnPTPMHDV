@@ -1,0 +1,17 @@
+
+https://www.valentinog.com/blog/react-redux-tutorial-beginners/
+npm i react-router-redux --save-dev
+
+Redux lets you to manage state in declarative way.
+Your react components should be function of data:
+v = f(d)
+where (v - view, d - data)
+Redux lets you to extend this further as:
+d = a(s)
+where (q - action, s - store).
+
+There is only one dispatcher manageing actions from many components.
+
+
+Main concepts:
+store, reducers, actions, action-types, mapStateToProps, mapDispatchToProps.

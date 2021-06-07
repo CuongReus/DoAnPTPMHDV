@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<h3 style="font-weight: normal; margin: 20px 0;"
+		th:text="${welcomeMessage}"></h3>
+	<p style="font-size: 15px; line-height: 18px; color: red">Lưu ý:
+		Đây là email tự động, xin vui lòng không trả lời email này.</p>
+	<p style="line-height: 18px;">
+		<span style="font-weight: bold;font-size: 18px;">Bạn nhận được thông báo từ công việc: </span> <span style="font-weight: bold;font-size: 18px;" th:text="${projectDetail.name}"></span> 
+		 <br/><span  style="font-weight: bold;font-size: 15px;"> Người Gửi:</span> <span style="font-size: 14px;" th:text="${sender.fullName}"></span> 
+		 <br/>
+		 <span style="font-size: 15px;font-weight: bold;">Công Ty:</span> <span style="font-size: 14px;" th:text="${company.name}"></span> <br/>
+		 <span style="font-weight: bold;font-size: 15px;">Dự Án: </span><span style="font-size: 14px;" th:text="${project.name}"></span><br />
+			 <span  style="font-weight: bold;font-size: 15px;">Với Thông Báo: </span><span style="font-style: italic;font-size: 14px;" th:text="${projectDetail.notifyMessage}"></span><br />
+	</p>
+	<p style="font-size: 11px; line-height: 18px;">Trân trọng cảm ơn.</p>
+</body>
+</html>
+

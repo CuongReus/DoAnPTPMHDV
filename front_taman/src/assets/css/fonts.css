@@ -1,0 +1,13 @@
+/* roboto-regular - cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/roboto-v16-cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek-regular.eot'); /* IE9 Compat Modes */
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('../fonts/roboto-v16-cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/roboto-v16-cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/roboto-v16-cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/roboto-v16-cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/roboto-v16-cyrillic_latin_greek-ext_cyrillic-ext_latin-ext_vietnamese_greek-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}

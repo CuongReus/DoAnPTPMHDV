@@ -1,0 +1,4 @@
+export const LOAD_UPDATING_COMPANY = 'LOAD_UPDATING_COMPANY';
+
+
+

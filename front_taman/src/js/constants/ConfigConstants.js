@@ -1,0 +1,1 @@
+export const DESIGNED_BY = 'Đồ Án Phát Triển Phần Mềm Hướng Dịch Vụ';
