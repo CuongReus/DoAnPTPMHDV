@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.repository.UserRepository;
 
-/**
- * Created by phamcongbang on 14/05/2018.
- */
 @Service
 public class UserServiceImpl {
     @Autowired

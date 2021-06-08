@@ -17,19 +17,6 @@ public interface LeaveLetterRepository extends BaseRepository<LeaveLetter, Long>
 	@EntityGraph(attributePaths = { "user","user.company","user.department","approvedBy"})
 	Optional<LeaveLetter> findById(Long id);
 	
-	//Use These @Query Bellow when need to filter by Month and Year 
-//	@Query("select new com.logsik.taman.dtos.LeaveDayManageDto(us, "
-//			+ "SUM(ll.totalLeaveDays)) "
-//			+ "from com.logsik.taman.domain.LeaveLetter ll left join ll.user us where (ll.month = ?1 AND ll.year = ?2) GROUP BY (us) ")
-//	Page<LeaveDayManageDto> listLeaveLetter(Integer month, Integer year, Pageable pageable);
-//
-//	@Query("select new com.logsik.taman.dtos.LeaveDayManageDto(us, "
-//			+ "SUM(ll.totalLeaveDays)) "
-//			+ "from com.logsik.taman.domain.LeaveLetter ll left join ll.user us where (ll.month = ?1 AND ll.year = ?2 AND us.fullName like %?3%) GROUP BY (us) ")
-//	Page<LeaveDayManageDto> listLeaveLetterWithFullName(Integer month, Integer year, String fullName,
-//			Pageable pageable);
-	
-	
 //	
 	@EntityGraph(attributePaths = { "user","user.company","user.department","approvedBy"})
 	Page<LeaveLetter> findByUserId(Long userId,Pageable pageable);

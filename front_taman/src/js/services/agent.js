@@ -131,16 +131,6 @@ const LeaveDayApi = {
 const LeaveLetterApi = {
     getLeaveLetter: (id) => requests.get('/leaveLetter/' + id)
 };
-const StorageLocationApi = {
-    listStorageLocation: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/storageLocation/list?search=' + encode(search), page, 20);
-    },
-    listAllStorageLocation: () => requests.get('/storageLocation/listAll'),
-    getStorageLocation: (id) => requests.get('/storageLocation/' + id)
-};
 
 
 const ProjectApi = {
@@ -240,48 +230,6 @@ const ContractApi = {
     },
     listAllContract: () => requests.get('/contract/listAll'),
     getContract: (id) => requests.get('/contract/' + id)
-};
-
-const InvoiceVer1Api = {
-    listInvoiceVer1: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/invoiceVer1/list?search=' + encode(search), page, 20);
-    },
-    listAllInvoiceVer1: () => requests.get('/invoiceVer1/listAll'),
-    getInvoiceVer1: (id) => requests.get('/invoiceVer1/' + id)
-};
-const InvoiceVer2Api = {
-    listInvoiceVer2: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/invoiceVer2/list?search=' + encode(search), page, 20);
-    },
-    listAllInvoiceVer2: () => requests.get('/invoiceVer2/listAll'),
-    getInvoiceVer2: (id) => requests.get('/invoiceVer2/' + id)
-};
-const InvoiceVer3Api = {
-    listInvoiceVer3: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/invoiceVer3/list?search=' + encode(search), page, 20);
-    },
-    listAllInvoiceVer3: () => requests.get('/invoiceVer3/listAll'),
-    getInvoiceVer3: (id) => requests.get('/invoiceVer3/' + id)
-};
-
-const IncurredApi = {
-    listIncurred: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/incurred/list?search=' + encode(search), page, 20);
-    },
-    listAllIncurred: () => requests.get('/incurred/listAll'),
-    getIncurred: (id) => requests.get('/incurred/' + id)
 };
 
 const EfficiencyApi = {
@@ -463,24 +411,13 @@ const ContactDetailApi = {
     getContactDetail: (id) => requests.get('/contactDetail/' + id)
 };
 
-const InvoiceVATInputAPI = {
-    listInvoiceVATInput: () => requests.get('/invoiceVATInput/listAll'),
-    getInvoiceVATInput: (id) => requests.get('/invoiceVATInput/' + id)
-};
-const InvoiceVATOutputAPI = {
-    getListInvoiceVATOutput: () => requests.get('/invoiceVATOutput/listAll'),
-    getInvoiceVATOutput: (id) => requests.get('/invoiceVATOutput/' + id)
-};
 
 export default {
     asyncRequests,
-    InvoiceVATInputAPI,
-    InvoiceVATOutputAPI,
     AuthService,
     UserApi,
     LeaveDayApi,
     LeaveLetterApi,
-    StorageLocationApi,
     ProjectApi,
     ProjectDetailApi,
     ProjectYearApi,
@@ -490,10 +427,6 @@ export default {
     QuotationApi,
     ApprovalApi,
     ContractApi,
-    InvoiceVer1Api,
-    InvoiceVer2Api,
-    InvoiceVer3Api,
-    IncurredApi,
     EfficiencyApi,
     CompleteApi,
     CloseProjectApi,

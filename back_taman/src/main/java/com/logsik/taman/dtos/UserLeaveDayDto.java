@@ -6,9 +6,6 @@ import javax.persistence.Column;
 
 import com.logsik.taman.enums.UserRole;
 
-/**
- * Created by phamcongbang on 16/05/2018.
- */
 public class UserLeaveDayDto {
 
 	private Long userId;

@@ -14,9 +14,6 @@ import org.springframework.stereotype.Component;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.repository.UserRepository;
 
-/**
- * Created by phamcongbang on 13/03/2018.
- */
 @Component
 public class AppUserDetailsService implements UserDetailsService {
 	@Autowired

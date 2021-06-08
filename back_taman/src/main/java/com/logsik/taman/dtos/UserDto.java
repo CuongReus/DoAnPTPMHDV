@@ -10,9 +10,6 @@ import com.logsik.taman.domain.Role;
 import com.logsik.taman.enums.Gender;
 import com.logsik.taman.enums.UserRole;
 
-/**
- * Created by phamcongbang on 16/05/2018.
- */
 public class UserDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
