@@ -9,11 +9,8 @@ import constructionTeamReducer from '../views/constructionTeam/reducer'
 import supplierReducer from '../views/supplier/reducer'
 import { routerReducer } from 'react-router-redux';
 import { LOGOUT } from '../constants/action-types';
-import approvalReducer from '../views/approval/reducer'
 
-import acceptanceReducer from '../views/acceptance/reducer'
 import contractReducer from '../views/contract/reducer'
-import completeReducer from '../views/complete/reducer'
 import labourReducer from '../views/labour/reducer'
 import labourSalaryReducer from '../views/labourSalary/reducer'
 import labourAttendanceReducer from '../views/labourAttendance/reducer'
@@ -32,10 +29,7 @@ const combinedReducer = combineReducers({
     leaveLetterReducer: leaveLetterReducer,
     constructionTeamReducer: constructionTeamReducer,
     supplierReducer: supplierReducer,
-    approvalReducer: approvalReducer,
-    acceptanceReducer: acceptanceReducer,
     contractReducer: contractReducer,
-    completeReducer: completeReducer,
     labourReducer: labourReducer,
     labourSalaryReducer: labourSalaryReducer,
     labourAttendanceReducer: labourAttendanceReducer,
