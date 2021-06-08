@@ -192,10 +192,6 @@ public class StockMovementController extends AbstractController {
 
 	}
 	
-	@RequestMapping(value = "/stockMovement/listFindBySaleId")
-	public RestResult listFindBySaleId(@RequestParam("saleId")Long saleId) {
-		return new RestResult(stockMovementRepository.findBySaleId(saleId));
-	}
 	
 	@RequestMapping(value = "/stockMovement/pageFindByReportCondition")
 	public RestResult pageFindByReportCondition(

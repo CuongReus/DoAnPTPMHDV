@@ -44,13 +44,6 @@ public class StockMovement implements Serializable {
 
 	@Column(name = "stock_id")
 	private Long stockId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "sale_id", insertable = false, updatable = false)
-	private Sale sale;
-
-	@Column(name = "sale_id")
-	private Long saleId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "created_user_id", updatable = false,insertable = false)
@@ -254,18 +247,6 @@ public class StockMovement implements Serializable {
 
 	public void setLastedUpdateUserId(Long lastedUpdateUserId) {
 		this.lastedUpdateUserId = lastedUpdateUserId;
-	}
-
-	public Long getSaleId() {
-		return saleId;
-	}
-
-	public void setSaleId(Long saleId) {
-		this.saleId = saleId;
-	}
-
-	public Sale getSale() {
-		return sale;
 	}
 
 	public Float getShotQuantity() {

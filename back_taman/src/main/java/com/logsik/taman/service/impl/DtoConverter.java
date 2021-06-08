@@ -44,7 +44,6 @@ import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
 import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.domain.Role;
-import com.logsik.taman.domain.Sale;
 import com.logsik.taman.domain.Stock;
 import com.logsik.taman.domain.StockMovement;
 import com.logsik.taman.domain.StorageLocation;
@@ -83,7 +82,6 @@ import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
 import com.logsik.taman.dtos.QuotationDto;
 import com.logsik.taman.dtos.RoleDto;
-import com.logsik.taman.dtos.SaleDto;
 import com.logsik.taman.dtos.StockDto;
 import com.logsik.taman.dtos.StockMovementDto;
 import com.logsik.taman.dtos.StockQuantityByStorageDto;
@@ -124,7 +122,6 @@ import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
 import com.logsik.taman.repository.QuotationRepository;
 import com.logsik.taman.repository.RoleRepository;
-import com.logsik.taman.repository.SaleRepository;
 import com.logsik.taman.repository.StockMovementRepository;
 import com.logsik.taman.repository.StockRepository;
 import com.logsik.taman.repository.StorageLocationRepository;
@@ -203,8 +200,6 @@ public class DtoConverter {
 	@Autowired
 	private ProjectBudgetRepository projectBudgetRepository;
 	
-	@Autowired
-	private SaleRepository saleRepository;
 	
 	
 	@Autowired
@@ -330,18 +325,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(contactDetailDto, contactDetail);
 		return contactDetail;
-
-	}
-	
-	public Sale convertToSale(SaleDto saleDto) {
-		Sale sale = null;
-		if (saleDto.getId() != null) {
-			sale = saleRepository.findById(saleDto.getId()).get();
-		} else {
-			sale = new Sale();
-		}
-		modelMapper.map(saleDto, sale);
-		return sale;
 
 	}
 	

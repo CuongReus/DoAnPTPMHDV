@@ -28,8 +28,6 @@ public interface StockMovementRepository extends BaseRepository<StockMovement, L
 	List<StockMovement> findByProductIdAndMovementDateBetween(Long productId, Date startDateOfYear,Date endDateOfYear);
 	@EntityGraph(attributePaths = { "product","createdUser","lastedUpdateUser","stock","stock.storageLocation","sale","sale.contact"})
 	List<StockMovement> findByProductId(Long productId);
-	@EntityGraph(attributePaths = { "product","product.productCategory","createdUser","lastedUpdateUser","stock","stock.storageLocation","sale","sale.contact"})
-	List<StockMovement> findBySaleId (Long saleId);
 	
 	@Query("select new com.logsik.taman.dtos.StockMovementSumDto(stMv.stockId,SUM(stMv.quantity),SUM(stMv.totalPrice)) "
 			+ "from com.logsik.taman.domain.StockMovement stMv where stMv.stockId =?1 GROUP BY stMv.stockId ")

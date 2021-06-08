@@ -41,7 +41,6 @@ import com.logsik.taman.service.impl.InvoiceVer3StorageService;
 import com.logsik.taman.service.impl.LabourContractFileStorageService;
 import com.logsik.taman.service.impl.ProjectCostStorageService;
 import com.logsik.taman.service.impl.QuotationStorageService;
-import com.logsik.taman.service.impl.StockMovementStorageService;
 
 // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 // TODO: check security, only login user can upload, download files.
@@ -58,8 +57,6 @@ public class FileController extends AbstractController {
 	private FileStorageService fileStorageService;
 	@Autowired
 	private ImageStorageService imageStorageService;
-	@Autowired
-	private StockMovementStorageService stockMovementStorageService;
 	@Autowired
 	private AcceptanceStorageService acceptanceStorageService;
 	@Autowired
@@ -243,102 +240,6 @@ public class FileController extends AbstractController {
 				.body(resource);
 	}
 	// *******************************************End User Image File****************************************************
-
-	// *******************************************Start Stock Movement Input Report File****************************************************
-
-	public UploadFileResponse uploadInputReportFile(MultipartFile file) {
-		String fileName = stockMovementStorageService.storeFile(file);
-		String api = "/api/downloadStockMovementReport/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadStockMovementReport", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadStockMovementInputReportFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadInputReportFile(file));
-	}
-
-	@PostMapping("/uploadMultipleStockMovementReports")
-	public RestResult uploadMultipleuploadStockMovementInputReportFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadInputReportFile(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadStockMovementReport/{fileName:.+}")
-	public ResponseEntity<Resource> downloadStockMovementInputReportFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = stockMovementStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
-
-	// *******************************************End Stock Report Input File************************************************************
-	
-	// *******************************************Start Stock Report Output File************************************************************
-//	public UploadFileResponse uploadOutputReportFile(MultipartFile file) {
-//		String fileName = stockMovementStorageService.storeFile(file);
-//		String api = "/api/downloadStockMovementOutputReport/";
-//		String fileDownloadUri = api + fileName;
-//		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-//
-//	}
-//
-//	@RequestMapping(value = "/uploadStockMovementOutputReport", method = RequestMethod.POST, consumes = "multipart/form-data")
-//	public RestResult uploadStockMovementOutputReportFile(@RequestParam("file") MultipartFile file) {
-//		return new RestResult(uploadOutputReportFile(file));
-//	}
-//
-//	@PostMapping("/uploadMultipleStockMovementOutputReports")
-//	public RestResult uploadMultipleuploadStockMovementOutputReportFiles(@RequestParam("files") MultipartFile[] files) {
-//		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadOutputReportFile(file))
-//				.collect(Collectors.toList());
-//		return new RestResult(result);
-//	}
-//
-//	@GetMapping("/downloadStockMovementOutputReport/{fileName:.+}")
-//	public ResponseEntity<Resource> downloadStockMovementOutputReportFile(@PathVariable String fileName,
-//			HttpServletRequest request) {
-//		// Load file as Resource
-//		Resource resource = stockMovementStorageService.loadFileAsResource(fileName);
-//
-//		// Try to determine file's content type
-//		String contentType = null;
-//		try {
-//			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-//		} catch (IOException ex) {
-//			logger.info("Could not determine file type.");
-//		}
-//
-//		// Fallback to the default content type if type could not be determined
-//		if (contentType == null) {
-//			contentType = "application/octet-stream";
-//		}
-//
-//		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-//				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-//				.body(resource);
-//	}
-	// *******************************************End Stock Report Output File************************************************************
-	
-	
 	
 	// *******************************************Start Acceptance  Report File************************************************************
 	

@@ -21,7 +21,6 @@ import com.logsik.taman.dtos.RestResult;
 import com.logsik.taman.queries.ProductSpecification;
 import com.logsik.taman.repository.ProductRepository;
 import com.logsik.taman.service.impl.DtoConverter;
-import com.logsik.taman.service.impl.StockService;
 
 @RestController
 @RequestMapping("/api")
@@ -32,28 +31,11 @@ public class ProductController extends AbstractController {
 	@Autowired
 	private ProductRepository productRepository;
 	@Autowired
-	private StockService stockService;
-	@Autowired
 	private DtoConverter dtoConverter;
 
 	@RequestMapping("product/{id}")
 	public RestResult findById(@PathVariable(value = "id") Long id) {
 		return new RestResult(productRepository.findById(id));
-	}
-
-	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public RestResult add(@RequestBody ProductDto productDto) {
-		try {
-			Product product = dtoConverter.convertToProduct(productDto);
-			product = productRepository.save(product);
-			stockService.createNewInputProductToStock(product);
-
-//			Build addStockFromProductService
-			return new RestResult(product);
-		} catch (Exception e) {
-			LOGGER.error("Error when adding contract.", e);
-			return new RestResult(true, MESSAGE_CANNOT_SAVE);
-		}
 	}
 
 	@RequestMapping(value = "/product/update", method = RequestMethod.POST)
@@ -66,21 +48,6 @@ public class ProductController extends AbstractController {
 			LOGGER.error("Error when updating product.", e);
 			return new RestResult(true, MESSAGE_CANNOT_SAVE);
 		}
-	}
-
-	@DeleteMapping("/product/{id}")
-	public RestResult deleteProduct(@PathVariable("id") Long id) throws Exception {
-		System.out.println("Delete contract with ID = " + id + "...");
-
-		try {
-			stockService.removeProductFromStock(id);
-			productRepository.deleteById(id);
-		} catch (Exception e) {
-			LOGGER.error("Error when delete product.", e);
-			return new RestResult(true, MESSAGE_CANNOT_DELETE);
-		}
-
-		return new RestResult("ok");
 	}
 
 	@RequestMapping(value = "/product/listFindByProductCategoryAndProductName")
