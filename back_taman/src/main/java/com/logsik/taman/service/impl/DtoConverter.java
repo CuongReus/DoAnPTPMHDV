@@ -33,8 +33,6 @@ import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
 import com.logsik.taman.domain.LeaveLetter;
 import com.logsik.taman.domain.Payment;
-import com.logsik.taman.domain.Product;
-import com.logsik.taman.domain.ProductCategory;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectBudget;
 import com.logsik.taman.domain.ProjectCost;
@@ -66,8 +64,6 @@ import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
 import com.logsik.taman.dtos.LeaveLetterDto;
 import com.logsik.taman.dtos.PaymentDto;
-import com.logsik.taman.dtos.ProductCategoryDto;
-import com.logsik.taman.dtos.ProductDto;
 import com.logsik.taman.dtos.ProjectBudgetDto;
 import com.logsik.taman.dtos.ProjectCostDto;
 import com.logsik.taman.dtos.ProjectDetailDto;
@@ -100,8 +96,6 @@ import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
 import com.logsik.taman.repository.LeaveLetterRepository;
 import com.logsik.taman.repository.PaymentRepository;
-import com.logsik.taman.repository.ProductCategoryRepository;
-import com.logsik.taman.repository.ProductRepository;
 import com.logsik.taman.repository.ProjectBudgetRepository;
 import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
@@ -121,13 +115,7 @@ public class DtoConverter {
 	private ModelMapper modelMapper;
 
 	@Autowired
-	private ProductCategoryRepository productCategoryRepository;
-
-	@Autowired
 	private SupplierRepository supplierRepository;
-	
-	@Autowired
-	private ProductRepository productRepository;
 
 	@Autowired
 	private CompanyRepository companyRepository;
@@ -209,33 +197,6 @@ public class DtoConverter {
 
 	// Never map to Hibernate entity with modelMapper, map wrong id to any field
 	// xxxId, password is empty
-	
-
-	
-
-	public ProductCategory convertToProductCategory(ProductCategoryDto productCategoryDto) {
-		ProductCategory productCategory = null;
-		if (productCategoryDto.getId() != null) {
-			productCategory = productCategoryRepository.findById(productCategoryDto.getId()).get();
-		} else {
-			productCategory = new ProductCategory();
-		}
-		modelMapper.map(productCategoryDto, productCategory);
-		return productCategory;
-
-	}
-	
-	public Product convertToProduct(ProductDto productDto) {
-		Product product = null;
-		if (productDto.getId() != null) {
-			product = productRepository.findById(productDto.getId()).get();
-		} else {
-			product = new Product();
-		}
-		modelMapper.map(productDto, product);
-		return product;
-
-	}
 
 	public Company convertToCompany(CompanyDto companyDto) {
 		Company company = null;
@@ -670,18 +631,6 @@ public class DtoConverter {
 		SupplierDto supplierDto = new SupplierDto();
 		modelMapper.map(supplier, supplierDto);
 		return supplierDto;
-	}
-
-	public ProductCategoryDto convertToProductCategoryDto(ProductCategory productCategory) {
-		ProductCategoryDto productCategoryDto = new ProductCategoryDto();
-		modelMapper.map(productCategory, productCategoryDto);
-		return productCategoryDto;
-	}
-
-	public ProductDto convertToProductDto(Product product) {
-		ProductDto productDto = new ProductDto();
-		modelMapper.map(product, productDto);
-		return productDto;
 	}
 
 //****************************User File & Image******************************
