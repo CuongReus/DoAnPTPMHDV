@@ -33,8 +33,6 @@ import com.logsik.taman.service.impl.EfficiencyStorageService;
 import com.logsik.taman.service.impl.FileStorageService;
 import com.logsik.taman.service.impl.ImageStorageService;
 import com.logsik.taman.service.impl.IncurredStorageService;
-import com.logsik.taman.service.impl.InvoiceVATInputStorageService;
-import com.logsik.taman.service.impl.InvoiceVATOutputStorageService;
 import com.logsik.taman.service.impl.InvoiceVer1StorageService;
 import com.logsik.taman.service.impl.InvoiceVer2StorageService;
 import com.logsik.taman.service.impl.InvoiceVer3StorageService;
@@ -81,11 +79,6 @@ public class FileController extends AbstractController {
 	private LabourContractFileStorageService labourContractFileStorageService;
 	@Autowired
 	private ProjectCostStorageService projectCostStorageService;
-	@Autowired
-	private InvoiceVATInputStorageService invoiceVATInputStorageService;
-	
-	@Autowired
-	private InvoiceVATOutputStorageService invoiceVATOutputStorageService;
 	
 	
 // End Autowired StorageService
@@ -753,96 +746,4 @@ public class FileController extends AbstractController {
 				.body(resource);
 	}
 	// *******************************************End ProjectCost Ver 3 File************************************************************
-
-	// invoice vat input
-	
-	public UploadFileResponse uploadInvoiceVATInputResponse(MultipartFile file) {
-		String fileName = invoiceVATInputStorageService.storeFile(file);
-		String api = "/api/downloadInvoiceVATInputFile/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadInvoiceVATInputFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadInvoiceVATInputFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadInvoiceVATInputResponse(file));
-	}
-
-	@PostMapping("/uploadMultipleInvoiceVATInputFiles")
-	public RestResult uploadMultipleInvoiceVATInputFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadInvoiceVATInputResponse(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadInvoiceVATInputFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadInvoiceVATInputFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = invoiceVATInputStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
-	
-	// invoice vat output
-	
-		public UploadFileResponse uploadInvoiceVATOutputResponse(MultipartFile file) {
-			String fileName = invoiceVATOutputStorageService.storeFile(file);
-			String api = "/api/downloadInvoiceVATOutputFile/";
-			String fileDownloadUri = api + fileName;
-			return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-		}
-
-		@RequestMapping(value = "/uploadInvoiceVATOutputFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-		public RestResult uploadInvoiceVATOutputFile(@RequestParam("file") MultipartFile file) {
-			return new RestResult(uploadInvoiceVATOutputResponse(file));
-		}
-
-		@PostMapping("/uploadMultipleInvoiceVATOutputFiles")
-		public RestResult uploadMultipleInvoiceVATOutputFiles(@RequestParam("files") MultipartFile[] files) {
-			List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadInvoiceVATOutputResponse(file))
-					.collect(Collectors.toList());
-			return new RestResult(result);
-		}
-
-		@GetMapping("/downloadInvoiceVATOutputFile/{fileName:.+}")
-		public ResponseEntity<Resource> downloadInvoiceVATOutputFile(@PathVariable String fileName,
-				HttpServletRequest request) {
-			// Load file as Resource
-			Resource resource = invoiceVATOutputStorageService.loadFileAsResource(fileName);
-
-			// Try to determine file's content type
-			String contentType = null;
-			try {
-				contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-			} catch (IOException ex) {
-				logger.info("Could not determine file type.");
-			}
-
-			// Fallback to the default content type if type could not be determined
-			if (contentType == null) {
-				contentType = "application/octet-stream";
-			}
-
-			return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-					.body(resource);
-		}
 }

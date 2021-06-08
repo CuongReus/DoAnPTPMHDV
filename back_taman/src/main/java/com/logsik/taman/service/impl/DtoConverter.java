@@ -25,8 +25,6 @@ import com.logsik.taman.domain.EmployeeAttendance;
 import com.logsik.taman.domain.EmployeeSalary;
 import com.logsik.taman.domain.FileUpload;
 import com.logsik.taman.domain.Incurred;
-import com.logsik.taman.domain.InvoiceVATInput;
-import com.logsik.taman.domain.InvoiceVATOutput;
 import com.logsik.taman.domain.InvoiceVer1;
 import com.logsik.taman.domain.InvoiceVer2;
 import com.logsik.taman.domain.InvoiceVer3;
@@ -60,8 +58,6 @@ import com.logsik.taman.dtos.EfficiencyDto;
 import com.logsik.taman.dtos.EmployeeAttendanceDto;
 import com.logsik.taman.dtos.EmployeeSalaryDto;
 import com.logsik.taman.dtos.IncurredDto;
-import com.logsik.taman.dtos.InvoiceVATInputDTO;
-import com.logsik.taman.dtos.InvoiceVATOutputDTO;
 import com.logsik.taman.dtos.InvoiceVer1Dto;
 import com.logsik.taman.dtos.InvoiceVer2Dto;
 import com.logsik.taman.dtos.InvoiceVer3Dto;
@@ -96,8 +92,6 @@ import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.EmployeeAttendanceRepository;
 import com.logsik.taman.repository.EmployeeSalaryRepository;
 import com.logsik.taman.repository.IncurredRepository;
-import com.logsik.taman.repository.InvoiceVATInputRepository;
-import com.logsik.taman.repository.InvoiceVATOutputRepository;
 import com.logsik.taman.repository.InvoiceVer1Repository;
 import com.logsik.taman.repository.InvoiceVer2Repository;
 import com.logsik.taman.repository.InvoiceVer3Repository;
@@ -937,60 +931,4 @@ public class DtoConverter {
 
 	// ******************************End User File &
 	// Image******************************
-	
-	
-	// invoice vat input
-	@Autowired
-	private InvoiceVATInputRepository invoiceVATInputRepository;
-	
-	public InvoiceVATInput convertToInvoiceVATInput(InvoiceVATInputDTO invoiceVATInputDTO) {
-		InvoiceVATInput invoiceVATInput = null;
-		if (invoiceVATInputDTO.getId() != null) {
-			invoiceVATInput = invoiceVATInputRepository.findById(invoiceVATInputDTO.getId()).get();
-		} else {
-			invoiceVATInput = new InvoiceVATInput();
-		}
-		modelMapper.map(invoiceVATInputDTO, invoiceVATInput);
-		return invoiceVATInput;
-	}
-	
-	public InvoiceVATInputDTO convertToInvoiceVATInputDTO(InvoiceVATInput invoiceVATInput, List<FileUpload> files) {
-		InvoiceVATInputDTO dto = modelMapper.map(invoiceVATInput, InvoiceVATInputDTO.class);
-		dto.setFiles(files.stream().map(file -> convertToUploadInvoiceVATInputFile(file))
-				.collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToUploadInvoiceVATInputFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadInvoiceVATInputFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-	
-//	 invoice vat output
-	
-	@Autowired
-	private InvoiceVATOutputRepository invoiceVATOutputRepository;
-	
-	public InvoiceVATOutput convertToInvoiceVATOutput(InvoiceVATOutputDTO invoiceVATOutputDTO) {
-		InvoiceVATOutput invoiceVATOutput = null;
-		if (invoiceVATOutputDTO.getId() != null) {
-			invoiceVATOutput = invoiceVATOutputRepository.findById(invoiceVATOutputDTO.getId()).get();
-		} else {
-			invoiceVATOutput = new InvoiceVATOutput();
-		}
-		modelMapper.map(invoiceVATOutputDTO, invoiceVATOutput);
-		return invoiceVATOutput;
-	}
-	
-	public InvoiceVATOutputDTO convertToInvoiceVATOutputDTO(InvoiceVATOutput invoiceVATOutput, List<FileUpload> files) {
-		InvoiceVATOutputDTO dto = modelMapper.map(invoiceVATOutput, InvoiceVATOutputDTO.class);
-		dto.setFiles(files.stream().map(file -> convertToUploadInvoiceVATOutputFile(file))
-				.collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToUploadInvoiceVATOutputFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadInvoiceVATOutputFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
 }
