@@ -14,7 +14,6 @@ import com.logsik.taman.domain.Acceptance;
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Company;
-import com.logsik.taman.domain.Complete;
 import com.logsik.taman.domain.ConstructionTeam;
 import com.logsik.taman.domain.Contact;
 import com.logsik.taman.domain.ContactDetail;
@@ -46,7 +45,6 @@ import com.logsik.taman.dtos.AcceptanceDto;
 import com.logsik.taman.dtos.ApprovalDto;
 import com.logsik.taman.dtos.CloseProjectDto;
 import com.logsik.taman.dtos.CompanyDto;
-import com.logsik.taman.dtos.CompleteDto;
 import com.logsik.taman.dtos.ConstructionTeamDto;
 import com.logsik.taman.dtos.ContactDetailDto;
 import com.logsik.taman.dtos.ContactDto;
@@ -78,7 +76,6 @@ import com.logsik.taman.repository.AcceptanceRepository;
 import com.logsik.taman.repository.ApprovalRepository;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.CompanyRepository;
-import com.logsik.taman.repository.CompleteRepository;
 import com.logsik.taman.repository.ConstructionTeamRepository;
 import com.logsik.taman.repository.ContactDetailRepository;
 import com.logsik.taman.repository.ContactRepository;
@@ -128,8 +125,6 @@ public class DtoConverter {
 	private ApprovalRepository approvalRepository;
 	@Autowired
 	private CloseProjectRepository closeProjectRepository;
-	@Autowired
-	private CompleteRepository completeRepository;
 	@Autowired
 	private ContractRepository contractRepository;
 	@Autowired
@@ -296,17 +291,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(acceptanceDto, acceptance);
 		return acceptance;
-	}
-
-	public Complete convertToComplete(CompleteDto completeDto) {
-		Complete complete = null;
-		if (completeDto.getId() != null) {
-			complete = completeRepository.findById(completeDto.getId()).get();
-		} else {
-			complete = new Complete();
-		}
-		modelMapper.map(completeDto, complete);
-		return complete;
 	}
 
 	public CloseProject convertToCloseProject(CloseProjectDto closeProjectDto) {
