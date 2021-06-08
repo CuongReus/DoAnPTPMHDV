@@ -20,7 +20,6 @@ import LeaveLetterList from "./views/leaveLetter/LeaveLetterList";
 import LeaveDayList from "./views/leaveDay/LeaveDayList";
 import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 
-import StorageLocationList from "./views/storageLocation/StorageLocationList";
 
 import SupplierList from "./views/supplier/SupplierList";
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
@@ -35,7 +34,6 @@ import PersonelSalaryConfig from "./views/personel/PersonelSalaryConfig";
 import DepartmentList from "./views/department/DepartmentList";
 import ContactList from "./views/contact/ContactList";
 import ContactDetailList from "./views/contactDetail/ContactDetailList";
-// import PaymentList from "./views/payment/PaymentList";
 
 const mapStateToProps = state => {
     return {
@@ -159,7 +157,6 @@ class App extends React.Component {
                                 <Route path="/listLeaveLetter/:id" component={LeaveLetterList}/>
                                 <Route path="/listLeaveDay" component={LeaveDayList}/>
                                 <Route path="/validateLeave/:token" component={ValidateLeaveLetter}/>
-                                <Route path="/listStorageLocation" component={StorageLocationList}/>
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
                                 <Route path="/listSupplier" component={SupplierList}/>
                                 <Route path="/listLabour" component={LabourList}/>
