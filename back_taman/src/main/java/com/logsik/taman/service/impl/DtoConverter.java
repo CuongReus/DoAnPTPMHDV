@@ -44,9 +44,6 @@ import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
 import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.domain.Role;
-import com.logsik.taman.domain.Stock;
-import com.logsik.taman.domain.StockMovement;
-import com.logsik.taman.domain.StorageLocation;
 import com.logsik.taman.domain.Supplier;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.AcceptanceDto;
@@ -82,10 +79,6 @@ import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
 import com.logsik.taman.dtos.QuotationDto;
 import com.logsik.taman.dtos.RoleDto;
-import com.logsik.taman.dtos.StockDto;
-import com.logsik.taman.dtos.StockMovementDto;
-import com.logsik.taman.dtos.StockQuantityByStorageDto;
-import com.logsik.taman.dtos.StorageLocationDto;
 import com.logsik.taman.dtos.SupplierDto;
 import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.dtos.UserDto;
@@ -122,9 +115,6 @@ import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
 import com.logsik.taman.repository.QuotationRepository;
 import com.logsik.taman.repository.RoleRepository;
-import com.logsik.taman.repository.StockMovementRepository;
-import com.logsik.taman.repository.StockRepository;
-import com.logsik.taman.repository.StorageLocationRepository;
 import com.logsik.taman.repository.SupplierRepository;
 import com.logsik.taman.repository.UserRepository;
 
@@ -144,9 +134,6 @@ public class DtoConverter {
 	
 	@Autowired
 	private ProductRepository productRepository;
-
-	@Autowired
-	private StockMovementRepository stockMovementRepository;
 
 	@Autowired
 	private CompanyRepository companyRepository;
@@ -216,10 +203,6 @@ public class DtoConverter {
 	private LabourAttendanceRepository labourAttendanceRepository;
 	@Autowired
 	private RoleRepository roleRepository;
-	@Autowired
-	private StockRepository stockRepository;
-	@Autowired
-	private StorageLocationRepository storageLocationRepository;
 	@Autowired
 	private LeaveLetterRepository leaveLetterRepository;
 	@Autowired
@@ -440,19 +423,6 @@ public class DtoConverter {
 	}
 
 	
-
-	public StockMovement convertToStockMovement(StockMovementDto stockMovementDto) {
-		StockMovement stockMovement = null;
-		if (stockMovementDto.getId() != null) {
-			stockMovement = stockMovementRepository.findById(stockMovementDto.getId()).get();
-		} else {
-			stockMovement = new StockMovement();
-		}
-		modelMapper.map(stockMovementDto, stockMovement);
-		return stockMovement;
-	}
-
-	
 	public ProjectYear convertToProjectYear(ProjectYearDto projectYearDto) {
 		ProjectYear projectYear = null;
 		if (projectYearDto.getId() != null) {
@@ -485,10 +455,7 @@ public class DtoConverter {
 		modelMapper.map(projectDetailDto, projectDetail);
 		return projectDetail;
 	}
-//	public StockMovement convertToStockMovementOutput(StockMovementOutputDto stockMovementOutputDto) {
-//		StockMovement stockMovement = new StockMovement();
-//		return fillStockMovementOutputForm(stockMovement, stockMovementOutputDto);
-//	}
+
 	public Payment convertToPayment(PaymentDto paymentDto) {
 		Payment payment = null;
 		if (paymentDto.getId() != null) {
@@ -546,46 +513,6 @@ public class DtoConverter {
 		modelMapper.map(leaveLetterDto, leaveLetter);
 		return leaveLetter;
 	}
-
-	
-
-	
-
-	
-
-//	public StockMovement fillStockMovementOutputForm(StockMovement destination, StockMovementOutputDto form) {
-//		modelMapper.map(form, destination);
-//		return destination;
-//	}
-
-	
-	public StorageLocation convertToStorageLocation(StorageLocationDto storageLocationDto) {
-		StorageLocation storageLocation = null;
-		if (storageLocationDto.getId() != null) {
-			storageLocation = storageLocationRepository.findById(storageLocationDto.getId()).get();
-		} else {
-			storageLocation = new StorageLocation();
-		}
-		modelMapper.map(storageLocationDto, storageLocation);
-		return storageLocation;
-	}
-
-	
-	public Stock convertToStock(StockDto stockDto) {
-		Stock storageLocation = null;
-		if (stockDto.getId() != null) {
-			storageLocation = stockRepository.findById(stockDto.getId()).get();
-		} else {
-			storageLocation = new Stock();
-		}
-		modelMapper.map(stockDto, storageLocation);
-		return storageLocation;
-	}
-
-	
-
-	
-
 
 	public Supplier convertToSupplier(SupplierDto supplierDto) {
 		Supplier supplier = null;
@@ -763,9 +690,6 @@ public class DtoConverter {
 		return productDto;
 	}
 
-	public StockQuantityByStorageDto convertToStorageLocationDto(StorageLocation storageLocation) {
-		return modelMapper.map(storageLocation, StockQuantityByStorageDto.class);
-	}
 //****************************User File & Image******************************
 	public UserDto convertToUserDto(User user, List<FileUpload> profiles, List<FileUpload> imageUpload) {
 		UserDto dto = modelMapper.map(user, UserDto.class);
@@ -786,36 +710,6 @@ public class DtoConverter {
 	}
 
 //******************************End User File & Image******************************
-
-//	******************************Start Stock Movement Report File******************************
-	public StockMovementDto convertToStockMovementDto(StockMovement stockMovement,
-			List<FileUpload> movementStockOutputReportFile) {
-		StockMovementDto dto = modelMapper.map(stockMovement, StockMovementDto.class);
-		dto.setMovementStockInputReportFile(movementStockOutputReportFile.stream()
-				.map(file -> convertToUploadStockMovementInputReportFile(file)).collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToUploadStockMovementInputReportFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadStockMovementReport/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-//	******************************End Stock Movement Input Report File******************************
-
-//	******************************Start Stock Movement Output Report File******************************
-//	public StockMovementOutputDto convertToStockMovementOutputDto(StockMovement stockMovement,
-//			List<FileUpload> movementStockOutputReportFile) {
-//		StockMovementOutputDto dto = modelMapper.map(stockMovement, StockMovementOutputDto.class);
-//		dto.setMovementStockOutputReportFile(movementStockOutputReportFile.stream()
-//				.map(file -> convertToUploadStockMovementOutputReportFile(file)).collect(Collectors.toList()));
-//		return dto;
-//	}
-//
-//	private UploadFileResponse convertToUploadStockMovementOutputReportFile(FileUpload file) {
-//		return new UploadFileResponse(file.getName(), "/api/downloadStockMovementOutputReport/" + file.getName(), null,
-//				file.getSize());
-//	}
-//	******************************End Stock Movement Report File******************************
 
 //	******************************Start Acceptance File******************************
 	public AcceptanceDto convertToAcceptanceDto(Acceptance acceptance, List<FileUpload> acceptanceUploadFile,
