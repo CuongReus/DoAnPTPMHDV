@@ -22,12 +22,6 @@ import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 
 import StorageLocationList from "./views/storageLocation/StorageLocationList";
 
-import CompanyList from "./views/projectProgress/CompanyList";
-import CompanyProjectList from "./views/projectProgress/CompanyProjectList";
-import ProjectList from "./views/project/ProjectList"
-import ProjectDetailList from  "./views/projectDetail/ProjectDetailList";
-import ProjectYearList from "./views/projectYear/ProjectYearList";
-
 import SupplierList from "./views/supplier/SupplierList";
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
 import LabourList from "./views/labour/LabourList";
@@ -37,15 +31,10 @@ import ListLaboutAttendanceForSupervisor from "./views/labourAttendance/ListLabo
 import UserChangePassword from "./views/personel/UserChangePassword";
 // import EmployeeSalaryList from "./views/EmployeeSalary/EmployeeSalaryList";
 import EmployeeAttendanceList from "./views/EmployeeAttendance/EmployeeAttendanceList";
-import ProjectCostApproval from "./views/projectCost/ProjectCostApproval";
 import PersonelSalaryConfig from "./views/personel/PersonelSalaryConfig";
 import DepartmentList from "./views/department/DepartmentList";
 import ContactList from "./views/contact/ContactList";
 import ContactDetailList from "./views/contactDetail/ContactDetailList";
-import ProjectCostReportList from "./views/projectCostReport/ProjectCostReportList";
-import YearRows from "./views/projectCostReport/YearRows";
-// import ProjectCostList from "./views/projectCost/ProjectCostList";
-// import ProjectBudgetList from "./views/projectBudget/ProjectBudgetList";
 // import PaymentList from "./views/payment/PaymentList";
 
 const mapStateToProps = state => {
@@ -171,11 +160,6 @@ class App extends React.Component {
                                 <Route path="/listLeaveDay" component={LeaveDayList}/>
                                 <Route path="/validateLeave/:token" component={ValidateLeaveLetter}/>
                                 <Route path="/listStorageLocation" component={StorageLocationList}/>
-                                <Route path="/listProject" component={ProjectList}/>
-                                <Route path="/listProjectYear" component={ProjectYearList}/>
-                                <Route path="/listProjectDetail" component={ProjectDetailList}/>
-                                <Route path="/listCompany" component={CompanyList}/>
-                                <Route path="/projectProgress/:id" component={CompanyProjectList}/>
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
                                 <Route path="/listSupplier" component={SupplierList}/>
                                 <Route path="/listLabour" component={LabourList}/>
@@ -184,13 +168,6 @@ class App extends React.Component {
                                 <Route path="/attendanceGeneralScreen" component={AttendanceGeneralScreen}/>
                                 {/* <Route path="/listEmployeeSalary" component={EmployeeSalaryList}/> */}
                                 <Route path="/listEmployeeAttendance" component={EmployeeAttendanceList}/>
-                                <Route path="/listProjectCostReport" component={ProjectCostReportList}/>
-                                <Route path="/listYearRows" component={YearRows}/>
-                                <Route path="/projectCostApproval/:token" component={ProjectCostApproval}/>
-
-                                {/* <Route path="/listProjectCost" component={ProjectCostList}/>
-                                <Route path="/listProjectBudget" component={ProjectBudgetList}/>
-                                <Route path="/listPayment" component={PaymentList}/> */}
                             </Switch>
                         </div>
                     </div>

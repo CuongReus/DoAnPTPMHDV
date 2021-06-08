@@ -6,10 +6,6 @@ import commonReducer from "./common";
 import personelReducer from '../views/personel/reducer';
 import leaveLetterReducer from '../views/leaveLetter/reducer';
 import storageLocationReducer from '../views/storageLocation/reducer'
-import projectDetailReducer from '../views/projectDetail/reducer'
-import projectReducer from '../views/project/reducer'
-import projectYearReducer from '../views/projectYear/reducer'
-import companyReducer from '../views/projectProgress/reducer'
 import constructionTeamReducer from '../views/constructionTeam/reducer'
 import supplierReducer from '../views/supplier/reducer'
 import { routerReducer } from 'react-router-redux';
@@ -32,13 +28,10 @@ import labourAttendanceReducer from '../views/labourAttendance/reducer'
 import paymentSalaryReducer from '../views/paymentSalary/reducer'
 import employeeSalaryReducer from '../views/EmployeeSalary/reducer'
 import employeeAttendanceReducer from '../views/EmployeeAttendance/reducer'
-import projectCostReducer from '../views/projectCost/reducer'
-import projectBudgetReducer from '../views/projectBudget/reducer'
 import paymentReducer from '../views/payment/reducer'
 import departmentReducer from '../views/department/reducer'
 import contactReducer from '../views/contact/reducer'
 import contactDetailReducer from '../views/contactDetail/reducer'
-import projectCostReportReducer from '../views/projectCostReport/reducer'
 import invoiceVATInputReducer from '../views/invoiceVATInput/reducer'
 import invoiceVATOutputReducer from '../views/invoiceVATOutput/reducer'
 
@@ -50,10 +43,6 @@ const combinedReducer = combineReducers({
     router: routerReducer,
     leaveLetterReducer: leaveLetterReducer,
     storageLocationReducer: storageLocationReducer,
-    projectDetailReducer: projectDetailReducer,
-    projectReducer: projectReducer,
-    projectYearReducer: projectYearReducer,
-    companyReducer: companyReducer,
     constructionTeamReducer: constructionTeamReducer,
     supplierReducer: supplierReducer,
     quotationReducer: quotationReducer,
@@ -73,13 +62,10 @@ const combinedReducer = combineReducers({
     paymentSalaryReducer: paymentSalaryReducer,
     employeeSalaryReducer: employeeSalaryReducer,
     employeeAttendanceReducer: employeeAttendanceReducer,
-    projectCostReducer: projectCostReducer,
-    projectBudgetReducer: projectBudgetReducer,
     paymentReducer: paymentReducer,
     departmentReducer :departmentReducer,
     contactReducer: contactReducer,
     contactDetailReducer: contactDetailReducer,
-    projectCostReportReducer: projectCostReportReducer,
     invoiceVATInputReducer: invoiceVATInputReducer,
     invoiceVATOutputReducer: invoiceVATOutputReducer,
 });
