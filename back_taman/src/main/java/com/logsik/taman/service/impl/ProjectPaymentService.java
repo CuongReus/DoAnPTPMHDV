@@ -31,30 +31,6 @@ public class ProjectPaymentService {
 	@Autowired
 	private PaymentRepository paymentRepository;
 
-	public ProjectPaymentDto findDtoByProjectDetailDto(Long projectDetailId) {
-		ProjectPaymentDto projectPaymentDto = new ProjectPaymentDto();
-		ProjectDetailProgressDto projectDetailProgressDto = projectDetailService.findDtoById(projectDetailId);
-
-		ProjectBudget projectBudget = projectBudgetRepository.findByProjectDetailId(projectDetailId);
-
-		List<ProjectCost> listProductCost = projectCostRepository.findByProjectDetailIdAndPaymentType(projectDetailId,
-				ProjectPaymentType.VAT_TU);
-		List<ProjectCost> listLabourCost = projectCostRepository.findByProjectDetailIdAndPaymentType(projectDetailId,
-				ProjectPaymentType.NHAN_CONG);
-		List<ProjectCost> listOtherCost = projectCostRepository.findByProjectDetailIdAndPaymentType(projectDetailId,
-				ProjectPaymentType.CHI_PHI_KHAC);
-		List<ProjectCost> listConstructionTeamCost = projectCostRepository
-				.findByProjectDetailIdAndPaymentType(projectDetailId, ProjectPaymentType.DOI_THI_CONG);
-		projectPaymentDto.setProjectDetailDto(projectDetailProgressDto);
-		projectPaymentDto.setProjectBudget(projectBudget);
-		projectPaymentDto.setListProductCost(listProductCost);
-		projectPaymentDto.setListLabourCost(listLabourCost);
-		projectPaymentDto.setListOtherCost(listOtherCost);
-		projectPaymentDto.setListConstructionTeamCost(listConstructionTeamCost);
-
-		return projectPaymentDto;
-	}
-
 	public ProjectPaymentCheckStatusDto projectPaymentStatusCheck(Long projectDetailId) {
 		ProjectPaymentCheckStatusDto projectPaymentCheckStatusDto = new ProjectPaymentCheckStatusDto();
 		List<ProjectCost> listProductCost = projectCostRepository.findByProjectDetailIdAndPaymentTypeAndStatus(

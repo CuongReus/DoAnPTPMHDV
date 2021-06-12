@@ -23,7 +23,6 @@ import com.logsik.taman.mail.MailClient;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.service.impl.DtoConverter;
 import com.logsik.taman.service.impl.ProjectDetailService;
-import com.logsik.taman.service.impl.ProjectPaymentService;
 import com.logsik.taman.service.impl.TotalRevenueService;
 
 @RestController
@@ -42,9 +41,6 @@ public class ProjectDetailController extends AbstractController {
 	private ProjectDetailService projectDetailService;
 	@Autowired
 	TotalRevenueService totalRevenueService;
-	
-	@Autowired
-	private ProjectPaymentService projectPaymentService;
 	
 	@Autowired
 	private MailClient mailClient;
@@ -135,20 +131,4 @@ public class ProjectDetailController extends AbstractController {
 		return new RestResult(projectDetailService.findDtoById(projectDetailId));
 	}
 	
-	@RequestMapping(value = "/projectPaymentDto/findByProjectDetailId")
-	public RestResult objectProjectPayment(@RequestParam("projectDetailId") Long projectDetailId) {
-		return new RestResult(projectPaymentService.findDtoByProjectDetailDto(projectDetailId));
-	}
-	
-	
-	
-	
-//	@RequestMapping(value = "/projectDetailDto/findByProjectId")
-//	public RestResult listProjectDetailDtoByProject(@RequestParam("projectId") Long projectId) {
-//		return new RestResult(projectDetailService.findAllDtoByProjectId(projectId));
-//	}
-//	@RequestMapping(value = "/projectDetailDto/listAllProjectDetailDto")
-//	public RestResult listAllProjectDetailDto() {
-//		return new RestResult(projectDetailService.findAllDto());
-//	}
 }
