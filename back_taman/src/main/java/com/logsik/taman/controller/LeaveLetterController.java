@@ -281,12 +281,6 @@ public class LeaveLetterController extends AbstractController {
 				 }
 			 }
 			 
-//			 if(leaveLetterDto.getLeaveType().equals(TypeOfLeave.PN) || leaveLetterDto.getLeaveType().equals(TypeOfLeave.PN2) || leaveLetterDto.getLeaveType().equals(TypeOfLeave.ANNUAL_HOLIDAY)){
-//				 if(tongPhepNamDaNghi + leaveLetterDto.getTotalLeaveDays()  > listLeaveYear.get(0).getLastTotalAnnualLeave()) {
-//					 return new RestResult(true, "Đã hết phép năm. Số ngày phép năm :" + listLeaveYear.get(0).getLastTotalAnnualLeave() 
-//							 + " . số ngày đã nghỉ (phép năm) : " + tongPhepNamDaNghi);
-//				 }
-//			 }
 			 
 			 if(leaveLetterDto.getLeaveType().equals(TypeOfLeave.NB) || leaveLetterDto.getLeaveType().equals(TypeOfLeave.NB2)){
 				 if(tongNghiBuDaNghi + leaveLetterDto.getTotalLeaveDays() > tongPhepThuongTC) {

@@ -46,9 +46,6 @@ public class PersonelSpecification implements Specification<User> {
 		}
 		query.orderBy(builder.desc(root.get("company").get("id")),builder.desc(root.get("rank")),builder.asc(root.get("fullName")));
 		return builder.and(predicates.toArray(new Predicate[predicates.size()]));
-//		  Join<Pet, Owner> owners = root.join("owners");
-//        criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id")));
-//        return criteriaBuilder.equal(owners.get("name"), ownerName);
 	}
 
 }

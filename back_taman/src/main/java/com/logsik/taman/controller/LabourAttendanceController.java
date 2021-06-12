@@ -216,16 +216,7 @@ public class LabourAttendanceController extends AbstractController {
 		result = labourAttendanceRepository.findDistinctByDateToWork(dateToWork);
 		return new RestResult (result);
 	}
-//	@RequestMapping(value = "/labourAttendance/sumNormalAttendance ")
-//	public RestResult listFindAttendanceToday(@RequestParam("labourId") Long labourId,
-//			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
-//			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
-//		Object result;
-//		result = labourAttendanceRepository.sumNormalAttendance(labourId,dateToWorkStart,dateToWorkEnd);
-//		return new RestResult (result);
-//	}
-	
-	
+		
 	
 //	That method for LabourCost Modal
 	@RequestMapping(value = "/labourAttendance/findListLabourAttendanceByProjectDetailId")
@@ -242,18 +233,4 @@ public class LabourAttendanceController extends AbstractController {
 
 	}
 	
-//	That method for LabourPaymentCost Modal
-//	@RequestMapping(value = "/labourAttendance/findByLabourIdAndProjectDetailIdAndDateBetween")
-//	public RestResult findByLabourIdAndProjectDetailIdAndDateBetween(@RequestParam("labourId") Long labourId,@RequestParam("projectDetailId")Long projectDetailId,
-//			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
-//			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
-////		Integer month =  timeService.getMonth(dateToWorkStart);
-////		Integer year = timeService.getYear(dateToWorkEnd);
-//		Object result =null;
-//		
-//		result = labourAttendanceRepository.sumAttendance(labourId, projectDetailId, dateToWorkStart, dateToWorkEnd);
-//		
-//		return new RestResult(result);
-//
-//	}
 }

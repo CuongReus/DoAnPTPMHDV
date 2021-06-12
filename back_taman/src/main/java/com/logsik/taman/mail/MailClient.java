@@ -28,9 +28,6 @@ import com.logsik.taman.repository.ProjectYearRepository;
 import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
 
-/**
- * Created by phamcongbang on 14/05/2018.
- */
 @Service
 public class MailClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MailClient.class);

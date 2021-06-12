@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-/**
- * Created by phamcongbang on 14/05/2018.
- */
 @Service
 public class MailContentBuilder {
 

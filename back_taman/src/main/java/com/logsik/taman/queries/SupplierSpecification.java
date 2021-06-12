@@ -37,9 +37,6 @@ public class SupplierSpecification implements Specification<Supplier> {
 		}
 		query.orderBy(builder.asc(root.get("type")));
 		return builder.and(predicates.toArray(new Predicate[predicates.size()]));
-//		  Join<Pet, Owner> owners = root.join("owners");
-//        criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id")));
-//        return criteriaBuilder.equal(owners.get("name"), ownerName);
 	}
 
 }

@@ -33,87 +33,6 @@ public class UserLeaveYearCalcService  extends AbstractController {
 	
 	@Autowired
 	private TimeService timeService;
-	//
-//	public void reloadEmployeeAnnualLeaveRemaining(Long userId,Integer year) {
-//		Float leaveDayCalc = 0F;
-//		Date startDateOfYear= timeService.getFirstDayOfYear(year);
-//		Date endDateOfYear = timeService.getLastDayOfYear(year);
-//		User user = userRepository.findById(userId).get();
-//		Float bonusNormalOvertimeAttendance = 0F;
-//		Float bonusSatOvertimeAttendance = 0F;
-//		Float bonusSunOvertimeAttendance = 0F;
-//		Float bonusHolidayOvertimeAttendance = 0F;
-//		Float holidayLeave=  0F;
-//		Float leaveYear=  0F;
-//		Float absentWithoutLeave=  0F;
-//		Float compensatoryLeave= 0F;
-//		Float totalBonusOvertimeAttendance =  0F;
-//		Float totalAbsentDayPerYear = 0F;
-//		Float totalAnnualLeaveNumberRemaining =  0F;
-//			SumEmployeeAttendanceDto sumEmployeeAttendanceLeaveYearDto =  employeeAttendanceRepository.sumEmployeeAttendanceLeaveDayCalc(user.getId(), startDateOfYear, endDateOfYear);
-//				if(sumEmployeeAttendanceLeaveYearDto.getBonusNormalOvertimeAttendance()!=null) {
-//                   				bonusNormalOvertimeAttendance =(float) (sumEmployeeAttendanceLeaveYearDto.getBonusNormalOvertimeAttendance()*1); 
-//                }
-//				if(sumEmployeeAttendanceLeaveYearDto.getBonusSatOvertimeAttendance()!=null) {
-//                   				bonusSatOvertimeAttendance =(float) (sumEmployeeAttendanceLeaveYearDto.getBonusSatOvertimeAttendance()*1); 
-//                }
-//                if(sumEmployeeAttendanceLeaveYearDto.getBonusSunOvertimeAttendance()!=null) {
-//                  				bonusSunOvertimeAttendance =(float) (sumEmployeeAttendanceLeaveYearDto.getBonusSunOvertimeAttendance()*1);  
-//                }
-//                if(sumEmployeeAttendanceLeaveYearDto.getBonusHolidayOvertimeAttendance()!=null) {
-//                  				bonusHolidayOvertimeAttendance =(float) (sumEmployeeAttendanceLeaveYearDto.getBonusHolidayOvertimeAttendance()*1);  
-//                }
-//                if(sumEmployeeAttendanceLeaveYearDto.getBonusHolidayOvertimeAttendance()!=null) {
-//                   				holidayLeave= (float) (sumEmployeeAttendanceLeaveYearDto.getBonusHolidayOvertimeAttendance()*1); 
-//                }
-//                if(sumEmployeeAttendanceLeaveYearDto.getLeaveYear()!=null) {
-//                  				leaveYear= (float) (sumEmployeeAttendanceLeaveYearDto.getLeaveYear()*1);  
-//                }
-//                if(sumEmployeeAttendanceLeaveYearDto.getAbsentWithoutLeave()!=null) {
-//                    				absentWithoutLeave= (float) (sumEmployeeAttendanceLeaveYearDto.getAbsentWithoutLeave()*1);
-//                }
-//                if(sumEmployeeAttendanceLeaveYearDto.getCompensatoryLeave()!=null) {
-//                    				compensatoryLeave= (float) (sumEmployeeAttendanceLeaveYearDto.getCompensatoryLeave()*1);
-//                }
-//				totalBonusOvertimeAttendance = bonusNormalOvertimeAttendance+bonusSatOvertimeAttendance+bonusSunOvertimeAttendance+bonusHolidayOvertimeAttendance;
-//				totalAbsentDayPerYear = leaveYear+absentWithoutLeave+compensatoryLeave;
-//				totalAnnualLeaveNumberRemaining = (user.getAnnualLeaveYear() +totalBonusOvertimeAttendance)-totalAbsentDayPerYear;	
-//				UserLeaveDayDto lastestLeaveLetterByUser = leaveLetterRepository.lastestLeaveLetterByUser(year.toString(),user.getId());
-//				if(getCurrentUser() !=null ) {
-//					if(lastestLeaveLetterByUser !=null) {
-//						LeaveLetter leaveLetter = leaveLetterRepository.findById(lastestLeaveLetterByUser.getLeaveLetterId()).get();
-//						leaveLetter.setLastTotalAbsentDay(totalAbsentDayPerYear);
-//						leaveLetter.setLastTotalAnnualLeave(annualLeaveNumber);
-//						leaveLetter.setLastTotalBonusLeaveDay(totalBonusOvertimeAttendance);
-//						leaveLetter.setLastTotalAnnualLeaveRemaining(totalAnnualLeaveNumberRemaining);
-//						user.setAnnualLeaveYear(annualLeaveNumber);
-//						userRepository.save(user);
-//						leaveLetterRepository.save(leaveLetter);
-//					}else {
-//						LeaveLetter newLeaveLetter = new LeaveLetter(); 
-//						newLeaveLetter.setUserId(user.getId());
-//						newLeaveLetter.setStartLeaveDate(startDateOfYear);
-//						newLeaveLetter.setEndLeaveDate(startDateOfYear);
-//						newLeaveLetter.setStartWorkDate(startDateOfYear);
-//						newLeaveLetter.setLeaveType(TypeOfLeave.CHECK_ANNUAL_LEAVE);
-//						newLeaveLetter.setApprovedById(getCurrentUser().getId());
-//						newLeaveLetter.setCreatedDate(new Date());
-//						newLeaveLetter.setTotalLeaveDays(0F);
-//						newLeaveLetter.setHoliday(0F);
-//						newLeaveLetter.setLeaveDays(0F);
-//						newLeaveLetter.setStatus(LeaveLetterStatus.DA_DUYET);	
-//						newLeaveLetter.setLastTotalAbsentDay(totalAbsentDayPerYear);
-//						newLeaveLetter.setLastTotalAnnualLeave(annualLeaveNumber);
-//						newLeaveLetter.setLastTotalBonusLeaveDay(totalBonusOvertimeAttendance);
-//						newLeaveLetter.setLastTotalAnnualLeaveRemaining(totalAnnualLeaveNumberRemaining);
-//						user.setAnnualLeaveYear(annualLeaveNumber);
-//						userRepository.save(user);
-//						leaveLetterRepository.save(newLeaveLetter);
-//					}
-//					
-//					}
-//		userRepository.save(user);
-//	}
 	
 	public void updateAllUserTotalAnnualLeaveByYear(Float annualLeaveNumber,Integer year){
 		Date startDateOfYear= timeService.getFirstDayOfYear(year);
@@ -294,14 +213,6 @@ public class UserLeaveYearCalcService  extends AbstractController {
 					
 				}
 	
-//		user.setBonusAnnualLeavePerYear(totalBonusOvertimeAttendance);
-//		user.setAbsentDayPerYear(totalAbsentDayPerYear);
-//		Float totalAnnualLeaveNumberRemaining = (user.getAnnualLeaveYear() +totalBonusOvertimeAttendance)-totalAbsentDayPerYear;
-//		if(totalAnnualLeaveNumberRemaining >= 0 ) {
-//			user.setAnnualLeaveNumberRemaining((totalAnnualLeaveNumberRemaining));
-//		}else {
-//			user.setAnnualLeaveNumberRemaining(0F);
-//		}
 	}
 }
 

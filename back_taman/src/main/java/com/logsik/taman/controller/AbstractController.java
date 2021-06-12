@@ -15,9 +15,6 @@ import com.logsik.taman.domain.User;
 import com.logsik.taman.exception.ForbiddenException;
 import com.logsik.taman.service.impl.UserServiceImpl;
 
-/**
- * Created by phamcongbang on 14/05/2018.
- */
 public class AbstractController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractController.class);
