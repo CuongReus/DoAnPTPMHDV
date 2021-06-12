@@ -91,7 +91,7 @@ public class ProjectCostController extends AbstractController {
 	@RequestMapping(value = "/projectCost/add", method = RequestMethod.POST)
 	public RestResult add(@RequestBody ProjectCostDto projectCostDto) {
 		try {
-			ProjectCost newProjectCost = dtoConverter.convertToProjectCost(projectCostDto);
+			ProjectCost newProjectCost = null;
 			// Check Lot
 
 			if(newProjectCost.getTotalMoney() - newProjectCost.getTotalPaid() == 0) {
@@ -154,7 +154,7 @@ public class ProjectCostController extends AbstractController {
 	public RestResult update(@RequestBody ProjectCostDto projectCostDto) {
 		try {
 
-			ProjectCost updatedProjectCost = dtoConverter.convertToProjectCost(projectCostDto);
+			ProjectCost updatedProjectCost = null;
 				
 			if(updatedProjectCost.getTotalMoney() - updatedProjectCost.getTotalPaid() == 0) {
 				updatedProjectCost.setCloseDate(new Date());

@@ -33,7 +33,6 @@ import com.logsik.taman.domain.LabourSalary;
 import com.logsik.taman.domain.LeaveLetter;
 import com.logsik.taman.domain.Payment;
 import com.logsik.taman.domain.Project;
-import com.logsik.taman.domain.ProjectBudget;
 import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
@@ -62,7 +61,6 @@ import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
 import com.logsik.taman.dtos.LeaveLetterDto;
 import com.logsik.taman.dtos.PaymentDto;
-import com.logsik.taman.dtos.ProjectBudgetDto;
 import com.logsik.taman.dtos.ProjectCostDto;
 import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
@@ -93,7 +91,6 @@ import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
 import com.logsik.taman.repository.LeaveLetterRepository;
 import com.logsik.taman.repository.PaymentRepository;
-import com.logsik.taman.repository.ProjectBudgetRepository;
 import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
@@ -161,8 +158,6 @@ public class DtoConverter {
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
-	@Autowired
-	private ProjectBudgetRepository projectBudgetRepository;
 	
 	
 	
@@ -405,29 +400,6 @@ public class DtoConverter {
 		modelMapper.map(paymentDto, payment);
 		return payment;
 	}
-
-	public ProjectCost convertToProjectCost(ProjectCostDto projectBudgetDto) {
-		ProjectCost projectCost = null;
-		if (projectBudgetDto.getId() != null) {
-			projectCost = projectCostRepository.findById(projectBudgetDto.getId()).get();
-		} else {
-			projectCost = new ProjectCost();
-		}
-		modelMapper.map(projectBudgetDto, projectCost);
-		return projectCost;
-	}
-
-	public ProjectBudget convertToProjectBudget(ProjectBudgetDto projectBudgetDto) {
-		ProjectBudget projectBudget = null;
-		if (projectBudgetDto.getId() != null) {
-			projectBudget = projectBudgetRepository.findById(projectBudgetDto.getId()).get();
-		} else {
-			projectBudget = new ProjectBudget();
-		}
-		modelMapper.map(projectBudgetDto, projectBudget);
-		return projectBudget;
-	}
-
 	
 	public Department convertToDepartment(DepartmentDto departmentDto) {
 		Department department = null;
