@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.logsik.taman.domain.Acceptance;
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Complete;
@@ -20,7 +19,6 @@ import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.dtos.ProjectDetailProgressDto;
-import com.logsik.taman.repository.AcceptanceRepository;
 import com.logsik.taman.repository.ApprovalRepository;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.CompleteRepository;
@@ -37,8 +35,6 @@ import com.logsik.taman.repository.QuotationRepository;
 @Transactional
 public class ProjectDetailService {
 
-	@Autowired
-	AcceptanceRepository acceptanceRepository;
 	@Autowired
 	ApprovalRepository approvalRepository;
 	@Autowired
@@ -73,7 +69,6 @@ public class ProjectDetailService {
 	public ProjectDetailProgressDto findDtoById(Long projectDetailId) {
 		ProjectDetailProgressDto projectDetailProgressDto = new ProjectDetailProgressDto();
 		ProjectDetail projectDetail = projectDetailRepository.findDistinctById(projectDetailId);
-		Acceptance acceptance = acceptanceRepository.findByProjectDetailId(projectDetailId);
 		Approval approval = approvalRepository.findByProjectDetailId(projectDetailId);
 		CloseProject closeProject = closeProjectRepository.findByProjectDetailId(projectDetailId);
 		Complete complete = completeRepository.findByProjectDetailId(projectDetailId);
@@ -84,7 +79,6 @@ public class ProjectDetailService {
 		InvoiceVer2 invoiceVer2 = invoiceVer2Repository.findByProjectDetailId(projectDetailId);
 		Quotation quotation = quotationRepository.findByProjectDetailId(projectDetailId);
 
-		projectDetailProgressDto.setAcceptance(acceptance);
 		projectDetailProgressDto.setApproval(approval);
 		projectDetailProgressDto.setCloseProject(closeProject);
 		projectDetailProgressDto.setComplete(complete);
@@ -108,13 +102,11 @@ public class ProjectDetailService {
 		projectDetailProgressDto.setCreatedDate(projectDetail.getCreatedDate());
 		projectDetailProgressDto.setLastedUpdateUser(projectDetail.getLastedUpdateUser());
 		projectDetailProgressDto.setLastedUpdateDate(projectDetail.getLastedUpdateDate());
-		projectDetailProgressDto.setUserBudgetPermissions(projectDetail.getUserBudgetPermissions());
 		return projectDetailProgressDto;
 
 	}
 
 	public void deleteAllItemInProjectDetailId(Long projectDetailId) {
-		Acceptance acceptance = acceptanceRepository.findByProjectDetailId(projectDetailId);
 		Approval approval = approvalRepository.findByProjectDetailId(projectDetailId);
 		CloseProject closeProject = closeProjectRepository.findByProjectDetailId(projectDetailId);
 		Complete complete = completeRepository.findByProjectDetailId(projectDetailId);
@@ -129,9 +121,6 @@ public class ProjectDetailService {
 		for (ProjectCost projectCost : listProjectCostByProjectDetailId) {
 			projectCostService.deleteAllPaymentFollowByProjectCostId(projectCost.getId());
 			projectCostRepository.deleteById(projectCost.getId());
-		}
-		if (acceptance != null) {
-			acceptanceRepository.deleteById(acceptance.getId());
 		}
 		if (approval != null) {
 			approvalRepository.deleteById(approval.getId());

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.logsik.taman.domain.Acceptance;
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Complete;
@@ -25,7 +24,6 @@ public class ProjectDetailProgressDto {
 	private String note;
 	private Long totalRevenue;
 	private Long totalProfit;
-	private Acceptance acceptance;
 	private Approval approval;
 	private CloseProject closeProject;
 	private Complete complete;
@@ -43,7 +41,6 @@ public class ProjectDetailProgressDto {
 	private User lastedUpdateUser;
 	private Date createdDate;
 	private Date lastedUpdateDate;
-	private Set<User> userBudgetPermissions = new HashSet<>();
 
 	public ProjectDetailProgressDto() {
 		super();
@@ -52,10 +49,10 @@ public class ProjectDetailProgressDto {
 	
 
 	public ProjectDetailProgressDto(Long id, Project project, String name, String note, Long totalRevenue, Long totalProfit,
-			Acceptance acceptance, Approval approval, CloseProject closeProject, Complete complete, Contract contract,
+		 Approval approval, CloseProject closeProject, Complete complete, Contract contract,
 			Efficiency efficiency, Incurred incurred, InvoiceVer1 invoiceVer1, InvoiceVer2 invoiceVer2, Quotation quotation, ProjectStatus projectDetailStatus, Date closedDate,
 			String notifyTo, String notifyMessage, User createdUser, User lastedUpdateUser, Date createdDate,
-			Date lastedUpdateDate, Set<User> userBudgetPermissions) {
+			Date lastedUpdateDate) {
 		super();
 		this.id = id;
 		this.project = project;
@@ -63,7 +60,6 @@ public class ProjectDetailProgressDto {
 		this.note = note;
 		this.totalRevenue = totalRevenue;
 		this.totalProfit = totalProfit;
-		this.acceptance = acceptance;
 		this.approval = approval;
 		this.closeProject = closeProject;
 		this.complete = complete;
@@ -81,17 +77,6 @@ public class ProjectDetailProgressDto {
 		this.lastedUpdateUser = lastedUpdateUser;
 		this.createdDate = createdDate;
 		this.lastedUpdateDate = lastedUpdateDate;
-		this.userBudgetPermissions = userBudgetPermissions;
-	}
-
-
-
-	public Acceptance getAcceptance() {
-		return acceptance;
-	}
-
-	public void setAcceptance(Acceptance acceptance) {
-		this.acceptance = acceptance;
 	}
 
 	public Approval getApproval() {
@@ -277,19 +262,4 @@ public class ProjectDetailProgressDto {
 	public void setLastedUpdateDate(Date lastedUpdateDate) {
 		this.lastedUpdateDate = lastedUpdateDate;
 	}
-
-
-
-	public Set<User> getUserBudgetPermissions() {
-		return userBudgetPermissions;
-	}
-
-
-
-	public void setUserBudgetPermissions(Set<User> userBudgetPermissions) {
-		this.userBudgetPermissions = userBudgetPermissions;
-	}
-
-	
-
 }

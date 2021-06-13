@@ -23,7 +23,6 @@ public class ProjectDetailDto implements Serializable {
 	private Long lastedUpdateUserId;
 	private Date createdDate;
 	private Date lastedUpdateDate;
-	private Set<User> userBudgetPermissions;
 
 	public Long getId() {
 		return id;
@@ -135,14 +134,6 @@ public class ProjectDetailDto implements Serializable {
 
 	public void setLastedUpdateDate(Date lastedUpdateDate) {
 		this.lastedUpdateDate = lastedUpdateDate;
-	}
-
-	public Set<User> getUserBudgetPermissions() {
-		return userBudgetPermissions;
-	}
-
-	public void setUserBudgetPermissions(Set<User> userBudgetPermissions) {
-		this.userBudgetPermissions = userBudgetPermissions;
 	}
 
 }

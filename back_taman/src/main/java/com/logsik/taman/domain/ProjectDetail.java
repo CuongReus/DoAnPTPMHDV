@@ -81,11 +81,6 @@ public class ProjectDetail implements Serializable {
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date lastedUpdateDate;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_budget_permission", joinColumns = @JoinColumn(name = "project_detail_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private Set<User> userBudgetPermissions;
-
 
 	public Long getId() {
 		return id;
@@ -197,14 +192,6 @@ public class ProjectDetail implements Serializable {
 
 	public void setLastedUpdateDate(Date lastedUpdateDate) {
 		this.lastedUpdateDate = lastedUpdateDate;
-	}
-
-	public Set<User> getUserBudgetPermissions() {
-		return userBudgetPermissions;
-	}
-
-	public void setUserBudgetPermissions(Set<User> userBudgetPermissions) {
-		this.userBudgetPermissions = userBudgetPermissions;
 	}
 
 	public Long getProjectId() {

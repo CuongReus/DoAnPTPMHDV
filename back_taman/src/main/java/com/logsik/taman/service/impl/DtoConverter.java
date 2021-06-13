@@ -10,7 +10,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.logsik.taman.domain.Acceptance;
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Company;
@@ -39,7 +38,6 @@ import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.domain.Role;
 import com.logsik.taman.domain.Supplier;
 import com.logsik.taman.domain.User;
-import com.logsik.taman.dtos.AcceptanceDto;
 import com.logsik.taman.dtos.ApprovalDto;
 import com.logsik.taman.dtos.CloseProjectDto;
 import com.logsik.taman.dtos.CompanyDto;
@@ -68,7 +66,6 @@ import com.logsik.taman.dtos.RoleDto;
 import com.logsik.taman.dtos.SupplierDto;
 import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.dtos.UserDto;
-import com.logsik.taman.repository.AcceptanceRepository;
 import com.logsik.taman.repository.ApprovalRepository;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.CompanyRepository;
@@ -113,8 +110,6 @@ public class DtoConverter {
 	@Autowired
 	private ConstructionTeamRepository constructionTeamRepository;
 	
-	@Autowired
-	private AcceptanceRepository acceptanceRepository;
 	@Autowired
 	private ApprovalRepository approvalRepository;
 	@Autowired
@@ -270,17 +265,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(contractDto, contract);
 		return contract;
-	}
-	
-	public Acceptance convertToAcceptance(AcceptanceDto acceptanceDto) {
-		Acceptance acceptance = null;
-		if (acceptanceDto.getId() != null) {
-			acceptance = acceptanceRepository.findById(acceptanceDto.getId()).get();
-		} else {
-			acceptance = new Acceptance();
-		}
-		modelMapper.map(acceptanceDto, acceptance);
-		return acceptance;
 	}
 
 	public CloseProject convertToCloseProject(CloseProjectDto closeProjectDto) {
@@ -593,24 +577,6 @@ public class DtoConverter {
 
 //******************************End User File & Image******************************
 
-//	******************************Start Acceptance File******************************
-	public AcceptanceDto convertToAcceptanceDto(Acceptance acceptance, List<FileUpload> acceptanceUploadFile,
-			List<FileUpload> defectUploadFile, List<FileUpload> overcomeUploadFile) {
-		AcceptanceDto dto = modelMapper.map(acceptance, AcceptanceDto.class);
-		dto.setAcceptanceUploadFile(acceptanceUploadFile.stream().map(file -> convertToUploadAcceptanceFile(file))
-				.collect(Collectors.toList()));
-		dto.setDefectUploadFile(defectUploadFile.stream().map(file -> convertToUploadAcceptanceFile(file))
-				.collect(Collectors.toList()));
-		dto.setOvercomeUploadFile(overcomeUploadFile.stream().map(file -> convertToUploadAcceptanceFile(file))
-				.collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToUploadAcceptanceFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadAcceptanceFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-//	******************************End Acceptance File******************************
 //	******************************Start Approval File******************************
 
 	public ApprovalDto convertToApprovalDto(Approval approval, List<FileUpload> approvalUploadFile) {

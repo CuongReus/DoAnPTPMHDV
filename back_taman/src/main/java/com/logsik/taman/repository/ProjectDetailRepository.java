@@ -10,19 +10,19 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import com.logsik.taman.domain.ProjectDetail;
 
 public interface ProjectDetailRepository extends BaseRepository<ProjectDetail, Long> {
-	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser","userBudgetPermissions" })
+	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser" })
 	ProjectDetail findDistinctById(Long id);
 
-	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser","userBudgetPermissions" })
+	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser"})
 	Page<ProjectDetail> findAll(Pageable pageable);
 
-	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser","userBudgetPermissions" })
+	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser" })
 	Optional<ProjectDetail> findById(Long id);
 
-	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser","userBudgetPermissions" })
+	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser"})
 	List<ProjectDetail> findAll();
 
-	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser","userBudgetPermissions" })
+	@EntityGraph(attributePaths = { "project", "project.projectYear", "createdUser", "lastedUpdateUser"})
 	List<ProjectDetail> findDistinctByProjectIdOrderByIdAsc(Long projectId);
 //	@EntityGraph(attributePaths = { "project", "project.projectYear"})
 //	List<ProjectDetail>	findAll(Specification<ProjectDetail> spec);

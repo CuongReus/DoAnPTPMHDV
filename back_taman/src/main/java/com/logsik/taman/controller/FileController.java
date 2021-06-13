@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.logsik.taman.dtos.RestResult;
 import com.logsik.taman.dtos.UploadFileResponse;
-import com.logsik.taman.service.impl.AcceptanceStorageService;
 import com.logsik.taman.service.impl.ApprovalStorageService;
 import com.logsik.taman.service.impl.CloseProjectStorageService;
 import com.logsik.taman.service.impl.ContractStorageService;
@@ -54,8 +53,6 @@ public class FileController extends AbstractController {
 	private FileStorageService fileStorageService;
 	@Autowired
 	private ImageStorageService imageStorageService;
-	@Autowired
-	private AcceptanceStorageService acceptanceStorageService;
 	@Autowired
 	private ApprovalStorageService approvalStorageService;
 	@Autowired
@@ -230,55 +227,7 @@ public class FileController extends AbstractController {
 				.body(resource);
 	}
 	// *******************************************End User Image File****************************************************
-	
-	// *******************************************Start Acceptance  Report File************************************************************
-	
 
-	public UploadFileResponse uploadAcceptanceFileResponse(MultipartFile file) {
-		String fileName = acceptanceStorageService.storeFile(file);
-		String api = "/api/downloadAcceptanceFile/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadAcceptanceFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadAcceptanceReportFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadAcceptanceFileResponse(file));
-	}
-
-	@PostMapping("/uploadMultipleAcceptanceFiles")
-	public RestResult uploadMultipleAcceptanceFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadAcceptanceFileResponse(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadAcceptanceFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadAcceptanceFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = acceptanceStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
-	
-		// *******************************************End Acceptance Report File************************************************************
 	
 	// *******************************************Start Approval  Report File************************************************************
 	
