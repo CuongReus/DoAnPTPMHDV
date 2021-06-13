@@ -26,7 +26,6 @@ import com.logsik.taman.domain.FileUpload;
 import com.logsik.taman.domain.Incurred;
 import com.logsik.taman.domain.InvoiceVer1;
 import com.logsik.taman.domain.InvoiceVer2;
-import com.logsik.taman.domain.InvoiceVer3;
 import com.logsik.taman.domain.Labour;
 import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
@@ -55,7 +54,6 @@ import com.logsik.taman.dtos.EmployeeSalaryDto;
 import com.logsik.taman.dtos.IncurredDto;
 import com.logsik.taman.dtos.InvoiceVer1Dto;
 import com.logsik.taman.dtos.InvoiceVer2Dto;
-import com.logsik.taman.dtos.InvoiceVer3Dto;
 import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
@@ -85,7 +83,6 @@ import com.logsik.taman.repository.EmployeeSalaryRepository;
 import com.logsik.taman.repository.IncurredRepository;
 import com.logsik.taman.repository.InvoiceVer1Repository;
 import com.logsik.taman.repository.InvoiceVer2Repository;
-import com.logsik.taman.repository.InvoiceVer3Repository;
 import com.logsik.taman.repository.LabourAttendanceRepository;
 import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
@@ -132,8 +129,6 @@ public class DtoConverter {
 	private InvoiceVer1Repository invoiceVer1Repository;
 	@Autowired
 	private InvoiceVer2Repository invoiceVer2Repository;
-	@Autowired
-	private	InvoiceVer3Repository invoiceVer3Repository;
 	@Autowired
 	private QuotationRepository quotationRepository;
 	@Autowired
@@ -345,18 +340,6 @@ public class DtoConverter {
 		return invoiceVer2;
 	}
 
-	public InvoiceVer3 convertToInvoiceVer3(InvoiceVer3Dto invoiceVer3Dto) {
-		InvoiceVer3 invoiceVer3 = null;
-		if (invoiceVer3Dto.getId() != null) {
-			invoiceVer3 = invoiceVer3Repository.findById(invoiceVer3Dto.getId()).get();
-		} else {
-			invoiceVer3 = new InvoiceVer3();
-		}
-		modelMapper.map(invoiceVer3Dto, invoiceVer3);
-		return invoiceVer3;
-	}
-
-	
 	public ProjectYear convertToProjectYear(ProjectYearDto projectYearDto) {
 		ProjectYear projectYear = null;
 		if (projectYearDto.getId() != null) {
@@ -767,26 +750,7 @@ public class DtoConverter {
 	}
 	// ******************************End Invoice Ver 2
 	// File******************************
-	// ******************************Start Invoice Ver 3
-	// File******************************
-
-	public InvoiceVer3Dto convertToInvoiceVer3Dto(InvoiceVer3 invoiceVer3, List<FileUpload> inputUploadFile,
-			List<FileUpload> invoiceUploadFile) {
-		InvoiceVer3Dto dto = modelMapper.map(invoiceVer3, InvoiceVer3Dto.class);
-		dto.setInputUploadFile(
-				inputUploadFile.stream().map(file -> convertToInvoiceVer3File(file)).collect(Collectors.toList()));
-		dto.setInvoiceUploadFile(
-				invoiceUploadFile.stream().map(file -> convertToInvoiceVer3File(file)).collect(Collectors.toList()));
-
-		return dto;
-	}
-
-	private UploadFileResponse convertToInvoiceVer3File(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadInvoiceVer3File/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-	// ******************************End Invoice Ver 3
-	// File******************************
+	
 	// ******************************Start Quotation
 	// File******************************
 

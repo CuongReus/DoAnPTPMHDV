@@ -13,7 +13,6 @@ import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.Incurred;
 import com.logsik.taman.domain.InvoiceVer1;
 import com.logsik.taman.domain.InvoiceVer2;
-import com.logsik.taman.domain.InvoiceVer3;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.domain.User;
@@ -35,7 +34,6 @@ public class ProjectDetailProgressDto {
 	private Incurred incurred;
 	private InvoiceVer1 invoiceVer1;
 	private InvoiceVer2 invoiceVer2;
-	private InvoiceVer3 invoiceVer3;
 	private Quotation quotation;
 	private ProjectStatus projectDetailStatus;
 	private Date closedDate;
@@ -55,8 +53,7 @@ public class ProjectDetailProgressDto {
 
 	public ProjectDetailProgressDto(Long id, Project project, String name, String note, Long totalRevenue, Long totalProfit,
 			Acceptance acceptance, Approval approval, CloseProject closeProject, Complete complete, Contract contract,
-			Efficiency efficiency, Incurred incurred, InvoiceVer1 invoiceVer1, InvoiceVer2 invoiceVer2,
-			InvoiceVer3 invoiceVer3, Quotation quotation, ProjectStatus projectDetailStatus, Date closedDate,
+			Efficiency efficiency, Incurred incurred, InvoiceVer1 invoiceVer1, InvoiceVer2 invoiceVer2, Quotation quotation, ProjectStatus projectDetailStatus, Date closedDate,
 			String notifyTo, String notifyMessage, User createdUser, User lastedUpdateUser, Date createdDate,
 			Date lastedUpdateDate, Set<User> userBudgetPermissions) {
 		super();
@@ -75,7 +72,6 @@ public class ProjectDetailProgressDto {
 		this.incurred = incurred;
 		this.invoiceVer1 = invoiceVer1;
 		this.invoiceVer2 = invoiceVer2;
-		this.invoiceVer3 = invoiceVer3;
 		this.quotation = quotation;
 		this.projectDetailStatus = projectDetailStatus;
 		this.closedDate = closedDate;
@@ -160,14 +156,6 @@ public class ProjectDetailProgressDto {
 
 	public void setInvoiceVer2(InvoiceVer2 invoiceVer2) {
 		this.invoiceVer2 = invoiceVer2;
-	}
-
-	public InvoiceVer3 getInvoiceVer3() {
-		return invoiceVer3;
-	}
-
-	public void setInvoiceVer3(InvoiceVer3 invoiceVer3) {
-		this.invoiceVer3 = invoiceVer3;
 	}
 
 	public Quotation getQuotation() {
