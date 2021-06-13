@@ -26,7 +26,6 @@ import com.logsik.taman.repository.FileUploadRepository;
 import com.logsik.taman.repository.InvoiceVer3Repository;
 import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
-import com.logsik.taman.service.impl.InvoiceRelationService;
 
 @RestController
 @RequestMapping("/api")
@@ -45,9 +44,6 @@ public class InvoiceVer3Controller extends AbstractController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private InvoiceRelationService invoiceRelationService;
-	
 	@RequestMapping("invoiceVer3/{id}")
 	public RestResult findById(@PathVariable(value = "id") Long id) {
 		Optional<InvoiceVer3> invoiceVer3 = invoiceVer3Repository.findById(id);
@@ -65,7 +61,7 @@ public class InvoiceVer3Controller extends AbstractController {
 			 newInvoiceVer3 = invoiceVer3Repository.save(newInvoiceVer3);
 			saveNewInputVer3File(newInvoiceVer3, invoiceVer3Dto.getInputUploadFile());
 			saveNewInvoiceVer3File(newInvoiceVer3, invoiceVer3Dto.getInvoiceUploadFile());
-			boolean result = invoiceRelationService.newInvoiceRelation(newInvoiceVer3.getProjectDetailId(), 3, newInvoiceVer3.getId());
+			boolean result = true;
 			if(result) {
 				return new RestResult(newInvoiceVer3);
 			}else {
@@ -114,7 +110,7 @@ public class InvoiceVer3Controller extends AbstractController {
 					.save(dtoConverter.convertToInvoiceVer3(invoiceVer3Dto));
 			updateInputVer3(updatedInvoiceVer3, invoiceVer3Dto.getInputUploadFile());
 			updateInvoiceVer3(updatedInvoiceVer3, invoiceVer3Dto.getInvoiceUploadFile());
-			boolean result = invoiceRelationService.newInvoiceRelation(updatedInvoiceVer3.getProjectDetailId(), 3, updatedInvoiceVer3.getId());
+			boolean result = true;
 			if(result) {
 				return new RestResult(updatedInvoiceVer3);
 			}else {

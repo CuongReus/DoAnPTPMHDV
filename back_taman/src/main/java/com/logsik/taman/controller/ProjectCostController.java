@@ -164,10 +164,7 @@ public class ProjectCostController extends AbstractController {
 			}else {
 				projectCostRepository.save(updatedProjectCost);
 			}
-			
-//			// Just use for ProjectCost of Labour	
-//			List<Payment> currentLabourPaymentByProjectCostId = paymentRepository.findByProjectCostId(updatedProjectCost.getId());
-//			
+					
 			if ("NHAN_CONG".equals(projectCostDto.getPaymentType().toString())) {
 				labourCostService.updateAllPaymentFollowByProjectCost(updatedProjectCost,
 						updatedProjectCost.getStartWorkDate(), updatedProjectCost.getEndWorkDate());
@@ -432,36 +429,4 @@ public class ProjectCostController extends AbstractController {
 		return new RestResult(result);
 	}
 	
-	@RequestMapping(value = "/projectCost/getByInvoiceRelation")
-	public RestResult getByInvoiceRelation(@RequestParam("projectDetailId") Long projectDetailId) {
-		
-		List<ProjectCost> projectCosts = projectCostRepository.findByInvoiceRelationProjectDetailId(projectDetailId);
-		List<StatisticalInvoiceDTO> statisticalInvoiceDTOs = new ArrayList<StatisticalInvoiceDTO>();
-		StatisticalInvoiceDTO statisticalInvoiceDTO = new StatisticalInvoiceDTO();
-		for(ProjectCost projectCost :projectCosts ) {
-			if(projectCost.getInvoiceRelation() != null) {
-				if(projectCost.getInvoiceRelation().getInvoiceVer1() != null) {
-					statisticalInvoiceDTO.setInvoicever1(projectCost.getInvoiceRelation().getInvoiceVer1());
-					statisticalInvoiceDTO.setProjectCosts(projectCostRepository.findByProjectDetailIdAndInvoiceRelationId(projectDetailId,projectCost.getInvoiceRelationId()));
-					statisticalInvoiceDTO.setQuotation(quotationRepository.findByProjectDetailId(projectDetailId));
-					statisticalInvoiceDTOs.add(statisticalInvoiceDTO);
-					
-				}else if(projectCost.getInvoiceRelation().getInvoiceVer2() != null) {
-					statisticalInvoiceDTO.setInvoicever2(projectCost.getInvoiceRelation().getInvoiceVer2());
-					statisticalInvoiceDTO.setProjectCosts(projectCostRepository.findByProjectDetailIdAndInvoiceRelationId(projectDetailId,projectCost.getInvoiceRelationId() ));
-					statisticalInvoiceDTO.setQuotation(quotationRepository.findByProjectDetailId(projectDetailId));
-					statisticalInvoiceDTOs.add(statisticalInvoiceDTO);
-					
-				}else if(projectCost.getInvoiceRelation().getInvoiceVer3() != null) {
-					statisticalInvoiceDTO.setInvoicever3(projectCost.getInvoiceRelation().getInvoiceVer3());
-					statisticalInvoiceDTO.setProjectCosts(projectCostRepository.findByProjectDetailIdAndInvoiceRelationId(projectDetailId,projectCost.getInvoiceRelationId() ));
-					statisticalInvoiceDTO.setQuotation(quotationRepository.findByProjectDetailId(projectDetailId));
-					statisticalInvoiceDTOs.add(statisticalInvoiceDTO);
-				}
-			}
-		}
-		
-		
-		return new RestResult(statisticalInvoiceDTOs);
-	}
 }

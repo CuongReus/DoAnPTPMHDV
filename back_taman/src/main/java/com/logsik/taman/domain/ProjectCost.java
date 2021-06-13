@@ -114,14 +114,6 @@ public class ProjectCost implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date lastedUpdateDate;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "invoice_relation_id",updatable = false,insertable=false)
-	private InvoiceRelation invoiceRelation;
-	
-	@Column(name= "invoice_relation_id")
-	private Long invoiceRelationId;
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -329,18 +321,6 @@ public class ProjectCost implements Serializable {
 
 	public void setLastedUpdateUserId(Long lastedUpdateUserId) {
 		this.lastedUpdateUserId = lastedUpdateUserId;
-	}
-
-	public Long getInvoiceRelationId() {
-		return invoiceRelationId;
-	}
-
-	public void setInvoiceRelationId(Long invoiceRelationId) {
-		this.invoiceRelationId = invoiceRelationId;
-	}
-
-	public InvoiceRelation getInvoiceRelation() {
-		return invoiceRelation;
 	}
 
 }

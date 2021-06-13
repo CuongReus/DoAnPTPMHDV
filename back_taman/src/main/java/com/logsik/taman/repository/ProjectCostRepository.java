@@ -56,8 +56,4 @@ public interface ProjectCostRepository extends BaseRepository<ProjectCost, Long>
 	@EntityGraph(attributePaths = {"projectDetail"})
 	List<ProjectCost>findByProjectDetailIdOrderByLotNumber(Long projectDetailId);
 	
-	@EntityGraph(attributePaths = {"invoiceRelation","invoiceRelation.invoiceVer1" ,"invoiceRelation.invoiceVer2" ,"invoiceRelation.invoiceVer3" })
-	List<ProjectCost>findByInvoiceRelationProjectDetailId(Long projectDetailId);
-	
-	List<ProjectCost>findByProjectDetailIdAndInvoiceRelationId(Long projectDetailId, Long InvoiceRelationId);
 }
