@@ -28,7 +28,6 @@ import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.ProjectCostDto;
 import com.logsik.taman.dtos.RestResult;
-import com.logsik.taman.dtos.StatisticalInvoiceDTO;
 import com.logsik.taman.dtos.SumMonthProjectCostDto;
 import com.logsik.taman.dtos.SumYearProjectCostDto;
 import com.logsik.taman.dtos.UploadFileResponse;
@@ -390,11 +389,6 @@ public class ProjectCostController extends AbstractController {
 		labourCostService.updateAllPaymentFollowByProjectCost(newProjectCost, newProjectCost.getStartWorkDate(),
 				newProjectCost.getEndWorkDate());
 		return newProjectCost;
-	}
-	
-	@RequestMapping(value = "/projectCost/findByProjectDetailId")
-	public RestResult invoiceByProjectDetail(@RequestParam("projectDetailId") Long projectDetailId) {
-		return new RestResult(projectCostRepository.findByProjectDetailId(projectDetailId));
 	}
 	
 	@RequestMapping(value = "/projectCost/findByProjectDetailIdOrderLot")

@@ -13,8 +13,6 @@ import com.logsik.taman.domain.Complete;
 import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.Incurred;
-import com.logsik.taman.domain.InvoiceVer1;
-import com.logsik.taman.domain.InvoiceVer2;
 import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.Quotation;
@@ -25,8 +23,6 @@ import com.logsik.taman.repository.CompleteRepository;
 import com.logsik.taman.repository.ContractRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.IncurredRepository;
-import com.logsik.taman.repository.InvoiceVer1Repository;
-import com.logsik.taman.repository.InvoiceVer2Repository;
 import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.QuotationRepository;
@@ -47,10 +43,6 @@ public class ProjectDetailService {
 	EfficiencyRepository efficiencyRepository;
 	@Autowired
 	IncurredRepository incurredRepository;
-	@Autowired
-	InvoiceVer1Repository invoiceVer1Repository;
-	@Autowired
-	InvoiceVer2Repository invoiceVer2Repository;
 	@Autowired
 	QuotationRepository quotationRepository;
 
@@ -75,8 +67,6 @@ public class ProjectDetailService {
 		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
 		Incurred incurred = incurredRepository.findByProjectDetailId(projectDetailId);
-		InvoiceVer1 invoiceVer1 = invoiceVer1Repository.findByProjectDetailId(projectDetailId);
-		InvoiceVer2 invoiceVer2 = invoiceVer2Repository.findByProjectDetailId(projectDetailId);
 		Quotation quotation = quotationRepository.findByProjectDetailId(projectDetailId);
 
 		projectDetailProgressDto.setApproval(approval);
@@ -85,8 +75,6 @@ public class ProjectDetailService {
 		projectDetailProgressDto.setContract(contract);
 		projectDetailProgressDto.setEfficiency(efficiency);
 		projectDetailProgressDto.setIncurred(incurred);
-		projectDetailProgressDto.setInvoiceVer1(invoiceVer1);
-		projectDetailProgressDto.setInvoiceVer2(invoiceVer2);
 		projectDetailProgressDto.setQuotation(quotation);
 		projectDetailProgressDto.setProject(projectDetail.getProject());
 		projectDetailProgressDto.setName(projectDetail.getName());
@@ -113,8 +101,6 @@ public class ProjectDetailService {
 		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
 		Incurred incurred = incurredRepository.findByProjectDetailId(projectDetailId);
-		InvoiceVer1 invoiceVer1 = invoiceVer1Repository.findByProjectDetailId(projectDetailId);
-		InvoiceVer2 invoiceVer2 = invoiceVer2Repository.findByProjectDetailId(projectDetailId);
 		Quotation quotation = quotationRepository.findByProjectDetailId(projectDetailId);
 		List<ProjectCost> listProjectCostByProjectDetailId = projectCostRepository
 				.findByProjectDetailId(projectDetailId);
@@ -139,12 +125,6 @@ public class ProjectDetailService {
 		}
 		if (incurred != null) {
 			incurredRepository.deleteById(incurred.getId());
-		}
-		if (invoiceVer1 != null) {
-			invoiceVer1Repository.deleteById(invoiceVer1.getId());
-		}
-		if (invoiceVer2 != null) {
-			invoiceVer2Repository.deleteById(invoiceVer2.getId());
 		}
 		if (quotation != null) {
 			quotationRepository.deleteById(quotation.getId());

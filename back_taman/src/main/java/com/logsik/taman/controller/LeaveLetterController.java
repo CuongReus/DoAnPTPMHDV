@@ -83,7 +83,6 @@ public class LeaveLetterController extends AbstractController {
 						timeService.getLastDayOfMonth(leaveLetterDto.getStartLeaveDate()) );
 				
 				for(LeaveLetter LeaveLetter : ListLeaveLetter) {
-//					if(leaveLetterDto.getStartLeaveDate().after(LeaveLetter.getStartLeaveDate()) && leaveLetterDto.getStartLeaveDate().before(LeaveLetter.getEndLeaveDate())) {
 						if(leaveLetterDto.getStartLeaveDate().compareTo(LeaveLetter.getStartLeaveDate()) >= 0 && leaveLetterDto.getStartLeaveDate().compareTo(LeaveLetter.getEndLeaveDate()) <= 0 ) {
 						return new RestResult(true, "Lịch Nghỉ cho ngày : " + DateFor.format(leaveLetterDto.getStartLeaveDate()) + " đã có trên hệ thống. vui lòng chờ 'Duyệt' hoặc chọn ngày khác!");
 					}

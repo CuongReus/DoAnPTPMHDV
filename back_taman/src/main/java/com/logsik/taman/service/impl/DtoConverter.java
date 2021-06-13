@@ -23,8 +23,6 @@ import com.logsik.taman.domain.EmployeeAttendance;
 import com.logsik.taman.domain.EmployeeSalary;
 import com.logsik.taman.domain.FileUpload;
 import com.logsik.taman.domain.Incurred;
-import com.logsik.taman.domain.InvoiceVer1;
-import com.logsik.taman.domain.InvoiceVer2;
 import com.logsik.taman.domain.Labour;
 import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
@@ -50,8 +48,6 @@ import com.logsik.taman.dtos.EfficiencyDto;
 import com.logsik.taman.dtos.EmployeeAttendanceDto;
 import com.logsik.taman.dtos.EmployeeSalaryDto;
 import com.logsik.taman.dtos.IncurredDto;
-import com.logsik.taman.dtos.InvoiceVer1Dto;
-import com.logsik.taman.dtos.InvoiceVer2Dto;
 import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
@@ -78,8 +74,6 @@ import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.EmployeeAttendanceRepository;
 import com.logsik.taman.repository.EmployeeSalaryRepository;
 import com.logsik.taman.repository.IncurredRepository;
-import com.logsik.taman.repository.InvoiceVer1Repository;
-import com.logsik.taman.repository.InvoiceVer2Repository;
 import com.logsik.taman.repository.LabourAttendanceRepository;
 import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
@@ -120,10 +114,6 @@ public class DtoConverter {
 	private EfficiencyRepository efficiencyRepository;
 	@Autowired
 	private IncurredRepository incurredRepository;
-	@Autowired
-	private InvoiceVer1Repository invoiceVer1Repository;
-	@Autowired
-	private InvoiceVer2Repository invoiceVer2Repository;
 	@Autowired
 	private QuotationRepository quotationRepository;
 	@Autowired
@@ -300,28 +290,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(incurredDto, incurred);
 		return incurred;
-	}
-
-	public InvoiceVer1 convertToInvoiceVer1(InvoiceVer1Dto invoiceVer1Dto) {
-		InvoiceVer1 invoiceVer1 = null;
-		if (invoiceVer1Dto.getId() != null) {
-			invoiceVer1 = invoiceVer1Repository.findById(invoiceVer1Dto.getId()).get();
-		} else {
-			invoiceVer1 = new InvoiceVer1();
-		}
-		modelMapper.map(invoiceVer1Dto, invoiceVer1);
-		return invoiceVer1;
-	}
-
-	public InvoiceVer2 convertToInvoiceVer2(InvoiceVer2Dto invoiceVer2Dto) {
-		InvoiceVer2 invoiceVer2 = null;
-		if (invoiceVer2Dto.getId() != null) {
-			invoiceVer2 = invoiceVer2Repository.findById(invoiceVer2Dto.getId()).get();
-		} else {
-			invoiceVer2 = new InvoiceVer2();
-		}
-		modelMapper.map(invoiceVer2Dto, invoiceVer2);
-		return invoiceVer2;
 	}
 
 	public ProjectYear convertToProjectYear(ProjectYearDto projectYearDto) {
@@ -671,50 +639,7 @@ public class DtoConverter {
 				file.getSize(), file.getUploadBy());
 	}
 //	******************************End Incurred File******************************
-//	******************************Start Invoice Ver 1 File******************************
 
-	public InvoiceVer1Dto convertToInvoiceVer1Dto(InvoiceVer1 invoiceVer1, List<FileUpload> paymentUploadFile,
-			List<FileUpload> invoiceUploadFile, List<FileUpload> inputUploadFile) {
-		InvoiceVer1Dto dto = modelMapper.map(invoiceVer1, InvoiceVer1Dto.class);
-		dto.setPaymentUploadFile(
-				paymentUploadFile.stream().map(file -> convertToInvoiceUploadFile(file)).collect(Collectors.toList()));
-		dto.setInvoiceUploadFile(
-				invoiceUploadFile.stream().map(file -> convertToInvoiceUploadFile(file)).collect(Collectors.toList()));
-		dto.setInputUploadFile(
-				inputUploadFile.stream().map(file -> convertToInvoiceUploadFile(file)).collect(Collectors.toList()));
-
-		return dto;
-	}
-
-	private UploadFileResponse convertToInvoiceUploadFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadInvoiceVer1File/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-
-	// ******************************End Invoice Ver
-	// File******************************
-	// ******************************Start Invoice Ver 2
-	// File******************************
-	public InvoiceVer2Dto convertToInvoiceVer2Dto(InvoiceVer2 invoiceVer2, List<FileUpload> invoiceUploadFile,
-			List<FileUpload> verifyUploadFile, List<FileUpload> inputUploadFile, List<FileUpload> paymentUploadFile) {
-		InvoiceVer2Dto dto = modelMapper.map(invoiceVer2, InvoiceVer2Dto.class);
-		dto.setInvoiceUploadFile(
-				invoiceUploadFile.stream().map(file -> convertToInvoiceVer2File(file)).collect(Collectors.toList()));
-		dto.setVerifyUploadFile(
-				verifyUploadFile.stream().map(file -> convertToInvoiceVer2File(file)).collect(Collectors.toList()));
-		dto.setInputUploadFile(
-				inputUploadFile.stream().map(file -> convertToInvoiceVer2File(file)).collect(Collectors.toList()));
-		dto.setPaymentUploadFile(
-				paymentUploadFile.stream().map(file -> convertToInvoiceVer2File(file)).collect(Collectors.toList()));
-
-		return dto;
-	}
-
-	private UploadFileResponse convertToInvoiceVer2File(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadInvoiceVer2File/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-	// ******************************End Invoice Ver 2
 	// File******************************
 	
 	// ******************************Start Quotation
