@@ -40,7 +40,6 @@ import com.logsik.taman.repository.FileUploadRepository;
 import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
-import com.logsik.taman.service.impl.LabourCostService;
 import com.logsik.taman.service.impl.ProjectCostService;
 import com.logsik.taman.service.impl.TimeService;
 
@@ -55,8 +54,6 @@ public class ProjectCostController extends AbstractController {
 	private ProjectCostService projectCostService;
 	@Autowired
 	private FileUploadRepository fileUploadRepository;
-	@Autowired
-	private LabourCostService labourCostService;
 	@Autowired
 	private DtoConverter dtoConverter;
 	@Autowired
@@ -93,21 +90,10 @@ public class ProjectCostController extends AbstractController {
 				newProjectCost.setCloseDate(new Date());
 				newProjectCost.setStatus(ProjectCostStatus.DA_THANH_TOAN_DU);
 				projectCostRepository.save(newProjectCost);
-				projectCostService.ApprovalAllPayment(newProjectCost);
 			}else {
 				projectCostRepository.save(newProjectCost);
 			}
 
-			// Just use for ProjectCost of Labour.
-			if ("NHAN_CONG".equals(projectCostDto.getPaymentType().toString())) {
-				labourCostService.getAllPaymentFollowByProjectCost(newProjectCost, newProjectCost.getStartWorkDate(),
-						newProjectCost.getEndWorkDate());
-
-				mailClient.approvalLabourCost(newProjectCost);
-
-			} else {
-				mailClient.approvalProjectCost(newProjectCost);
-			}
 			if (newProjectCost.getNotifyTo() != null) {
 				String[] listEmail = newProjectCost.getNotifyTo().split(",");
 				if (listEmail.length != 0) {
@@ -155,18 +141,10 @@ public class ProjectCostController extends AbstractController {
 				updatedProjectCost.setCloseDate(new Date());
 				updatedProjectCost.setStatus(ProjectCostStatus.DA_THANH_TOAN_DU);
 				projectCostRepository.save(updatedProjectCost);
-				projectCostService.ApprovalAllPayment(updatedProjectCost);
 			}else {
 				projectCostRepository.save(updatedProjectCost);
 			}
 					
-			if ("NHAN_CONG".equals(projectCostDto.getPaymentType().toString())) {
-				labourCostService.updateAllPaymentFollowByProjectCost(updatedProjectCost,
-						updatedProjectCost.getStartWorkDate(), updatedProjectCost.getEndWorkDate());
-				mailClient.approvalLabourCost(updatedProjectCost);
-			} else {
-				mailClient.approvalProjectCost(updatedProjectCost);
-			}
 			if (updatedProjectCost.getNotifyTo() != null) {
 				String[] listEmail = updatedProjectCost.getNotifyTo().split(",");
 				if (listEmail.length != 0) {
@@ -199,7 +177,6 @@ public class ProjectCostController extends AbstractController {
 			source.setCloseDate(projectCostDto.getCloseDate());
 			source.setLastedUpdateUserId(projectCostDto.getLastedUpdateUserId());
 			source.setLastedUpdateDate(projectCostDto.getLastedUpdateDate());
-			projectCostService.ApprovalAllPayment(source);
 
 //			// Just use for ProjectCost of Labour	
 //			List<Payment> currentLabourPaymentByProjectCostId = paymentRepository.findByProjectCostId(updatedProjectCost.getId());
@@ -252,7 +229,6 @@ public class ProjectCostController extends AbstractController {
 		System.out.println("Delete projectCost with ID = " + id + "...");
 
 		try {
-			projectCostService.deleteAllPaymentFollowByProjectCostId(id);
 			ProjectCost source = projectCostRepository.findById(id).get();
 			projectCostRepository.deleteById(id);
 			projectCostService.updateLotNumber(source.getProjectDetailId(), source.getPaymentType());
@@ -294,14 +270,6 @@ public class ProjectCostController extends AbstractController {
 			@RequestParam("year") Integer year) {
 
 		Object result = null;
-
-//		Not filter by month anymore
-//		result = projectCostRepository.findByProjectDetailIdAndPaymentTypeAndMonthAndYear(projectDetailId,
-//				projectPaymentType, month, year);
-		result = projectCostRepository.findByProjectDetailIdAndPaymentType(projectDetailId,
-				projectPaymentType);
-		
-//		result = labourCostService.getLabourCostList(listProjectCost, dateToWorkStart, dateToWorkEnd);
 		return new RestResult(result);
 
 	}
@@ -336,16 +304,6 @@ public class ProjectCostController extends AbstractController {
 		if (projectCosts.size() == 0) {
 			projectCosts.add(createNewProjectCost(projectDetailId, month, year, 1, currentUserId));
 			projectCosts.add(createNewProjectCost(projectDetailId, month, year, 2, currentUserId));
-		} if (projectCosts.size() == 1) {
-			ProjectCost projectCost = projectCosts.get(0);
-			labourCostService.updateAllPaymentFollowByProjectCost(projectCost, projectCost.getStartWorkDate(),
-					projectCost.getEndWorkDate());
-			projectCosts.add(createNewProjectCost(projectDetailId, month, year, 2, currentUserId));
-		} else {
-			for (ProjectCost projectCost : projectCosts) {
-				labourCostService.updateAllPaymentFollowByProjectCost(projectCost, projectCost.getStartWorkDate(),
-						projectCost.getEndWorkDate());
-			}
 		}
 		result = projectCosts;
 		return new RestResult(result);
@@ -382,8 +340,6 @@ public class ProjectCostController extends AbstractController {
 		newProjectCost.setStatus(ProjectCostStatus.CHUA_THANH_TOAN_DU);
 
 		newProjectCost = projectCostRepository.save(newProjectCost);
-		labourCostService.updateAllPaymentFollowByProjectCost(newProjectCost, newProjectCost.getStartWorkDate(),
-				newProjectCost.getEndWorkDate());
 		return newProjectCost;
 	}
 	

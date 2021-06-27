@@ -27,7 +27,6 @@ import com.logsik.taman.domain.Labour;
 import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
 import com.logsik.taman.domain.LeaveLetter;
-import com.logsik.taman.domain.Payment;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
@@ -51,7 +50,6 @@ import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
 import com.logsik.taman.dtos.LeaveLetterDto;
-import com.logsik.taman.dtos.PaymentDto;
 import com.logsik.taman.dtos.ProjectCostDto;
 import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
@@ -76,7 +74,6 @@ import com.logsik.taman.repository.LabourAttendanceRepository;
 import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
 import com.logsik.taman.repository.LeaveLetterRepository;
-import com.logsik.taman.repository.PaymentRepository;
 import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
@@ -129,11 +126,6 @@ public class DtoConverter {
 
 	@Autowired
 	private ProjectCostService projectCostService;
-	
-	@Autowired
-	private PaymentRepository paymentRepository;
-	
-	
 	
 	
 	@Autowired
@@ -307,17 +299,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(projectDetailDto, projectDetail);
 		return projectDetail;
-	}
-
-	public Payment convertToPayment(PaymentDto paymentDto) {
-		Payment payment = null;
-		if (paymentDto.getId() != null) {
-			payment = paymentRepository.findById(paymentDto.getId()).get();
-		} else {
-			payment = new Payment();
-		}
-		modelMapper.map(paymentDto, payment);
-		return payment;
 	}
 	
 	public Department convertToDepartment(DepartmentDto departmentDto) {

@@ -98,7 +98,6 @@ public class ProjectDetailService {
 		List<ProjectCost> listProjectCostByProjectDetailId = projectCostRepository
 				.findByProjectDetailId(projectDetailId);
 		for (ProjectCost projectCost : listProjectCostByProjectDetailId) {
-			projectCostService.deleteAllPaymentFollowByProjectCostId(projectCost.getId());
 			projectCostRepository.deleteById(projectCost.getId());
 		}
 		if (approval != null) {

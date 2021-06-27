@@ -15,7 +15,6 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import com.logsik.taman.domain.LeaveLetter;
-import com.logsik.taman.domain.Payment;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
@@ -85,50 +84,6 @@ public class MailClient {
 		} catch (MailException e) {
 			// runtime exception; compiler will not force you to handle it
 			System.out.println(e.getMessage());
-			return false;
-		}
-	}
-
-	public Boolean sendPaymentNotifyTo(Payment payment) {
-		String[] listEmail =   payment.getNotifyTo().split(",");
-		ProjectCost projectCost = projectCostRepository.findById(payment.getProjectCostId()).get();
-		Optional<ProjectYear> findCompanyByProjectYearId = projectYearRepository.findById(projectCost.getProjectDetail().getProject().getProjectYear().getId());
-		Optional<User> approvalBy = userRepository.findById(payment.getApprovalById());
-		Optional<User> sender;
-		if (payment.getLastedUpdateUserId() ==null) {
-			sender = userRepository.findById(payment.getCreatedUserId());
-		}else { 
-			sender = userRepository.findById(payment.getLastedUpdateUserId());
-		}
-		
-		MimeMessagePreparator messagePreparator = mimeMessage -> {
-			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-			messageHelper.setFrom(emailFrom);
-			for(String email:listEmail) {
-				messageHelper.addTo(email);
-			}
-			messageHelper.setSubject(findCompanyByProjectYearId.get().getCompany().getName()+" - *Bạn Nhận Được Thông Báo* Từ " + sender.get().getFullName());
-			messageHelper.setReplyTo(emailFrom);
-			Map<String, Object> variables = new HashMap<>();
-			variables.put("welcomeMessage", "Xin chào");
-			variables.put("projectDetail", projectCost.getProjectDetail());
-			variables.put("projectCost", projectCost);
-			variables.put("approvalBy", approvalBy.get());
-			variables.put("payment",payment);
-			variables.put("sender",sender.get());
-			variables.put("company", findCompanyByProjectYearId.get().getCompany());
-
-			// TODO: Hash the id to hide information
-//			variables.put("", productionUrl + "/validateLeave/" + letter.getId());
-			String content = mailContentBuilder.buildVariables("mailPaymentNotifyTo", variables);
-			messageHelper.setText(content, true);
-		};
-		try {
-			mailSender.send(messagePreparator);
-			return true;
-		} catch (MailException e) {
-			// runtime exception; compiler will not force you to handle it
-			LOGGER.error("Cannot send validation email. " + e.getMessage());
 			return false;
 		}
 	}
@@ -355,48 +310,6 @@ public class MailClient {
 			messageHelper.setText(content, true);
 			}
 		};
-		try {
-			mailSender.send(messagePreparator);
-			return true;
-		} catch (MailException e) {
-			// runtime exception; compiler will not force you to handle it
-			LOGGER.error("Cannot send validation email. " + e.getMessage());
-			return false;
-		}
-	}
-	
-public Boolean approvalPayment(Payment payment) {
-	ProjectCost projectCost = projectCostRepository.findById(payment.getProjectCostId()).get();
-		Optional<User> approval = userRepository.findById(payment.getApprovalById());
-		Optional<ProjectYear> findCompanyByProjectYearId = projectYearRepository.findById(projectCost.getProjectDetail().getProject().getProjectYear().getId());
-		Optional<User> sender;
-		if(payment.getLastedUpdateUserId() ==null) {
-			sender = userRepository.findById(payment.getCreatedUserId());
-		}else { 
-			sender = userRepository.findById(payment.getLastedUpdateUserId());
-		}
-		MimeMessagePreparator messagePreparator = mimeMessage -> {
-			if(sender.get().getId() != approval.get().getId() && "NHAN_CONG" !=(payment.getProjectCost().getPaymentType().toString()) ) {
-			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-			messageHelper.setFrom(emailFrom);
-			messageHelper.setTo(approval.get().getEmail());
-			messageHelper.setSubject(findCompanyByProjectYearId.get().getCompany().getName()+ " - *Yêu Cầu Duyệt % * thanh toán ");
-			messageHelper.setReplyTo(emailFrom);
-			Map<String, Object> variables = new HashMap<>();
-			variables.put("welcomeMessage", "Xin chào " + approval.get().getFullName() + ",");
-			variables.put("projectCost",projectCost);
-			variables.put("payment", payment);
-			variables.put("approvalBy", approval.get());
-			variables.put("projectDetail", projectCost.getProjectDetail());
-			variables.put("company",findCompanyByProjectYearId.get().getCompany());
-			variables.put("sender",sender.get());
-			// TODO: Hash the id to hide information
-			variables.put("paymentApprovalUrl", productionUrl + "/projectCostApproval/" + payment.getProjectCost().getId());
-			String content = mailContentBuilder.buildVariables("paymentApproval", variables);
-			messageHelper.setText(content, true);
-			}
-		};
-		
 		try {
 			mailSender.send(messagePreparator);
 			return true;
