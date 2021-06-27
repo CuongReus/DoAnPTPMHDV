@@ -38,7 +38,6 @@ import com.logsik.taman.queries.ProjectCostSpecification;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.FileUploadRepository;
 import com.logsik.taman.repository.ProjectCostRepository;
-import com.logsik.taman.repository.QuotationRepository;
 import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
 import com.logsik.taman.service.impl.LabourCostService;
@@ -66,9 +65,6 @@ public class ProjectCostController extends AbstractController {
 	private CloseProjectRepository closeProjectRepository;
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private QuotationRepository quotationRepository;
 	
 	@Autowired
 	private TimeService timeService;

@@ -32,7 +32,6 @@ import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
-import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.domain.Role;
 import com.logsik.taman.domain.Supplier;
 import com.logsik.taman.domain.User;
@@ -57,7 +56,6 @@ import com.logsik.taman.dtos.ProjectCostDto;
 import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
-import com.logsik.taman.dtos.QuotationDto;
 import com.logsik.taman.dtos.RoleDto;
 import com.logsik.taman.dtos.SupplierDto;
 import com.logsik.taman.dtos.UploadFileResponse;
@@ -83,7 +81,6 @@ import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
-import com.logsik.taman.repository.QuotationRepository;
 import com.logsik.taman.repository.RoleRepository;
 import com.logsik.taman.repository.SupplierRepository;
 import com.logsik.taman.repository.UserRepository;
@@ -114,8 +111,6 @@ public class DtoConverter {
 	private EfficiencyRepository efficiencyRepository;
 	@Autowired
 	private IncurredRepository incurredRepository;
-	@Autowired
-	private QuotationRepository quotationRepository;
 	@Autowired
 	private ContactRepository contactRepository;
 	@Autowired
@@ -188,17 +183,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(constructionTeamDto, constructionTeam);
 		return constructionTeam;
-	}
-	
-	public Quotation convertToQuotation(QuotationDto quotationDto) {
-		Quotation quotation = null;
-		if (quotationDto.getId() != null) {
-			quotation = quotationRepository.findById(quotationDto.getId()).get();
-		} else {
-			quotation = new Quotation();
-		}
-		modelMapper.map(quotationDto, quotation);
-		return quotation;
 	}
 	
 	public Approval convertToApproval(ApprovalDto approvalDto) {
@@ -640,25 +624,6 @@ public class DtoConverter {
 	}
 //	******************************End Incurred File******************************
 
-	// File******************************
-	
-	// ******************************Start Quotation
-	// File******************************
-
-	public QuotationDto convertToQuotationDto(Quotation quotation, List<FileUpload> quotationUploadFile) {
-		QuotationDto dto = modelMapper.map(quotation, QuotationDto.class);
-		dto.setQuotationUploadFile(
-				quotationUploadFile.stream().map(file -> convertToQuotationFile(file)).collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToQuotationFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadQuotationFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-
-	// ******************************End Quotation
-	// File******************************
 
 	// ******************************Start Labour File******************************
 

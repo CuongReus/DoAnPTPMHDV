@@ -11,7 +11,6 @@ import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.Incurred;
 import com.logsik.taman.domain.Project;
-import com.logsik.taman.domain.Quotation;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.enums.ProjectStatus;
 
@@ -28,7 +27,6 @@ public class ProjectDetailProgressDto {
 	private Contract contract;
 	private Efficiency efficiency;
 	private Incurred incurred;
-	private Quotation quotation;
 	private ProjectStatus projectDetailStatus;
 	private Date closedDate;
 	private String notifyTo;
@@ -46,7 +44,7 @@ public class ProjectDetailProgressDto {
 
 	public ProjectDetailProgressDto(Long id, Project project, String name, String note, Long totalRevenue, Long totalProfit,
 		 Approval approval, CloseProject closeProject, Complete complete, Contract contract,
-			Efficiency efficiency, Incurred incurred, Quotation quotation, ProjectStatus projectDetailStatus, Date closedDate,
+			Efficiency efficiency, Incurred incurred, ProjectStatus projectDetailStatus, Date closedDate,
 			String notifyTo, String notifyMessage, User createdUser, User lastedUpdateUser, Date createdDate,
 			Date lastedUpdateDate) {
 		super();
@@ -62,7 +60,6 @@ public class ProjectDetailProgressDto {
 		this.contract = contract;
 		this.efficiency = efficiency;
 		this.incurred = incurred;
-		this.quotation = quotation;
 		this.projectDetailStatus = projectDetailStatus;
 		this.closedDate = closedDate;
 		this.notifyTo = notifyTo;
@@ -119,14 +116,6 @@ public class ProjectDetailProgressDto {
 
 	public void setIncurred(Incurred incurred) {
 		this.incurred = incurred;
-	}
-
-	public Quotation getQuotation() {
-		return quotation;
-	}
-
-	public void setQuotation(Quotation quotation) {
-		this.quotation = quotation;
 	}
 
 	public Long getId() {

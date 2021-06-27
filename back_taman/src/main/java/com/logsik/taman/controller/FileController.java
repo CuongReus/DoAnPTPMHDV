@@ -34,7 +34,6 @@ import com.logsik.taman.service.impl.ImageStorageService;
 import com.logsik.taman.service.impl.IncurredStorageService;
 import com.logsik.taman.service.impl.LabourContractFileStorageService;
 import com.logsik.taman.service.impl.ProjectCostStorageService;
-import com.logsik.taman.service.impl.QuotationStorageService;
 
 // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 // TODO: check security, only login user can upload, download files.
@@ -61,8 +60,6 @@ public class FileController extends AbstractController {
 	private EfficiencyStorageService efficiencyStorageService;
 	@Autowired
 	private IncurredStorageService incurredStorageService;
-	@Autowired
-	private QuotationStorageService quotationStorageService;
 	@Autowired
 	private LabourContractFileStorageService labourContractFileStorageService;
 	@Autowired
@@ -455,52 +452,6 @@ public class FileController extends AbstractController {
 				.body(resource);
 	}
 	
-	// *******************************************Start Quotation Ver 3 File************************************************************
-	
-	public UploadFileResponse uploadQuotationResponse(MultipartFile file) {
-		String fileName = quotationStorageService.storeFile(file);
-		String api = "/api/downloadQuotationFile/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadQuotationFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadQuotationReportFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadQuotationResponse(file));
-	}
-
-	@PostMapping("/uploadMultipleQuotationFiles")
-	public RestResult uploadMultipleQuotationFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadQuotationResponse(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadQuotationFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadQuotationFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = quotationStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
-	// *******************************************End Quotation Ver 3 File************************************************************
 	// ******************************************Start ProjectCost Ver 3 File************************************************************
 	public UploadFileResponse uploadProjectCostResponse(MultipartFile file) {
 		String fileName = projectCostStorageService.storeFile(file);
