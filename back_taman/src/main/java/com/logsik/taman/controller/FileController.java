@@ -33,7 +33,6 @@ import com.logsik.taman.service.impl.FileStorageService;
 import com.logsik.taman.service.impl.ImageStorageService;
 import com.logsik.taman.service.impl.IncurredStorageService;
 import com.logsik.taman.service.impl.LabourContractFileStorageService;
-import com.logsik.taman.service.impl.ProjectCostStorageService;
 
 // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
 // TODO: check security, only login user can upload, download files.
@@ -62,8 +61,6 @@ public class FileController extends AbstractController {
 	private IncurredStorageService incurredStorageService;
 	@Autowired
 	private LabourContractFileStorageService labourContractFileStorageService;
-	@Autowired
-	private ProjectCostStorageService projectCostStorageService;
 	
 	
 // End Autowired StorageService
@@ -451,50 +448,4 @@ public class FileController extends AbstractController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
 				.body(resource);
 	}
-	
-	// ******************************************Start ProjectCost Ver 3 File************************************************************
-	public UploadFileResponse uploadProjectCostResponse(MultipartFile file) {
-		String fileName = projectCostStorageService.storeFile(file);
-		String api = "/api/downloadProjectCostFile/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadProjectCostFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadProjetCostReportFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadProjectCostResponse(file));
-	}
-
-	@PostMapping("/uploadMultipleProjectCostFiles")
-	public RestResult uploadMultipleProjectCostFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadProjectCostResponse(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadProjectCostFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadProjectCostFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = projectCostStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
-	// *******************************************End ProjectCost Ver 3 File************************************************************
 }

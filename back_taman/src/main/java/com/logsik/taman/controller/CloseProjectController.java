@@ -22,13 +22,11 @@ import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.CloseProjectDto;
 import com.logsik.taman.dtos.RestResult;
 import com.logsik.taman.dtos.UploadFileResponse;
-import com.logsik.taman.enums.ProjectCostStatus;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.FileUploadRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
-import com.logsik.taman.service.impl.ProjectCostService;
 import com.logsik.taman.service.impl.TotalRevenueService;
 
 @RestController
@@ -38,9 +36,6 @@ public class CloseProjectController extends AbstractController {
 
 	@Autowired
 	private CloseProjectRepository closeProjectRepository;
-	
-	@Autowired
-	private ProjectCostService projectCostService;
 	
 	@Autowired
 	private TotalRevenueService totalRevenueService;
@@ -69,8 +64,7 @@ public class CloseProjectController extends AbstractController {
 			CloseProject newCloseProject = dtoConverter.convertToCloseProject(closeProjectDto);
 			
 			 newCloseProject = closeProjectRepository.save(newCloseProject);
-//			Set totalWorkDoneMoney after CloseProject New Object already Save
-			 projectCostService.setTotalWorkDoneMoney(newCloseProject);
+
 			saveNewCloseWorkDoneFile(newCloseProject, closeProjectDto.getCloseWorkDoneUploadFile());
 			saveNewCloseProjectIncurredFile(newCloseProject, closeProjectDto.getIncurredUploadFile());
 			return new RestResult(newCloseProject);
@@ -118,8 +112,7 @@ public class CloseProjectController extends AbstractController {
 			
 			 updatedCloseProject = closeProjectRepository
 					.save(dtoConverter.convertToCloseProject(closeProjectDto));
-//				Set totalWorkDoneMoney after CloseProject New Object already Save
-			 projectCostService.setTotalWorkDoneMoney(updatedCloseProject);
+
 			updateCloseWorkDone(updatedCloseProject, closeProjectDto.getCloseWorkDoneUploadFile());
 			updateCloseProjectIncurred(updatedCloseProject, closeProjectDto.getIncurredUploadFile());
 			return new RestResult(updatedCloseProject);

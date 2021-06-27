@@ -36,9 +36,6 @@ public class LabourSalaryController extends AbstractController {
 	private LabourSalaryService labourSalaryService;
 	
 	@Autowired
-	private ProjectCostController projectCostController;
-	
-	@Autowired
 	private LabourAttendanceRepository labourAttendanceRepository;
 	
 	@Autowired
@@ -94,9 +91,6 @@ public class LabourSalaryController extends AbstractController {
 			List<Long> projectDetailIds = labourAttendanceRepository.getAllProjectDetailIdOfLabourAttendanceInMonth(
 					timeService.getFirstDayOfMonth(labourSalary.getMonth(), labourSalary.getYear()),
 					timeService.getLastDayOfMonth(labourSalary.getMonth(), labourSalary.getYear()));
-			for (Long projectDetailId : projectDetailIds) {
-				projectCostController.refreshLabourCostByMonth(projectDetailId, labourSalary.getMonth(), labourSalary.getYear(), getCurrentUser().getId());
-			}
 			
 			return new RestResult("ok");
 		} catch (Exception e) {

@@ -123,8 +123,6 @@ public class LabourAttendanceController extends AbstractController {
 				}
 				
 			}
-		
-//			 updatedLabourAttendance = labourAttendanceRepository.save(updatedLabourAttendance);
 			
 			return new RestResult(updatedLabourAttendance);
 		} catch (Exception e) {

@@ -13,7 +13,6 @@ import com.logsik.taman.domain.Complete;
 import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.Incurred;
-import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.dtos.ProjectDetailProgressDto;
 import com.logsik.taman.repository.ApprovalRepository;
@@ -22,7 +21,6 @@ import com.logsik.taman.repository.CompleteRepository;
 import com.logsik.taman.repository.ContractRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.IncurredRepository;
-import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 
 @Service
@@ -44,12 +42,6 @@ public class ProjectDetailService {
 
 	@Autowired
 	ProjectDetailRepository projectDetailRepository;
-
-	@Autowired
-	ProjectCostRepository projectCostRepository;
-
-	@Autowired
-	ProjectCostService projectCostService;
 
 	@Autowired
 	TotalRevenueService totalRevenueService;
@@ -95,11 +87,6 @@ public class ProjectDetailService {
 		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
 		Incurred incurred = incurredRepository.findByProjectDetailId(projectDetailId);
-		List<ProjectCost> listProjectCostByProjectDetailId = projectCostRepository
-				.findByProjectDetailId(projectDetailId);
-		for (ProjectCost projectCost : listProjectCostByProjectDetailId) {
-			projectCostRepository.deleteById(projectCost.getId());
-		}
 		if (approval != null) {
 			approvalRepository.deleteById(approval.getId());
 		}

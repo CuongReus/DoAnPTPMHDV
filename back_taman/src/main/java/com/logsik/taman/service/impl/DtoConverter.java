@@ -28,7 +28,6 @@ import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
 import com.logsik.taman.domain.LeaveLetter;
 import com.logsik.taman.domain.Project;
-import com.logsik.taman.domain.ProjectCost;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
 import com.logsik.taman.domain.Role;
@@ -50,7 +49,6 @@ import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
 import com.logsik.taman.dtos.LeaveLetterDto;
-import com.logsik.taman.dtos.ProjectCostDto;
 import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
@@ -74,7 +72,6 @@ import com.logsik.taman.repository.LabourAttendanceRepository;
 import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
 import com.logsik.taman.repository.LeaveLetterRepository;
-import com.logsik.taman.repository.ProjectCostRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
@@ -120,12 +117,6 @@ public class DtoConverter {
 	
 	@Autowired
 	private ProjectRepository projectRepository;
-
-	@Autowired
-	private ProjectCostRepository projectCostRepository;
-
-	@Autowired
-	private ProjectCostService projectCostService;
 	
 	
 	@Autowired
@@ -621,20 +612,4 @@ public class DtoConverter {
 	}
 
 	// ******************************End Labour File******************************
-
-	// ****************************Project Cost File ******************************
-	public ProjectCostDto convertToProjectCostDto(ProjectCost projectCost, List<FileUpload> projectCostFile) {
-		ProjectCostDto dto = modelMapper.map(projectCost, ProjectCostDto.class);
-		dto.setProjectCostFile(projectCostFile.stream().map(file -> convertToUploadProjectCostFile(file))
-				.collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToUploadProjectCostFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadProjectCostFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-
-	// ******************************End User File &
-	// Image******************************
 }
