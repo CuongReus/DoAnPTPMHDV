@@ -169,7 +169,7 @@ class ContactDetailList extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="input-group-btn">
-                                                <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                             </div>
                                         </div>
                                     </form>

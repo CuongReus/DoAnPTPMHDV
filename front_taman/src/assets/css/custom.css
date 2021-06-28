@@ -193,7 +193,7 @@
   /*End Set Color for True False Values (Active User)  */
 
   .navigation > li.active > a:focus {
-    background-color:#006233;
+    background-color:#009688;
     color: #fff;    
   }
 

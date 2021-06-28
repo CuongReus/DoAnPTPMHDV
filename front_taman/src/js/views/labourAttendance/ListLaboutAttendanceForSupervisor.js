@@ -384,7 +384,7 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                         <div className="panel panel-flat">
                             <table className="table table-bordered table-hover">
                                 <thead>
-                                    <tr className="bg-green">
+                                    <tr className="bg-teal">
                                         {/* <th data-toggle="true">STT</th> */}
                                         {/* <th data-hide="phone">Hình Ảnh</th> */}
                                         <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
@@ -398,7 +398,7 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                                         <th rowSpan="2" data-hide="phone">Trạng Thái Ngày Công</th>
                                         <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                     </tr>
-                                    <tr className="bg-green">
+                                    <tr className="bg-teal">
                                         <th data-hide="phone">Giờ Bắt Đầu Làm</th>
                                         <th data-hide="phone">Giờ Kết Thúc Làm Việc</th>
                                         <th data-hide="phone">Giờ Nghỉ</th>

@@ -121,9 +121,9 @@ class RoleList extends React.Component {
                             <i className=" icon-paragraph-justify2 position-left"></i>
                             <span className="text-semibold">Danh Sách Phân Quyền</span>
                             <span className="pull-right">
-                                {/* <button className="btn bg-green" onClick={() => this.handleShowmodal()}>Thêm Mới</button> */}
+                                {/* <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button> */}
                                 <SecuredComponent allowedPermission="admin.roles.create">
-                                <a type="button" className="btn bg-green" href={"/editRole/new"}><i className="icon-add-to-list"></i> Thêm mới</a>
+                                <a type="button" className="btn bg-teal" href={"/editRole/new"}><i className="icon-add-to-list"></i> Thêm mới</a>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -138,7 +138,7 @@ class RoleList extends React.Component {
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
                                             <th data-hide="phone">Nhóm Quyền</th>
 

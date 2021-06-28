@@ -40,22 +40,10 @@ const validate = values => {
     if (!values.fullName) {
         errors.fullName = 'Vui lòng nhập họ tên!';
     };
-    // if (!values.phone) {
-    //     errors.phone = 'Vui lòng nhập số điện thoại!';
-    // }else if(values.phone){
-    //     if(values.phone.length > 10){
-    //         errors.phone = "Số điện thoại chưa đúng";
-    //     }
-    // }
+    
     if (!values.companyId) {
         errors.companyId = "Vui lòng chọn công ty làm việc!"
     };
-    // if(values.birthday){
-    //     var today = new Date();
-    //     var standardAge = moment(today).format("YYYY")-18;
-    //     if(moment(values.birthday).format("YYYY")>standardAge){
-    //     }
-    // }
     if (values.birthday) {
         if (moment(values.birthday).format("YYYY") > moment(birthdaymin).format("YYYY")) {
             errors.birthday = "Tuổi của Nhân viên chưa đúng. Vui lòng nhập năm sinh nhỏ hơn hoặc bằng năm " + moment(birthdaymin).format("YYYY");
@@ -178,8 +166,8 @@ class ModalPersonel extends React.Component {
         var id = this.props.idUser;
         var url = '/user/add';
         var bodyObject = {
-            imageUpload: values.imageUpload,
-            image: values.image,
+            imageUpload: values.imageUpload ? values.imageUpload : null,
+            image: values.image ? values.image : null,
             email: values.email,
             password: values.password,
             fullName: values.fullName,
@@ -411,7 +399,8 @@ class ModalPersonel extends React.Component {
 
                                 <div className="text-right">
                                     <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
-                                    <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>
+                                    {/* <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button> */}
+                                    <button type="submit" className="btn bg-orange" disabled={submitting}>Lưu</button>
                                 </div>
                                 {/* </fieldset> */}
                             </form>

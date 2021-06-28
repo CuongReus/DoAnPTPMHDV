@@ -351,7 +351,7 @@ a.badge,
 .navigation > li.active > a,
 .navigation > li.active > a:hover,
 .navigation > li.active > a:focus {
-  background-color: #006233;
+  background-color: #009688;
   color: #fff;
 }
 .navigation > li.active > a > [class*=text-] {

@@ -506,7 +506,7 @@ class LabourSalaryList extends React.Component {
 						
                                 <table className="table table-bordered table-xxs">
                                     <thead style={{ whiteSpace: 'nowrap' }}>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                             <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                             <th rowSpan="2" data-toggle="true">STT</th>
@@ -532,7 +532,7 @@ class LabourSalaryList extends React.Component {
                                             <th rowSpan="2" data-toggle="phone">Ngày Thanh Toán</th>
                                             <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             {/* <th data-toggle="phone">Ngày Công (Thường)</th>
                                             <th data-toggle="phone">Ngày Công (Cấp Độ 1)</th>
                                             <th data-toggle="phone">Ngày Công (Cấp Độ 2)</th>

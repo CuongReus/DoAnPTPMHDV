@@ -321,7 +321,7 @@ class LabourList extends React.Component {
                             <span className="text-semibold">Danh sách Nhân Công</span>
                             <span className="pull-right">
                                 <SecuredComponent allowedPermission="admin.labour.create">
-                                    <button className="btn bg-green" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                    <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -353,7 +353,7 @@ class LabourList extends React.Component {
                                             </div>
 
                                             <div className="input-group-btn">
-                                                <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                             </div>
                                         </div>
                                     </form>
@@ -367,7 +367,7 @@ class LabourList extends React.Component {
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
 
                                             {/* <th data-hide="phone">Hình Ảnh</th> */}

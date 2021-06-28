@@ -256,7 +256,7 @@ class PersonelList extends React.Component {
                                     <button className="btn bg-primary" onClick={() => this.handleSetAnnualLeaveForAllUser(null)}>Cài Đặt Ngày Phép</button>
                                 </SecuredComponent>
                                 <SecuredComponent allowedPermission="admin.users.create">
-                                    <button style={{ marginLeft: '10px' }} className="btn bg-green" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                    <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -295,7 +295,7 @@ class PersonelList extends React.Component {
                                                 </div>
 
                                                 <div className="input-group-btn">
-                                                    <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                    <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                                 </div>
 
                                             </div>
@@ -311,7 +311,7 @@ class PersonelList extends React.Component {
                             <div className="panel panel-flat">
                                 <table style={{ textAlign: 'center' }} className="table table-xxs">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
                                             {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th data-toggle="phone"><center>Mã Nhân Viên & Họ Tên</center></th>

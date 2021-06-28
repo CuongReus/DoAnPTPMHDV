@@ -523,7 +523,7 @@ class EmployeeSalaryList extends React.Component {
 
                                 <table className="table  table-bordered table-xxs ">
                                     <thead style={{ whiteSpace: 'nowrap' }}>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th  style={{ backgroundColor:'#64B5F6',position: 'sticky', left: 0 }} rowSpan="2" className="text-center footable-visible footable-last-column" ><i    className="icon-menu-open2"></i></th>
                                             {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th style={{backgroundColor:'#64B5F6', position: 'sticky', left: 35 }} rowSpan="2" >Họ và Tên Nhân Viên</th>
@@ -552,7 +552,7 @@ class EmployeeSalaryList extends React.Component {
                                             <th rowSpan="2" data-toggle="phone">Trạng Thái Thanh Toán</th>
                                             <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             {hiddenColumns ? null: <th data-toggle="phone">Ăn trưa</th>}
                                             {hiddenColumns ? null: <th data-toggle="phone">Điện Thoại</th>}
                                             {hiddenColumns ? null: <th data-toggle="phone">Xăng xe / Đi lại</th>}

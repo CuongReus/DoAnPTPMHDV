@@ -793,7 +793,7 @@ class StockList extends React.Component {
                                                     </div>
                                             </div>
                                             <div className="input-group-btn">
-                                                <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                             </div>
                                         </div>
                                         <div className="pull-right">
@@ -823,7 +823,7 @@ class StockList extends React.Component {
                           <div style={{overflow:'auto'}} className="panel panel-flat scroll-wrapper2">
                                 <table  className="table table-bordered">
                                     <thead >
-                                        <tr style={{textAlign:'center'}} className="bg-green">
+                                        <tr style={{textAlign:'center'}} className="bg-teal">
                                             <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                             <th data-toggle="true">STT</th>
                                             <th style={{whiteSpace:'nowrap'}} data-hide="phone">Tên Sản Phẩm & Nhà CC  </th>

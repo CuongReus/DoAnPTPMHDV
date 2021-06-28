@@ -94,7 +94,7 @@ class ExportLabourSalaryToExcel extends React.Component {
               
                     <table className="table table-bordered table-xxs">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th rowSpan="2" data-toggle="phone">Tên Nhân Viên</th>
                                             <th rowSpan="2" data-toggle="phone">Lương Theo Ngày</th>
@@ -112,7 +112,7 @@ class ExportLabourSalaryToExcel extends React.Component {
                                             <th rowSpan="2" data-toggle="phone">Ghi Chú</th>
                                             <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             {/* <th data-toggle="phone">Ngày Công (Thường)</th>
                                             <th data-toggle="phone">Ngày Công (Cấp Độ 1)</th>
                                             <th data-toggle="phone">Ngày Công (Cấp Độ 2)</th>

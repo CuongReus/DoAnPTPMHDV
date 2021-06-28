@@ -198,7 +198,7 @@ class LeaveLetterList extends React.Component {
 
                             <span className="pull-right">
                                 <SecuredComponent allowedPermission="admin.holiday.create">
-                                    <button className="btn bg-green" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                    <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -218,7 +218,7 @@ class LeaveLetterList extends React.Component {
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th style={{ textAlign: 'center' }} data-hide="phone">STT</th>
                                             <th style={{ textAlign: 'center' }} data-hide="phone">Email Nhân Viên</th>
                                             <th style={{ textAlign: 'center' }} data-hide="phone">Phân Loại Nghỉ Phép</th>

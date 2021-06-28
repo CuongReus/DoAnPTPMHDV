@@ -87,7 +87,7 @@ class ModalLeaveLetter extends React.Component {
 
                                 <table className="table table-bordered table-framed">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th style={{ fontSize: '16px' }} colSpan="2">Họ Tên Nhân Viên</th>
                                             <th style={{ fontSize: '16px' }} colSpan="5">Bộ phận</th>
                                             <th style={{ fontSize: '16px' }} colSpan="2">Nơi làm việc</th>
@@ -136,7 +136,7 @@ class ModalLeaveLetter extends React.Component {
                                             <td colSpan="5" >{leaveLetter.approvedBy ? leaveLetter.approvedBy.fullName : null}</td>
                                             <td>{leaveLetter.user ? leaveLetter.user.fullName : null}</td>
                                         </tr>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <td colSpan="7" style={{ fontSize: '16px' }} >Ghi Chú</td>
                                             <td style={{ fontSize: '16px' }}>Giám Đốc</td>
                                         </tr>

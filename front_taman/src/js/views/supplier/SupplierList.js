@@ -174,7 +174,7 @@ class SupplierList extends React.Component {
                             <span className="text-semibold">Danh sách Nhà Cung Cấp</span>
                             <span className="pull-right">
                                 <SecuredComponent allowedPermission="admin.supplier.create">
-                                    <button className="btn bg-green" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                    <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -205,7 +205,7 @@ class SupplierList extends React.Component {
                                                 </div>
 
                                                 <div className="input-group-btn">
-                                                    <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                    <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                                 </div>
 
                                             </div>
@@ -219,7 +219,7 @@ class SupplierList extends React.Component {
                             <div className="panel panel-flat">
                                 <table style={{fontSize:"13px"}} className="table table-togglable table-bordered">
                                     <thead style={{textAlign:'center'}}>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
                                             <th width='10%' data-toggle="true">Phân Loại</th>
                                             <th width='10%' data-toggle="true">Nhà Cung Cấp</th>

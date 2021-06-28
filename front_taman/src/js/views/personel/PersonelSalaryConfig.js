@@ -278,7 +278,7 @@ class PersonelSalaryConfig extends React.Component {
                                                 </div>
 
                                                 <div className="input-group-btn">
-                                                    <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                    <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                                 </div>
 
                                             </div>
@@ -294,7 +294,7 @@ class PersonelSalaryConfig extends React.Component {
                           <div style={{overflow:'auto'}} className="panel panel-flat scroll-wrapper2">
                                 <table  className="table table-bordered">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
                                             <th data-toggle="true"><center>Thông Tin</center></th>
                                             <th data-hide="phone"><center>Mức Lương</center></th>
