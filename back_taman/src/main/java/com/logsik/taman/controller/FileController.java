@@ -27,7 +27,6 @@ import com.logsik.taman.dtos.RestResult;
 import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.service.impl.ApprovalStorageService;
 import com.logsik.taman.service.impl.CloseProjectStorageService;
-import com.logsik.taman.service.impl.ContractStorageService;
 import com.logsik.taman.service.impl.EfficiencyStorageService;
 import com.logsik.taman.service.impl.FileStorageService;
 import com.logsik.taman.service.impl.ImageStorageService;
@@ -52,8 +51,6 @@ public class FileController extends AbstractController {
 	private ApprovalStorageService approvalStorageService;
 	@Autowired
 	private CloseProjectStorageService closeProjectStorageService;
-	@Autowired
-	private ContractStorageService contractStorageService;
 	@Autowired
 	private EfficiencyStorageService efficiencyStorageService;
 	@Autowired
@@ -309,51 +306,6 @@ public class FileController extends AbstractController {
 	}
 	// *******************************************End Close Project  Report File************************************************************
 	
-	// *******************************************Start Contract  Report File************************************************************
-	public UploadFileResponse uploadContractResponse(MultipartFile file) {
-		String fileName = contractStorageService.storeFile(file);
-		String api = "/api/downloadContractFile/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadContractFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadContractReportFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadContractResponse(file));
-	}
-
-	@PostMapping("/uploadMultipleContractFiles")
-	public RestResult uploadMultipleContractFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadContractResponse(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadContractFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadContractFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = contractStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
-	// *******************************************End Contract  Report File************************************************************
 	// *******************************************Start Efficiency  Report File************************************************************
 
 	public UploadFileResponse uploadEfficiencyResponse(MultipartFile file) {

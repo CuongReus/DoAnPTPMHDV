@@ -16,7 +16,6 @@ import com.logsik.taman.domain.Company;
 import com.logsik.taman.domain.ConstructionTeam;
 import com.logsik.taman.domain.Contact;
 import com.logsik.taman.domain.ContactDetail;
-import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Department;
 import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.EmployeeAttendance;
@@ -38,7 +37,6 @@ import com.logsik.taman.dtos.CompanyDto;
 import com.logsik.taman.dtos.ConstructionTeamDto;
 import com.logsik.taman.dtos.ContactDetailDto;
 import com.logsik.taman.dtos.ContactDto;
-import com.logsik.taman.dtos.ContractDto;
 import com.logsik.taman.dtos.DepartmentDto;
 import com.logsik.taman.dtos.EfficiencyDto;
 import com.logsik.taman.dtos.EmployeeAttendanceDto;
@@ -60,7 +58,6 @@ import com.logsik.taman.repository.CompanyRepository;
 import com.logsik.taman.repository.ConstructionTeamRepository;
 import com.logsik.taman.repository.ContactDetailRepository;
 import com.logsik.taman.repository.ContactRepository;
-import com.logsik.taman.repository.ContractRepository;
 import com.logsik.taman.repository.DepartmentRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.EmployeeAttendanceRepository;
@@ -96,8 +93,6 @@ public class DtoConverter {
 	private ApprovalRepository approvalRepository;
 	@Autowired
 	private CloseProjectRepository closeProjectRepository;
-	@Autowired
-	private ContractRepository contractRepository;
 	@Autowired
 	private EfficiencyRepository efficiencyRepository;
 	@Autowired
@@ -206,17 +201,6 @@ public class DtoConverter {
 	public ContactDetail fillContactDetailForm(ContactDetail destination, ContactDetail form) {
 		modelMapper.map(form, destination);
 		return destination;
-	}
-	
-	public Contract convertToContract(ContractDto contractDto) {
-		Contract contract = null;
-		if (contractDto.getId() != null) {
-			contract = contractRepository.findById(contractDto.getId()).get();
-		} else {
-			contract = new Contract();
-		}
-		modelMapper.map(contractDto, contract);
-		return contract;
 	}
 
 	public CloseProject convertToCloseProject(CloseProjectDto closeProjectDto) {
@@ -518,22 +502,6 @@ public class DtoConverter {
 	}
 //	******************************End Close Project File******************************
 
-//	******************************Start Contract File******************************
-	public ContractDto convertToContractDto(Contract contract, List<FileUpload> draftUploadFile,
-			List<FileUpload> officialUploadFile) {
-		ContractDto dto = modelMapper.map(contract, ContractDto.class);
-		dto.setDraftUploadFile(
-				draftUploadFile.stream().map(file -> convertToUploadContractFile(file)).collect(Collectors.toList()));
-		dto.setOfficialUploadFile(officialUploadFile.stream().map(file -> convertToUploadContractFile(file))
-				.collect(Collectors.toList()));
-		return dto;
-	}
-
-	private UploadFileResponse convertToUploadContractFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadContractFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-//	******************************End Contract File******************************
 //	******************************Start Efficiency File******************************
 
 	public EfficiencyDto convertToEfficiencyDto(Efficiency efficiency, List<FileUpload> handoverWorkUploadFile) {

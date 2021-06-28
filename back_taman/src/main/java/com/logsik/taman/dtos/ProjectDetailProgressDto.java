@@ -7,7 +7,6 @@ import java.util.Set;
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Complete;
-import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.User;
@@ -23,7 +22,6 @@ public class ProjectDetailProgressDto {
 	private Approval approval;
 	private CloseProject closeProject;
 	private Complete complete;
-	private Contract contract;
 	private Efficiency efficiency;
 	private ProjectStatus projectDetailStatus;
 	private Date closedDate;
@@ -41,7 +39,7 @@ public class ProjectDetailProgressDto {
 	
 
 	public ProjectDetailProgressDto(Long id, Project project, String name, String note, Long totalRevenue, Long totalProfit,
-		 Approval approval, CloseProject closeProject, Complete complete, Contract contract,
+		 Approval approval, CloseProject closeProject, Complete complete,
 			Efficiency efficiency, ProjectStatus projectDetailStatus, Date closedDate,
 			String notifyTo, String notifyMessage, User createdUser, User lastedUpdateUser, Date createdDate,
 			Date lastedUpdateDate) {
@@ -55,7 +53,6 @@ public class ProjectDetailProgressDto {
 		this.approval = approval;
 		this.closeProject = closeProject;
 		this.complete = complete;
-		this.contract = contract;
 		this.efficiency = efficiency;
 		this.projectDetailStatus = projectDetailStatus;
 		this.closedDate = closedDate;
@@ -89,14 +86,6 @@ public class ProjectDetailProgressDto {
 
 	public void setComplete(Complete complete) {
 		this.complete = complete;
-	}
-
-	public Contract getContract() {
-		return contract;
-	}
-
-	public void setContract(Contract contract) {
-		this.contract = contract;
 	}
 
 	public Efficiency getEfficiency() {

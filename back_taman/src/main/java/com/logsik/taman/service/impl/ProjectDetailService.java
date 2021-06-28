@@ -10,14 +10,12 @@ import org.springframework.stereotype.Service;
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Complete;
-import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.dtos.ProjectDetailProgressDto;
 import com.logsik.taman.repository.ApprovalRepository;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.CompleteRepository;
-import com.logsik.taman.repository.ContractRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 
@@ -31,8 +29,6 @@ public class ProjectDetailService {
 	CloseProjectRepository closeProjectRepository;
 	@Autowired
 	CompleteRepository completeRepository;
-	@Autowired
-	ContractRepository contractRepository;
 	@Autowired
 	EfficiencyRepository efficiencyRepository;
 
@@ -48,13 +44,11 @@ public class ProjectDetailService {
 		Approval approval = approvalRepository.findByProjectDetailId(projectDetailId);
 		CloseProject closeProject = closeProjectRepository.findByProjectDetailId(projectDetailId);
 		Complete complete = completeRepository.findByProjectDetailId(projectDetailId);
-		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
 
 		projectDetailProgressDto.setApproval(approval);
 		projectDetailProgressDto.setCloseProject(closeProject);
 		projectDetailProgressDto.setComplete(complete);
-		projectDetailProgressDto.setContract(contract);
 		projectDetailProgressDto.setEfficiency(efficiency);
 		projectDetailProgressDto.setProject(projectDetail.getProject());
 		projectDetailProgressDto.setName(projectDetail.getName());
@@ -78,7 +72,6 @@ public class ProjectDetailService {
 		Approval approval = approvalRepository.findByProjectDetailId(projectDetailId);
 		CloseProject closeProject = closeProjectRepository.findByProjectDetailId(projectDetailId);
 		Complete complete = completeRepository.findByProjectDetailId(projectDetailId);
-		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
 		
 		if (approval != null) {
@@ -89,9 +82,6 @@ public class ProjectDetailService {
 		}
 		if (complete != null) {
 			completeRepository.deleteById(complete.getId());
-		}
-		if (contract != null) {
-			contractRepository.deleteById(contract.getId());
 		}
 		if (efficiency != null) {
 			efficiencyRepository.deleteById(efficiency.getId());
