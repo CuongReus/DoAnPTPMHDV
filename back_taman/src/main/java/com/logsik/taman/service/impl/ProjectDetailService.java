@@ -12,7 +12,6 @@ import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Complete;
 import com.logsik.taman.domain.Contract;
 import com.logsik.taman.domain.Efficiency;
-import com.logsik.taman.domain.Incurred;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.dtos.ProjectDetailProgressDto;
 import com.logsik.taman.repository.ApprovalRepository;
@@ -20,7 +19,6 @@ import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.CompleteRepository;
 import com.logsik.taman.repository.ContractRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
-import com.logsik.taman.repository.IncurredRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 
 @Service
@@ -37,8 +35,6 @@ public class ProjectDetailService {
 	ContractRepository contractRepository;
 	@Autowired
 	EfficiencyRepository efficiencyRepository;
-	@Autowired
-	IncurredRepository incurredRepository;
 
 	@Autowired
 	ProjectDetailRepository projectDetailRepository;
@@ -54,14 +50,12 @@ public class ProjectDetailService {
 		Complete complete = completeRepository.findByProjectDetailId(projectDetailId);
 		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
-		Incurred incurred = incurredRepository.findByProjectDetailId(projectDetailId);
 
 		projectDetailProgressDto.setApproval(approval);
 		projectDetailProgressDto.setCloseProject(closeProject);
 		projectDetailProgressDto.setComplete(complete);
 		projectDetailProgressDto.setContract(contract);
 		projectDetailProgressDto.setEfficiency(efficiency);
-		projectDetailProgressDto.setIncurred(incurred);
 		projectDetailProgressDto.setProject(projectDetail.getProject());
 		projectDetailProgressDto.setName(projectDetail.getName());
 		projectDetailProgressDto.setTotalRevenue(projectDetail.getTotalRevenue());
@@ -86,7 +80,7 @@ public class ProjectDetailService {
 		Complete complete = completeRepository.findByProjectDetailId(projectDetailId);
 		Contract contract = contractRepository.findByProjectDetailId(projectDetailId);
 		Efficiency efficiency = efficiencyRepository.findByProjectDetailId(projectDetailId);
-		Incurred incurred = incurredRepository.findByProjectDetailId(projectDetailId);
+		
 		if (approval != null) {
 			approvalRepository.deleteById(approval.getId());
 		}
@@ -102,10 +96,6 @@ public class ProjectDetailService {
 		if (efficiency != null) {
 			efficiencyRepository.deleteById(efficiency.getId());
 		}
-		if (incurred != null) {
-			incurredRepository.deleteById(incurred.getId());
-		}
-
 	}
 
 }

@@ -31,7 +31,6 @@ import com.logsik.taman.service.impl.ContractStorageService;
 import com.logsik.taman.service.impl.EfficiencyStorageService;
 import com.logsik.taman.service.impl.FileStorageService;
 import com.logsik.taman.service.impl.ImageStorageService;
-import com.logsik.taman.service.impl.IncurredStorageService;
 import com.logsik.taman.service.impl.LabourContractFileStorageService;
 
 // https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/
@@ -57,8 +56,6 @@ public class FileController extends AbstractController {
 	private ContractStorageService contractStorageService;
 	@Autowired
 	private EfficiencyStorageService efficiencyStorageService;
-	@Autowired
-	private IncurredStorageService incurredStorageService;
 	@Autowired
 	private LabourContractFileStorageService labourContractFileStorageService;
 	
@@ -403,49 +400,4 @@ public class FileController extends AbstractController {
 				.body(resource);
 	}
 	// *******************************************End Efficiency  Report File************************************************************
-	// *******************************************Start Incurred  Report File************************************************************
-
-	public UploadFileResponse uploadIncurredResponse(MultipartFile file) {
-		String fileName = incurredStorageService.storeFile(file);
-		String api = "/api/downloadIncurredFile/";
-		String fileDownloadUri = api + fileName;
-		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
-
-	}
-
-	@RequestMapping(value = "/uploadIncurredFile", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public RestResult uploadIncurredReportFile(@RequestParam("file") MultipartFile file) {
-		return new RestResult(uploadIncurredResponse(file));
-	}
-
-	@PostMapping("/uploadMultipleIncurredFiles")
-	public RestResult uploadMultipleIncurredFiles(@RequestParam("files") MultipartFile[] files) {
-		List<UploadFileResponse> result = Arrays.asList(files).stream().map(file -> uploadIncurredResponse(file))
-				.collect(Collectors.toList());
-		return new RestResult(result);
-	}
-
-	@GetMapping("/downloadIncurredFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadIncurredFile(@PathVariable String fileName,
-			HttpServletRequest request) {
-		// Load file as Resource
-		Resource resource = incurredStorageService.loadFileAsResource(fileName);
-
-		// Try to determine file's content type
-		String contentType = null;
-		try {
-			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-		} catch (IOException ex) {
-			logger.info("Could not determine file type.");
-		}
-
-		// Fallback to the default content type if type could not be determined
-		if (contentType == null) {
-			contentType = "application/octet-stream";
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType))
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
 }

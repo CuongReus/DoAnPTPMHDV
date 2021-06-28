@@ -22,7 +22,6 @@ import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.EmployeeAttendance;
 import com.logsik.taman.domain.EmployeeSalary;
 import com.logsik.taman.domain.FileUpload;
-import com.logsik.taman.domain.Incurred;
 import com.logsik.taman.domain.Labour;
 import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
@@ -44,7 +43,6 @@ import com.logsik.taman.dtos.DepartmentDto;
 import com.logsik.taman.dtos.EfficiencyDto;
 import com.logsik.taman.dtos.EmployeeAttendanceDto;
 import com.logsik.taman.dtos.EmployeeSalaryDto;
-import com.logsik.taman.dtos.IncurredDto;
 import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
@@ -67,7 +65,6 @@ import com.logsik.taman.repository.DepartmentRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.EmployeeAttendanceRepository;
 import com.logsik.taman.repository.EmployeeSalaryRepository;
-import com.logsik.taman.repository.IncurredRepository;
 import com.logsik.taman.repository.LabourAttendanceRepository;
 import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
@@ -103,8 +100,6 @@ public class DtoConverter {
 	private ContractRepository contractRepository;
 	@Autowired
 	private EfficiencyRepository efficiencyRepository;
-	@Autowired
-	private IncurredRepository incurredRepository;
 	@Autowired
 	private ContactRepository contactRepository;
 	@Autowired
@@ -246,17 +241,6 @@ public class DtoConverter {
 		}
 		modelMapper.map(efficiencyDto, efficiency);
 		return efficiency;
-	}
-
-	public Incurred convertToIncurred(IncurredDto incurredDto) {
-		Incurred incurred = null;
-		if (incurredDto.getId() != null) {
-			incurred = incurredRepository.findById(incurredDto.getId()).get();
-		} else {
-			incurred = new Incurred();
-		}
-		modelMapper.map(incurredDto, incurred);
-		return incurred;
 	}
 
 	public ProjectYear convertToProjectYear(ProjectYearDto projectYearDto) {
@@ -564,37 +548,6 @@ public class DtoConverter {
 				file.getSize(), file.getUploadBy());
 	}
 //	******************************End Efficiency File******************************
-//	******************************Start Incurred File******************************
-
-	public IncurredDto convertToIncurredDto(Incurred incurred, List<FileUpload> quotationUploadFile,
-			List<FileUpload> approvalUploadFile, List<FileUpload> invoiceIncurredUploadFile,
-			List<FileUpload> appendixUploadFile, List<FileUpload> defectUploadFile, List<FileUpload> inputUploadFile,
-			List<FileUpload> workUploadFile) {
-		IncurredDto dto = modelMapper.map(incurred, IncurredDto.class);
-		dto.setQuotationUploadFile(quotationUploadFile.stream().map(file -> convertToUploadIncurredFile(file))
-				.collect(Collectors.toList()));
-		dto.setApprovalUploadFile(approvalUploadFile.stream().map(file -> convertToUploadIncurredFile(file))
-				.collect(Collectors.toList()));
-		dto.setInvoiceIncurredUploadFile(invoiceIncurredUploadFile.stream()
-				.map(file -> convertToUploadIncurredFile(file)).collect(Collectors.toList()));
-		dto.setAppendixUploadFile(appendixUploadFile.stream().map(file -> convertToUploadIncurredFile(file))
-				.collect(Collectors.toList()));
-		dto.setDefectUploadFile(
-				defectUploadFile.stream().map(file -> convertToUploadIncurredFile(file)).collect(Collectors.toList()));
-		dto.setInputUploadFile(
-				inputUploadFile.stream().map(file -> convertToUploadIncurredFile(file)).collect(Collectors.toList()));
-		dto.setWorkUploadFile(
-				workUploadFile.stream().map(file -> convertToUploadIncurredFile(file)).collect(Collectors.toList()));
-
-		return dto;
-
-	}
-
-	private UploadFileResponse convertToUploadIncurredFile(FileUpload file) {
-		return new UploadFileResponse(file.getName(), "/api/downloadIncurredFile/" + file.getName(), null,
-				file.getSize(), file.getUploadBy());
-	}
-//	******************************End Incurred File******************************
 
 
 	// ******************************Start Labour File******************************

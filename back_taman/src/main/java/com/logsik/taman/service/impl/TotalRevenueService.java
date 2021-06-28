@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.logsik.taman.domain.Approval;
 import com.logsik.taman.domain.CloseProject;
-import com.logsik.taman.domain.Incurred;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
@@ -17,7 +16,6 @@ import com.logsik.taman.dtos.SumRevenueOfProjectDto;
 import com.logsik.taman.dtos.SumRevenueOfProjectYearDto;
 import com.logsik.taman.repository.ApprovalRepository;
 import com.logsik.taman.repository.CloseProjectRepository;
-import com.logsik.taman.repository.IncurredRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
@@ -35,21 +33,18 @@ public class TotalRevenueService {
 	@Autowired
 	private CloseProjectRepository closeProjectRepository;
 	@Autowired
-	private IncurredRepository incurredRepository;
-	@Autowired
 	private ApprovalRepository approvalRepository;
 
 	public void addAndUpdateApprovalValueAndSetRevenue(Approval approval, ProjectDetail projectDetail) {
 		CloseProject closeProjectByProjectDetailId = closeProjectRepository
 				.findByProjectDetailId(approval.getProjectDetailId());
-		Incurred incurred = incurredRepository.findByProjectDetailId(approval.getProjectDetailId());
 		Long incurredApprovalValue = 0L;
 		Long profit = 0L;
 		Long profitIncurrent = 0L;
 		if (closeProjectByProjectDetailId != null) {
 			// Update CloseApprovalValue for CloseProject If CP not null
 			closeProjectByProjectDetailId.setCloseApprovalValue(approval.getApprovalValue());
-			// Update ProfitIncurred for CloseProject If CP not null
+			
 			if (closeProjectByProjectDetailId.getProfitIncurrent() != null) {
 				profitIncurrent = closeProjectByProjectDetailId.getProfitIncurrent();
 			}
@@ -61,9 +56,7 @@ public class TotalRevenueService {
 			}
 			closeProjectRepository.save(closeProjectByProjectDetailId);
 		}
-		if (incurred != null) {
-			incurredApprovalValue = incurred.getApprovalValue();
-		}
+		
 
 		projectDetail.setTotalRevenue(approval.getApprovalValue() + incurredApprovalValue);
 		projectDetail.setTotalProfit(profit + profitIncurrent);
@@ -74,41 +67,6 @@ public class TotalRevenueService {
 
 	}
 
-	public void addAndUpdateIncurredValueAndSetRevenue(Incurred incurred, ProjectDetail projectDetail) {
-		CloseProject closeProjectByProjectDetailId = closeProjectRepository
-				.findByProjectDetailId(incurred.getProjectDetailId());
-		Approval approval = approvalRepository.findByProjectDetailId(incurred.getProjectDetailId());
-		Long approvalValue = 0L;
-		Long profit = 0L;
-		Long profitIncurrent = 0L;
-		if (closeProjectByProjectDetailId != null) {
-			// Update CloseIncurApprovalValue for CloseProject If CP not null
-			closeProjectByProjectDetailId.setIncurApprovalValue(incurred.getApprovalValue());
-			// Update ProfitIncurred for CloseProject If CP not null
-			if (closeProjectByProjectDetailId.getProfitIncurrent() != null) {
-
-				closeProjectByProjectDetailId.setProfitIncurrent(
-						incurred.getApprovalValue() - closeProjectByProjectDetailId.getIncurWorkDoneValue());
-				profitIncurrent = closeProjectByProjectDetailId.getProfitIncurrent();
-			}
-			// Update Profit for CloseProject If CP not null
-			if (closeProjectByProjectDetailId.getProfit() != null) {
-
-				profit = closeProjectByProjectDetailId.getProfit();
-			}
-			closeProjectRepository.save(closeProjectByProjectDetailId);
-		}
-		if (approval != null) {
-			approvalValue = approval.getApprovalValue();
-		}
-
-		projectDetail.setTotalRevenue(incurred.getApprovalValue() + approvalValue);
-		projectDetail.setTotalProfit(profit + profitIncurrent);
-		projectDetailRepository.save(projectDetail);
-		setProjectTotalRevenue(projectDetail.getProject());
-		setProjectYearTotalRevenue(projectDetail.getProject().getProjectYear());
-
-	}
 
 	public void setRevenueForProjectDetail(ProjectDetail projectDetail, CloseProject closeProject) {
 		Long projectDetailProfitByCP = 0L;
