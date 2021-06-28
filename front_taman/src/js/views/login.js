@@ -65,7 +65,7 @@ class Login  extends React.Component {
                                 <form onSubmit={handleSubmit(loginTo)}>
                                     <div className="panel panel-body login-form">
                                         <div className="text-center">
-                                        <div className="login-logo-waper"><img src="assets/images/logotaman.png" width={200} height={80} alt=""/></div>
+                                        <div className="login-logo-waper"><img src="assets/images/2.png" width={200} height={80} alt=""/></div>
                                             <h5 className="content-group">Đăng nhập tài khoản <small className="display-block">Để phục vụ công việc</small></h5>
                                         </div>
 

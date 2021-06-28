@@ -22,7 +22,7 @@ class AgencyLogo extends React.Component {
             height,
         } = this.props;
 
-        var logoUrl = "/assets/images/lglogo.png";
+        var logoUrl = "/assets/images/2.png";
 
         if (width && height) {
             return (<img width={width} height={height} src={logoUrl} alt=""/>);
