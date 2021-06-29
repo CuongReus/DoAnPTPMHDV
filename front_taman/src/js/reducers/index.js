@@ -14,7 +14,6 @@ import { LOGOUT } from '../constants/action-types';
 import labourReducer from '../views/labour/reducer'
 import labourSalaryReducer from '../views/labourSalary/reducer'
 import labourAttendanceReducer from '../views/labourAttendance/reducer'
-import employeeSalaryReducer from '../views/EmployeeSalary/reducer'
 import employeeAttendanceReducer from '../views/EmployeeAttendance/reducer'
 import departmentReducer from '../views/department/reducer'
 import contactReducer from '../views/contact/reducer'
@@ -32,7 +31,6 @@ const combinedReducer = combineReducers({
     labourReducer: labourReducer,
     labourSalaryReducer: labourSalaryReducer,
     labourAttendanceReducer: labourAttendanceReducer,
-    employeeSalaryReducer: employeeSalaryReducer,
     employeeAttendanceReducer: employeeAttendanceReducer,
     departmentReducer :departmentReducer,
     contactReducer: contactReducer,

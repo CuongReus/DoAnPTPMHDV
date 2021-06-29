@@ -28,7 +28,6 @@ import LabourList from "./views/labour/LabourList";
 import AttendanceGeneralScreen from "./views/labourAttendance/AttendanceGeneralScreen";
 import ListLaboutAttendanceForSupervisor from "./views/labourAttendance/ListLaboutAttendanceForSupervisor";
 import UserChangePassword from "./views/personel/UserChangePassword";
-// import EmployeeSalaryList from "./views/EmployeeSalary/EmployeeSalaryList";
 import EmployeeAttendanceList from "./views/EmployeeAttendance/EmployeeAttendanceList";
 import DepartmentList from "./views/department/DepartmentList";
 import ContactList from "./views/contact/ContactList";
@@ -161,7 +160,6 @@ class App extends React.Component {
                                 {/* <Route path="/listLabourSalary" component={LabourSalaryList}/> */}
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>
                                 <Route path="/attendanceGeneralScreen" component={AttendanceGeneralScreen}/>
-                                {/* <Route path="/listEmployeeSalary" component={EmployeeSalaryList}/> */}
                                 <Route path="/listEmployeeAttendance" component={EmployeeAttendanceList}/>
                             </Switch>
                         </div>

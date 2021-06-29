@@ -301,23 +301,6 @@ export const ALL_ROLES = [
         ]
     },
     {
-        moduleName: "Lương Khối Văn Phòng ",
-        entities: [
-            {
-                entityName: "admin.employeeSalary",
-                keys: [
-                    "admin.employeeSalary.read",
-                    "admin.employeeSalary.update",
-                    // "admin.employeeSalary.updateSalaryForAll",
-                    "admin.employeeSalary.approvalAllPaymentSalary",
-                    "admin.employeeSalary.updateAttendanceCoefficient", 
-                    "admin.employeeSalary.readAllEmployeeSalary",
-
-                ]
-            }
-        ]
-    },
-    {
         moduleName: "Chấm Công Khối Văn Phòng ",
         entities: [
             {

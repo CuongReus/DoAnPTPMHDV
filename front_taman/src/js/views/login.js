@@ -96,7 +96,7 @@ class Login  extends React.Component {
                                         </div>
 
                                         <div className="form-group" style={{color:"white"}}>
-                                            <button type="submit" className="btn btn-block" style={{backgroundColor:"#006233"}}  disabled={pristine || invalid}>Đăng nhập <i className="icon-arrow-right14 position-right"></i></button>
+                                            <button type="submit" className="btn btn-block" style={{backgroundColor:"#009688"}}  disabled={pristine || invalid}>Đăng nhập <i className="icon-arrow-right14 position-right"></i></button>
                                         </div>
                                     </div>
                                 </form>

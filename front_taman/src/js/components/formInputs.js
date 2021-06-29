@@ -43,17 +43,6 @@ const createRenderer = render => ({ input, meta, label, isVerticalLabel, iconCla
         </div>);
 }
 
-        // else {
-        //     return (
-        //         <div className="form-group">
-        //             <label htmlFor={input.name} className="control-label col-sm-2">{label}</label>
-        //             <div className="col-sm-10">
-        //                 {render(input, label, rest)}
-        //                 {meta.error && meta.touched ?
-        //                     <span className="help-block has-error">{meta.error}</span> : null}
-        //             </div>
-        //         </div>);
-        // }
     } else if (iconClass) {
         if(errorType){
             return <div style={meta.error && meta.touched ?{border:'solid 1px' ,borderColor:'red'}:null} className="form-group">

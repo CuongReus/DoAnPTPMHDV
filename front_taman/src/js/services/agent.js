@@ -197,16 +197,6 @@ const SupplierApi = {
     getSupplier: (id) => requests.get('/supplier/' + id)
 };
 
-const QuotationApi = {
-    listQuotation: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/quotation/list?search=' + encode(search), page, 20);
-    },
-    listAllQuotation: () => requests.get('/quotation/listAll'),
-    getQuotation: (id) => requests.get('/quotation/' + id)
-};
 const ApprovalApi = {
     listApproval: (search, page) => {
         if (!search) {
@@ -242,17 +232,6 @@ const CompleteApi = {
     getComplete: (id) => requests.get('/complete/' + id)
 };
 
-const AcceptanceApi = {
-    listAcceptance: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/acceptance/list?search=' + encode(search), page, 20);
-    },
-    listAllAcceptance: () => requests.get('/acceptance/listAll'),
-    getAcceptance: (id) => requests.get('/acceptance/' + id)
-};
-
 const CloseProjectApi = {
     listCloseProject: (search, page) => {
         if (!search) {
@@ -286,16 +265,6 @@ const LabourSalaryApi = {
     getLabourSalary: (id) => requests.get('/labourSalary/' + id)
 };
 
-const PaymentSalaryApi = {
-    listPaymentSalary: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/paymentSalary/list?search=' + encode(search), page, 20);
-    },
-    listAllPaymentSalary: () => requests.get('/paymentSalary/listAll'),
-    getPaymentSalary: (id) => requests.get('/paymentSalary/' + id)
-};
 
 const LabourAttendanceApi = {
     listLabourAttendance: (search, page) => {
@@ -308,17 +277,6 @@ const LabourAttendanceApi = {
     getLabourAttendance: (id) => requests.get('/labourAttendance/' + id)
 };
 
-const EmployeeSalaryApi = {
-    listEmployeeSalary: (search, page) => {
-        if (!search) {
-            search = 0;
-        }
-        return requests.getPage('/employeeSalary/list?search=' + encode(search), page, 20);
-    },
-    listAllEmployeeSalary: () => requests.get('/employeeSalary/listAll'),
-    getEmployeeSalary: (id) => requests.get('/employeeSalary/' + id)
-};
-
 const EmployeeAttendanceApi = {
     listEmployeeAttendancey: (search, page) => {
         if (!search) {
@@ -328,41 +286,6 @@ const EmployeeAttendanceApi = {
     },
     listAllEmployeeAttendance: () => requests.get('/employeeAttendance/listAll'),
     getEmployeeAttendance: (id) => requests.get('/employeeAttendance/' + id)
-};
-
-const ProjectCostApi = {
-    listProjectCost: (search, page) => {
-        if (!search) {
-            search = 0;
-        }
-        return requests.getPage('/projectCost/list?search=' + encode(search), page, 20);
-    },
-    listAllProjectCost: () => requests.get('/projectCost/listAll'),
-    getProjectCost: (id) => requests.get('/projectCost/' + id),
-    getHBEntityProjectCost: (id) => requests.get('/projectCostGetHibernateEntity/' + id)
-    
-};
-
-const ProjectBudgetApi = {
-    listProjectBudget: (search, page) => {
-        if (!search) {
-            search = 0;
-        }
-        return requests.getPage('/projectBudget/list?search=' + encode(search), page, 20);
-    },
-    listAllProjectBudget: () => requests.get('/projectBudget/listAll'),
-    getProjectBudget: (id) => requests.get('/projectBudget/' + id)
-};
-
-const PaymentApi = {
-    listPayment: (search, page) => {
-        if (!search) {
-            search = 0;
-        }
-        return requests.getPage('/payment/list?search=' + encode(search), page, 20);
-    },
-    listAllPayment: () => requests.get('/payment/listAll'),
-    getPayment: (id) => requests.get('/payment/' + id)
 };
 
 const DepartmentApi = {
@@ -411,21 +334,14 @@ export default {
     CompanyApi,
     ConstructionTeamApi,
     SupplierApi,
-    QuotationApi,
     ApprovalApi,
     EfficiencyApi,
     CompleteApi,
     CloseProjectApi,
-    AcceptanceApi,
     LabourApi,
     LabourSalaryApi,
-    PaymentSalaryApi,
     LabourAttendanceApi,
-    EmployeeSalaryApi,
     EmployeeAttendanceApi,
-    ProjectCostApi,
-    ProjectBudgetApi,
-    PaymentApi,
     DepartmentApi,
     ContactApi,
     ContactDetailApi,
