@@ -195,8 +195,6 @@ class PersonelList extends React.Component {
                    
 
                     <td style={{ whiteSpace: 'nowrap' }} >{item.code} || {item.fullName}</td>
-                    <td>{item.department ? item.department.name : "N/A"}</td>
-                    <td>{item.rank ? item.rank : 0}</td>
                     <td>{item.email}<br />{item.phone}</td>
                     <td>{item.currentAddress}</td>
                     {/* <td>{item.permanentAddress}</td> */}
@@ -272,10 +270,6 @@ class PersonelList extends React.Component {
                                             <div className="form-group">
                                                 <label className="control-label col-md-1" htmlFor="company">Công Ty</label>
                                                 <div className="col-md-3">
-                                                    {/* <select placeholder="Tất cả" className="select form-control" name="company" defaultValue={company}>
-                                                        <option key="ALL" value="ALL">Tất cả</option>
-                                                        {optionCompany.map(company => <option key={company.value} value={company.value}>{company.label}</option>)}
-                                                    </select> */}
                                                     <Field onChangeAction={(value) => this.setPermanentCache(value, activeSelector)} options={optionCompany} placeholder="Tất cả" component={RenderSelect} name="companyId" ></Field>
                                                 </div>
                                                 <label style={{ width: '105px' }} className="control-label col-md-2" htmlFor="active">TT Hoạt Động </label>
@@ -313,13 +307,9 @@ class PersonelList extends React.Component {
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
-                                            {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th data-toggle="phone"><center>Mã Nhân Viên & Họ Tên</center></th>
-                                            <th data-hide="phone"><center>Thuộc Bộ Phận</center></th>
-                                            <th data-hide="phone"><center>Cấp Độ</center></th>
                                             <th data-hide="phone"><center>Liên Hệ</center></th>
                                             <th data-hide="phone"><center>Địa chỉ Hiện Tại</center></th>
-                                            {/* <th data-hide="phone">Địa chỉ Thường Trú</th> */}
                                             <th data-hide="phone"><center>Chức Vụ </center></th>
                                             <th data-hide="phone"><center>Công Ty </center></th>
                                             <th data-hide="phone"><center>Ngày Phép / Năm</center></th>

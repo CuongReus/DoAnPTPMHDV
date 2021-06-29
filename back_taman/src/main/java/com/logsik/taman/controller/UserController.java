@@ -81,8 +81,8 @@ public class UserController extends AbstractController {
 			User user = dtoConverter.convertToUser(userDto); // TODO: Hash password error
 			user.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
 			User newUser = userService.save(user);
-			saveNewUserProfileFiles(newUser, userDto.getProfiles());
-			saveNewUserImage(newUser, userDto.getImageUpload());
+			// saveNewUserProfileFiles(newUser, userDto.getProfiles());
+			// saveNewUserImage(newUser, userDto.getImageUpload());
 			return new RestResult(newUser);
 		} catch (Exception e) {
 			LOGGER.error("Error when adding user.", e);

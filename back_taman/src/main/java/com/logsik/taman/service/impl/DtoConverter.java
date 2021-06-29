@@ -29,7 +29,6 @@ import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
 import com.logsik.taman.domain.Role;
-import com.logsik.taman.domain.Supplier;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.ApprovalDto;
 import com.logsik.taman.dtos.CloseProjectDto;
@@ -49,7 +48,6 @@ import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
 import com.logsik.taman.dtos.RoleDto;
-import com.logsik.taman.dtos.SupplierDto;
 import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.dtos.UserDto;
 import com.logsik.taman.repository.ApprovalRepository;
@@ -70,7 +68,6 @@ import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
 import com.logsik.taman.repository.RoleRepository;
-import com.logsik.taman.repository.SupplierRepository;
 import com.logsik.taman.repository.UserRepository;
 
 /**
@@ -80,9 +77,6 @@ import com.logsik.taman.repository.UserRepository;
 public class DtoConverter {
 	@Autowired
 	private ModelMapper modelMapper;
-
-	@Autowired
-	private SupplierRepository supplierRepository;
 
 	@Autowired
 	private CompanyRepository companyRepository;
@@ -284,19 +278,6 @@ public class DtoConverter {
 		return leaveLetter;
 	}
 
-	public Supplier convertToSupplier(SupplierDto supplierDto) {
-		Supplier supplier = null;
-		if (supplierDto.getId() != null) {
-			supplier = supplierRepository.findById(supplierDto.getId()).get();
-		} else {
-			supplier = new Supplier();
-		}
-		modelMapper.map(supplierDto, supplier);
-		return supplier;
-	}
-
-	
-	
 	public Role convertToRole(RoleDto roleDto) {
 		Role role = null;
 		if (roleDto.getId() != null) {
@@ -437,15 +418,6 @@ public class DtoConverter {
 
 		
 		return user;
-	}
-	
-	
-	
-//	ConvertToDto
-	public SupplierDto convertToSupplierDto(Supplier supplier) {
-		SupplierDto supplierDto = new SupplierDto();
-		modelMapper.map(supplier, supplierDto);
-		return supplierDto;
 	}
 
 //****************************User File & Image******************************

@@ -74,11 +74,6 @@ class SideBar extends React.Component {
 								</li>
 								<li><a href="#"><i className="icon-city"></i> <span>Thông Tin Đối Tác </span></a>
 									<ul>
-										<SecuredComponent allowedPermission="admin.supplier.read">
-											<li className={currentUrl == '/listSupplier' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listSupplier'><i className="icon-folder-plus2"></i>
-													<span>Nhà Cung Cấp</span></Link></li>
-										</SecuredComponent>
 										<SecuredComponent allowedPermission="admin.contact.read">
 											<li className={currentUrl == '/listContact' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listContact'><i className="icon-phone2"></i> <span>Khách Hàng</span></Link></li>

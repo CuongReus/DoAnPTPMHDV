@@ -186,16 +186,6 @@ const ConstructionTeamApi = {
     listAllConstructionTeam: () => requests.get('/constructionTeam/listAll'),
     getConstructionTeam: (id) => requests.get('/constructionTeam/' + id)
 };
-const SupplierApi = {
-    listSupplier: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/supplier/list?search=' + encode(search), page, 20);
-    },
-    listAllSupplier: () => requests.get('/supplier/listAll'),
-    getSupplier: (id) => requests.get('/supplier/' + id)
-};
 
 const ApprovalApi = {
     listApproval: (search, page) => {
@@ -333,7 +323,6 @@ export default {
     ProjectYearApi,
     CompanyApi,
     ConstructionTeamApi,
-    SupplierApi,
     ApprovalApi,
     EfficiencyApi,
     CompleteApi,

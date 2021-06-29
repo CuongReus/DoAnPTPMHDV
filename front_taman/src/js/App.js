@@ -21,7 +21,6 @@ import LeaveDayList from "./views/leaveDay/LeaveDayList";
 import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 
 
-import SupplierList from "./views/supplier/SupplierList";
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
 import LabourList from "./views/labour/LabourList";
 // import LabourSalaryList from "./views/labourSalary/LabourSalaryList";
@@ -155,9 +154,7 @@ class App extends React.Component {
                                 <Route path="/listLeaveDay" component={LeaveDayList}/>
                                 <Route path="/validateLeave/:token" component={ValidateLeaveLetter}/>
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
-                                <Route path="/listSupplier" component={SupplierList}/>
                                 <Route path="/listLabour" component={LabourList}/>
-                                {/* <Route path="/listLabourSalary" component={LabourSalaryList}/> */}
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>
                                 <Route path="/attendanceGeneralScreen" component={AttendanceGeneralScreen}/>
                                 <Route path="/listEmployeeAttendance" component={EmployeeAttendanceList}/>

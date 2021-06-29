@@ -358,27 +358,14 @@ class ModalLabourNormalAttendance extends React.Component {
         var optionProjectDetail = [];
         dataProject.map(item => {
             if (labourDto) {
-                // if(listCompanyOfLabour){
                     labourDto.companies.map(labourCompanies=>{
                         if (item.projectYear.company.id == labourCompanies.id) {
-                            // if (listProjectLabourWorkTodayDto) {
-                            //     listProject.push(item);
-        
-                            // } 
-                            // else {
                                 optionProject.push({ label: item.projectYear.company.name +" - "+item.name, value: item.id });
-                            // }
                         }
                     })
                
-            // }
             } else {
-                // if (listProjectLabourWorkTodayDto) {
-                //     listProject.push(item);
-                // }
-                // else {
-                    optionProject.push({ label: item.name, value: item.id });
-                // }
+                optionProject.push({ label: item.name, value: item.id });
             }
 
         })

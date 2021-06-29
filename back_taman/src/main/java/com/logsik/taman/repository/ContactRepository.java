@@ -8,10 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.logsik.taman.domain.Contact;
-import com.logsik.taman.domain.Supplier;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.enums.ContactStatus;
-import com.logsik.taman.enums.SupplierType;
 
 
 public interface ContactRepository extends BaseRepository<Contact, Long> {

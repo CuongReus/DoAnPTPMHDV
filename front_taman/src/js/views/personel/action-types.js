@@ -79,15 +79,6 @@ export const ALL_ROLES = [
 
                 ]
             },
-            {
-                entityName: "admin.supplier",
-                keys: [
-                    "admin.supplier.read",
-                    "admin.supplier.create",
-                    "admin.supplier.update",
-                    "admin.supplier.delete"
-                ]
-            }
         ]
     },
     {

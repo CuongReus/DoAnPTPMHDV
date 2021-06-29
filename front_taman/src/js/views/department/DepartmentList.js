@@ -153,7 +153,7 @@ class DepartmentList extends React.Component {
                             <span className="text-semibold">Danh sách Phòng Ban</span>
                             <span className="pull-right">
                             <SecuredComponent allowedPermission="admin.department.create">
-                                <button className="btn bg-success" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                             </SecuredComponent>
                             </span>
                         </h4>
@@ -183,7 +183,7 @@ class DepartmentList extends React.Component {
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
-                                        <tr className="bg-success">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
                                             <th data-toggle="true">Mã Phòng Ban</th>
                                             <th data-toggle="true">Tên Phòng Ban</th>

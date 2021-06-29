@@ -5,16 +5,13 @@ import { Modal } from 'react-bootstrap';
 import { RenderInputWithDiv, RenderInputWithGen, RenderTextArea, RenderDatePicker, RenderCheckbox, RenderSelect, RenderMultiSelect, RenderNumberInput, RenderInputPassword, RenderMoneyFormat } from '../../components/formInputs';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import isEmail from 'sane-email-validation';
-import { StringUtils, SecurityUtils } from '../../utils/javascriptUtils';
+import { SecurityUtils } from '../../utils/javascriptUtils';
 import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import { LOAD_UPDATING_PERSONEL } from './action-types';
 import { FIRE_REDIRECT } from '../../constants/action-types';
-import { isNull } from 'util';
 import moment from 'moment';
-import UserAvatar from '../../components/UserAvatar';
-import SecuredComponent from '../../components/SecuredComponent';
 import ListFile from '../../components/ListFile';
 
 const validate = values => {
@@ -304,8 +301,6 @@ class ModalPersonel extends React.Component {
                             <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
                                 {/* <fieldset disabled={disableDataManipulation}> */}
                                 <div className="form-group">
-                                    {!isSalaryConfig ? <div className="row" style={{ marginLeft: '0px', width: "378px" }}>
-                                        <Field name="imageUpload" component={UserAvatar}></Field></div> : null}
                                     <div style={isSalaryConfig ? { display: 'block' } : { display: 'none' }} className="form-group">
                                         <Field disabled={true} name="fullName" label="Họ Tên(*)" placeholder="Nhập họ tên người dùng..." component={RenderInputWithDiv}></Field>
                                         <Field disabled={true} name="email" type="email" label="Email(*)" placeholder="Nhập email người dùng..." component={RenderInputWithDiv}></Field>
@@ -330,19 +325,7 @@ class ModalPersonel extends React.Component {
                                     <br/>
                                     <div style={isSalaryConfig ? { display: 'none' } : { display: 'block ' }} className="form-group">
                                             <div className="tabbable">
-                                                <ul className="nav nav-tabs nav-tabs-highlight nav-justified mb-0">
-                                                    <ul className="nav nav-tabs nav-tabs-solid nav-tabs-component">
-                                                    <li className="active">
-                                                    <a href="#default-justified-tab1"    data-toggle="tab">Thông Tin Tổng Quát</a>
-                                                    </li>
-                                                    <li>
-                                                    <a href="#default-justified-tab2" data-toggle="tab">Học Vấn</a>
-                                                    </li>
-                                                    <li>
-                                                    <a href="#default-justified-tab3"   data-toggle="tab">Lịch Sử Làm Việc</a>
-                                                    </li>
-                                                </ul>
-                                                </ul>
+                                                
                                                 <div className="tab-content">
                                                 <div className="tab-pane active" id="default-justified-tab1">
                                                         <Field name="code" label="Mã Nhân Viên(*)" placeholder="Nhập mã nhân viên..." component={RenderInputWithDiv}></Field>
@@ -352,49 +335,44 @@ class ModalPersonel extends React.Component {
                                                         <Field name="phone" label="Số Điện Thoại" placeholder="Nhập số điện thoại..." component={RenderNumberInput}></Field>
                                                         <Field name="birthday" dateFormat="DD/MM/YYYY" label="Ngày Sinh" component={RenderDatePicker}></Field>
                                                         <Field name="gender" label="Giới Tính" options={optionGender} component={RenderSelect}></Field>
-                                                        <Field name="identityCardNumber" label="Số CMND" placeholder="Nhập số chứng minh nhân dân..." component={RenderNumberInput}></Field>
-                                                        <Field name="issuedAt" label="Nơi Cấp" placeholder="Nhập nơi cấp..." component={RenderInputWithDiv}></Field>
-                                                        <Field name="issuedDate" label="Ngày Cấp" dateFormat="DD/MM/YYYY" maxDate={dateNow} component={RenderDatePicker}></Field>
-                                                        <Field name="permanentAddress" label="Địa Chỉ Thường Trú" placeholder="Nhập dịa chỉ thường trú..." component={RenderInputWithDiv}></Field>
+                                                        <Field name="companyId" label="Thuộc công ty(*)" options={optionCompanies} component={RenderSelect} ></Field>
+                                                        <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
+                                                        <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} name="roles" label="Bộ Phận" placeholder="Chọn bộ phận..." options={optionUserRoles} component={RenderMultiSelect}></Field>
+                                                        <Field name="active" label="Trạng Thái" checkLabel="Đang Làm Việc" component={RenderCheckbox}></Field>
+                                                        <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>
-                                                        <Field name="familyInformation" label="Thông Tin Gia Đình" placeholder="Nhập thông tin gia đình..." row={3} component={RenderTextArea}></Field>
+                                                        {/* <Field name="familyInformation" label="Thông Tin Gia Đình" placeholder="Nhập thông tin gia đình..." row={3} component={RenderTextArea}></Field>
                                                         <Field name="bankName" label="Ngân Hàng" placeholder="Nhập tên ngân hàng..." row={3} component={RenderTextArea}></Field>
-                                                        <Field name="bankAccountNumber" label="Số Tài Khoản Ngân Hàng" placeholder="Nhập số tài khoản ngân hàng..." row={3} component={RenderTextArea}></Field>
+                                                        <Field name="bankAccountNumber" label="Số Tài Khoản Ngân Hàng" placeholder="Nhập số tài khoản ngân hàng..." row={3} component={RenderTextArea}></Field> */}
                                                     </div>
-                                                    <div className="tab-pane" id="default-justified-tab2">
+                                                    {/* <div className="tab-pane" id="default-justified-tab2">
                                                         <Field name="degree" label="Bằng Cấp Chuyên Ngành" placeholder="Nhập bằng cấp chuyên ngành..." component={RenderInputWithDiv}></Field>
                                                         <Field name="trainingPlace" label="Nơi Đào Tạo" placeholder="Nhập nơi đào tạo..." component={RenderInputWithDiv}></Field>
                                                         <Field name="profession" label="Chuyên Ngành" placeholder="Nhập chuyên ngành..." component={RenderInputWithDiv}></Field>
                                                         <Field name="graduationYear" label="Năm Tốt Nghiệp" placeholder="Nhập năm tốt nghiệp..." component={RenderNumberInput}></Field>
                                                         <Field name="foreignLanguageSkill" label="Ngoại Ngữ" placeholder="Nhập Ngoại Ngữ..." component={RenderInputWithDiv}></Field>
                                                         <Field name="level" label="Trình Độ" placeholder="Nhập trình độ..." component={RenderInputWithDiv}></Field>
-                                                    </div>
-                                                    <div className="tab-pane" id="default-justified-tab3">
-                                                        <Field name="companyId" label="Thuộc công ty(*)" options={optionCompanies} component={RenderSelect} ></Field>
-                                                        {/* <Field name="birthday" dateFormat="DD/MM/YYYY" label="Ngày Sinh"  isBirthday={true} component={RenderDisableRangeDatePicker}></Field> */}
+                                                    </div> */}
+                                                    {/* <div className="tab-pane" id="default-justified-tab3">
                                                         <Field name="position" label="Chức Vụ" placeholder="Nhập chức vụ..." component={RenderInputWithDiv}></Field>
-                                                        <Field name="labourContract" label="Loại HĐLD" placeholder="Nhập loaị Hợp Đồng Lao Động..." component={RenderInputWithDiv}></Field>
-                                                        <Field name="active" label="Trạng Thái" checkLabel="Đang Làm Việc" component={RenderCheckbox}></Field>
-                                                        {/* <Field name="address"  label="Địa Chỉ" placeholder="Nhập Địa Chỉ..." rows={3} component={RenderTextArea}></Field>                              */}
-                                                        <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
+                                                        <Field name="labourContract" label="Loại HĐLD" placeholder="Nhập loaị Hợp Đồng Lao Động..." component={RenderInputWithDiv}></Field> 
                                                         <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} name="roles" label="Bộ Phận" placeholder="Chọn bộ phận..." options={optionUserRoles} component={RenderMultiSelect}></Field>
                                                         <Field name="rank" label="Cấp Độ" placeholder="Nhập Cấp Độ..." component={RenderNumberInput}></Field>
                                                         <Field name="startWorkDate" label="Ngày Vào Công Ty" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
                                                         <Field name="numberOfYear" label="Số Năm" placeholder="Nhập số năm làm việc..." component={RenderNumberInput}></Field>
-                                                        <Field type = {"hidden"} disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field type = {"hidden"} disabled={true} name="absentDayPerYear" label="Số Ngày Đã Nghỉ / Năm"               component={RenderNumberInput}></Field>
                                                         <Field type = {"hidden"}  disabled={true} name="bonusAnnualLeavePerYear" label="Số Ngày Phép Thưởng / Năm"    component={RenderNumberInput}></Field>
                                                         <Field type = {"hidden"} disabled={true} name="annualLeaveNumberRemaining" label="Số Ngày Phép Còn Lại / Năm"component={RenderNumberInput}></Field>
                                                         
                                                         <Field name="jobDescription" label="Mô Tả Công Việc Đang Làm" placeholder="Nhập mô tả công việc đang làm..." row={3} component={RenderTextArea}></Field>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>
-                                    <div style={isSalaryConfig ? { display: 'none' } : { display: 'block',borderTop:'solid 1.5px' }} className="col-md">
+                                    {/* <div style={isSalaryConfig ? { display: 'none' } : { display: 'block',borderTop:'solid 1.5px' }} className="col-md">
                                         <br/>
                                         <Field name="profiles" component={ListFile} modalUrl="/uploadUserProfile" labelUploadFile={'Hồ Sơ Nhân Viên'}></Field>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="text-right">
