@@ -5,7 +5,6 @@ import ModalAcceptance from '../views/acceptance/ModalAcceptance';
 import ModalApproval from '../views/approval/ModalApproval';
 import ModalCloseProject from '../views/closeProject/ModalCloseProject';
 import ModalComplete from '../views/complete/ModalComplete';
-import ModalContract from '../views/contract/ModalContract';
 import ModalEfficiency from '../views/efficiency/ModalEfficiency';
 import ModalIncurred from '../views/incurred/ModalIncurred';
 import ModalInvoiceVer1 from '../views/invoiceVer1/ModalInvoiceVer1';
@@ -25,7 +24,6 @@ class ProgressDetailStep extends React.Component {
             isInvoiceVer1ItemShownModal:false,
             isInvoiceVer2ItemShownModal:false,
             isInvoiceVer3ItemShownModal:false,
-            isContractItemShownModal:false,
             isCompleteItemShownModal:false,
             isIncurredItemShownModal:false,
             idProgressItem:null,
@@ -88,12 +86,6 @@ class ProgressDetailStep extends React.Component {
             idProgressItem: id
         })
     } 
-    else if(keyItem == "contract"){
-        this.setState({
-            isContractItemShownModal: true,
-            idProgressItem: id
-        })
-    } 
     else if(keyItem == "complete"){
         this.setState({
             isCompleteItemShownModal: true,
@@ -112,7 +104,6 @@ class ProgressDetailStep extends React.Component {
             isInvoiceVer1ItemShownModal:false,
             isInvoiceVer2ItemShownModal:false,
             isInvoiceVer3ItemShownModal:false,
-            isContractItemShownModal:false,
             isCompleteItemShownModal:false,
             isIncurredItemShownModal:false
         })
@@ -202,7 +193,6 @@ class ProgressDetailStep extends React.Component {
             {this.state.isInvoiceVer1ItemShownModal  ? <ModalInvoiceVer1 title="Hoá Đơn Lần 1"  idInvoiceVer1={this.state.idProgressItem} projectDetailDto={this.props.projectDetailDto} show={this.state.isInvoiceVer1ItemShownModal}    onHide={this.handleHidemodal}      onAfterSave={this.handleAfterSaveModal}      />    :null}
             {this.state.isInvoiceVer2ItemShownModal  ? <ModalInvoiceVer2 title="Hoá Đơn Lần 2"  idInvoiceVer2={this.state.idProgressItem} projectDetailDto={this.props.projectDetailDto}show={this.state.isInvoiceVer2ItemShownModal}   onHide={this.handleHidemodal}       onAfterSave={this.handleAfterSaveModal}     />    :null}
             {this.state.isInvoiceVer3ItemShownModal  ? <ModalInvoiceVer3 title="Hoá Đơn Lần 3"  idInvoiceVer3={this.state.idProgressItem} projectDetailDto={this.props.projectDetailDto}show={this.state.isInvoiceVer3ItemShownModal}    onHide={this.handleHidemodal}      onAfterSave={this.handleAfterSaveModal}      />    :null}
-            {this.state.isContractItemShownModal     ? <ModalContract title="Hợp Đồng"  idContract={this.state.idProgressItem} projectDetailDto={this.props.projectDetailDto}          show={this.state.isContractItemShownModal}         onHide={this.handleHidemodal}     onAfterSave={this.handleAfterSaveModal}       />   :null}
             {this.state.isCompleteItemShownModal     ? <ModalComplete title="Hoàn Thành"  idComplete={this.state.idProgressItem} projectDetailDto={this.props.projectDetailDto}        show={this.state.isCompleteItemShownModal}        onHide={this.handleHidemodal}      onAfterSave={this.handleAfterSaveModal}     />   :null}
             {this.state.isIncurredItemShownModal     ? <ModalIncurred title="Phát Sinh"   idIncurred={this.state.idProgressItem} projectDetailDto={this.props.projectDetailDto}         show={this.state.isIncurredItemShownModal }       onHide={this.handleHidemodal}     onAfterSave={this.handleAfterSaveModal}       />    :null}   
             </div>

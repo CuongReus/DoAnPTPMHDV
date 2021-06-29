@@ -186,7 +186,7 @@ class ConstructionTeamList extends React.Component {
                             <span className="text-semibold">Danh sách Đội Thi Công</span>
                             <span className="pull-right">
                                 <SecuredComponent allowedPermission="admin.constructionTeam.create">
-                                    <button className="btn bg-green" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                    <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -218,7 +218,7 @@ class ConstructionTeamList extends React.Component {
                                             </div>
 
                                             <div className="input-group-btn">
-                                                <button type="submit" className="btn bg-green btn-xlg">Tìm</button>
+                                                <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
                                             </div>
                                         </div>
                                     </form>
@@ -229,7 +229,7 @@ class ConstructionTeamList extends React.Component {
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
-                                        <tr className="bg-green">
+                                        <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
                                             {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th data-toggle="true">Tên Đội Trưởng</th>

@@ -421,7 +421,7 @@ class ContactList extends React.Component {
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-bordered">
                                     <thead>
-                                        <tr className="bg-success">
+                                        <tr className="bg-teal">
                                             <th style={{ textAlign: 'center' }} className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                             <th style={{ textAlign: 'center' }} data-toggle="true">STT</th>
                                             <th style={{ textAlign: 'center' }} data-toggle="true">Tên</th>

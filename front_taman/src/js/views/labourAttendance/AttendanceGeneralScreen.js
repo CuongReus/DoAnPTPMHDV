@@ -279,75 +279,6 @@ class AttendanceGeneralScreen extends React.Component {
     this.goToPage = (page) => {
       this.setState({ currentPage: page });
     }
-
-    // this.handleShowAddWorkPlan = (contractItem, currentWorkPlan, selectedDate) => {
-    //   // alert("value " + contractItem.id + ", labourId " + this.state.labourId + ", date " + this.state.currentDate);
-    //   this.setState({ contractItem: contractItem, currentWorkPlan: currentWorkPlan, selectedDate: selectedDate }, () => {
-    //     this.setState({ isWPModalShown: true });
-    //   });
-
-    // };
-
-    // this.handleHidemodal = () => {
-    //   this.setState({ isWPModalShown: false });
-    //   this.updateCalendar(this.state.labourId, this.state.currentPage);
-    // }
-
-    // this.handleDeleteByMonth = (labourId, month, year) => {
-    //   if (confirm("Bạn có chắc xoá lịch làm việc tháng " + month + " của nhân viên này?")) {
-    //     let updateCalendarAfterDelete = () =>  this.updateCalendar(this.state.labourId, this.state.currentPage);
-    //     return (agent.asyncRequests.del('/labourAttendance/deleteByMonth?labourId=' + labourId 
-    //       + '&month=' + month + '&year=' + year).then(function (res) {
-    //         var result = res.body.resultData;
-    //         if (result) {
-    //           toast.info("Buổi làm việc đã được xóa thành công. ", { autoClose: 5000 })
-    //           updateCalendarAfterDelete();
-    //         }
-    //         else {
-    //           toast.error("Có lỗi khi lưu trữ. Lỗi: " + res.body.errorMessage, { autoClose: 15000 });
-    //         }
-    //       }, function (err) {
-    //         toast.error("Có lỗi khi lưu trữ. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
-    //       }));      
-    //     }
-    // }
-    // this.handleDeleteWorkPlan = (labourAttendance) => {
-    //   if (confirm("Bạn có chắc xoá buổi làm việc ngày " + moment(labourAttendance.dateToWork).format("DD/MM/YYYY") + "?")) {
-    //     let updateCalendarAfterDelete = () =>  this.updateCalendar(this.state.labourId, this.state.currentPage);
-    //     return (agent.asyncRequests.del('/labourAttendance/' + labourAttendance.id ).then(function (res) {
-    //         var result = res.body.resultData;
-    //         if (result) {
-    //           toast.info("Buổi làm việc đã được xóa thành công. ", { autoClose: 5000 })
-    //           updateCalendarAfterDelete();
-    //         }
-    //         else {
-    //           toast.error("Có lỗi khi lưu trữ. Lỗi: " + res.body.errorMessage, { autoClose: 15000 });
-    //         }
-    //       }, function (err) {
-    //         toast.error("Có lỗi khi lưu trữ. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
-    //       }));      
-    //     }
-    // }
-    //     this.handleDeleleWorkPlanByContractItemId = (labourId,contractItemId, month,year) =>{
-    //       if (confirm("Bạn có chắc xoá hợp đồng này làm việc tại tháng " + month + "  của nhân viên này?")) {
-    //         let updateCalendarAfterDelete = () =>  this.updateCalendar(this.state.labourId, this.state.currentPage);
-    //         return (agent.asyncRequests.del('/labourAttendance/deleteByContractItem?labourId=' + labourId 
-    //         + "&contractItemId="+contractItemId
-    //           + '&month=' + month 
-    //           + '&year=' + year).then(function (res) {
-    //             var result = res.body.resultData;
-    //             if (result) {
-    //               toast.info("Hợp đồng làm việc tháng " + month+ " này được xoá thành công. ", { autoClose: 5000 })
-    //               updateCalendarAfterDelete();
-    //             }
-    //             else {
-    //               toast.error("Có lỗi khi lưu trữ. Lỗi: " + res.body.errorMessage, { autoClose: 15000 });
-    //             }
-    //           }, function (err) {
-    //             toast.error("Có lỗi khi lưu trữ. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
-    //           }));      
-    //         }
-    //     }
   }
 
   getListLabour() {
@@ -445,29 +376,6 @@ class AttendanceGeneralScreen extends React.Component {
     if (!listLabourAttendance){
       return null;
     }
-    // var body = 
-    // listLabourAttendance.map(item=>{
-    //     var matchedDay = moment(item.dateToWork).format('D');
-    //     if (matchedDay == dateFns.format(date, 'D')) {
-    //     return (
-    //     <tr>
-    //   <td>{item.labour.fullName}</td> 
-    //   <td>{item.project.name}</td> 
-    //   </tr>)}});
-    {/* {listLabourAttendance.map(group => <th key={group.contractItem.id}>
-      
-        <a style={{color: 'red'}} onClick={() => this.handleDeleleWorkPlanByContractItemId(this.state.labourId,group.contractItem.id, currentMonth, currentYear)}><i className="icon-cross2"></i> Xóa HĐ  </a> <br/>
-        {group.contractItem.contract.code} - {FormatterUtils.formatCurrency(group.contractItem.unitPrice)} <br />
-        {group.contractItem.contract.customerFullName} <br />
-        {group.contractItem.workAddress} <br />
-        {group.contractItem.workTimeSuggest} - {FormatterUtils.formatCurrency(group.contractItem.employeePrice)}<br />
-        {moment(group.contractItem.startContract).format("DD/MM/YYYY")} - {moment(group.contractItem.endContract).format("DD/MM/YYYY")}
-
-      </th>)} */}
-
-
-    {/* {group.contractItem.workAddress && group.contractItem.workAddress.length > 20 ? group.contractItem.workAddress.substring(0, 20) : group.contractItem.workAddress}..)} */ }
-
 
     const dataLabour = this.state.listAllLabour;
     const calendarDays = [];
@@ -483,8 +391,7 @@ class AttendanceGeneralScreen extends React.Component {
         currentDate={currentDate}
         listLabourAttendance={listLabourAttendance}
         labourId={this.state.labourId}
-        // handleShowAddWorkPlan={(contractItem, currentWorkPlan, selectedDate) => this.handleShowAddWorkPlan(contractItem, currentWorkPlan, selectedDate)}
-        // handleDeleteWorkPlan={(labourAttendance) => this.handleDeleteWorkPlan(labourAttendance)}
+        
         key={inc}></DaysInMonth>)
       dateArray.push(dateIncrement);
 
@@ -500,8 +407,6 @@ class AttendanceGeneralScreen extends React.Component {
         currentDate={currentDate}
         listLabourAttendance={listLabourAttendance}
         labourId={this.state.labourId}
-        // handleShowAddWorkPlan={(contractItem, currentWorkPlan, selectedDate) => this.handleShowAddWorkPlan(contractItem, currentWorkPlan, selectedDate)}
-        // handleDeleteWorkPlan={(labourAttendance) => this.handleDeleteWorkPlan(labourAttendance)}
         ></BodyAttendance>)
     }
     const wrapperStyle = {

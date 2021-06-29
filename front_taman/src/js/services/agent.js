@@ -219,19 +219,6 @@ const ApprovalApi = {
 };
 
 
-
-
-const ContractApi = {
-    listContract: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/contract/list?search=' + encode(search), page, 20);
-    },
-    listAllContract: () => requests.get('/contract/listAll'),
-    getContract: (id) => requests.get('/contract/' + id)
-};
-
 const EfficiencyApi = {
     listEfficiency: (search, page) => {
         if (!search) {
@@ -426,7 +413,6 @@ export default {
     SupplierApi,
     QuotationApi,
     ApprovalApi,
-    ContractApi,
     EfficiencyApi,
     CompleteApi,
     CloseProjectApi,

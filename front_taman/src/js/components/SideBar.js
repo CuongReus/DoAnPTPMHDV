@@ -52,12 +52,6 @@ class SideBar extends React.Component {
 													<span>Nhân Sự</span></Link>
 											</li>
 										</SecuredComponent>
-										<SecuredComponent allowedPermission="admin.userSalaryConfig.read">
-											<li className={currentUrl == '/listPersonelSalaryConfig' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listPersonelSalaryConfig'><i className="icon-cash"></i>
-													<span>Cấu Hình Lương Nhân Sự</span></Link>
-											</li>
-										</SecuredComponent>
 										<SecuredComponent allowedPermission="admin.department.read">
 											<li className={currentUrl == '/listDepartment' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listDepartment'><i className="icon-magazine"></i>

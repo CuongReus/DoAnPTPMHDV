@@ -30,7 +30,6 @@ import ListLaboutAttendanceForSupervisor from "./views/labourAttendance/ListLabo
 import UserChangePassword from "./views/personel/UserChangePassword";
 // import EmployeeSalaryList from "./views/EmployeeSalary/EmployeeSalaryList";
 import EmployeeAttendanceList from "./views/EmployeeAttendance/EmployeeAttendanceList";
-import PersonelSalaryConfig from "./views/personel/PersonelSalaryConfig";
 import DepartmentList from "./views/department/DepartmentList";
 import ContactList from "./views/contact/ContactList";
 import ContactDetailList from "./views/contactDetail/ContactDetailList";
@@ -147,7 +146,6 @@ class App extends React.Component {
                                 } />
                                 <Route path="/login" component={Login}/>
                                 <Route path="/listPersonel" component={PersonelList}/>
-                                <Route path="/listPersonelSalaryConfig" component={PersonelSalaryConfig}/>
                                 <Route path="/listDepartment" component={DepartmentList}/>
                                 <Route path="/listContact" component={ContactList}/>
                                 <Route path="/listContactDetail" component={ContactDetailList}/>
