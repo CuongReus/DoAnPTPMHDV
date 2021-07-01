@@ -44,7 +44,7 @@ public class PersonelSpecification implements Specification<User> {
 					builder.like(root.get("phone"), "%" + fullNameOrPhoneOrEmail + "%"),
 					builder.like(root.get("email"), "%" + fullNameOrPhoneOrEmail + "%")));
 		}
-		query.orderBy(builder.desc(root.get("company").get("id")),builder.desc(root.get("rank")),builder.asc(root.get("fullName")));
+		query.orderBy(builder.desc(root.get("company").get("id")),builder.asc(root.get("fullName")));
 		return builder.and(predicates.toArray(new Predicate[predicates.size()]));
 	}
 

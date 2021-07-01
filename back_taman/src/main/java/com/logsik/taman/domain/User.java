@@ -120,9 +120,9 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@Lob
-	@Column(name = "permanent_address", columnDefinition = "longtext")
-	private String permanentAddress;
+	// @Lob
+	// @Column(name = "permanent_address", columnDefinition = "longtext")
+	// private String permanentAddress;
 
 	@Lob
 	@Column(name = "current_address", columnDefinition = "longtext")
@@ -134,34 +134,34 @@ public class User implements Serializable {
 	@Column(name = "position")
 	private String position;
 
-	@Column(name = "number_of_year")
-	private Integer numberOfYear;
+	// @Column(name = "number_of_year")
+	// private Integer numberOfYear;
 
-	@Lob
-	@Column(name = "job_description", columnDefinition = "longtext")
-	private String jobDescription;
+	// @Lob
+	// @Column(name = "job_description", columnDefinition = "longtext")
+	// private String jobDescription;
 
-	@Column(name = "degree")
-	private String degree;
+	// @Column(name = "degree")
+	// private String degree;
 
-	@Column(name = "training_place")
-	private String trainingPlace;
+	// @Column(name = "training_place")
+	// private String trainingPlace;
 
-	@Column(name = "profession")
-	private String profession;
+	// @Column(name = "profession")
+	// private String profession;
 
-	@Column(name = "graduation_year")
-	private Integer graduationYear;
+	// @Column(name = "graduation_year")
+	// private Integer graduationYear;
 
-	@Column(name = "foreign_language_skill")
-	private String foreignLanguageSkill;
+	// @Column(name = "foreign_language_skill")
+	// private String foreignLanguageSkill;
 
-	@Column(name = "level")
-	private String level;
+	// @Column(name = "level")
+	// private String level;
 
-	@Lob
-	@Column(name = "family_information", columnDefinition = "longtext")
-	private String familyInformation;
+	// @Lob
+	// @Column(name = "family_information", columnDefinition = "longtext")
+	// private String familyInformation;
 
 	@Column(name = "code")
 	private String code;
@@ -195,8 +195,8 @@ public class User implements Serializable {
 	@Column
 	private Long responsibilityAllowance;
 	
-	@Column
-	private Integer rank;
+	// @Column
+	// private Integer rank;
 	
 	@Column(name="lunch_fee")
 	private Long  lunchFee;
@@ -407,13 +407,13 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 
-	public String getPermanentAddress() {
-		return permanentAddress;
-	}
+	// public String getPermanentAddress() {
+	// 	return permanentAddress;
+	// }
 
-	public void setPermanentAddress(String permanentAddress) {
-		this.permanentAddress = permanentAddress;
-	}
+	// public void setPermanentAddress(String permanentAddress) {
+	// 	this.permanentAddress = permanentAddress;
+	// }
 
 	public String getCurrentAddress() {
 		return currentAddress;
@@ -439,77 +439,77 @@ public class User implements Serializable {
 		this.position = position;
 	}
 
-	public Integer getNumberOfYear() {
-		return numberOfYear;
-	}
+	// public Integer getNumberOfYear() {
+	// 	return numberOfYear;
+	// }
 
-	public void setNumberOfYear(Integer numberOfYear) {
-		this.numberOfYear = numberOfYear;
-	}
+	// public void setNumberOfYear(Integer numberOfYear) {
+	// 	this.numberOfYear = numberOfYear;
+	// }
 
-	public String getJobDescription() {
-		return jobDescription;
-	}
+	// public String getJobDescription() {
+	// 	return jobDescription;
+	// }
 
-	public void setJobDescription(String jobDescription) {
-		this.jobDescription = jobDescription;
-	}
+	// public void setJobDescription(String jobDescription) {
+	// 	this.jobDescription = jobDescription;
+	// }
 
-	public String getTrainingPlace() {
-		return trainingPlace;
-	}
+	// public String getTrainingPlace() {
+	// 	return trainingPlace;
+	// }
 
-	public void setTrainingPlace(String trainingPlace) {
-		this.trainingPlace = trainingPlace;
-	}
+	// public void setTrainingPlace(String trainingPlace) {
+	// 	this.trainingPlace = trainingPlace;
+	// }
 
-	public String getProfession() {
-		return profession;
-	}
+	// public String getProfession() {
+	// 	return profession;
+	// }
 
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
+	// public void setProfession(String profession) {
+	// 	this.profession = profession;
+	// }
 
-	public Integer getGraduationYear() {
-		return graduationYear;
-	}
+	// public Integer getGraduationYear() {
+	// 	return graduationYear;
+	// }
 
-	public void setGraduationYear(Integer graduationYear) {
-		this.graduationYear = graduationYear;
-	}
+	// public void setGraduationYear(Integer graduationYear) {
+	// 	this.graduationYear = graduationYear;
+	// }
 
-	public String getForeignLanguageSkill() {
-		return foreignLanguageSkill;
-	}
+	// public String getForeignLanguageSkill() {
+	// 	return foreignLanguageSkill;
+	// }
 
-	public void setForeignLanguageSkill(String foreignLanguageSkill) {
-		this.foreignLanguageSkill = foreignLanguageSkill;
-	}
+	// public void setForeignLanguageSkill(String foreignLanguageSkill) {
+	// 	this.foreignLanguageSkill = foreignLanguageSkill;
+	// }
 
-	public String getDegree() {
-		return degree;
-	}
+	// public String getDegree() {
+	// 	return degree;
+	// }
 
-	public void setDegree(String degree) {
-		this.degree = degree;
-	}
+	// public void setDegree(String degree) {
+	// 	this.degree = degree;
+	// }
 
-	public String getLevel() {
-		return level;
-	}
+	// public String getLevel() {
+	// 	return level;
+	// }
 
-	public void setLevel(String level) {
-		this.level = level;
-	}
+	// public void setLevel(String level) {
+	// 	this.level = level;
+	// }
 
-	public String getFamilyInformation() {
-		return familyInformation;
-	}
+	// public String getFamilyInformation() {
+	// 	return familyInformation;
+	// }
 
-	public void setFamilyInformation(String familyInformation) {
-		this.familyInformation = familyInformation;
-	}
+	// public void setFamilyInformation(String familyInformation) {
+	// 	this.familyInformation = familyInformation;
+	// }
 
 	public String getCode() {
 		return code;
@@ -607,13 +607,13 @@ public class User implements Serializable {
 		return department;
 	}
 
-	public Integer getRank() {
-		return rank;
-	}
+	// public Integer getRank() {
+	// 	return rank;
+	// }
 
-	public void setRank(Integer rank) {
-		this.rank = rank;
-	}
+	// public void setRank(Integer rank) {
+	// 	this.rank = rank;
+	// }
 
 	public Long getLunchFee() {
 		return lunchFee;

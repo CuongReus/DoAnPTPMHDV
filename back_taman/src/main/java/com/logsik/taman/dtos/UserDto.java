@@ -38,19 +38,19 @@ public class UserDto implements Serializable {
 	// private Date issuedDate;
 	// private String issuedAt;
 	private Gender gender;
-	private String permanentAddress;
+	// private String permanentAddress;
 	private String currentAddress;
 	private Date startWorkDate;
 	private String position;
-	private Integer numberOfYear;
-	private String jobDescription ;
-	private String degree;
-	private String trainingPlace;
-	private String profession;
-	private Integer graduationYear;
-	private String foreignLanguageSkill;
-	private String level;
-	private String familyInformation;
+	// private Integer numberOfYear;
+	// private String jobDescription ;
+	// private String degree;
+	// private String trainingPlace;
+	// private String profession;
+	// private Integer graduationYear;
+	// private String foreignLanguageSkill;
+	// private String level;
+	// private String familyInformation;
 	private String code;
 	private String createdUserEmail;
 	private String lastedUpdateUserEmail;
@@ -62,7 +62,7 @@ public class UserDto implements Serializable {
 	private Long holidayOvertimeFee;
 	private Long insuranceSalary;
 	private Long responsibilityAllowance;
-	private Integer rank;
+	// private Integer rank;
 	private Long  lunchFee;
 	private Long  petrolFee;
 	private Long  phoneFee;
@@ -252,13 +252,13 @@ public class UserDto implements Serializable {
 	// 	this.issuedDate = issuedDate;
 	// }
 
-	public String getIssuedAt() {
-		return issuedAt;
-	}
+	// public String getIssuedAt() {
+	// 	return issuedAt;
+	// }
 
-	public void setIssuedAt(String issuedAt) {
-		this.issuedAt = issuedAt;
-	}
+	// public void setIssuedAt(String issuedAt) {
+	// 	this.issuedAt = issuedAt;
+	// }
 
 	public Gender getGender() {
 		return gender;
@@ -268,13 +268,13 @@ public class UserDto implements Serializable {
 		this.gender = gender;
 	}
 
-	public String getPermanentAddress() {
-		return permanentAddress;
-	}
+	// public String getPermanentAddress() {
+	// 	return permanentAddress;
+	// }
 
-	public void setPermanentAddress(String permanentAddress) {
-		this.permanentAddress = permanentAddress;
-	}
+	// public void setPermanentAddress(String permanentAddress) {
+	// 	this.permanentAddress = permanentAddress;
+	// }
 
 	public String getCurrentAddress() {
 		return currentAddress;
@@ -300,77 +300,77 @@ public class UserDto implements Serializable {
 		this.position = position;
 	}
 
-	public Integer getNumberOfYear() {
-		return numberOfYear;
-	}
+	// public Integer getNumberOfYear() {
+	// 	return numberOfYear;
+	// }
 
-	public void setNumberOfYear(Integer numberOfYear) {
-		this.numberOfYear = numberOfYear;
-	}
+	// public void setNumberOfYear(Integer numberOfYear) {
+	// 	this.numberOfYear = numberOfYear;
+	// }
 
-	public String getJobDescription() {
-		return jobDescription;
-	}
+	// public String getJobDescription() {
+	// 	return jobDescription;
+	// }
 
-	public void setJobDescription(String jobDescription) {
-		this.jobDescription = jobDescription;
-	}
+	// public void setJobDescription(String jobDescription) {
+	// 	this.jobDescription = jobDescription;
+	// }
 
-	public String getDegree() {
-		return degree;
-	}
+	// public String getDegree() {
+	// 	return degree;
+	// }
 
-	public void setDegree(String degree) {
-		this.degree = degree;
-	}
+	// public void setDegree(String degree) {
+	// 	this.degree = degree;
+	// }
 
-	public String getTrainingPlace() {
-		return trainingPlace;
-	}
+	// public String getTrainingPlace() {
+	// 	return trainingPlace;
+	// }
 
-	public void setTrainingPlace(String trainingPlace) {
-		this.trainingPlace = trainingPlace;
-	}
+	// public void setTrainingPlace(String trainingPlace) {
+	// 	this.trainingPlace = trainingPlace;
+	// }
 
-	public String getProfession() {
-		return profession;
-	}
+	// public String getProfession() {
+	// 	return profession;
+	// }
 
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
+	// public void setProfession(String profession) {
+	// 	this.profession = profession;
+	// }
 
-	public Integer getGraduationYear() {
-		return graduationYear;
-	}
+	// public Integer getGraduationYear() {
+	// 	return graduationYear;
+	// }
 
-	public void setGraduationYear(Integer graduationYear) {
-		this.graduationYear = graduationYear;
-	}
+	// public void setGraduationYear(Integer graduationYear) {
+	// 	this.graduationYear = graduationYear;
+	// }
 
-	public String getForeignLanguageSkill() {
-		return foreignLanguageSkill;
-	}
+	// public String getForeignLanguageSkill() {
+	// 	return foreignLanguageSkill;
+	// }
 
-	public void setForeignLanguageSkill(String foreignLanguageSkill) {
-		this.foreignLanguageSkill = foreignLanguageSkill;
-	}
+	// public void setForeignLanguageSkill(String foreignLanguageSkill) {
+	// 	this.foreignLanguageSkill = foreignLanguageSkill;
+	// }
 
-	public String getLevel() {
-		return level;
-	}
+	// public String getLevel() {
+	// 	return level;
+	// }
 
-	public void setLevel(String level) {
-		this.level = level;
-	}
+	// public void setLevel(String level) {
+	// 	this.level = level;
+	// }
 
-	public String getFamilyInformation() {
-		return familyInformation;
-	}
+	// public String getFamilyInformation() {
+	// 	return familyInformation;
+	// }
 
-	public void setFamilyInformation(String familyInformation) {
-		this.familyInformation = familyInformation;
-	}
+	// public void setFamilyInformation(String familyInformation) {
+	// 	this.familyInformation = familyInformation;
+	// }
 
 	public String getCreatedUserEmail() {
 		return createdUserEmail;
@@ -452,13 +452,13 @@ public class UserDto implements Serializable {
 		this.responsibilityAllowance = responsibilityAllowance;
 	}
 
-	public Integer getRank() {
-		return rank;
-	}
+	// public Integer getRank() {
+	// 	return rank;
+	// }
 
-	public void setRank(Integer rank) {
-		this.rank = rank;
-	}
+	// public void setRank(Integer rank) {
+	// 	this.rank = rank;
+	// }
 
 	public Long getLunchFee() {
 		return lunchFee;
