@@ -119,8 +119,6 @@ class DepartmentList extends React.Component {
                     <td>{currentNo}</td>
                     <td>{item.code}</td>
                     <td>{item.name}</td>
-                    <td>{item.attendanceCoefficient}</td>
-                    <td>{t(item.workOnWeekendStatus)}</td>
                     <td>{item.note}</td>
                     <td className="text-center footable-visible footable-last-column">
                         <ul className="icons-list">
@@ -187,8 +185,6 @@ class DepartmentList extends React.Component {
                                             <th data-toggle="true">STT</th>
                                             <th data-toggle="true">Mã Phòng Ban</th>
                                             <th data-toggle="true">Tên Phòng Ban</th>
-                                            <th data-toggle="true">Hệ Số Ngày Công</th>
-                                            <th data-toggle="true">Làm Nguyên Ngày T7 ?</th>
                                             <th data-hide="phone">Mô Tả Phòng Ban</th>
                                             <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>

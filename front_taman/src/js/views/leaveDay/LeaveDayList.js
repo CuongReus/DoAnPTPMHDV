@@ -259,7 +259,6 @@ class LeaveDayList extends React.Component {
                     <td><SecuredComponent allowedPermission="admin.holiday.update">
                         <a href={"/listLeaveLetter/" + item.id + "?dateToWorkStart=" +startDateOfYear + "&dateToWorkEnd=" + endDateOfYear +"&year="+ moment(currentDate).format("YYYY")}><i className="icon-arrow-right16"> </i></a></SecuredComponent>{" " + item.fullName}</td>
                     <td>{item.email}</td>
-                    {item.labourContract ? <td><a href={agent.getBackendUrl() + item.labourContract}> Click Để Tải HĐLĐ</a></td> : <td>Chưa Có HĐLĐ</td>}
                     <td>{item.phone}</td>
                     <td>
                         {FormatterUtils.round2Decimals(lastTotalAnnualLeave)}
@@ -404,7 +403,6 @@ class LeaveDayList extends React.Component {
                                                 <th data-toggle="true">STT</th>
                                                 <th data-hide="phone">Tên Nhân Viên</th>
                                                 <th data-hide="phone">Email</th>
-                                                <th data-hide="phone">Hợp Đồng Lao Động</th>
                                                 <th data-hide="phone">Số Điên Thoại</th>
 
                                                 <th data-hide="phone">Phép Năm</th>

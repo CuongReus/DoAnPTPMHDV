@@ -138,7 +138,6 @@ class ConstructionTeamList extends React.Component {
                     <td>{item.company?item.company.name:null}</td>
                     <td>{item.specialize}</td>
                     <td>{item.leaderPhoneNumber}</td>
-                    <td>{item.bankAccountNumber}</td>
                     <td>{item.note}</td>
                     <td className="text-center footable-visible footable-last-column">
                         <ul className="icons-list">
@@ -236,7 +235,6 @@ class ConstructionTeamList extends React.Component {
                                             <th data-hide="phone">Công Ty</th>
                                             <th data-hide="phone">Chuyên Môn</th>
                                             <th data-hide="phone">Số Điện Thoại</th>
-                                            <th data-hide="phone">Số Tài Khoản</th>
                                             <th data-hide="phone">Ghi Chú</th>
                                             <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>

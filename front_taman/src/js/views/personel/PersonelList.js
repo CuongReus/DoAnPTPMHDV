@@ -250,9 +250,9 @@ class PersonelList extends React.Component {
                             <i className=" icon-paragraph-justify2 position-left"></i>
                             <span className="text-semibold">Danh sách Nhân Viên</span>
                             <span className="pull-right">
-                                <SecuredComponent allowedPermission="admin.users.setupAnnualLeaveForUser">
+                                {/* <SecuredComponent allowedPermission="admin.users.setupAnnualLeaveForUser">
                                     <button className="btn bg-primary" onClick={() => this.handleSetAnnualLeaveForAllUser(null)}>Cài Đặt Ngày Phép</button>
-                                </SecuredComponent>
+                                </SecuredComponent> */}
                                 <SecuredComponent allowedPermission="admin.users.create">
                                     <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
