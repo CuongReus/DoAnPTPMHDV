@@ -22,7 +22,7 @@ public class UserDto implements Serializable {
 	private Float bonusAnnualLeavePerYear;
 	private Float annualLeaveNumberRemaining;
 	private Long departmentId;
-	private String labourContract;
+	// private String labourContract;
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	private String fullName;
@@ -34,9 +34,9 @@ public class UserDto implements Serializable {
 	private List<Role> roles = new ArrayList<>();
 	private List<UploadFileResponse> profiles = new ArrayList<>();
 	
-	private Long identityCardNumber;
-	private Date issuedDate;
-	private String issuedAt;
+	// private Long identityCardNumber;
+	// private Date issuedDate;
+	// private String issuedAt;
 	private Gender gender;
 	private String permanentAddress;
 	private String currentAddress;
@@ -148,13 +148,13 @@ public class UserDto implements Serializable {
 		this.departmentId = departmentId;
 	}
 
-	public String getLabourContract() {
-		return labourContract;
-	}
+	// public String getLabourContract() {
+	// 	return labourContract;
+	// }
 
-	public void setLabourContract(String labourContract) {
-		this.labourContract = labourContract;
-	}
+	// public void setLabourContract(String labourContract) {
+	// 	this.labourContract = labourContract;
+	// }
 
 	public boolean isActive() {
 		return active;
@@ -236,21 +236,21 @@ public class UserDto implements Serializable {
 		this.roles = roles;
 	}
 
-	public Long getIdentityCardNumber() {
-		return identityCardNumber;
-	}
+	// public Long getIdentityCardNumber() {
+	// 	return identityCardNumber;
+	// }
 
-	public void setIdentityCardNumber(Long identityCardNumber) {
-		this.identityCardNumber = identityCardNumber;
-	}
+	// public void setIdentityCardNumber(Long identityCardNumber) {
+	// 	this.identityCardNumber = identityCardNumber;
+	// }
 
-	public Date getIssuedDate() {
-		return issuedDate;
-	}
+	// public Date getIssuedDate() {
+	// 	return issuedDate;
+	// }
 
-	public void setIssuedDate(Date issuedDate) {
-		this.issuedDate = issuedDate;
-	}
+	// public void setIssuedDate(Date issuedDate) {
+	// 	this.issuedDate = issuedDate;
+	// }
 
 	public String getIssuedAt() {
 		return issuedAt;

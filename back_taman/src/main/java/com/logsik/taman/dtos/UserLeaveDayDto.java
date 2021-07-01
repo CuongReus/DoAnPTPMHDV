@@ -13,7 +13,7 @@ public class UserLeaveDayDto {
 	// private String image;
 	private String companyName;
 	private String email;
-	private String labourContract;
+	// private String labourContract;
 	private Date startDateToWork;
 	private Float lastTotalAnnualLeave;
 	private String fullName;
@@ -26,25 +26,25 @@ public class UserLeaveDayDto {
 	
 	
 
-	public UserLeaveDayDto(Long userId, String fullName,String companyName, String email,String labourContract, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
+	public UserLeaveDayDto(Long userId, String fullName,String companyName, String email, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
 		setUserId(userId);
 		// setImage(image);
 		setFullName(fullName);
 		setCompanyName(companyName);
 		setEmail(email);
-		setLabourContract(labourContract);
+		// setLabourContract(labourContract);
 		setStartDateToWork(startDateToWork);
 		setLastTotalAnnualLeave(lastTotalAnnualLeave);
 		setPhone(phone);
 	}
 	
-	public UserLeaveDayDto(Long userId, String fullName,String companyName, String email,String labourContract,Long leaveLetterId, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
+	public UserLeaveDayDto(Long userId, String fullName,String companyName, String email,Long leaveLetterId, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
 		setUserId(userId);
 		// setImage(image);
 		setFullName(fullName);
 		setCompanyName(companyName);
 		setEmail(email);
-		setLabourContract(labourContract);
+		// setLabourContract(labourContract);
 		setLeaveLetterId(leaveLetterId);
 		setStartDateToWork(startDateToWork);
 		setLastTotalAnnualLeave(lastTotalAnnualLeave);
@@ -52,14 +52,14 @@ public class UserLeaveDayDto {
 	}
 
 	
-	public String getLabourContract() {
-		return labourContract;
-	}
+	// public String getLabourContract() {
+	// 	return labourContract;
+	// }
 
 
-	public void setLabourContract(String labourContract) {
-		this.labourContract = labourContract;
-	}
+	// public void setLabourContract(String labourContract) {
+	// 	this.labourContract = labourContract;
+	// }
 
 
 	

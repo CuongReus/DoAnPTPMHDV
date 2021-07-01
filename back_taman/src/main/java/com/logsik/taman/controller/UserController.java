@@ -128,7 +128,7 @@ public class UserController extends AbstractController {
 			userFile.setUploadBy(user.getCreatedUserEmail());
 //			Set Profile into database to Download and show in List Screen
 //			userFile.setUploadBy(user.getCreatedUserEmail());
-			user.setLabourContract(file.getFileDownloadUri());
+			// user.setLabourContract(file.getFileDownloadUri());
 			fileUploadRepository.save(userFile);
 		}
 	}
@@ -205,7 +205,7 @@ public class UserController extends AbstractController {
 				userFile.setName(newFile.getFileName());
 				userFile.setFileLocation(newFile.getFileDownloadUri());
 				userFile.setSize(newFile.getSize());
-				user.setLabourContract(newFile.getFileDownloadUri());
+				// user.setLabourContract(newFile.getFileDownloadUri());
 				userFile.setUploadBy(user.getLastedUpdateUserEmail());
 				fileUploadRepository.save(userFile);
 			} else if (currentProfiles.contains(newFile.getFileDownloadUri())) {

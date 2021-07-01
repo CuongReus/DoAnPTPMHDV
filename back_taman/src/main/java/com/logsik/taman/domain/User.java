@@ -95,9 +95,9 @@ public class User implements Serializable {
 
 	@Column
 	private boolean isActive = false;
-	@Lob
-	@Column(columnDefinition = "longtext")
-	private String note;
+	// @Lob
+	// @Column(columnDefinition = "longtext")
+	// private String note;
 
 	@Column(length = 100)
 	private String rememberToken;
@@ -106,15 +106,15 @@ public class User implements Serializable {
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 
-	@Column(name = "identity_card_number")
-	private Long identityCardNumber;
+	// @Column(name = "identity_card_number")
+	// private Long identityCardNumber;
 
-	@Column(name = "issued_date")
-	@Temporal(TemporalType.DATE)
-	private Date issuedDate;
+	// @Column(name = "issued_date")
+	// @Temporal(TemporalType.DATE)
+	// private Date issuedDate;
 
-	@Column(name = "issued_at")
-	private String issuedAt;
+	// @Column(name = "issued_at")
+	// private String issuedAt;
 
 	@Column(name = "gender")
 	@Enumerated(EnumType.STRING)
@@ -343,13 +343,13 @@ public class User implements Serializable {
 		this.isActive = isActive;
 	}
 
-	public String getNote() {
-		return note;
-	}
+	// public String getNote() {
+	// 	return note;
+	// }
 
-	public void setNote(String note) {
-		this.note = note;
-	}
+	// public void setNote(String note) {
+	// 	this.note = note;
+	// }
 
 	public String getRememberToken() {
 		return rememberToken;
@@ -375,29 +375,29 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
-	public Long getIdentityCardNumber() {
-		return identityCardNumber;
-	}
+	// public Long getIdentityCardNumber() {
+	// 	return identityCardNumber;
+	// }
 
-	public void setIdentityCardNumber(Long identityCardNumber) {
-		this.identityCardNumber = identityCardNumber;
-	}
+	// public void setIdentityCardNumber(Long identityCardNumber) {
+	// 	this.identityCardNumber = identityCardNumber;
+	// }
 
-	public Date getIssuedDate() {
-		return issuedDate;
-	}
+	// public Date getIssuedDate() {
+	// 	return issuedDate;
+	// }
 
-	public void setIssuedDate(Date issuedDate) {
-		this.issuedDate = issuedDate;
-	}
+	// public void setIssuedDate(Date issuedDate) {
+	// 	this.issuedDate = issuedDate;
+	// }
 
-	public String getIssuedAt() {
-		return issuedAt;
-	}
+	// public String getIssuedAt() {
+	// 	return issuedAt;
+	// }
 
-	public void setIssuedAt(String issuedAt) {
-		this.issuedAt = issuedAt;
-	}
+	// public void setIssuedAt(String issuedAt) {
+	// 	this.issuedAt = issuedAt;
+	// }
 
 	public Gender getGender() {
 		return gender;

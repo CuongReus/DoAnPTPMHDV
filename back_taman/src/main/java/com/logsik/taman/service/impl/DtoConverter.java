@@ -358,7 +358,7 @@ public class DtoConverter {
 		
 		user.setEmail(userDto.getEmail());
 		// user.setImage(userDto.getImage());
-		user.setLabourContract(userDto.getLabourContract());
+		// user.setLabourContract(userDto.getLabourContract());
 		user.setAnnualLeaveYear(userDto.getAnnualLeaveYear());
 		user.setAbsentDayPerYear(userDto.getAbsentDayPerYear());
 		user.setBonusAnnualLeavePerYear(userDto.getBonusAnnualLeavePerYear());
@@ -371,9 +371,9 @@ public class DtoConverter {
 		user.setAddress(userDto.getAddress());
 		user.setBirthday(userDto.getBirthday());
 		user.setActive(userDto.isActive());
-		user.setIdentityCardNumber(userDto.getIdentityCardNumber());
-		user.setIssuedAt(userDto.getIssuedAt());
-		user.setIssuedDate(userDto.getIssuedDate());
+		// user.setIdentityCardNumber(userDto.getIdentityCardNumber());
+		// user.setIssuedAt(userDto.getIssuedAt());
+		// user.setIssuedDate(userDto.getIssuedDate());
 		user.setGender(userDto.getGender());
 		user.setPermanentAddress(userDto.getPermanentAddress());
 		user.setCurrentAddress(userDto.getCurrentAddress());
