@@ -14,7 +14,7 @@ public class UserDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private List<UploadFileResponse> imageUpload = new ArrayList<>();
-	private String image;
+	// private String image;
 	private Long companyId;
 	private String email;
 	private Float annualLeaveYear;
@@ -114,13 +114,13 @@ public class UserDto implements Serializable {
 		this.imageUpload = imageUpload;
 	}
 
-	public String getImage() {
-		return image;
-	}
+	// public String getImage() {
+	// 	return image;
+	// }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+	// public void setImage(String image) {
+	// 	this.image = image;
+	// }
 
 	
 

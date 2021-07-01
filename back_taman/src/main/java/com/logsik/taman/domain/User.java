@@ -36,8 +36,8 @@ public class User implements Serializable {
 	@Access(AccessType.PROPERTY)
 	private Long id;
 
-	@Column
-	private String image;
+	// @Column
+	// private String image;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id",updatable=false,insertable=false)
@@ -70,8 +70,8 @@ public class User implements Serializable {
 	@Column(length = 1024)
 	private String address;
 
-	@Column
-	private String labourContract;
+	// @Column
+	// private String labourContract;
 
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name="department_id",updatable=false,insertable=false)
@@ -243,13 +243,13 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getImage() {
-		return image;
-	}
+	// public String getImage() {
+	// 	return image;
+	// }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+	// public void setImage(String image) {
+	// 	this.image = image;
+	// }
 
 	public Company getCompany() {
 		return company;
@@ -359,13 +359,13 @@ public class User implements Serializable {
 		this.rememberToken = rememberToken;
 	}
 
-	public String getLabourContract() {
-		return labourContract;
-	}
+	// public String getLabourContract() {
+	// 	return labourContract;
+	// }
 
-	public void setLabourContract(String labourContract) {
-		this.labourContract = labourContract;
-	}
+	// public void setLabourContract(String labourContract) {
+	// 	this.labourContract = labourContract;
+	// }
 
 	public List<Role> getRoles() {
 		return roles;

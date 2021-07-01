@@ -26,7 +26,6 @@ public interface LeaveLetterRepository extends BaseRepository<LeaveLetter, Long>
 	Page<LeaveLetter> findByUserIdAndLeaveTypeNotAndStartWorkDateBetween(Long userId,TypeOfLeave typeOfLeave ,Date dateToWorkStart,Date dateToWorkEnd,Pageable pageable);
 	
 	@Query("select new com.logsik.taman.dtos.UserLeaveDayDto(us.id,"
-			+ "us.image,"
 			+ "us.fullName,"
 			+ "us.company.name,"
 			+ "us.email,"
@@ -42,7 +41,6 @@ public interface LeaveLetterRepository extends BaseRepository<LeaveLetter, Long>
 	List<UserLeaveDayDto> listLeaveLetter(String year);
 	
 	@Query("select new com.logsik.taman.dtos.UserLeaveDayDto(us.id,"
-			+ "us.image,"
 			+ "us.fullName,"
 			+ "us.company.name,"
 			+ "us.email,"
@@ -60,26 +58,6 @@ public interface LeaveLetterRepository extends BaseRepository<LeaveLetter, Long>
 
 	
 	LeaveLetter findByUserIdAndLeaveTypeAndStartLeaveDateAndEndLeaveDate(Long userId,TypeOfLeave typeOfLeave , Date startLeaveDate , Date endLeaveDate);
-	
-//	@Query("select new com.logsik.taman.dtos.UserLeaveDayDto(us.id,"
-//			+ "us.image,"
-//			+ "us.fullName,"
-//			+ "us.company.name,"
-//			+ "us.email,us.labourContract,"
-//			+ "latestDateGroup.startWorkDate,"
-//			+ "latestDateGroup.lastTotalAnnualLeave, "
-//			+ "us.phone ) "
-//			+ "from "
-//			+ " ( SELECT ll.userId,ll.startWorkDate,ll.lastTotalAnnualLeave from com.logsik.taman.domain.LeaveLetter ll "
-//			+ "	WHERE ll.startWorkDate IN "
-//			+ "	  ( SELECT (  MAX(CASE WHEN (DATE_FORMAT(subLetter.startWorkDate,'%Y')=?1 ) THEN subLetter.startWorkDate ELSE NULL END)) from leave_letter subLetter group by subLetter.userId)  "
-//			+ " ) latestDateGroup "
-//			+ "from com.logsik.taman.domain.LeaveLetter ll RIGHT JOIN ll.user us where (us.fullName like %?2%)  GROUP BY (us) ")
-//	Page<UserLeaveDayDto> listLeaveLetterWithFullName(String year,String fullName,
-//			Pageable pageable);
-	
-	
-	
 	
 			@Query(value = "SELECT * FROM leave_letter WHERE leave_letter.user_id = ?1 AND YEAR(?2)=YEAR(leave_letter.start_work_date) ORDER BY leave_letter.start_work_date DESC", nativeQuery = true)
 			List<LeaveLetter> getTotaLeaveLetterThisYear(long userId, Date date);

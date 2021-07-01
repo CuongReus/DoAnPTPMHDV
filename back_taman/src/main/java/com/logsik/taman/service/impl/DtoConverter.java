@@ -357,7 +357,7 @@ public class DtoConverter {
 		
 		
 		user.setEmail(userDto.getEmail());
-		user.setImage(userDto.getImage());
+		// user.setImage(userDto.getImage());
 		user.setLabourContract(userDto.getLabourContract());
 		user.setAnnualLeaveYear(userDto.getAnnualLeaveYear());
 		user.setAbsentDayPerYear(userDto.getAbsentDayPerYear());

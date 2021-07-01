@@ -141,7 +141,7 @@ public class UserController extends AbstractController {
 			userFile.setCrmLinkId(user.getId());
 			userFile.setCrmTableName("UserImage");
 			userFile.setUploadBy(user.getCreatedUserEmail());
-			user.setImage(file.getFileDownloadUri());
+			// user.setImage(file.getFileDownloadUri());
 			fileUploadRepository.save(userFile);
 		}
 	}
@@ -240,7 +240,7 @@ public class UserController extends AbstractController {
 				userFile.setFileLocation(newFile.getFileDownloadUri());
 				userFile.setSize(newFile.getSize());
 				userFile.setSize(newFile.getSize());
-				user.setImage(newFile.getFileDownloadUri());
+				// user.setImage(newFile.getFileDownloadUri());
 				userFile.setUploadBy(user.getCreatedUserEmail());
 				fileUploadRepository.save(userFile);
 			} else if (currentImage.contains(newFile.getFileDownloadUri())) {

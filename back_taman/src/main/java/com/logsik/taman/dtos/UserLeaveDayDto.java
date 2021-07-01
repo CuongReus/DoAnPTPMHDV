@@ -10,7 +10,7 @@ public class UserLeaveDayDto {
 
 	private Long userId;
 	private Long leaveLetterId;
-	private String image;
+	// private String image;
 	private String companyName;
 	private String email;
 	private String labourContract;
@@ -26,9 +26,9 @@ public class UserLeaveDayDto {
 	
 	
 
-	public UserLeaveDayDto(Long userId,String image, String fullName,String companyName, String email,String labourContract, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
+	public UserLeaveDayDto(Long userId, String fullName,String companyName, String email,String labourContract, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
 		setUserId(userId);
-		setImage(image);
+		// setImage(image);
 		setFullName(fullName);
 		setCompanyName(companyName);
 		setEmail(email);
@@ -38,9 +38,9 @@ public class UserLeaveDayDto {
 		setPhone(phone);
 	}
 	
-	public UserLeaveDayDto(Long userId,String image, String fullName,String companyName, String email,String labourContract,Long leaveLetterId, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
+	public UserLeaveDayDto(Long userId, String fullName,String companyName, String email,String labourContract,Long leaveLetterId, Date startDateToWork,Float lastTotalAnnualLeave,  String phone) {
 		setUserId(userId);
-		setImage(image);
+		// setImage(image);
 		setFullName(fullName);
 		setCompanyName(companyName);
 		setEmail(email);
@@ -71,15 +71,6 @@ public class UserLeaveDayDto {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public String getEmail() {
