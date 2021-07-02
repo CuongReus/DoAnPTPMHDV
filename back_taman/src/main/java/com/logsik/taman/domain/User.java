@@ -174,26 +174,26 @@ public class User implements Serializable {
 	@Column
 	private Long salaryLevel;
 
-	@Column
-	private Long personalDeduction;
+	// @Column
+	// private Long personalDeduction;
 
-	@Column
-	private Long familyCircumstanceDeduction;
+	// @Column
+	// private Long familyCircumstanceDeduction;
 
-	@Column
-	private Long normalOvertimeFee;
+	// @Column
+	// private Long normalOvertimeFee;
 
-	@Column
-	private Long weekendOvertimeFee;
+	// @Column
+	// private Long weekendOvertimeFee;
 
-	@Column
-	private Long holidayOvertimeFee;
+	// @Column
+	// private Long holidayOvertimeFee;
 
-	@Column
-	private Long insuranceSalary;
+	// @Column
+	// private Long insuranceSalary;
 	
-	@Column
-	private Long responsibilityAllowance;
+	// @Column
+	// private Long responsibilityAllowance;
 	
 	// @Column
 	// private Integer rank;
@@ -209,30 +209,30 @@ public class User implements Serializable {
 	// @Column(name="distance_support_fee")
 	// private Long  distanceSupportFee;
 	
-	@Column(name="bank_account_number")
-	private String bankAccountNumber;
+	// @Column(name="bank_account_number")
+	// private String bankAccountNumber;
 	
-	@Column(name="bank_name")
-	private String bankName;
-	
-
+	// @Column(name="bank_name")
+	// private String bankName;
 	
 
-	public String getBankAccountNumber() {
-		return bankAccountNumber;
-	}
+	
 
-	public void setBankAccountNumber(String bankAccountNumber) {
-		this.bankAccountNumber = bankAccountNumber;
-	}
+	// public String getBankAccountNumber() {
+	// 	return bankAccountNumber;
+	// }
 
-	public String getBankName() {
-		return bankName;
-	}
+	// public void setBankAccountNumber(String bankAccountNumber) {
+	// 	this.bankAccountNumber = bankAccountNumber;
+	// }
 
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
-	}
+	// public String getBankName() {
+	// 	return bankName;
+	// }
+
+	// public void setBankName(String bankName) {
+	// 	this.bankName = bankName;
+	// }
 
 	public Long getId() {
 		return id;
@@ -543,61 +543,61 @@ public class User implements Serializable {
 		this.salaryLevel = salaryLevel;
 	}
 
-	public Long getPersonalDeduction() {
-		return personalDeduction;
-	}
+	// public Long getPersonalDeduction() {
+	// 	return personalDeduction;
+	// }
 
-	public void setPersonalDeduction(Long personalDeduction) {
-		this.personalDeduction = personalDeduction;
-	}
+	// public void setPersonalDeduction(Long personalDeduction) {
+	// 	this.personalDeduction = personalDeduction;
+	// }
 
-	public Long getFamilyCircumstanceDeduction() {
-		return familyCircumstanceDeduction;
-	}
+	// public Long getFamilyCircumstanceDeduction() {
+	// 	return familyCircumstanceDeduction;
+	// }
 
-	public void setFamilyCircumstanceDeduction(Long familyCircumstanceDeduction) {
-		this.familyCircumstanceDeduction = familyCircumstanceDeduction;
-	}
+	// public void setFamilyCircumstanceDeduction(Long familyCircumstanceDeduction) {
+	// 	this.familyCircumstanceDeduction = familyCircumstanceDeduction;
+	// }
 
-	public Long getNormalOvertimeFee() {
-		return normalOvertimeFee;
-	}
+	// public Long getNormalOvertimeFee() {
+	// 	return normalOvertimeFee;
+	// }
 
-	public void setNormalOvertimeFee(Long normalOvertimeFee) {
-		this.normalOvertimeFee = normalOvertimeFee;
-	}
+	// public void setNormalOvertimeFee(Long normalOvertimeFee) {
+	// 	this.normalOvertimeFee = normalOvertimeFee;
+	// }
 
-	public Long getWeekendOvertimeFee() {
-		return weekendOvertimeFee;
-	}
+	// public Long getWeekendOvertimeFee() {
+	// 	return weekendOvertimeFee;
+	// }
 
-	public void setWeekendOvertimeFee(Long weekendOvertimeFee) {
-		this.weekendOvertimeFee = weekendOvertimeFee;
-	}
+	// public void setWeekendOvertimeFee(Long weekendOvertimeFee) {
+	// 	this.weekendOvertimeFee = weekendOvertimeFee;
+	// }
 
-	public Long getHolidayOvertimeFee() {
-		return holidayOvertimeFee;
-	}
+	// public Long getHolidayOvertimeFee() {
+	// 	return holidayOvertimeFee;
+	// }
 
-	public void setHolidayOvertimeFee(Long holidayOvertimeFee) {
-		this.holidayOvertimeFee = holidayOvertimeFee;
-	}
+	// public void setHolidayOvertimeFee(Long holidayOvertimeFee) {
+	// 	this.holidayOvertimeFee = holidayOvertimeFee;
+	// }
 
-	public Long getInsuranceSalary() {
-		return insuranceSalary;
-	}
+	// public Long getInsuranceSalary() {
+	// 	return insuranceSalary;
+	// }
 
-	public void setInsuranceSalary(Long insuranceSalary) {
-		this.insuranceSalary = insuranceSalary;
-	}
+	// public void setInsuranceSalary(Long insuranceSalary) {
+	// 	this.insuranceSalary = insuranceSalary;
+	// }
 
-	public Long getResponsibilityAllowance() {
-		return responsibilityAllowance;
-	}
+	// public Long getResponsibilityAllowance() {
+	// 	return responsibilityAllowance;
+	// }
 
-	public void setResponsibilityAllowance(Long responsibilityAllowance) {
-		this.responsibilityAllowance = responsibilityAllowance;
-	}
+	// public void setResponsibilityAllowance(Long responsibilityAllowance) {
+	// 	this.responsibilityAllowance = responsibilityAllowance;
+	// }
 
 	public void setDepartment(Department department) {
 		this.department = department;

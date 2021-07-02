@@ -70,34 +70,34 @@ public class EmployeeSalaryService {
 		// if (user.getDistanceSupportFee() != null) {
 		// 	distanceSupportFee = user.getDistanceSupportFee();
 		// }
-		if (user.getNormalOvertimeFee() != null) {
-			normalOvertimeFee = user.getNormalOvertimeFee();
-		}
+		// if (user.getNormalOvertimeFee() != null) {
+		// 	normalOvertimeFee = user.getNormalOvertimeFee();
+		// }
 
-		if (user.getWeekendOvertimeFee() != null) {
-			weekendOvertimeFee = user.getWeekendOvertimeFee();
-		}
+		// if (user.getWeekendOvertimeFee() != null) {
+		// 	weekendOvertimeFee = user.getWeekendOvertimeFee();
+		// }
 
-		if (user.getHolidayOvertimeFee() != null) {
-			holidayOvertimeFee = user.getHolidayOvertimeFee();
-		}
+		// if (user.getHolidayOvertimeFee() != null) {
+		// 	holidayOvertimeFee = user.getHolidayOvertimeFee();
+		// }
 
-		if (user.getInsuranceSalary() != null) {
-			insuranceSalary = user.getInsuranceSalary();
-		}
+		// if (user.getInsuranceSalary() != null) {
+		// 	insuranceSalary = user.getInsuranceSalary();
+		// }
 		if(user.getDepartment() != null && user.getDepartment().getAttendanceCoefficient() != null) {
 			attendanceCoefficient = user.getDepartment().getAttendanceCoefficient();
 		}
 
-		if (user.getPersonalDeduction() != null) {
-			personalDeduction = user.getPersonalDeduction();
-		}
-		if (user.getFamilyCircumstanceDeduction() != null) {
-			familyCircumstanceDeduction = user.getFamilyCircumstanceDeduction();
-		}
-		if (user.getResponsibilityAllowance() != null) {
-			responsibilityAllowance = user.getResponsibilityAllowance();
-		}
+		// if (user.getPersonalDeduction() != null) {
+		// 	personalDeduction = user.getPersonalDeduction();
+		// }
+		// if (user.getFamilyCircumstanceDeduction() != null) {
+		// 	familyCircumstanceDeduction = user.getFamilyCircumstanceDeduction();
+		// }
+		// if (user.getResponsibilityAllowance() != null) {
+		// 	responsibilityAllowance = user.getResponsibilityAllowance();
+		// }
 		employeeSalary.setMonth(timeService.getMonth(employeeAttendance.getDateToWork()));
 		employeeSalary.setYear(timeService.getYear(employeeAttendance.getDateToWork()));
 		employeeSalary.setUserId(user.getId());
@@ -348,34 +348,34 @@ public class EmployeeSalaryService {
 		// if (user.getDistanceSupportFee() != null) {
 		// 	distanceSupportFee = user.getDistanceSupportFee();
 		// }
-		if (user.getNormalOvertimeFee() != null) {
-			normalOvertimeFee = user.getNormalOvertimeFee();
-		}
+		// if (user.getNormalOvertimeFee() != null) {
+		// 	normalOvertimeFee = user.getNormalOvertimeFee();
+		// }
 
-		if (user.getWeekendOvertimeFee() != null) {
-			weekendOvertimeFee = user.getWeekendOvertimeFee();
-		}
+		// if (user.getWeekendOvertimeFee() != null) {
+		// 	weekendOvertimeFee = user.getWeekendOvertimeFee();
+		// }
 
-		if (user.getHolidayOvertimeFee() != null) {
-			holidayOvertimeFee = user.getHolidayOvertimeFee();
-		}
+		// if (user.getHolidayOvertimeFee() != null) {
+		// 	holidayOvertimeFee = user.getHolidayOvertimeFee();
+		// }
 
-		if (user.getInsuranceSalary() != null) {
-			insuranceSalary = user.getInsuranceSalary();
-		}
+		// if (user.getInsuranceSalary() != null) {
+		// 	insuranceSalary = user.getInsuranceSalary();
+		// }
 		if(user.getDepartment() != null && user.getDepartment().getAttendanceCoefficient() != null) {
 			attendanceCoefficient = user.getDepartment().getAttendanceCoefficient();
 		}
 
-		if (user.getPersonalDeduction() != null) {
-			personalDeduction = user.getPersonalDeduction();
-		}
-		if (user.getFamilyCircumstanceDeduction() != null) {
-			familyCircumstanceDeduction = user.getFamilyCircumstanceDeduction();
-		}
-		if (user.getResponsibilityAllowance() != null) {
-			responsibilityAllowance = user.getResponsibilityAllowance();
-		}
+		// if (user.getPersonalDeduction() != null) {
+		// 	personalDeduction = user.getPersonalDeduction();
+		// }
+		// if (user.getFamilyCircumstanceDeduction() != null) {
+		// 	familyCircumstanceDeduction = user.getFamilyCircumstanceDeduction();
+		// }
+		// if (user.getResponsibilityAllowance() != null) {
+		// 	responsibilityAllowance = user.getResponsibilityAllowance();
+		// }
 		employeeSalary.setSalaryPerMonth(salaryPerMonth);
 		employeeSalary.setLunchFee(lunchFee);
 		employeeSalary.setPetrolFee(petrolFee);

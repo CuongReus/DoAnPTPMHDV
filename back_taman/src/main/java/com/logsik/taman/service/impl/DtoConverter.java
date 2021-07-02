@@ -392,20 +392,20 @@ public class DtoConverter {
 		user.setCreatedUserEmail(userDto.getCreatedUserEmail());
 		user.setLastedUpdateUserEmail(userDto.getLastedUpdateUserEmail());
 		user.setSalaryLevel(userDto.getSalaryLevel());
-		user.setPersonalDeduction(userDto.getPersonalDeduction());
-		user.setFamilyCircumstanceDeduction(userDto.getFamilyCircumstanceDeduction());
-		user.setNormalOvertimeFee(userDto.getNormalOvertimeFee());
-		user.setWeekendOvertimeFee(userDto.getWeekendOvertimeFee());
-		user.setHolidayOvertimeFee(userDto.getHolidayOvertimeFee());
-		user.setInsuranceSalary(userDto.getInsuranceSalary());
-		user.setResponsibilityAllowance(userDto.getResponsibilityAllowance());
+		// user.setPersonalDeduction(userDto.getPersonalDeduction());
+		// user.setFamilyCircumstanceDeduction(userDto.getFamilyCircumstanceDeduction());
+		// user.setNormalOvertimeFee(userDto.getNormalOvertimeFee());
+		// user.setWeekendOvertimeFee(userDto.getWeekendOvertimeFee());
+		// user.setHolidayOvertimeFee(userDto.getHolidayOvertimeFee());
+		// user.setInsuranceSalary(userDto.getInsuranceSalary());
+		// user.setResponsibilityAllowance(userDto.getResponsibilityAllowance());
 		// user.setRank(userDto.getRank());
 		// user.setLunchFee(userDto.getLunchFee());
 		// user.setPetrolFee(userDto.getPetrolFee());
 		// user.setPhoneFee(userDto.getPhoneFee());
 		// user.setDistanceSupportFee(userDto.getDistanceSupportFee());
-		user.setBankAccountNumber(userDto.getBankAccountNumber());
-		user.setBankName(userDto.getBankName());
+		// user.setBankAccountNumber(userDto.getBankAccountNumber());
+		// user.setBankName(userDto.getBankName());
 		
 		if (user.getRoles() != null) {
 			user.getRoles().clear();
