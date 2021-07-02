@@ -63,10 +63,10 @@ public class UserDto implements Serializable {
 	private Long insuranceSalary;
 	private Long responsibilityAllowance;
 	// private Integer rank;
-	private Long  lunchFee;
-	private Long  petrolFee;
-	private Long  phoneFee;
-	private Long  distanceSupportFee;
+	// private Long  lunchFee;
+	// private Long  petrolFee;
+	// private Long  phoneFee;
+	// private Long  distanceSupportFee;
 	private String  bankAccountNumber;
 	private String  bankName;
 	
@@ -460,39 +460,39 @@ public class UserDto implements Serializable {
 	// 	this.rank = rank;
 	// }
 
-	public Long getLunchFee() {
-		return lunchFee;
-	}
+	// public Long getLunchFee() {
+	// 	return lunchFee;
+	// }
 
-	public void setLunchFee(Long lunchFee) {
-		this.lunchFee = lunchFee;
-	}
+	// public void setLunchFee(Long lunchFee) {
+	// 	this.lunchFee = lunchFee;
+	// }
 
-	public Long getPetrolFee() {
-		return petrolFee;
-	}
+	// public Long getPetrolFee() {
+	// 	return petrolFee;
+	// }
 
-	public void setPetrolFee(Long petrolFee) {
-		this.petrolFee = petrolFee;
-	}
+	// public void setPetrolFee(Long petrolFee) {
+	// 	this.petrolFee = petrolFee;
+	// }
 
 	
 
-	public Long getPhoneFee() {
-		return phoneFee;
-	}
+	// public Long getPhoneFee() {
+	// 	return phoneFee;
+	// }
 
-	public void setPhoneFee(Long phoneFee) {
-		this.phoneFee = phoneFee;
-	}
+	// public void setPhoneFee(Long phoneFee) {
+	// 	this.phoneFee = phoneFee;
+	// }
 
-	public Long getDistanceSupportFee() {
-		return distanceSupportFee;
-	}
+	// public Long getDistanceSupportFee() {
+	// 	return distanceSupportFee;
+	// }
 
-	public void setDistanceSupportFee(Long distanceSupportFee) {
-		this.distanceSupportFee = distanceSupportFee;
-	}
+	// public void setDistanceSupportFee(Long distanceSupportFee) {
+	// 	this.distanceSupportFee = distanceSupportFee;
+	// }
 
 	public Float getAbsentDayPerYear() {
 		return absentDayPerYear;

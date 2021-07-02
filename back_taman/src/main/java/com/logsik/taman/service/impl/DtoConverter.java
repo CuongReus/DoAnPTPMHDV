@@ -400,10 +400,10 @@ public class DtoConverter {
 		user.setInsuranceSalary(userDto.getInsuranceSalary());
 		user.setResponsibilityAllowance(userDto.getResponsibilityAllowance());
 		// user.setRank(userDto.getRank());
-		user.setLunchFee(userDto.getLunchFee());
-		user.setPetrolFee(userDto.getPetrolFee());
-		user.setPhoneFee(userDto.getPhoneFee());
-		user.setDistanceSupportFee(userDto.getDistanceSupportFee());
+		// user.setLunchFee(userDto.getLunchFee());
+		// user.setPetrolFee(userDto.getPetrolFee());
+		// user.setPhoneFee(userDto.getPhoneFee());
+		// user.setDistanceSupportFee(userDto.getDistanceSupportFee());
 		user.setBankAccountNumber(userDto.getBankAccountNumber());
 		user.setBankName(userDto.getBankName());
 		

@@ -198,16 +198,16 @@ public class User implements Serializable {
 	// @Column
 	// private Integer rank;
 	
-	@Column(name="lunch_fee")
-	private Long  lunchFee;
+	// @Column(name="lunch_fee")
+	// private Long  lunchFee;
 	
-	@Column(name="petrol_fee")
-	private Long  petrolFee;
+	// @Column(name="petrol_fee")
+	// private Long  petrolFee;
 	
-	@Column(name="phone_fee")
-	private Long  phoneFee;
-	@Column(name="distance_support_fee")
-	private Long  distanceSupportFee;
+	// @Column(name="phone_fee")
+	// private Long  phoneFee;
+	// @Column(name="distance_support_fee")
+	// private Long  distanceSupportFee;
 	
 	@Column(name="bank_account_number")
 	private String bankAccountNumber;
@@ -615,38 +615,38 @@ public class User implements Serializable {
 	// 	this.rank = rank;
 	// }
 
-	public Long getLunchFee() {
-		return lunchFee;
-	}
+	// public Long getLunchFee() {
+	// 	return lunchFee;
+	// }
 
-	public void setLunchFee(Long lunchFee) {
-		this.lunchFee = lunchFee;
-	}
+	// public void setLunchFee(Long lunchFee) {
+	// 	this.lunchFee = lunchFee;
+	// }
 
-	public Long getPetrolFee() {
-		return petrolFee;
-	}
+	// public Long getPetrolFee() {
+	// 	return petrolFee;
+	// }
 
-	public void setPetrolFee(Long petrolFee) {
-		this.petrolFee = petrolFee;
-	}
+	// public void setPetrolFee(Long petrolFee) {
+	// 	this.petrolFee = petrolFee;
+	// }
 
 
-	public Long getPhoneFee() {
-		return phoneFee;
-	}
+	// public Long getPhoneFee() {
+	// 	return phoneFee;
+	// }
 
-	public void setPhoneFee(Long phoneFee) {
-		this.phoneFee = phoneFee;
-	}
+	// public void setPhoneFee(Long phoneFee) {
+	// 	this.phoneFee = phoneFee;
+	// }
 
-	public Long getDistanceSupportFee() {
-		return distanceSupportFee;
-	}
+	// public Long getDistanceSupportFee() {
+	// 	return distanceSupportFee;
+	// }
 
-	public void setDistanceSupportFee(Long distanceSupportFee) {
-		this.distanceSupportFee = distanceSupportFee;
-	}
+	// public void setDistanceSupportFee(Long distanceSupportFee) {
+	// 	this.distanceSupportFee = distanceSupportFee;
+	// }
 
 	public Long getCompanyId() {
 		return companyId;

@@ -58,18 +58,18 @@ public class EmployeeSalaryService {
 		}
 		
 		
-		if (user.getLunchFee() != null) {
-			lunchFee = user.getLunchFee();
-		}
-		if (user.getPetrolFee() != null) {
-			petrolFee = user.getPetrolFee();
-		}
-		if (user.getPhoneFee() != null) {
-			phoneFee = user.getPhoneFee();
-		}
-		if (user.getDistanceSupportFee() != null) {
-			distanceSupportFee = user.getDistanceSupportFee();
-		}
+		// if (user.getLunchFee() != null) {
+		// 	lunchFee = user.getLunchFee();
+		// }
+		// if (user.getPetrolFee() != null) {
+		// 	petrolFee = user.getPetrolFee();
+		// }
+		// if (user.getPhoneFee() != null) {
+		// 	phoneFee = user.getPhoneFee();
+		// }
+		// if (user.getDistanceSupportFee() != null) {
+		// 	distanceSupportFee = user.getDistanceSupportFee();
+		// }
 		if (user.getNormalOvertimeFee() != null) {
 			normalOvertimeFee = user.getNormalOvertimeFee();
 		}
@@ -336,18 +336,18 @@ public class EmployeeSalaryService {
 		}
 		
 		
-		if (user.getLunchFee() != null) {
-			lunchFee = user.getLunchFee();
-		}
-		if (user.getPetrolFee() != null) {
-			petrolFee = user.getPetrolFee();
-		}
-		if (user.getPhoneFee() != null) {
-			phoneFee = user.getPhoneFee();
-		}
-		if (user.getDistanceSupportFee() != null) {
-			distanceSupportFee = user.getDistanceSupportFee();
-		}
+		// if (user.getLunchFee() != null) {
+		// 	lunchFee = user.getLunchFee();
+		// }
+		// if (user.getPetrolFee() != null) {
+		// 	petrolFee = user.getPetrolFee();
+		// }
+		// if (user.getPhoneFee() != null) {
+		// 	phoneFee = user.getPhoneFee();
+		// }
+		// if (user.getDistanceSupportFee() != null) {
+		// 	distanceSupportFee = user.getDistanceSupportFee();
+		// }
 		if (user.getNormalOvertimeFee() != null) {
 			normalOvertimeFee = user.getNormalOvertimeFee();
 		}
