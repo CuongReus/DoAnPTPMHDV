@@ -18,25 +18,19 @@ import { Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import { AppContextProvider } from './data/AppContext';
 import { connect } from './data/connect';
-import { AuthService } from './data/dataApi';
 import { loadConfData } from './data/sessions/sessions.actions';
 import { loadUserData, setIsLoggedIn, setUsername } from './data/user/user.actions';
 import { Session } from "./models/Session";
 import About from './pages/About';
 import Account from './pages/Account';
-import CompanyPage from './pages/company/CompanyPage';
 import ListEmployeeSalaryPage from './pages/employeeSalary/ListEmployeeSalaryPage';
 import Login from './pages/Login';
-import ProjectPage from './pages/project/ProjectPage';
-import ProjectProgressPage from './pages/project/ProjectProgressPage';
-import ProjectYearPage from './pages/project/ProjectYearPage';
 import Signup from './pages/Signup';
-import ListStockPage from './pages/stock/ListStockPage';
 import Support from './pages/Support';
 import Tutorial from './pages/Tutorial';
 import EditLeaveLetterPage from './pages/user/EditLeaveLetterPage';
 import EmployeeAttendance from './pages/employeeAttendance/EmployeeAttendancePage';
-// import EditEmployeeAttendance from './pages/employeeAttendance/EditEmployeeAttendancePage';
+
 import ListEmployeeAttendancePage from './pages/employeeAttendance/ListEmployeeAttendancePage';
 import ListUserPage from './pages/user/ListUserPage';
 import ListLabourPage from './pages/labour/ListLabourPage';
@@ -71,9 +65,6 @@ interface IonicAppProps extends StateProps, DispatchProps { }
 
 const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, setUsername, loadConfData, loadUserData }) => {
 
-  async function logout(){
-    await AuthService.logout();
-  }
   useEffect(() => {
     loadUserData();
     loadConfData();
@@ -103,25 +94,14 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
                 <Route path="/labourAttendance/:labourId" component={LabourAttendance} />
                 <Route path="/editLabourAttendance/:labourId" component={EditLabourAttendance} />
                 <Route path="/listLabourAttendanceForSupervisor" component={ListLabourAttendanceForSupervisor} />
-                {/* <Route path="/listStock" component={ListStockPage} /> */}
-                <Route path="/listStock" component={ListStockPage} />
+
                 <Route path="/listEmployeeSalary" component={ListEmployeeSalaryPage} />
                 <Route path="/editLeaveLetter/:userId" component={EditLeaveLetterPage} />
-                <Route path="/detailPaymentProject/:projectDetailId/:projectYearId" component={ProjectProgressPage} />
-                {/* <Route path="/detailPaymentProjectvat/:projectId" component={EditLeaveLetterPage} /> */}
+
                 <Route path="/tutorial" component={Tutorial} />
-                {/* <Route path="/company" component={CompanyPage} />
-                <Route path="/project" component={ProjectPage} />
-                <Route path="/projectYear/company/:conpanyId" component={ProjectYearPage} /> */}
-                {/* <Route path="/logout" render={() => {
-                  logout();
-                  console.log("logout")
-                  return <Redirect to="/login" />
-                }} /> */}
                 <Route path="/" component={Login} exact />
-                {/* <Route path="/logout" component={Logout} /> */}
+
               </IonRouterOutlet>
-              {/* : null}  */}
             </IonSplitPane>
           </IonReactRouter>
         </IonApp>

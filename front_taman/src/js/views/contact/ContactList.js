@@ -37,7 +37,7 @@ const ContactRows = (props) => {
                 <td>{item.email}</td>
                 <td>{item.position}</td>
                 <td>{t(item.gender)}</td>
-                <td colSpan = "3">{item.note}</td>
+                <td colSpan = "4">{item.note}</td>
                 {/* <td>{item.trustLevel}</td> */}
                 {/* <td className="active-font" target={item.company?"YES":"NO"}>{item.company?"YES":"NO"}</td> */}
                 <td className="text-center footable-visible footable-last-column">
@@ -66,7 +66,7 @@ const ContactRows = (props) => {
             <td>Email</td>
             <td>Vị Trí</td>
             <td>Giới Tính</td>
-            <td colSpan="3">Ghi Chú</td>
+            <td colSpan="4">Ghi Chú</td>
 
             <td className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></td>
         </tr>].concat(contactDetailRows)
@@ -75,10 +75,10 @@ const ContactRows = (props) => {
         <td><button className="icon-arrow-down22" onClick={() => handleShowContactDetails(contactObject.id)}></button></td>
         <td>{currentNo}</td>
         <td>{contactObject.name}</td>
-        <td colSpan="2">{contactObject.taxNumber}</td>
+        {/* <td colSpan="2">{contactObject.taxNumber}</td> */}
         <td>{contactObject.address}</td>
         <td>{t(contactObject.contactStatus)}</td>
-        <td>{contactObject.discountPercent}</td>
+        {/* <td>{contactObject.discountPercent}</td> */}
         <td>{contactObject.note}</td>
         <td className="text-center footable-visible footable-last-column">
             <ul className="icons-list">
@@ -378,7 +378,7 @@ class ContactList extends React.Component {
                             <span className="text-semibold">Danh sách Khách Hàng</span>
                             <span className="pull-right">
                                 <SecuredComponent allowedPermission="admin.contact.create">
-                                    <button className="btn bg-success"   onClick={() => this.handleShowContactModal()}>Thêm Mới</button>
+                                    <button className="btn bg-teal"   onClick={() => this.handleShowContactModal()}>Thêm Mới</button>
                                 </SecuredComponent>
                             </span>
                         </h4>
@@ -425,10 +425,10 @@ class ContactList extends React.Component {
                                             <th style={{ textAlign: 'center' }} className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                             <th style={{ textAlign: 'center' }} data-toggle="true">STT</th>
                                             <th style={{ textAlign: 'center' }} data-toggle="true">Tên</th>
-                                            <th style={{ textAlign: 'center' }} colSpan="2" data-hide="phone">Mã Số Thuế</th>
+                                            {/* <th style={{ textAlign: 'center' }} colSpan="2" data-hide="phone">Mã Số Thuế</th> */}
                                             <th style={{ textAlign: 'center' }} data-hide="phone">Địa Chỉ</th>
                                             <th style={{ textAlign: 'center' }} data-hide="phone">Loại Khách Hàng</th>
-                                            <th style={{ textAlign: 'center' }} data-hide="phone">Phần Trăm Chiết Khấu</th>
+                                            {/* <th style={{ textAlign: 'center' }} data-hide="phone">Phần Trăm Chiết Khấu</th> */}
                                             <th style={{ textAlign: 'center' }} data-hide="phone">Ghi Chú</th>
                                             <th style={{ textAlign: 'center' }} className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>

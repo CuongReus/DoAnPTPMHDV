@@ -37,8 +37,6 @@ const routes = {
   ],
   loggedInPages: [
     { title: "Quản Lý Nhân Viên", path: "/listUser", icon: people },
-    // { title: "Lương Nhân Viên", path: "/listEmployeeSalary", icon: person },
-    // { title: "Ngày Phép", path: "/listLeaveDay", icon: briefcase },
   ],
   labourPages: [
     { title: "Chấm Công Văn Phòng", path: "/employeeAttendance", icon: create },
@@ -50,12 +48,7 @@ const routes = {
       icon: person,
     },
   ],
-  stockPages: [
-    { title: "Xuất - Nhập - Tổn - Kho", path: "/listStock", icon: swap },
-  ],
-  // projectPages: [{ title: "Dự Án Công Ty", path: "/company", icon: business }],
   loggedOutPages: [
-    // { title: "Tài Khoản", path: "/account", icon: person },
     { title: "Đăng Xuất", path: "/login", icon: logIn },
   ],
   login: [{ title: "Đăng Xuất", path: "/login", icon: logIn }],
@@ -110,8 +103,6 @@ const Menu: React.FC<MenuProps> = ({
     });
   }, []);
 
-  // SecurityUtil.hasPermission(currentUser, "admin.mobile.admin")
-
   if(username){
 
     return (
@@ -129,10 +120,6 @@ const Menu: React.FC<MenuProps> = ({
             {isAuthenticated ? renderlistItems(routes.loggedInPages) : renderlistItems(routes.loggedOutPages)}
             <IonListHeader className='custom-list-header'>Quản Lý Ngày Công</IonListHeader>
             {isAuthenticated ? renderlistItems(routes.labourPages) : renderlistItems(routes.loggedOutPages)}
-            <IonListHeader className='custom-list-header'>Quản Lý Kho</IonListHeader>
-            {isAuthenticated ? renderlistItems(routes.stockPages) : renderlistItems(routes.loggedOutPages)}
-            {/* <IonListHeader className='custom-list-header'>Công Ty</IonListHeader>
-            {isAuthenticated ? renderlistItems(routes.projectPages) : renderlistItems(routes.loggedOutPages)} */}
             <IonList>
               <IonItem>
                 <IonLabel>Dark Theme</IonLabel>

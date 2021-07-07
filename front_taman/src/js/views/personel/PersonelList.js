@@ -116,24 +116,7 @@ class PersonelList extends React.Component {
         const { companyId, active } = this.state;
         updateField("companyId", companyId);
         updateField("active", active);
-        // var search = qs.parse(this.props.location.search).search;
-        // search = search ? search : "";
-        // var page = qs.parse(this.props.location.search).page;
-        // this.getListCompany();
-        // var company = qs.parse(this.props.location.search).company;
-        // company = company ? company : "ALL";
-        // let setStateInRequest = (list) => { this.setState({ listPersonel: list }) }
-        // return agent.asyncRequests.getPage('/user/findByCompanyIdAndFullNameOrPhoneOrEmail?companyId=' + company + "&fullNameOrPhoneOrEmail=" + search, page
-        // ).then(function (res) {
-        //     var result = res.body.resultData;
-        //     if (result) {
-        //         setStateInRequest(result);
-        //     } else {
-        //         toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
-        //     }
-        // }, function (err) {
-        //     toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
-        // });
+        
         this.updateListPersonel();
     };
     componentDidUpdate() {
@@ -219,9 +202,9 @@ class PersonelList extends React.Component {
                                     <SecuredComponent allowedPermission="admin.users.delete">
                                         <li><a onClick={() => this.deletePersonel(item.id, item.fullName)}><i className="icon-cross2"></i>Xóa</a></li>
                                     </SecuredComponent>
-                                    <SecuredComponent allowedPermission="admin.users.setupAnnualLeaveForUser">
+                                    {/* <SecuredComponent allowedPermission="admin.users.setupAnnualLeaveForUser">
                                     <li><a  onClick={() => this.handleSetAnnualLeaveForAllUser(item)}><i className="icon-file-text"></i>Cài Đặt Ngày Phép</a></li>
-                                </SecuredComponent>
+                                </SecuredComponent> */}
                                 </ul>
                             </li>
                         </ul>
