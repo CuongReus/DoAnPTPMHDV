@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { IonToolbar, IonContent, IonPage, IonButtons, IonMenuButton, IonSearchbar, IonRefresher, IonRefresherContent, IonModal, IonHeader, getConfig, IonTitle, IonList, IonItem, IonLabel, IonItemSliding, IonAvatar, IonItemOption, IonPopover, IonLoading } from '@ionic/react';
+import { IonToolbar, IonButton, IonIcon, IonContent, IonPage, IonButtons, IonMenuButton, IonSearchbar, IonRefresher, IonRefresherContent, IonModal, IonHeader, getConfig, IonTitle, IonList, IonItem, IonLabel, IonItemSliding, IonAvatar, IonPopover, IonLoading } from '@ionic/react';
 import { connect } from '../../data/connect';
 import '../ListPage.scss'
 import * as userselectors from './UserSelectors';
@@ -7,6 +7,7 @@ import { setSearchText } from '../../data/sessions/sessions.actions';
 import { User } from './User';
 import { loadListUser } from './listuser.actions';
 import { toast } from '../../toast';
+import { add } from 'ionicons/icons';
 
 
 interface OwnProps { }
@@ -48,9 +49,12 @@ const ListUserPage: React.FC<ListUserPageProps> = ({ listUsers, setSearchText, l
           <IonButtons slot="start">
             <IonMenuButton className='c-white'/>
           </IonButtons>
-
           <IonTitle className='c-white'>Danh Sách Nhân Viên</IonTitle>
-
+          <IonButtons slot="end">
+            <IonButton routerLink={'/addUser'}>
+              <IonIcon className='c-white' slot="icon-only" icon={add} />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
 
         <IonToolbar className='custom-toolbar'>

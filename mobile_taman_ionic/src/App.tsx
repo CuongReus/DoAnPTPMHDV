@@ -29,6 +29,7 @@ import Signup from './pages/Signup';
 import Support from './pages/Support';
 import Tutorial from './pages/Tutorial';
 import EditLeaveLetterPage from './pages/user/EditLeaveLetterPage';
+import AddUserPage from './pages/user/AddUserPage';
 import EmployeeAttendance from './pages/employeeAttendance/EmployeeAttendancePage';
 
 import ListEmployeeAttendancePage from './pages/employeeAttendance/ListEmployeeAttendancePage';
@@ -87,6 +88,7 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
                 <Route path="/signup" component={Signup} />
                 <Route path="/support" component={Support} />
                 <Route path="/listUser" component={ListUserPage} />
+                <Route path="/addUser" component={AddUserPage} />
                 <Route path="/employeeAttendance" component={EmployeeAttendance} />
                 {/* <Route path="/editEmployeeAttendance/:employeeAttendanceId" component={EditEmployeeAttendance} /> */}
                 <Route path="/listEmployeeAttendance" component={ListEmployeeAttendancePage} />
