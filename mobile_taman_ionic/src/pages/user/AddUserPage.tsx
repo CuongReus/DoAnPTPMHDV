@@ -72,6 +72,17 @@ const AddUserPage: React.FC<CourseProps> = ({
     });
   }, []);
 
+  const [name, setName] = useState<string>();
+  const [code, setCode] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [phone, setPhone] = useState<string>();
+  const [dateOfBirth, setDateOfBirth] = useState<string>();
+  const [gender, setGender] = useState<string>();
+  const [company, setCompany] = useState<string>();
+  const [annualLeaveYear, setAnnualLeaveYear] = useState<string>();
+  const [address, setAddress] = useState<string>();
+
 
   const handleAddCourse = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,17 +92,35 @@ const AddUserPage: React.FC<CourseProps> = ({
       setPlaceError(true);
     }
 
-    var url = "/courses";
+    var url = "/user/add";
     var bodyObject = {
-      placeId: place ? place.id : null,
-      agentId: currentUser.userMetaId,
-      startDate: moment(startDate).format("YYYY-MM-DD"),
-      endDate: moment(endDate).format("YYYY-MM-DD"),
-      timeSlotStart: moment(timeSlotStart).format("YYYY-MM-DD HH:mm:ss"),
-      timeSlotEnd: moment(timeSlotEnd).format("YYYY-MM-DD HH:mm:ss"),
-      priceAdminTotal: 0,
-      priceAgentTotal : priceAgentTotal,
-      priceHostTotal : 0,
+      // placeId: place ? place.id : null,
+      // agentId: currentUser.userMetaId,
+      // startDate: moment(startDate).format("YYYY-MM-DD"),
+      // endDate: moment(endDate).format("YYYY-MM-DD"),
+      // timeSlotStart: moment(timeSlotStart).format("YYYY-MM-DD HH:mm:ss"),
+      // timeSlotEnd: moment(timeSlotEnd).format("YYYY-MM-DD HH:mm:ss"),
+      // priceAdminTotal: 0,
+      // priceAgentTotal : priceAgentTotal,
+      // priceHostTotal : 0,
+
+      email: email,
+      password: password,
+      fullName: name,
+      companyId: company,
+      phone: phone,
+      role: "ADMIN",
+      roles: null,
+      birthday: moment(dateOfBirth).format("YYYY-MM-DD"),
+      active: 1,
+      annualLeaveYear: annualLeaveYear ? annualLeaveYear : 0,
+      departmentId: null,
+      currentAddress: address,
+      position: null,
+      gender: gender,
+      code: code,
+      createdUserEmail: currentUser.email,
+      lastedUpdateUserEmail: currentUser.email,
     };
 
     asyncRequests.post(url, bodyObject).then((result) => {
@@ -106,22 +135,15 @@ const AddUserPage: React.FC<CourseProps> = ({
     });
   };
 
-  const [name, setName] = useState<string>();
-  const [code, setCode] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [phone, setPhone] = useState<string>();
-  const [dateOfBirth, setDateOfBirth] = useState<string>();
-  const [gender, setGender] = useState<string>();
-
   var optionGender = [
     { label: "Nam", value: "MALE" },
     { label: "Nữ", value: "FEMALE" },
     { label: "Khác", value: "OTHER" }
 ];
 var optionCompany = [
-  { label: "Nam", value: "MALE" },
-  { label: "Nữ", value: "FEMALE" },
+  { label: "Tâm An", value: "3" },
+  { label: "PCO", value: "4" },
+  { label: "OGA", value: "5" }
 ];
 
   return (
@@ -199,16 +221,28 @@ var optionCompany = [
                 Thuộc công ty
               </IonLabel>
               <IonSelect
-                value={gender}
+                value={company}
                 placeholder="Chọn công ty"
-                onIonChange={(e) => setGender(e.detail.value!)}
+                onIonChange={(e) => setCompany(e.detail.value!)}
               >
-                {optionGender.map((option) => (
+                {optionCompany.map((option) => (
                   <IonSelectOption key={option.value} value={option.value}>
                     {option.label}
                   </IonSelectOption>
                 ))}
               </IonSelect>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked" color="success">
+              Số ngày phép/năm
+              </IonLabel>
+              <IonInput value={annualLeaveYear} placeholder="Nhập mã nhân viên" onIonChange={e => setAnnualLeaveYear(e.detail.value!)}></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked" color="success">
+              Địa chỉ
+              </IonLabel>
+              <IonInput value={address} placeholder="Nhập địa chỉ" onIonChange={e => setAddress(e.detail.value!)}></IonInput>
             </IonItem>
           </IonList>
           <IonRow>

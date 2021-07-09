@@ -58,12 +58,12 @@ class SideBar extends React.Component {
 													<span>Phòng Ban</span></Link>
 											</li>
 										</SecuredComponent>
-										<SecuredComponent allowedPermission="admin.roles.read">
+										{/* <SecuredComponent allowedPermission="admin.roles.read">
 											<li className={currentUrl == '/listRole' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listRole'><i className="icon-user-check"></i>
 													<span>Phân Quyền Hệ Thống</span></Link>
 											</li>
-										</SecuredComponent>
+										</SecuredComponent> */}
 										<SecuredComponent allowedPermission="admin.holiday.read">
 											<li className={currentUrl == '/listLeaveDay' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listLeaveDay'><i className="icon-certificate"></i>
