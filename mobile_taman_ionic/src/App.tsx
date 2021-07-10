@@ -23,7 +23,6 @@ import { loadUserData, setIsLoggedIn, setUsername } from './data/user/user.actio
 import { Session } from "./models/Session";
 import About from './pages/About';
 import Account from './pages/Account';
-import ListEmployeeSalaryPage from './pages/employeeSalary/ListEmployeeSalaryPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Support from './pages/Support';
@@ -103,7 +102,6 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
                 <Route path="/editLabourOverTimeAttendance/:labourId" component={EditLabourOverTimeAttendance} />
                 <Route path="/listLabourAttendanceForSupervisor" component={ListLabourAttendanceForSupervisor} />
 
-                <Route path="/listEmployeeSalary" component={ListEmployeeSalaryPage} />
                 <Route path="/editLeaveLetter/:userId" component={EditLeaveLetterPage} />
 
                 <Route path="/tutorial" component={Tutorial} />
