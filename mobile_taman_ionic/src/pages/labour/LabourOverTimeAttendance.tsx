@@ -28,7 +28,6 @@ import "../EditPage.scss";
 import { loadListLabour } from "./listLabour.actions";
 import { Labour } from "./Labour";
 import moment from "moment";
-import { Plugins } from "@capacitor/core";
 import { toast } from "../../toast";
 import { loadProject, loadListEfficiency, loadLabourById } from "./labourConfig";
 
@@ -54,12 +53,14 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
   const [projectError, setProjectError] = useState(false);
   const [workDate, setWorkDate] = useState(moment().toISOString());
   const [workDateError, setWorkDateError] = useState(false);
-  const [startDateTime, setStartDateTime] = useState("");
-  const [startDateTimeError, setStartDateTimeError] = useState(false);
+  const [startOvertime, setStartOverTime] = useState("");
+  const [startOverTimeError, setStartOverTimeError] = useState(false);
+  const [startOverTime1Error, setStartOverTime1Error] = useState(false);
+  const [startOverTime2Error, setStartOverTime2Error] = useState(false);
+  const [startOverTime3Error, setStartOverTime3Error] = useState(false);
   const [createdDate, setCreatedDate] = useState(moment().toISOString());
-  const [farConstructionStatus, setFarConstructionStatus] = useState("KHONG");
-  const [transportFeeStatus, setTransportFeeStatus] = useState("KHONG");
-  const [lateStatus, setLateStatus] = useState("KHONG");
+  const [overtimeStatus, setOvertimeStatus] = useState("");
+  const [overTimeStatusError, setOverTimeStatusError] = useState(false);
   const [note, setNote] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -71,21 +72,11 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
   const [dataEfficiency, setDataEfficiency] = useState([]);
   const [loadEfficiency, setLoadEfficiency] = useState(false);
   const [labour, setLabour] = useState(Object);
+  const [isLoadLabour, setIsLoadLabour] = useState(false);
 
-  // const { labourId } = useParams();
   const params : any = useParams();
 
   const currentUser = JSON.parse(localStorage._cap_currentUser);
-
-  const handleCheckLate = (startTime : any) => {
-    var standardHour = '0815';
-    var startDatetime = startTime.replace(":", "");
-    if (parseInt(startDatetime) > parseInt(standardHour)) {
-      setLateStatus("CO")
-    } else {
-      setLateStatus("KHONG")
-    }
-  }
 
   useEffect(() => {
     loadProject().then((project: any) => {
@@ -102,10 +93,11 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
     loadLabourById(params.labourId).then((labour: any) => {
       if (labour) {
         setLabour(labour);
+        setIsLoadLabour(true)
       }
     });
 
-  }, []);
+  }, [params.labourId]);
 
   const handleLabourAttendance = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,8 +107,11 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
     if (moment(workDate) > moment(today)) {
       setWorkDateError(true);
     }
-    if (!startDateTime) {
-      setStartDateTimeError(true);
+    if (!startOvertime) {
+      setStartOverTimeError(true);
+    }
+    if (!overtimeStatus) {
+      setOverTimeStatusError(true);
     }
     //Kiểm Tra Field Project có trống không.
     if (Object.keys(project).length === 0 && project.constructor === Object) {
@@ -130,23 +125,22 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
     var url = "/labourAttendance/add";
     var bodyObject = {
             labourId: parseInt(params.labourId),
-            projectId: project ? project.id : null,
+            projectId: project ? project : null,
             projectDetailId: projectDetail ? projectDetail : null,
             dateToWork: workDate,
-            startDatetime: startDateTime ? moment(startDateTime, "HH:mm").format("HH:mm:ss") : "00:00:00",
+            startDatetime: "00:00:00",
             endDatetime: "00:00:00",
             totalDatetime: 0,
-            // session: values.session,
-            // overtimeStatus: values.overtimeStatus,
-            startOvertime: "00:00:00",
+            overtimeStatus: overtimeStatus,
+            startOvertime: startOvertime ? startOvertime + ':00' : "00:00:00",
             endOvertime: "00:00:00",
             totalOvertime: 0,
-            lateStatus: lateStatus,
+            lateStatus: "KHONG",
             lateHour: "00:00:00",
             totalLateHour: 0,
             absentDate: null,
-            supportFarConstructionStatus: farConstructionStatus,
-            supportTransportFeeStatus: transportFeeStatus,
+            supportFarConstructionStatus: "KHONG",
+            supportTransportFeeStatus: "KHONG",
             notOvertimeStatus: "KHONG",
             notOvertimeDate: null,
             uniformBreachStatus: "KHONG",
@@ -167,36 +161,88 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
       if (result && result.id) {
         toast("Chấm Công Thành Công!");
         history.push("/listLabour");
+        loadListLabour();
       } else {
-        // setMessageResult("Lỗi Lưu trữ!");
-        toast("Lỗi Lưu trữ!");
-
+        toast("Lỗi lưu trữ");
         setShowToast(true);
       }
     });
   };
-  //
 
-  var optionFarConstructionStatus = [
-    { label: "Có", value: "CO" },
-    { label: "Không", value: "KHONG" },
-  ];
-  var optionTransportFeeStatus = [
-    { label: "Có", value: "CO" },
-    { label: "Không", value: "KHONG" },
-  ];
-  var optionLateStatus = [
-    { label: "Có", value: "CO" },
-    { label: "Không", value: "KHONG" },
+  var optionOvertimeStatus = [
+    { label: "Tăng Ca Ngày Thường (Tối)", value: "TANG_CA_THUONG_TOI" },
+    { label: "Tăng Ca Khuya", value: "TANG_CA_KHUYA" }
   ];
   var optionProjectDetail : any[] = [];
+  var optionProject : any[] = [];
+
+  dataProject.map((item : any) => {
+    if(isLoadLabour){
+      labour.companies.map((labourCompanies : any) => {
+        if (item.projectYear.company.id == labourCompanies.id && item.projectStatus == 'DANG_THUC_THI'){
+          optionProject.push({ label: item.projectYear.company.name + " - " + item.name, id: item.id });
+        }
+      })
+    }
+  })
 
   if(loadEfficiency){
     dataEfficiency.map((item:any)  => {
-      if(item.projectDetail.project.id== project.id){
+      if(item.projectDetail.project.id == project){
         optionProjectDetail.push({label:item.projectDetail.name,id:item.projectDetail.id});
         }
     })
+  }
+
+  const [disabledButtonIfFuture, setDisabledButtonIfFuture] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [workDate1Error, setWorkDate1Error] = useState(false);
+
+  const resetStartOverTime = () => {
+    setStartOverTime("");
+  }
+
+  const checkValidate = (selectedWork : any, startOverTime : any) => {
+    var futureDate = moment(selectedWork, 'DD-MM-YYYY');
+    var todayDate = moment(new Date().toISOString(), 'DD-MM-YYYY');
+        // todayDate = todayDate.subtract(1, "days");
+    var dDiff = todayDate.diff(futureDate);
+
+    //Nếu nhỏ hơn 0 là ngày trong tương lai
+    if (dDiff < 0){
+      setDisabledButtonIfFuture(true);
+      setWorkDate1Error(true);
+    }else{
+      setDisabledButtonIfFuture(false);
+      setWorkDate1Error(false);
+    }
+
+    var checkMidnightTime = false;
+    if (overtimeStatus == "TANG_CA_THUONG_TOI") {
+      if(startOverTime < "18:00"){
+        setDisabledButton(true);
+        setStartOverTime1Error(true);
+      }else if(startOverTime == "22:00" || startOverTime > "22:00"){
+        setDisabledButton(true);
+        setStartOverTime2Error(true);
+      }else{
+        setDisabledButton(false);
+        setStartOverTimeError(false);
+        setStartOverTime1Error(false);
+        setStartOverTime2Error(false);
+      }
+    }else if(overtimeStatus == "TANG_CA_KHUYA"){
+      if (startOverTime >= "00:00" && startOverTime < "04:30") {
+        checkMidnightTime = true;
+      }
+      if(startOverTime < "22:00" && checkMidnightTime == false){
+        setDisabledButton(true);
+        setStartOverTime3Error(true);
+      }else{
+        setDisabledButton(false);
+        setStartOverTime3Error(false);
+      }
+    }
   }
 
   return  (
@@ -206,7 +252,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
           <IonButtons slot="start">
             <IonMenuButton className='c-white'></IonMenuButton>
           </IonButtons>
-          <IonTitle className='c-white'>Chấm Công Nhân Công</IonTitle>
+          <IonTitle className='c-white'>Chấm Công Tăng Ca</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -227,10 +273,10 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 placeholder="Chọn Tên Dự Án"
                 onIonChange={(e) => setProject(e.detail.value!)}
               >
-                {dataProject
-                  ? dataProject.map((data: any, index: number) => (
-                      <IonSelectOption key={data.id} value={data}>
-                        {data.name}
+                {optionProject
+                  ? optionProject.map((data: any, index: number) => (
+                      <IonSelectOption key={data.id} value={data.id}>
+                        {data.label}
                       </IonSelectOption>
                     ))
                   : null}
@@ -270,7 +316,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 displayFormat="DD/MM/YYYY"
                 placeholder="Chọn Ngày"
                 value={workDate}
-                onIonChange={(e) => setWorkDate(e.detail.value!)}
+                onIonChange={(e) => {setWorkDate(e.detail.value!); checkValidate(e.detail.value!, startOvertime);}}
               ></IonDatetime>
             </IonItem>
             {formSubmitted && workDateError && (
@@ -278,91 +324,74 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 <p className="ion-padding-start">Không được chấm công ngày tương lai!, vui lòng thử lại!</p>
               </IonText>
             )}
-
+            {workDate1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Không được chọn ngày trong tương lai! Vui lòng chọn lại!
+                </p>
+              </IonText>
+            )}
             <IonItem>
               <IonLabel position="stacked" color="success">
-                Giờ bắt đầu (*)
+                <IonText color="primary">Trạng thái tăng ca</IonText>
               </IonLabel>
-              {/* <IonDatetime
-                displayFormat="HH:mm"
-                placeholder="Chọn Giờ"
-                value={startDateTime}
-                onIonChange={(e) => {setStartDateTime(e.detail.value!);handleCheckLate(e.detail.value!)}}
-              ></IonDatetime> */}
+              <IonSelect
+                value={overtimeStatus}
+                placeholder="Chọn Trạng Thái"
+                onIonChange={(e) => {setOvertimeStatus(e.detail.value!); checkValidate(workDate,startOvertime); resetStartOverTime()}}
+              >
+                {optionOvertimeStatus.map((option) => (
+                  <IonSelectOption key={option.value} value={option.value}>
+                    {option.label}
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            </IonItem>
+            {formSubmitted && overTimeStatusError && (
+              <IonText color="danger">
+                <p className="ion-padding-start">Vui lòng nhập trạng thái tăng ca.</p>
+              </IonText>
+            )}
+            <IonItem>
+              <IonLabel position="stacked" color="success">
+              <IonText color="primary">Giờ bắt đầu tăng ca (*)</IonText>
+              </IonLabel>
               <IonInput
                 type="text"
-                value={startDateTime}
-                placeholder="00:00"
+                value={startOvertime}
+                placeholder="18:00"
                 onIonChange={(e: any) => {
-                  var valueStartTime: string = e.detail.value!;
-                  if (valueStartTime.length == 2) {
-                    setStartDateTime(valueStartTime + ":");
+                  var valueStartOverTime: string = e.detail.value!;
+                  if (valueStartOverTime.length == 2) {
+                    setStartOverTime(valueStartOverTime + ":");
                   }
-                  if (valueStartTime.length == 5) {
-                    setStartDateTime(valueStartTime);
-                    handleCheckLate(valueStartTime)
+                  if (valueStartOverTime.length == 5) {
+                    setStartOverTime(valueStartOverTime);
+                    checkValidate(workDate,valueStartOverTime)
                   }
                 }}
                 ></IonInput>
             </IonItem>
-            {formSubmitted && startDateTimeError && (
+            {formSubmitted && startOverTimeError && (
               <IonText color="danger">
-                <p className="ion-padding-start">Vui Lòng Nhập Giờ Bắt Đầu</p>
+                <p className="ion-padding-start">Vui lòng nhập giờ bắt đầu tăng ca.</p>
               </IonText>
             )}
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Hỗ Trợ Công Trình Xa
-              </IonLabel>
-              <IonSelect
-                value={farConstructionStatus}
-                placeholder="Chọn Trạng Thái"
-                onIonChange={(e) => setFarConstructionStatus(e.detail.value!)}
-              >
-                {optionFarConstructionStatus.map((option) => (
-                  <IonSelectOption key={option.value} value={option.value}>
-                    {option.label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Hỗ Trợ Chi Phí Đi Lại
-              </IonLabel>
-              <IonSelect
-                value={transportFeeStatus}
-                placeholder="Chọn Trạng Thái"
-                onIonChange={(e) => setTransportFeeStatus(e.detail.value!)}
-              >
-                {optionTransportFeeStatus.map((option) => (
-                  <IonSelectOption key={option.value} value={option.value}>
-                    {option.label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Đi Trễ
-              </IonLabel>
-              <IonSelect
-                value={lateStatus}
-                placeholder="Chọn Trạng Thái"
-                disabled
-                onIonChange={(e) => setLateStatus(e.detail.value!)}
-              >
-                {optionLateStatus.map((option) => (
-                  <IonSelectOption key={option.value} value={option.value}>
-                    {option.label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-
+            {startOverTime1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">Lưu ý: Giờ tăng ca thường chỉ được xét vào lúc 18:00 giờ trở về sau. </p>
+              </IonText>
+            )}
+            {startOverTime2Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">Lưu ý: Giờ bắt đầu tăng ca Thường không được lớn hơn hoặc bằng 22:00</p>
+              </IonText>
+            )}
+            {startOverTime3Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">Lưu ý: Giờ bắt đầu tăng ca KHUYA chỉ được xét vào lúc 22:00 giờ trở về sau.</p>
+              </IonText>
+            )}
             <IonItem>
               <IonLabel position="stacked" color="success">
                 Ghi Chú
@@ -373,7 +402,6 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 onIonChange={(e) => setNote(e.detail.value!)}
               ></IonTextarea>
             </IonItem>
-
             <IonItem>
               <IonLabel position="stacked" color="success">
                 Người Chấm Công
@@ -397,8 +425,8 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
 
           <IonRow>
             <IonCol>
-              <IonButton color='success' type="submit" expand="block">
-                Chấm Công
+              <IonButton disabled={disabledButton || disabledButtonIfFuture} color='success' type="submit" expand="block">
+                Chấm Công Tăng Ca
               </IonButton>
             </IonCol>
             <IonCol>

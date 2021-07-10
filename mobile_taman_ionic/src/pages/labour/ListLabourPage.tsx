@@ -4,11 +4,12 @@ import {
   IonContent,
   IonPage,
   IonButtons,
+  IonButton,
+  IonIcon,
   IonMenuButton,
   IonSearchbar,
   IonRefresher,
   IonRefresherContent,
-  IonModal,
   IonHeader,
   getConfig,
   IonTitle,
@@ -17,7 +18,6 @@ import {
   IonLabel,
   IonItemSliding,
   IonAvatar,
-  IonPopover,
   IonLoading,
 } from "@ionic/react";
 import { connect } from "../../data/connect";
@@ -26,7 +26,8 @@ import * as labourselectors from "./LabourSelectors";
 import { setSearchText } from "../../data/sessions/sessions.actions";
 import { Labour } from "./Labour";
 import { loadListLabour } from "./listLabour.actions";
-
+import { list, create } from "ionicons/icons";
+// import AboutPopover from '../../components/AboutPopover';
 
 interface OwnProps {}
 
@@ -46,14 +47,9 @@ const ListLabourPage: React.FC<ListLabourPageProps> = ({
   listLabours,
   setSearchText,
   loadListLabour,
-  mode,
 }) => {
-  const [showFilterModal, setShowFilterModal] = useState(false);
   const ionRefresherRef = useRef<HTMLIonRefresherElement>(null);
   const [showCompleteToast, setShowCompleteToast] = useState(false);
-  const [showPopover, setShowPopover] = useState(false);
-
-  const [showActionSheet, setShowActionSheet] = useState(false);
 
   const doRefresh = () => {
     setTimeout(() => {
@@ -68,23 +64,22 @@ const ListLabourPage: React.FC<ListLabourPageProps> = ({
 
   return (
     <IonPage id="list-user-page" className="list-page">
-      <IonHeader >
-        <IonToolbar className='custom-toolbar'>
+      <IonHeader>
+        <IonToolbar className="custom-toolbar">
           <IonButtons slot="start">
-            <IonMenuButton className='c-white'/>
+            <IonMenuButton className="c-white" />
           </IonButtons>
 
-          <IonTitle className='c-white'>Danh Sách Nhân Công</IonTitle>
+          <IonTitle className="c-white">Danh Sách Nhân Công</IonTitle>
         </IonToolbar>
 
-        <IonToolbar className='custom-toolbar'>
+        <IonToolbar className="custom-toolbar">
           <IonSearchbar
             className="custom-search"
             placeholder="Tìm tên, phone,..."
             onIonChange={(e: any) => setSearchText(e.detail.value)}
           />
         </IonToolbar>
-
       </IonHeader>
 
       <IonContent>
@@ -104,33 +99,36 @@ const ListLabourPage: React.FC<ListLabourPageProps> = ({
           {listLabours &&
             listLabours.map((labour) => (
               <IonItemSliding key={labour.id}>
-                <IonItem routerLink={`/labourAttendance/${labour.id}`}>
+                {/* <IonItem routerLink={`/labourNormalAttendance/${labour.id}`}> */}
+                <IonItem>
                   <IonAvatar slot="start">
                     {/* <img src={`/assets/img/${user.id}`} /> */}
-                    <img src="/assets/img/person-circle-outline.svg" />
+                    <img alt="avatar" src="/assets/img/person-circle-green.svg" />
                   </IonAvatar>
 
                   <IonLabel>
                     <h3>{labour.fullName}</h3>
                     <p>Phone: {labour.phone}</p>
                   </IonLabel>
+                  <IonButtons slot="end">
+                    <IonButton
+                      color="success"
+                      routerLink={`/labourNormalAttendance/${labour.id}`}
+                    >
+                      <IonIcon slot="icon-only" icon={list} />
+                    </IonButton>
+                    <IonButton
+                      color="success"
+                      routerLink={`/labourOverTimeAttendance/${labour.id}`}
+                    >
+                      <IonIcon slot="icon-only" icon={create} />
+                    </IonButton>
+                  </IonButtons>
                 </IonItem>
-                <IonPopover
-                  isOpen={showPopover}
-                  cssClass=""
-                  onDidDismiss={(e) => setShowPopover(false)}
-                >
-                  <p>This is popover content</p>
-                </IonPopover>
               </IonItemSliding>
             ))}
         </IonList>
       </IonContent>
-
-      <IonModal
-        isOpen={showFilterModal}
-        onDidDismiss={() => setShowFilterModal(false)}>
-      </IonModal>
     </IonPage>
   );
 };

@@ -18,37 +18,64 @@ import {
   IonToast,
   IonToolbar,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "react-router";
 import { connect } from "../../data/connect";
 import { asyncRequests } from "../../data/dataApi";
 import "../EditPage.scss";
-import { Employee } from "./Employee";
-import moment from "moment";
+import * as employeeSelectors from './EmployeeAttendanceSelectors';
+import { setSearchText } from '../../data/sessions/sessions.actions';
+import { Employee } from './Employee';
+import { loadListEmployeeAttendance } from './listEmployeeAttendance.actions';
+import startOfMonth from 'date-fns/startOfMonth'
+import lastDayOfMonth from 'date-fns/lastDayOfMonth'
+import moment from 'moment';
+
 import { toast } from "../../toast";
 
 interface OwnProps extends RouteComponentProps {}
 
 interface StateProps {
-  listEmployeeOptions: Employee[];
+  listDateWorkInMonth: Employee[];
 }
 
-type EmployeeAttendanceProps = OwnProps & StateProps;
+interface DispatchProps {
+  setSearchText: typeof setSearchText;
+  loadListEmployeeAttendance: typeof loadListEmployeeAttendance;
+}
 
-const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
+type EmployeeAttendanceProps = OwnProps & StateProps & DispatchProps;
+
+const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history , listDateWorkInMonth, setSearchText, loadListEmployeeAttendance }) => {
   const [dateToWork, setDateToWork] = useState(moment().toISOString());
-  const [attendanceType, setAttendanceType] = useState("X");
+  const [attendanceType, setAttendanceType] = useState("");
   const [attendanceTypeError, setAttendanceTypeError] = useState(false);
+  const [attendanceType1Error, setAttendanceType1Error] = useState(false);
+  const [attendanceType2Error, setAttendanceType2Error] = useState(false);
+  const [attendanceType3Error, setAttendanceType3Error] = useState(false);
+  const [dateToWorkError, setDateToWorkError] = useState(false);
+  const [dateToWork1Error, setDateToWork1Error] = useState(false);
+  const [dateToWork2Error, setDateToWork2Error] = useState(false);
   const [workPlace, setWorkPlace] = useState("Văn Phòng");
-  const [overtimeType, setOvertimeType] = useState("");
+  const [overtimeType, setOvertimeType] = useState(null);
   const [lateStatus, setLateStatus] = useState("KHONG");
-  const [status, setStatus] = useState("CO_MAT");
+  const [status, setStatus] = useState("");
+  const [statusError, setStatusError] = useState(false);
+  const [status1Error, setStatus1Error] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [messageResult, setMessageResult] = useState("");
   const [isShowOvertimeType, setIsShowOvertimeType] = useState(false);
 
   const currentUser = JSON.parse(localStorage._cap_currentUser);
+
+  var currentDate = new Date();;
+  var startDateOfMonth = moment(startOfMonth(currentDate)).format("YYYY-MM-DD-HH:mm:ss");
+  var endDateOfMonth = moment(lastDayOfMonth(currentDate)).format("YYYY-MM-DD-HH:mm:ss");
+
+  useEffect(() => {
+    loadListEmployeeAttendance(currentUser.id,startDateOfMonth,endDateOfMonth);
+  },[]);
 
   const handleEditLeaveLetter = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,12 +94,13 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
       workPlace: workPlace,
       lateStatus: lateStatus,
       overtimeType: overtimeType,
+      // lastedUpdateUserId: currentUser.id,
     };
 
     asyncRequests.post(url, bodyObject).then((result) => {
       if (result && result.id) {
         toast("Chấm Công Thành Công");
-        history.push("/listUser");
+        history.push("/listEmployeeAttendance");
       } else {
         toast("Lỗi Lưu trữ!");
         setShowToast(true);
@@ -80,15 +108,7 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
     });
   };
 
-  var weekdays = new Array(
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  );
+  var weekdays = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
 
   var optionAttendanceType: any[] = [];
   if (dateToWork && status) {
@@ -169,6 +189,10 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
     }
   };
 
+  const resetAttendanceType = () => {
+    setAttendanceType("");
+  };
+
   var optionWorkplace = [
     { label: "Văn Phòng", value: "Văn Phòng" },
     { label: "Công Trường", value: "Công Trường" },
@@ -187,6 +211,82 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
     { label: "Trên 5H-30", value: "TREN_5H_30" },
   ];
 
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [disabledButtonIfFuture, setDisabledButtonIfFuture] = useState(false);
+
+  const checkValidate = (selectedWork : any, selectedAttendanceType : any) => {
+    var futureDate = moment(selectedWork, 'DD-MM-YYYY');
+    var todayDate = moment(new Date().toISOString(), 'DD-MM-YYYY');
+        // todayDate = todayDate.subtract(1, "days");
+    var dDiff = todayDate.diff(futureDate);
+
+    //Nếu nhỏ hơn 0 là ngày trong tương lai
+    if (dDiff < 0){
+      setDisabledButtonIfFuture(true);
+      setDateToWork2Error(true);
+    }else{
+      setDisabledButtonIfFuture(false);
+      setDateToWork2Error(false);
+    }
+    var dateWork = moment(selectedWork).format('YYYY-MM-DD');
+    for(var i = 0; i < listDateWorkInMonth.length; i++){
+      if(moment(listDateWorkInMonth[i].dateToWork).isSame(dateWork)) {
+        if(status == "CO_MAT" && selectedAttendanceType) {
+          if(selectedAttendanceType.substring(0, 2) != "NG"){
+            if(listDateWorkInMonth[i].attendanceType.substring(0, 1) == selectedAttendanceType.substring(0, 1)){
+              setDisabledButton(true);
+              setDateToWorkError(true);
+              break;
+            }
+          }else if(selectedAttendanceType.substring(0, 2) == "NG"){
+            if (listDateWorkInMonth[i].attendanceType.substring(0, 2) == selectedAttendanceType.substring(0, 2)){
+              setDisabledButton(true);
+              setAttendanceType1Error(true);
+              break;
+            }
+          }
+        }else if(status == "VANG_MAT" && selectedAttendanceType){
+          if (listDateWorkInMonth[i].status == status) {
+            setDisabledButton(true);
+            setStatusError(true);
+            break;
+          }else if (listDateWorkInMonth[i].attendanceType == "X"){
+            setDisabledButton(true);
+            setStatus1Error(true);
+            break;
+          }else if (listDateWorkInMonth[i].attendanceType == "X2" && !selectedAttendanceType.substring(2,3) && selectedAttendanceType != "NL"){
+            setDisabledButton(true);
+            setDateToWorkError(true);
+            break;
+          }
+        }
+        if(listDateWorkInMonth[i].status == "VANG_MAT" && selectedAttendanceType){
+          if (listDateWorkInMonth[i].attendanceType.substring(2,3) == "2") {
+            if(selectedAttendanceType.substring() == "X") {
+              setDisabledButton(true);
+              setAttendanceType2Error(true);
+              break;
+            }
+          }else if(selectedAttendanceType.substring(0, 2) != "NG"){
+            setDisabledButton(true);
+            setAttendanceType3Error(true);
+            break;
+          }
+        }
+      }else {
+        setDisabledButton(false);
+        setDateToWorkError(false);
+        setDateToWork1Error(false);
+        setAttendanceTypeError(false);
+        setAttendanceType1Error(false);
+        setAttendanceType2Error(false);
+        setAttendanceType3Error(false);
+        setStatusError(false);
+        setStatus1Error(false);
+      }
+    }
+  }
+
   return (
     <IonPage id="edituser-page">
       <IonHeader>
@@ -198,7 +298,7 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <form noValidate onSubmit={handleEditLeaveLetter}>
+        <form id="resetForm" noValidate onSubmit={handleEditLeaveLetter}>
           <IonList>
             <IonItem>
               <IonLabel>
@@ -215,9 +315,30 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
                 displayFormat="DD/MM/YYYY"
                 placeholder="Chọn Ngày Làm Việc"
                 value={dateToWork}
-                onIonChange={(e) => setDateToWork(e.detail.value!)}
+                onIonChange={(e) => {setDateToWork(e.detail.value!); checkValidate(e.detail.value!, attendanceType);}}
               ></IonDatetime>
             </IonItem>
+            {dateToWorkError && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Ngày công đã tồn tại! Vui lòng thử lại.
+                </p>
+              </IonText>
+            )}
+            {dateToWork1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Vui lòng chọn ngày nghỉ nữa ngày hoặc ngày lễ, vì hôm nay nhân viên đã làm nữa ngày!
+                </p>
+              </IonText>
+            )}
+            {dateToWork2Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Không được chọn ngày trong tương lai! Vui lòng chọn lại!
+                </p>
+              </IonText>
+            )}
 
             <IonItem>
               <IonLabel position="stacked" color="success">
@@ -226,7 +347,7 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
               <IonSelect
                 value={status}
                 placeholder="Chọn Trạng Thái"
-                onIonChange={(e) => setStatus(e.detail.value!)}
+                onIonChange={(e) => {setStatus(e.detail.value!); resetAttendanceType()}}
               >
                 {optionStatus.map((option) => (
                   <IonSelectOption key={option.value} value={option.value}>
@@ -235,6 +356,20 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
                 ))}
               </IonSelect>
             </IonItem>
+            {statusError && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Nhân viên đã vắng mặt trong ngày này, vui lòng chọn trạng thái ngày làm khác!
+                </p>
+              </IonText>
+            )}
+            {status1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Không được chấm vắng mặt khi đã có công ngày thường!
+                </p>
+              </IonText>
+            )}
 
             <IonItem>
               <IonLabel position="stacked" color="success">
@@ -246,6 +381,7 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
                 onIonChange={(e) => {
                   setAttendanceType(e.detail.value!);
                   checkAttendanceType(e.detail.value!);
+                  checkValidate(dateToWork, e.detail.value!);
                 }}
               >
                 {optionAttendanceType.map((option) => (
@@ -259,6 +395,27 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
               <IonText color="danger">
                 <p className="ion-padding-start">
                   Vui Lòng Chọn Loại Ngày Công
+                </p>
+              </IonText>
+            )}
+            {attendanceType1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Ngày công "Ngoài Giờ" đã tồn tại! Vui lòng thử lại.
+                </p>
+              </IonText>
+            )}
+            {attendanceType2Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Nhân viên đã vắng mặt nữa ngày này, vui lòng chọn trạng thái công nữa ngày hoặc Ngoài Giờ (NG)!
+                </p>
+              </IonText>
+            )}
+            {attendanceType3Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Nhân viên đã vắng mặt trong ngày này, vui lòng chọn trạng thái công Ngoài Giờ (NG)!
                 </p>
               </IonText>
             )}
@@ -323,13 +480,14 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
                 <IonButton
                   color="primary"
                   type="button"
+                  disabled={disabledButton || disabledButtonIfFuture}
                   expand="block"
                   routerLink={`/editLeaveLetter/${currentUser.id}`}
                 >
                   Tạo Đơn
                 </IonButton>
               ) : (
-                <IonButton color="success" type="submit" expand="block">
+                <IonButton disabled={disabledButton || disabledButtonIfFuture} color="success" type="submit" expand="block">
                   Chấm Công
                 </IonButton>
               )}
@@ -352,6 +510,12 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history }) => {
   );
 };
 
-export default connect<OwnProps, StateProps>({
+export default connect<OwnProps, StateProps, DispatchProps>({
+  mapStateToProps: (state) => ({
+    listDateWorkInMonth: employeeSelectors.getFilteredEmployees(state),
+  }),
+  mapDispatchToProps: {
+    setSearchText, loadListEmployeeAttendance
+  },
   component: EmployeeAttendance,
 });

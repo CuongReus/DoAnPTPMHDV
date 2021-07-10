@@ -61,6 +61,16 @@ export function loadListLabourAttendanceForSupervisor(createdUserId :number , da
       }
   })
 }
+export function loadListAttendanceToday(dateToWork : any) {
+  return new Promise((resolve, rejects) => {
+      const listAttendanceToday = asyncRequests.get("/labourAttendance/findAttendanceToday?dateToWork=" + dateToWork);
+      if (listAttendanceToday) {
+          resolve(listAttendanceToday);
+      } else {
+          resolve(null);
+      }
+  })
+}
 
 
 

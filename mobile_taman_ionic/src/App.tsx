@@ -35,8 +35,10 @@ import EmployeeAttendance from './pages/employeeAttendance/EmployeeAttendancePag
 import ListEmployeeAttendancePage from './pages/employeeAttendance/ListEmployeeAttendancePage';
 import ListUserPage from './pages/user/ListUserPage';
 import ListLabourPage from './pages/labour/ListLabourPage';
-import LabourAttendance from './pages/labour/LabourAttendance';
-import EditLabourAttendance from './pages/labour/EditLabourAttendanceForSupervisor';
+import LabourNormalAttendance from './pages/labour/LabourNormalAttendance';
+import LabourOverTimeAttendance from './pages/labour/LabourOverTimeAttendance';
+import EditLabourNormalAttendance from './pages/labour/EditLabourNormalAttendanceForSupervisor';
+import EditLabourOverTimeAttendance from './pages/labour/EditLabourOverTimeAttendanceForSupervisor';
 import ListLabourAttendanceForSupervisor from './pages/labour/ListLabourAttendanceForSupervisor';
 /* Theme variables */
 import './theme/variables.css';
@@ -93,8 +95,10 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
                 {/* <Route path="/editEmployeeAttendance/:employeeAttendanceId" component={EditEmployeeAttendance} /> */}
                 <Route path="/listEmployeeAttendance" component={ListEmployeeAttendancePage} />
                 <Route path="/listLabour" component={ListLabourPage} />
-                <Route path="/labourAttendance/:labourId" component={LabourAttendance} />
-                <Route path="/editLabourAttendance/:labourId" component={EditLabourAttendance} />
+                <Route path="/labourNormalAttendance/:labourId" component={LabourNormalAttendance} />
+                <Route path="/labourOverTimeAttendance/:labourId" component={LabourOverTimeAttendance} />
+                <Route path="/editLabourNormalAttendance/:labourId" component={EditLabourNormalAttendance} />
+                <Route path="/editLabourOverTimeAttendance/:labourId" component={EditLabourOverTimeAttendance} />
                 <Route path="/listLabourAttendanceForSupervisor" component={ListLabourAttendanceForSupervisor} />
 
                 <Route path="/listEmployeeSalary" component={ListEmployeeSalaryPage} />

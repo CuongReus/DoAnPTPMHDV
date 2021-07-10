@@ -42,11 +42,7 @@ const routes = {
     { title: "Chấm Công Văn Phòng", path: "/employeeAttendance", icon: create },
     { title: "Quản Lý Chấm Công VP", path: "/listEmployeeAttendance", icon: briefcase },
     { title: "Chấm Công Nhân Công", path: "/listLabour", icon: construct },
-    {
-      title: "Thuộc Về Giám Sát",
-      path: "/listLabourAttendanceForSupervisor",
-      icon: person,
-    },
+    { title: "Thuộc Về Giám Sát", path: "/listLabourAttendanceForSupervisor",icon: person },
   ],
   loggedOutPages: [
     { title: "Đăng Xuất", path: "/login", icon: logIn },

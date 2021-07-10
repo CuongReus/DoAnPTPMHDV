@@ -79,7 +79,7 @@ const ListEmployeeAttendancePage: React.FC<ListEmployeeAttendancePageProps> = ({
             <IonItemSliding key={employee.id}>
               <IonItem>
                 <IonAvatar slot="start">
-                  <img src="/assets/img/person-circle-outline.svg"/>
+                  <img src="/assets/img/person-circle-green.svg"/>
                 </IonAvatar>
 
                 <IonLabel>

@@ -25,12 +25,14 @@ import { RouteComponentProps, useParams } from "react-router";
 import { connect } from "../../data/connect";
 import { asyncRequests } from "../../data/dataApi";
 import "../EditPage.scss";
-import { loadListLabour } from "./listLabour.actions";
+import { loadListLabourAttendanceForSupervisor } from "./listLabour.actions";
 import { Labour } from "./Labour";
 import moment from "moment";
 import { toast } from "../../toast";
 import { loadLabourAttendanceById } from "./labourConfig";
 import { FormatterUtils } from "../../util/javascriptUtils";
+import startOfMonth from "date-fns/startOfMonth";
+import lastDayOfMonth from "date-fns/lastDayOfMonth";
 
 
 interface OwnProps extends RouteComponentProps {}
@@ -40,35 +42,30 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  loadListLabour: typeof loadListLabour;
+  loadListLabourAttendanceForSupervisor: typeof loadListLabourAttendanceForSupervisor;
 }
 
 type LabourAttendanceProps = OwnProps & StateProps & DispatchProps;
 
 const LabourAttendance: React.FC<LabourAttendanceProps> = ({
-  loadListLabour,
+  loadListLabourAttendanceForSupervisor,
   history,
 }) => {
   const [labourAttendance, setLabourAttendance] = useState(Object);
   const [hasLoadLabourAttendance, setHasLoadLabourAttendance] = useState(false);
-  const [project, setProject] = useState(Object);
   const [workDate, setWorkDate] = useState("");
-  const [startDateTime, setStartDateTime] = useState<string>("");
-  const [endDateTime, setEndDateTime] = useState<string>("");
-  const [endDateTimeError, setEndDateTimeError] = useState(false);
-  const [totalDateTime, setTotalDateTime] = useState<any>();
+  const [overtimeStatus, setOvertimeStatus] = useState("");
+  const [startOvertime, setStartOverTime] = useState("");
+  const [endOvertime, setEndOverTime] = useState("");
+  const [endOverTimeError, setEndOverTimeError] = useState(false);
+  const [endOverTime1Error, setEndOverTime1Error] = useState(false);
+  const [totalOverTime, setTotalOverTime] = useState<any>();
   const [minusLunchHour, setMinusLunchHour] = useState<any>(0);
-  const [farConstructionStatus, setFarConstructionStatus] = useState("KHONG");
-  const [transportFeeStatus, setTransportFeeStatus] = useState("KHONG");
   const [note, setNote] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [messageResult, setMessageResult] = useState("");
 
-  const [dataEfficiency, setDataEfficiency] = useState([]);
-  const [loadEfficiency, setLoadEfficiency] = useState(false);
-
-  // const { labourId } = useParams();
   const params: any = useParams();
 
   const currentUser = JSON.parse(localStorage._cap_currentUser);
@@ -80,28 +77,42 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
         setHasLoadLabourAttendance(true);
       }
     });
-  }, []);
+  }, [params.labourId]);
 
-  const handleTotalNormalWorkTime = (valueEndTime: any, minusLunchHour: any) => {
+  const handleTotalOvertime = (valueEndTime: any, minusLunchHour: any) => {
 
-    var startTime = moment(labourAttendance.startDatetime, 'HH:mm');
+    var startTime = moment(labourAttendance.startOvertime, 'HH:mm');
     var endTime = moment(valueEndTime, 'HH:mm');
 
     var hours = moment(endTime).diff(startTime, "minutes") / 60;
-    console.log(FormatterUtils.round2Decimals(hours) - FormatterUtils.round2Decimals(parseFloat(minusLunchHour)));
-    if (hours && hours >= 0) {
-      setTotalDateTime(FormatterUtils.round2Decimals(hours - minusLunchHour));
-    } else {
-      setTotalDateTime(0);
+
+    if(labourAttendance.overtimeStatus == "TANG_CA_KHUYA"){
+      if (hours && hours < 0){
+        var totalOvertimeHours = hours + 24;
+        setTotalOverTime(FormatterUtils.round2Decimals(totalOvertimeHours - minusLunchHour));
+      }else if(hours && hours > 0){
+        setTotalOverTime(FormatterUtils.round2Decimals(hours - minusLunchHour));
+      }else {
+        setTotalOverTime(0);
+      }
+    }else if (labourAttendance.overtimeStatus == "TANG_CA_THUONG_TOI"){
+      if (hours && hours > 0){
+        setTotalOverTime(FormatterUtils.round2Decimals(hours - minusLunchHour));
+      }else {
+        setTotalOverTime(0);
+      }
     }
   };
 
   const handleLabourAttendance = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
+    var today = new Date();
+    var startDateOfMonth = moment(startOfMonth(today)).format("YYYY-MM-DD-HH:mm:ss");
+    var endDateOfMonth = moment(lastDayOfMonth(today)).format("YYYY-MM-DD-HH:mm:ss");
 
-    if (!endDateTime) {
-      setEndDateTimeError(true);
+    if (!endOvertime) {
+      setEndOverTimeError(true);
     }
 
     var url = "/labourAttendance/update";
@@ -111,22 +122,21 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
       projectId: labourAttendance.project.id,
       projectDetailId: labourAttendance.projectDetail.id,
       dateToWork: moment(labourAttendance.dateToWork).toISOString(),
-      startDatetime: startDateTime == "" ? labourAttendance.startDatetime : startDateTime,
-      endDatetime: endDateTime ? moment(endDateTime, "HH:mm").format("HH:mm:ss") : "00:00:00",
-      totalDatetime: totalDateTime ? totalDateTime : 0,
-      session: labourAttendance.session,
+      startDatetime: "00:00:00",
+      endDatetime: "00:00:00",
+      totalDatetime: 0,
       overtimeStatus: labourAttendance.overtimeStatus,
-      startOvertime: "00:00:00",
-      endOvertime: "00:00:00",
-      totalOvertime: 0,
-      lateStatus: labourAttendance.lateStatus,
+      startOvertime: startOvertime == "" ? labourAttendance.startOvertime : startOvertime,
+      endOvertime: endOvertime ? moment(endOvertime, "HH:mm").format("HH:mm:ss") : "00:00:00",
+      totalOvertime: totalOverTime ? totalOverTime : 0,
+      lateStatus: "KHONG",
       lateHour: "00:00:00",
       totalLateHour: 0,
       absentStatus: labourAttendance.absentStatus,
       absentDate: labourAttendance.absentDate,
       absentReason: labourAttendance.absentReason,
-      supportFarConstructionStatus: farConstructionStatus,
-      supportTransportFeeStatus: transportFeeStatus,
+      supportFarConstructionStatus: labourAttendance.supportFarConstructionStatus,
+      supportTransportFeeStatus: labourAttendance.supportTransportFeeStatus,
       notOvertimeStatus: "KHONG",
       notOvertimeDate: null,
       uniformBreachStatus: "KHONG",
@@ -147,9 +157,8 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
       if (result && result.id) {
         toast("Chấm Giờ Về Thành Công!");
         history.push("/listLabourAttendanceForSupervisor");
-        window.location.reload();
+        loadListLabourAttendanceForSupervisor(currentUser.id,startDateOfMonth,endDateOfMonth);
       } else {
-        // setMessageResult("Lỗi Lưu trữ!");
         toast("Lỗi Lưu trữ!");
         setShowToast(true);
       }
@@ -157,31 +166,29 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
   };
   //
 
-  var optionFarConstructionStatus = [
-    { label: "Có", value: "CO" },
-    { label: "Không", value: "KHONG" },
+  var optionOvertimeStatus = [
+    { label: "Tăng Ca Ngày Thường (Tối)", value: "TANG_CA_THUONG_TOI" },
+    { label: "Tăng Ca Khuya", value: "TANG_CA_KHUYA" }
   ];
-  var optionTransportFeeStatus = [
-    { label: "Có", value: "CO" },
-    { label: "Không", value: "KHONG" },
-  ];
-  var optionLateStatus = [
-    { label: "Có", value: "CO" },
-    { label: "Không", value: "KHONG" },
-  ];
-  var optionProjectDetail: any[] = [];
 
-  if (loadEfficiency) {
-    dataEfficiency.map((item: any) => {
-      if (item.projectDetail.project.id == project.id) {
-        optionProjectDetail.push({
-          label: item.projectDetail.name,
-          id: item.projectDetail.id,
-        });
-      }
-    });
+  const [disabledButton, setDisabledButton] = useState(false);
+
+  const checkValidate = ( endOvertime : any) => {
+
+    var checkOvertimeTime = false;
+    if (endOvertime >= "00:00" && endOvertime <= "15:59") {
+      checkOvertimeTime = true
+    }
+    if (labourAttendance.overtimeStatus == "TANG_CA_THUONG_TOI" && (endOvertime > "22:00" || checkOvertimeTime == true)) {
+      setDisabledButton(true);
+      setEndOverTime1Error(true);
+    }else{
+      setDisabledButton(false);
+      setEndOverTime1Error(false);
+    }
   }
-  // console.log(labour);
+
+
   return hasLoadLabourAttendance ? (
     <IonPage id="edituser-page">
       <IonHeader>
@@ -189,7 +196,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
           <IonButtons slot="start">
             <IonMenuButton className="c-white"></IonMenuButton>
           </IonButtons>
-          <IonTitle className="c-white">Chấm Công Nhân Công</IonTitle>
+          <IonTitle className="c-white">Chấm Công Tăng Ca</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -227,64 +234,85 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 onIonChange={(e) => setWorkDate(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
-
             <IonItem>
               <IonLabel position="stacked" color="success">
-                Giờ bắt đầu (*)
+                <IonText color="primary">Trạng thái tăng ca</IonText>
+              </IonLabel>
+              <IonSelect
+                value={labourAttendance.overtimeStatus}
+                placeholder="Chọn Trạng Thái"
+                disabled
+                onIonChange={(e) => {setOvertimeStatus(e.detail.value!)}}
+              >
+                {optionOvertimeStatus.map((option) => (
+                  <IonSelectOption key={option.value} value={option.value}>
+                    {option.label}
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked" color="success">
+              <IonText color="primary">Giờ bắt đầu tăng ca (*)</IonText>
               </IonLabel>
               <IonInput
                 type="text"
+                value={moment(labourAttendance.startOvertime, 'HH:mm').format('HH:mm')}
+                placeholder="18:00"
                 disabled
-                value={moment(labourAttendance.startDatetime, 'HH:mm').format('HH:mm')}
-                placeholder="00:00"
                 onIonChange={(e: any) => {
-                  var valueStartTime: string = e.detail.value!;
-                  if (valueStartTime.length == 2) {
-                    setStartDateTime(valueStartTime + ":");
+                  var valueStartOverTime: string = e.detail.value!;
+                  if (valueStartOverTime.length == 2) {
+                    setStartOverTime(valueStartOverTime + ":");
                   }
-                  if (valueStartTime.length == 5) {
-                    setStartDateTime(valueStartTime);
+                  if (valueStartOverTime.length == 5) {
+                    setStartOverTime(valueStartOverTime);
                   }
                 }}
-              ></IonInput>
+                ></IonInput>
             </IonItem>
 
             <IonItem>
               <IonLabel position="stacked" color="success">
-                Giờ kết thúc (*)
+                <IonText color="primary">Giờ kết thúc tăng ca (*)</IonText>
               </IonLabel>
               <IonInput
                 type="text"
-                value={endDateTime}
+                value={endOvertime}
                 placeholder="00:00"
                 onIonChange={(e: any) => {
                   var valueEndTime: string = e.detail.value!;
                   if (valueEndTime.length == 2) {
-                    setEndDateTime(valueEndTime + ":");
+                    setEndOverTime(valueEndTime + ":");
                   }
                   if (valueEndTime.length == 5) {
-                    setEndDateTime(valueEndTime);
-                    handleTotalNormalWorkTime(valueEndTime, minusLunchHour)
+                    setEndOverTime(valueEndTime);
+                    handleTotalOvertime(valueEndTime, minusLunchHour);
+                    checkValidate(valueEndTime);
                   }
                 }}
               ></IonInput>
             </IonItem>
-            {formSubmitted && endDateTimeError && (
+            {formSubmitted && endOverTimeError && (
               <IonText color="danger">
-                <p className="ion-padding-start">Vui Lòng Nhập Giờ Kết Thúc</p>
+                <p className="ion-padding-start">Vui Lòng Nhập Giờ Kết Thúc Tăng Ca</p>
+              </IonText>
+            )}
+            {endOverTime1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">Lưu ý: Giờ về tăng ca Thường không được lớn hơn 22:00.</p>
               </IonText>
             )}
 
             <IonItem>
               <IonLabel position="stacked" color="success">
-                Tổng giờ làm
+                <IonText color="primary">Tổng giờ tăng ca</IonText>
               </IonLabel>
-              {/* <IonInput type="number" value={labour.totalDatetime} placeholder="Nhập tổng giờ làm" onIonInput={(e: any) => setTotalDateTime(e.target.value)}></IonInput> */}
               <IonInput
                 type="number"
                 disabled
-                value={totalDateTime}
-                placeholder="Nhập tổng giờ làm"
+                value={totalOverTime}
+                placeholder="Tổng giờ làm"
               ></IonInput>
             </IonItem>
 
@@ -296,49 +324,8 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 type="number"
                 value={minusLunchHour}
                 placeholder="Nhập thời gian nghỉ"
-                onIonChange={(e: any) => {setMinusLunchHour(e.detail.value!);handleTotalNormalWorkTime(endDateTime, e.detail.value!)}}
+                onIonChange={(e: any) => {setMinusLunchHour(e.detail.value!);handleTotalOvertime(endOvertime, e.detail.value!)}}
               ></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Hỗ Trợ Công Trình Xa
-              </IonLabel>
-              <IonSelect
-                value={farConstructionStatus}
-                placeholder="Chọn Trạng Thái"
-                onIonChange={(e) => setFarConstructionStatus(e.detail.value!)}
-              >
-                {optionFarConstructionStatus.map((option) => (
-                  <IonSelectOption key={option.value} value={option.value}>
-                    {option.label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Hỗ Trợ Chi Phí Đi Lại
-              </IonLabel>
-              <IonSelect
-                value={transportFeeStatus}
-                placeholder="Chọn Trạng Thái"
-                onIonChange={(e) => setTransportFeeStatus(e.detail.value!)}
-              >
-                {optionTransportFeeStatus.map((option) => (
-                  <IonSelectOption key={option.value} value={option.value}>
-                    {option.label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Đi Trễ
-              </IonLabel>
-              <IonInput value={labourAttendance.lateStatus} disabled></IonInput>
             </IonItem>
 
             <IonItem>
@@ -383,8 +370,8 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
 
           <IonRow>
             <IonCol>
-              <IonButton color="success" type="submit" expand="block">
-                Chấm Công
+              <IonButton disabled={disabledButton} color="success" type="submit" expand="block">
+                Chấm Công Tăng Ca
               </IonButton>
             </IonCol>
             <IonCol>
@@ -407,7 +394,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
 
 export default connect<OwnProps, StateProps, DispatchProps>({
   mapDispatchToProps: {
-    loadListLabour,
+    loadListLabourAttendanceForSupervisor,
   },
   component: LabourAttendance,
 });

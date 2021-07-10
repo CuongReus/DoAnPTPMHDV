@@ -21,6 +21,8 @@ import {
   IonLoading,
   IonSelect,
   IonSelectOption,
+  IonText,
+  IonItemOption,
 } from "@ionic/react";
 import { connect } from "../../data/connect";
 import "../ListPage.scss";
@@ -57,33 +59,42 @@ const ListLabourAttendanceForSupervisorPage: React.FC<ListLabourAttendanceForSup
     loadListLabourAttendanceForSupervisor,
     mode,
   }) => {
-    const [showFilterModal, setShowFilterModal] = useState(false);
     const ionRefresherRef = useRef<HTMLIonRefresherElement>(null);
     const [showCompleteToast, setShowCompleteToast] = useState(false);
     const [showPopover, setShowPopover] = useState(false);
     const [dataMonth, setDataMonth] = useState(Object);
     const currentUser = JSON.parse(localStorage._cap_currentUser);
 
-
     var today = new Date();
-    var monthsArray = []
+    var monthsArray = [];
 
-  for (var i:number = 0; i < 3; i++) {
-    monthsArray.push({
-      label: "Tháng" + " " + (today.getMonth() + 1 - i),
-      value: (today.getMonth() - i)
-    });
-  }
+    for (var i: number = 0; i < 3; i++) {
+      monthsArray.push({
+        label: "Tháng" + " " + (today.getMonth() + 1 - i),
+        value: today.getMonth() - i,
+      });
+    }
 
-  //Kiểm tra mảng tháng có rỗng không? Mặc định khi chưa chọn Select
-  if(Object.keys(dataMonth).length === 0 && dataMonth.constructor === Object) {
-    var startDateOfMonth = moment(startOfMonth(today)).format("YYYY-MM-DD-HH:mm:ss");
-    var endDateOfMonth = moment(lastDayOfMonth(today)).format("YYYY-MM-DD-HH:mm:ss");
-  }else{
-    var pastDay = moment().month(dataMonth).toDate();
-    var startDateOfMonth = moment(startOfMonth(pastDay)).format("YYYY-MM-DD-HH:mm:ss");
-    var endDateOfMonth = moment(lastDayOfMonth(pastDay)).format("YYYY-MM-DD-HH:mm:ss");
-  }
+    //Kiểm tra mảng tháng có rỗng không? Mặc định khi chưa chọn Select
+    if (
+      Object.keys(dataMonth).length === 0 &&
+      dataMonth.constructor === Object
+    ) {
+      var startDateOfMonth = moment(startOfMonth(today)).format(
+        "YYYY-MM-DD-HH:mm:ss"
+      );
+      var endDateOfMonth = moment(lastDayOfMonth(today)).format(
+        "YYYY-MM-DD-HH:mm:ss"
+      );
+    } else {
+      var pastDay = moment().month(dataMonth).toDate();
+      var startDateOfMonth = moment(startOfMonth(pastDay)).format(
+        "YYYY-MM-DD-HH:mm:ss"
+      );
+      var endDateOfMonth = moment(lastDayOfMonth(pastDay)).format(
+        "YYYY-MM-DD-HH:mm:ss"
+      );
+    }
 
     const doRefresh = () => {
       setTimeout(() => {
@@ -93,7 +104,11 @@ const ListLabourAttendanceForSupervisorPage: React.FC<ListLabourAttendanceForSup
     };
 
     useEffect(() => {
-      loadListLabourAttendanceForSupervisor(currentUser.id,startDateOfMonth,endDateOfMonth);
+      loadListLabourAttendanceForSupervisor(
+        currentUser.id,
+        startDateOfMonth,
+        endDateOfMonth
+      );
     }, [startDateOfMonth, endDateOfMonth]);
 
     return (
@@ -130,54 +145,62 @@ const ListLabourAttendanceForSupervisorPage: React.FC<ListLabourAttendanceForSup
             isOpen={listLaboursForSupervisor ? false : true}
           />
           <IonItem lines="full" className="custom-item">
-          <span style={{marginRight: 'auto'}}>Bộ lọc</span>
-          <IonSelect
-                value={dataMonth}
-                placeholder="Tháng hiện tại"
-                onIonChange={(e) => setDataMonth(e.detail.value!)}
-              >
-                {monthsArray.map((option:any) => (
-                  <IonSelectOption key={option.value} value={option.value}>
-                    {option.label}
-                  </IonSelectOption>
-                ))}
-              </IonSelect>
+            <span style={{ marginRight: "auto" }}>Bộ lọc</span>
+            <IonSelect
+              value={dataMonth}
+              placeholder="Tháng hiện tại"
+              onIonChange={(e) => setDataMonth(e.detail.value!)}
+            >
+              {monthsArray.map((option: any) => (
+                <IonSelectOption key={option.value} value={option.value}>
+                  {option.label}
+                </IonSelectOption>
+              ))}
+            </IonSelect>
           </IonItem>
           <IonList>
             {listLaboursForSupervisor &&
               listLaboursForSupervisor.map((item: any) => (
                 <IonItemSliding key={item.id}>
-                  <IonItem routerLink={`/editLabourAttendance/${item.id}`}>
-                    <IonAvatar slot="start">
-                      {/* <img src={`/assets/img/${user.id}`} /> */}
-                      <img src="/assets/img/person-circle-outline.svg" />
-                    </IonAvatar>
+                  {item.overtimeStatus == null ? (
+                    <IonItem routerLink={`/editLabourNormalAttendance/${item.id}`}>
+                      <IonAvatar slot="start">
+                        {/* <img src={`/assets/img/${user.id}`} /> */}
+                        <img alt="avatar" src="/assets/img/person-circle-green.svg" />
+                      </IonAvatar>
 
-                    <IonLabel>
-                      <h3>{item.labour.fullName}</h3>
-                      <p>Dự Án Làm Việc: {item.project.name}</p>
-                      <p>Ngày Làm Việc: {item.dateToWork}</p>
-                      <p>Giờ Bắt Đầu Làm: {item.startDatetime}</p>
-                      <p>Giờ Kết Thúc Làm: {item.endDatetime}</p>
-                      <p>Số điện thoại: {item.labour.phone}</p>
-                    </IonLabel>
-                  </IonItem>
-                  <IonPopover
-                    isOpen={showPopover}
-                    cssClass=""
-                    onDidDismiss={(e) => setShowPopover(false)}
-                  >
-                    <p>This is popover content</p>
-                  </IonPopover>
+                      <IonLabel>
+                        <h3>{item.labour.fullName}</h3>
+                        <p>Số điện thoại: {item.labour.phone}</p>
+                        <p>Ngày Làm Việc: {item.dateToWork}</p>
+                        <IonText color="danger">Ngày công thường:</IonText>
+                        <p>Dự Án Làm Việc: {item.project.name}</p>
+                        <p>Giờ Bắt Đầu Làm: {item.startDatetime}</p>
+                        <p>Giờ Kết Thúc Làm: {item.endDatetime}</p>
+                      </IonLabel>
+                    </IonItem>
+                  ) : (
+                    <IonItem routerLink={`/editLabourOverTimeAttendance/${item.id}`}>
+                      <IonAvatar slot="start">
+                        {/* <img src={`/assets/img/${user.id}`} /> */}
+                        <img alt="avatar" src="/assets/img/person-circle-green.svg" />
+                      </IonAvatar>
+                      <IonLabel>
+                        <h3>{item.labour.fullName}</h3>
+                        <p>Số điện thoại: {item.labour.phone}</p>
+                        <p>Ngày Làm Việc: {item.dateToWork}</p>
+                        <IonText color="primary">Ngày công tăng ca:</IonText>
+                        <p>Trạng thái tăng ca: {item.overtimeStatus}</p>
+                        <p>Dự Án Làm Việc: {item.project.name}</p>
+                        <p>Giờ Bắt Đầu Làm: {item.startOvertime}</p>
+                        <p>Giờ Kết Thúc Làm: {item.endOvertime}</p>
+                      </IonLabel>
+                    </IonItem>
+                  )}
                 </IonItemSliding>
               ))}
           </IonList>
         </IonContent>
-
-        <IonModal
-          isOpen={showFilterModal}
-          onDidDismiss={() => setShowFilterModal(false)}>
-        </IonModal>
       </IonPage>
     );
   };
