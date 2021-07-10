@@ -74,11 +74,10 @@ const ListUserPage: React.FC<ListUserPageProps> = ({ listUsers, setSearchText, l
         <IonList>
           {listUsers && listUsers.map((user, index: number) => (
             <IonItemSliding key={user.id}>
-              {/* <IonItem routerLink={`/editLeaveLetter/${user.id}`}> */}
-              <IonItem>
+              <IonItem routerLink={`/editUser/${user.id}`}>
                 <IonAvatar slot="start">
                   {/* <img src={`/assets/img/${user.id}`} /> */}
-                  <img src="/assets/img/person-circle-green.svg"/>
+                  <img src="/assets/img/avartar-blue.png"/>
                 </IonAvatar>
 
                 <IonLabel>

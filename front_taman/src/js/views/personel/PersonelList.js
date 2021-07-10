@@ -181,7 +181,7 @@ class PersonelList extends React.Component {
                     <td>{item.email}<br />{item.phone}</td>
                     <td>{item.currentAddress}</td>
                     {/* <td>{item.permanentAddress}</td> */}
-                    <td>{item.position}</td>
+                    {/* <td>{item.position}</td> */}
                     <td>{item.company ? item.company.name : null}</td>
                     <td>{item.annualLeaveYear}</td>
                     <td className="active-status">
@@ -293,7 +293,7 @@ class PersonelList extends React.Component {
                                             <th data-toggle="phone"><center>Mã Nhân Viên & Họ Tên</center></th>
                                             <th data-hide="phone"><center>Liên Hệ</center></th>
                                             <th data-hide="phone"><center>Địa chỉ Hiện Tại</center></th>
-                                            <th data-hide="phone"><center>Chức Vụ </center></th>
+                                            {/* <th data-hide="phone"><center>Chức Vụ </center></th> */}
                                             <th data-hide="phone"><center>Công Ty </center></th>
                                             <th data-hide="phone"><center>Ngày Phép / Năm</center></th>
                                             <th data-hide="phone"><center>Trạng Thái</center></th>

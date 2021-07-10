@@ -3,7 +3,6 @@ import { sessionsReducer } from './sessions/sessions.reducer';
 import { userReducer } from './user/user.reducer';
 import { listuserReducer } from '../pages/user/listuser.reducer';
 import { listlabourReducer } from '../pages/labour/listLabour.reducer';
-import { listemployeeSalaryReducer } from '../pages/employeeSalary/listemployeeSalary.reducer';
 import { listEmployeeAttendanceReducer } from '../pages/employeeAttendance/listEmployeeAttendance.reducer';
 
 
@@ -34,10 +33,6 @@ export const initialState: AppState = {
   // listLeaveletter: {
   //   leaveletter:[],
   // },
-  listemployeeSalary: {
-    employeeSalarys: [],
-    searchText: '',
-  },
   listEmployeeAttendance: {
     employees:[],
   },
@@ -49,7 +44,6 @@ export const reducers = combineReducers({
   listuser: listuserReducer,
   listlabour: listlabourReducer,
   // listLeaveletter: listuserReducer,
-  listemployeeSalary: listemployeeSalaryReducer,
   listEmployeeAttendance: listEmployeeAttendanceReducer
 });
 

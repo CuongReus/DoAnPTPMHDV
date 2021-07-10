@@ -166,7 +166,7 @@ const ListLabourAttendanceForSupervisorPage: React.FC<ListLabourAttendanceForSup
                     <IonItem routerLink={`/editLabourNormalAttendance/${item.id}`}>
                       <IonAvatar slot="start">
                         {/* <img src={`/assets/img/${user.id}`} /> */}
-                        <img alt="avatar" src="/assets/img/person-circle-green.svg" />
+                        <img alt="avatar" src="/assets/img/avartar-blue.png" />
                       </IonAvatar>
 
                       <IonLabel>
