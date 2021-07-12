@@ -326,19 +326,11 @@ class ModalLabourNormalAttendance extends React.Component {
     ///Hide and Clean Value
     handleHideAndClear() {
         const { destroy, onHide, fireRedirect } = this.props;
-
-        // event.preventDefault();
         destroy();
-        // reset('ModalLabourNormalAttendance');
         onHide();
-        // fireRedirect('/listLabourAttendanceForSupervisor');
-
-
-
-
     }
+
     render() {
-        // const { objectLabourAttendance, listfile, title, onHide } = this.props;
         const { handleSubmit, submitting, title, invalid,
              currentUser, initialValues, labourDto,
               endDatetime, labourIdSelector, startDatetime,dateToWork,
@@ -410,13 +402,13 @@ class ModalLabourNormalAttendance extends React.Component {
             });
 
         }
-        var optionSessions = [{ label: "Sáng", value: "SANG" }, { label: "Tối", value: "TOI" }];
+        // var optionSessions = [{ label: "Sáng", value: "SANG" }, { label: "Tối", value: "TOI" }];
         var optionLateStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionNotOvertime = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionsUniformBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionSafetyBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionsConstructionBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionAbsentStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
+        // var optionNotOvertime = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionsUniformBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionSafetyBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionsConstructionBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionAbsentStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
 
         var optionFarConstructionStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
         var optionTransportFeeStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
@@ -453,19 +445,6 @@ class ModalLabourNormalAttendance extends React.Component {
                                 <Field name="supportFarConstructionStatus" label="Hỗ Trợ Công Trình Xa" options={optionFarConstructionStatus} component={RenderSelect}></Field>
                                 <Field name="supportTransportFeeStatus" label="Hỗ Trợ Chi Phí Đi Lại" options={optionTransportFeeStatus} component={RenderSelect}></Field>
                                     <Field disabled={true} name="lateStatus" label="Đi Trể ?" options={optionLateStatus} component={RenderSelect}></Field>
-                                {/* <Field name="totalLateHour" label="Tổng Số Giờ Trể" component={RenderNumberInput}></Field> */}
-                                {/* <Field name="lateHour" label="Số Giờ Trể" component={RenderTimeWrapper}></Field>
-                                <Field name="absentStatus" label="Trạng Thái Vắng Mặt" options={optionAbsentStatus} component={RenderSelect}></Field>
-                                <Field name="absentDate" dataFormat="DD/MM/YYYY" label="Ngày Vắng Mặt" component={RenderDatePicker}></Field>
-                                <Field name="absentReason" label="Lý Do Vắng Mặt" rows={3} component={RenderTextArea}></Field>
-                                <Field name="notOvertimeStatus" label="Không Tăng Ca" options={optionNotOvertime} component={RenderSelect}></Field>
-                                <Field name="notOvertimeDate" label="Ngày Không Tăng Ca" dataFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
-                                <Field name="uniformBreachStatus" label="Trạng Thái Vi Phạm Đồng Phục" options={optionsUniformBreach} component={RenderSelect}></Field>
-                                <Field name="uniformBreachDate" label="Ngày Vi Phạm" dataFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
-                                <Field name="safetyBreachStatus" label="Trạng Thái Vi Phạm An Toàn" options={optionSafetyBreach} component={RenderSelect}></Field>
-                                <Field name="safetyBreachDate" dataFormat="DD/MM/YYYY" label="Ngày Vi Phạm An Toàn" component={RenderDatePicker}></Field>
-                                <Field name="constructionBreachStatus" label="Trạng Thái Vi Phạm Thi Công" options={optionsConstructionBreach} component={RenderSelect}></Field>
-                                <Field name="constructionBreachDate" dataFormat="DD/MM/YYYY" label="Ngày Vi Phạm Thi Công" component={RenderDatePicker}></Field> */}
                                 <Field name="note" label="Ghi Chú" placeholder="Nhập Ghi Chú..." rows={3} component={RenderTextArea}></Field>
                                 <Field disabled={true} name="createdUserId" label="Người Chấm Công" options={showCreatedUser} component={RenderSelect}></Field>
                                 <Field disabled={true} name="createdDate" label="Ngày Tạo Bảng" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>

@@ -157,17 +157,7 @@ class ModalLabourOvertimeAttendance extends React.Component {
         }
         this.handleAdd = this.handleAdd.bind(this);
         this.handleHideAndClear = this.handleHideAndClear.bind(this);
-        // this.handleCheckLate = (valueStartTime)=>{
-        //     const {updateField,idLabourAttendance} = this.props;
-        //     var standardHour= '0815';
-        //        var startDateTime =   valueStartTime.replace(":","")
-        //       if( parseInt(startDateTime) > parseInt(standardHour)){
-        //             updateField("lateStatus","CO")
-        //         }else{
-        //             updateField("lateStatus","KHONG")
-        //         }
-
-        // }
+        
         this.handleTotalOvertime = (valueStartOverTime, valueEndOverTime, valueMinusHour) => {
             const { updateField, overtimeStatus, startOvertime, endOvertime, minusLunchHour } = this.props;
             if (valueStartOverTime == startOvertime && valueEndOverTime == endOvertime) {
@@ -376,24 +366,13 @@ class ModalLabourOvertimeAttendance extends React.Component {
                 // if(listCompanyOfLabour){
                 labourDto.companies.map(labourCompanies => {
                     if (item.projectYear.company.id == labourCompanies.id) {
-                        // if (listProjectLabourWorkTodayDto) {
-                        //     listProject.push(item);
-
-                        // } 
-                        // else {
                         optionProject.push({ label: item.projectYear.company.name + " - " + item.name, value: item.id });
-                        // }
                     }
                 })
 
                 // }
             } else {
-                // if (listProjectLabourWorkTodayDto) {
-                //     listProject.push(item);
-                // }
-                // else {
                 optionProject.push({ label: item.name, value: item.id });
-                // }
             }
 
         })
@@ -439,25 +418,20 @@ class ModalLabourOvertimeAttendance extends React.Component {
             });
 
         }
-        var optionSessions = [{ label: "Sáng", value: "SANG" }, { label: "Tối", value: "TOI" }];
-        var optionLateStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionNotOvertime = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionsUniformBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionSafetyBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionsConstructionBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        var optionAbsentStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
+        // var optionSessions = [{ label: "Sáng", value: "SANG" }, { label: "Tối", value: "TOI" }];
+        // var optionLateStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionNotOvertime = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionsUniformBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionSafetyBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionsConstructionBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
+        // var optionAbsentStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
         var optionOvertimeStatus = [
-            // {label:"Tăng Ca Thường(Sáng)", value:"TANG_CA_THUONG_SANG"},
             { label: "Tăng Ca Ngày Thường (Tối)", value: "TANG_CA_THUONG_TOI" },
             { label: "Tăng Ca Khuya", value: "TANG_CA_KHUYA" }
-            // { label: "Tăng Ca Chủ Nhật(Sáng)", value: "TANG_CA_CN_SANG" },
-            // { label: "Tăng Ca Chủ Nhật(Tối)", value: "TANG_CA_CN_TOI" },
-            // {label:"Tăng Ca Ngày Lễ(Sáng)", value:"TANG_CA_NGAY_LE_SANG"},
-            // {label:"Tăng Ca Ngày Lễ(Tối)", value:"TANG_CA_NGAY_LE_TOI"}
         ];
 
-        var optionFarConstructionStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
-        var optionTransportFeeStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
+        // var optionFarConstructionStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
+        // var optionTransportFeeStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
         var newModal = null;
 
         newModal =
@@ -488,31 +462,9 @@ class ModalLabourOvertimeAttendance extends React.Component {
                                     this.handleTotalOvertime(startOvertime, endOvertime, value);
                                 }}></Field> : null}
 
-
                                 <Field name="note" label="Ghi Chú" placeholder="Nhập Ghi Chú..." rows={3} component={RenderTextArea}></Field>
                                 <Field disabled={true} name="createdUserId" label="Người Chấm Công" options={showCreatedUser} component={RenderSelect}></Field>
                                 <Field disabled={true} name="createdDate" label="Ngày Tạo Bảng" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
-
-
-
-
-
-                                {/* <Field name="supportFarConstructionStatus" label="Hỗ Trợ Công Trình Xa" options={optionFarConstructionStatus} component={RenderSelect}></Field>
-                                <Field name="supportTransportFeeStatus" label="Hỗ Trợ Chi Phí Đi Lại" options={optionTransportFeeStatus} component={RenderSelect}></Field> */}
-                                {/* <Field disabled={true} name="lateStatus" label="Đi Trể ?" options={optionLateStatus} component={RenderSelect}></Field> */}
-                                {/* <Field name="totalLateHour" label="Tổng Số Giờ Trể" component={RenderNumberInput}></Field> */}
-                                {/* <Field name="lateHour" label="Số Giờ Trể" component={RenderTimeWrapper}></Field>
-                                <Field name="absentStatus" label="Trạng Thái Vắng Mặt" options={optionAbsentStatus} component={RenderSelect}></Field>
-                                <Field name="absentDate" dataFormat="DD/MM/YYYY" label="Ngày Vắng Mặt" component={RenderDatePicker}></Field>
-                                <Field name="absentReason" label="Lý Do Vắng Mặt" rows={3} component={RenderTextArea}></Field>
-                                <Field name="notOvertimeStatus" label="Không Tăng Ca" options={optionNotOvertime} component={RenderSelect}></Field>
-                                <Field name="notOvertimeDate" label="Ngày Không Tăng Ca" dataFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
-                                <Field name="uniformBreachStatus" label="Trạng Thái Vi Phạm Đồng Phục" options={optionsUniformBreach} component={RenderSelect}></Field>
-                                <Field name="uniformBreachDate" label="Ngày Vi Phạm" dataFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
-                                <Field name="safetyBreachStatus" label="Trạng Thái Vi Phạm An Toàn" options={optionSafetyBreach} component={RenderSelect}></Field>
-                                <Field name="safetyBreachDate" dataFormat="DD/MM/YYYY" label="Ngày Vi Phạm An Toàn" component={RenderDatePicker}></Field>
-                                <Field name="constructionBreachStatus" label="Trạng Thái Vi Phạm Thi Công" options={optionsConstructionBreach} component={RenderSelect}></Field>
-                                <Field name="constructionBreachDate" dataFormat="DD/MM/YYYY" label="Ngày Vi Phạm Thi Công" component={RenderDatePicker}></Field> */}
                                 <div style={initialValues.lastedUpdateUserId ? { display: 'block' } : { display: 'none' }}>
                                     <Field disabled={true} name="lastedUpdateUserId" label="Người Chỉnh Sửa Gần Nhất" options={showLastedUpdateUser} component={RenderSelect}></Field>
                                     <Field disabled={true} name="lastedUpdateDate" label="Ngày Chỉnh Sửa Gần Nhất" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> </div>

@@ -4,24 +4,16 @@ import agent from '../../services/agent';
 import { Modal } from 'react-bootstrap';
 import { RenderInputWithDiv, RenderInputWithGen, RenderTextArea, RenderDatePicker,RenderCheckbox, RenderSelect, RenderNumberInput, RenderMoneyFormat, RenderMultiSelect } from '../../components/formInputs';
 import { Field, reduxForm,formValueSelector } from 'redux-form';
-import isEmail from 'sane-email-validation';
-import { StringUtils } from '../../utils/javascriptUtils';
 import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import {LOAD_UPDATING_LABOUR} from './action-types';
-import {FIRE_REDIRECT } from '../../constants/action-types';
-import ListFile from '../../components/ListFile';
-import { isNull } from 'util';
 import moment from 'moment';
 const validate = values => {
     const errors = {};
     if (!values.fullName) {
         errors.fullName = 'Vui lòng nhập họ tên.';
     }
-    // if (!values.company ||!values.company.id ){
-    //     errors.company= {id:"Vui lòng chọn công ty làm việc."}
-    // }
     return errors;
 }
 
@@ -112,24 +104,25 @@ class ModalLabour extends React.Component {
         var bodyObject = {
             fullName: values.fullName,
             title: values.title,
+            companies:values.companies.map(item => {return {id: item.value};}),
+            birthday: values.birthday,
+            phone: values.phone,
+            note: values.note,
+            createdUserId:values.createdUserId,
+            lastedUpdateUserId: id ?  currentUser.id : null,
+            createdDate:id? values.createdDate: today,
+            lastedUpdateDate: id ? moment(today) : null,
+
             salaryMidnight: values.salaryMidnight ? values.salaryMidnight : 0,
             salaryPerDay: values.salaryPerDay ? values.salaryPerDay : 0,
             additionSalary: values.additionSalary ? values.additionSalary: 0 ,
-            companies:values.companies.map(item => {return {id: item.value};}),
-            birthday: values.birthday,
             startWorkDate: values.startWorkDate,
-            phone: values.phone,
             contractNumber: values.contractNumber,
             contractSignDate: values.contractSignDate,
             contractEndDate: values.contractEndDate,
             enoughLabourContract: values.enoughLabourContract,
-            note: values.note,
             labourContractFile: values.labourContractFile,
             identityCardNumber: values.identityCardNumber,
-            createdUserId:values.createdUserId,
-            lastedUpdateUserId: id ?  currentUser.id : null,
-            createdDate:id? values.createdDate: today,
-            lastedUpdateDate: id ? moment(today) : null
          
         };
         if (id) {
@@ -229,18 +222,7 @@ class ModalLabour extends React.Component {
                                     <Field name="companies"label="Thuộc công ty(*)" placeholder="Chọn công ty..." options={optionCompanies} component={RenderMultiSelect}></Field>
                                     <Field name="title" label="Công Việc" placeholder="Công Việc..." component={RenderInputWithDiv}></Field>
                                     <Field name="phone" label="Số Điện Thoại" placeholder="Nhập số điện thoại..." component={RenderNumberInput}></Field>
-                                    {/* <Field name="identityCardNumber" label="Số Chứng Minh Nhân Dân" placeholder="Nhập số CMND..." component={RenderNumberInput}></Field> */}
                                     <Field name="birthday"  dateFormat="DD/MM/YYYY" label="Ngày Sinh" component={RenderDatePicker}></Field>
-                                    {/* <Field name="startWorkDate"  dateFormat="DD/MM/YYYY" label="Ngày Bắt Đầu Làm Việc" component={RenderDatePicker}></Field>
-                                    <Field name="contractNumber" label="Số Hợp Đồng Lao Động" placeholder="Nhập Số HĐLĐ..." component={RenderInputWithDiv}></Field>                                  
-                                    <Field name="contractSignDate" dateFormat="DD/MM/YYYY" label="Ngày Ký HĐLĐ" component={RenderDatePicker}></Field>
-                                    <Field name="contractEndDate" label="Ngày Kết Thúc HĐLĐ"  component={RenderDatePicker}></Field>
-                                    <Field name="salaryMidnight" label="Lương Tăng Ca KHUYA" placeholder="Nhập số tiền lương tăng ca KHUYA.." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                    <Field name="salaryPerDay" label="Lương / Ngày" placeholder="Nhập số tiền lương trên ngày.." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                    <Field name="additionSalary" label="Lượng Phụ Cấp" placeholder="Nhập lương phụ cấp..." thousandSeparator={true} component={RenderMoneyFormat}></Field> */}
-                                    {/* TODO Split Screen two col */}
-                                    {/* <Field name="enoughLabourContract" label="Trạng Thái HĐLĐ" options={optionLabourContractStatus} component={RenderSelect} ></Field>
-                                    <Field name="labourContractFile" modalUrl="/uploadLabourContract"  component={ListFile}></Field> */}
                                     <Field name="note" label="Ghi Chú"  placeholder="Nhập ghi chú..."  rows={3} component={RenderTextArea}></Field>
                                     <Field disabled={true} name="createdUserId" label="Người Tạo Bảng"  options={showCreatedUser} component={RenderSelect}></Field>
                                     {id ?<Field disabled={true} name="createdDate" label="Ngày Tạo Bảng"  dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> : null }

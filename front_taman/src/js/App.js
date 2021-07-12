@@ -24,7 +24,7 @@ import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
 import LabourList from "./views/labour/LabourList";
 // import LabourSalaryList from "./views/labourSalary/LabourSalaryList";
-import AttendanceGeneralScreen from "./views/labourAttendance/AttendanceGeneralScreen";
+// import AttendanceGeneralScreen from "./views/labourAttendance/AttendanceGeneralScreen";
 import ListLaboutAttendanceForSupervisor from "./views/labourAttendance/ListLaboutAttendanceForSupervisor";
 import UserChangePassword from "./views/personel/UserChangePassword";
 import EmployeeAttendanceList from "./views/EmployeeAttendance/EmployeeAttendanceList";
@@ -156,7 +156,7 @@ class App extends React.Component {
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
                                 <Route path="/listLabour" component={LabourList}/>
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>
-                                <Route path="/attendanceGeneralScreen" component={AttendanceGeneralScreen}/>
+                                {/* <Route path="/attendanceGeneralScreen" component={AttendanceGeneralScreen}/> */}
                                 <Route path="/listEmployeeAttendance" component={EmployeeAttendanceList}/>
                             </Switch>
                         </div>

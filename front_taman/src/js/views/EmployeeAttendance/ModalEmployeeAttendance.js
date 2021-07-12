@@ -304,42 +304,21 @@ class ModalEmployeeAttendance extends React.Component {
         var totalLeaveYearRemain = employeeDto && employeeDto.annualLeaveNumberRemaining !=null ? employeeDto.annualLeaveNumberRemaining: 0;
 
 
-        // if(attendanceType){
-        //     console.log(attendanceType.substring(2,3));
-        // }
+    
         var optionUser = [];
         dataUser.map(item => {
             optionUser.push({ label: item.fullName, value: item.id })
         });
-        // // that fix Null modal
-        // if(!dateToWork || !user){
-        //    return null;
-        // }
+        
         var weekdays = new Array(
             "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
         );
         var weekdaysVI = new Array(
             "Chủ Nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"
         );
-        // var optionMinusLeaveDayStatus = [
-        //     {label:"Có" ,value:"CO"},
-        //     {label:"Không" ,value:"KHONG"}]
-        // ;
+        
         
         var optionAttendanceType = [];
-        // var listAttendanceType = [
-        //     { value: "X", label: "X - Đi làm bình thường" },
-        //     { value: "X2", label: "X2 - Đi làm nửa ngày" },
-        //     { value: "NG_X", label: "NG_X - Ngoài giờ ngày thường" },
-        //     // {value: "NG_X2",  label : "NG_X2 - Ngoài giờ nửa ngày thường"},										
-        //     { value: "NG_7", label: "NG_7 - Ngoài thứ 7" },
-        //     { value: "NG_72", label: "NG_72 - Ngày thứ 7 nửa ngày" },
-        //     { value: "NG_CN", label: "NG_CN - Ngày chủ nhật" },
-        //     { value: "NG_CN2", label: "NG_CN2 - Ngày chủ nhật nửa ngày" },
-        //     { value: "NG_L", label: "NG_L - Ngày lễ" },
-        //     { value: "NG_L2", label: "NG_L2 - Ngày lễ nữa ngày" }
-
-        // ];
         //    Check and load AttendanceType right to position of user in company
         if (dateToWork && status) {
                 if (status == "CO_MAT") {
@@ -347,7 +326,7 @@ class ModalEmployeeAttendance extends React.Component {
                         optionAttendanceType.push({ value: "NG_CN", label: "NG_CN - Ngày chủ nhật" },
                         { value: "NG_CN2", label: "NG_CN2 - Ngày chủ nhật nửa ngày",disabled:true },
                         { value: "NG_L", label: "NG_L - Ngày lễ" },
-                        // { value: "NG_L2", label: "NG_L2 - Ngày lễ nữa ngày" }
+                        
                         );
                         isShowOvertimeType = true;
                     }
@@ -358,11 +337,10 @@ class ModalEmployeeAttendance extends React.Component {
                             { value: "NG_7", label: "NG_7 - Ngoài giờ thứ 7" },
                         { value: "NG_72", label: "NG_72 - Ngoài giờ Thứ 7 nửa ngày",disabled:true },
                         { value: "NG_L", label: "NG_L - Ngày lễ" },
-                        // { value: "NG_L2", label: "NG_L2 - Ngày lễ nữa ngày" }
+                        
                         );
                         if(employeeDto.department && employeeDto.department.workOnWeekendStatus =="CO"){
                             optionAttendanceType.unshift({ value: "X", label: "X - Đi làm bình thường" },
-                            // { value: "X2", label: "X2 - Đi làm nửa ngày" }
                             )
                         }
                         // isShowOvertimeType =true;
@@ -372,7 +350,6 @@ class ModalEmployeeAttendance extends React.Component {
                             { value: "X2", label: "X2 - Đi làm bình thường (nửa ngày)" },
                             { value: "NG_X", label: "NG_X - Ngoài giờ ngày thường" },
                             { value: "NG_L", label: "NG_L - Ngày lễ" },
-                            // { value: "NG_L2", label: "NG_L2 - Ngày lễ nữa ngày" }
                             );
                     }
                 } else if (status == "VANG_MAT") {
@@ -380,7 +357,6 @@ class ModalEmployeeAttendance extends React.Component {
                     optionAttendanceType = [{ value: "NL", label: "NL - Nghỉ lễ" },
                     { value: "NL2", label: "NL2 - Nghỉ lễ nửa ngày" },
                   
-                    // { value: "PN2", label: "PN2 -  Nghỉ phép năm nửa ngày" },
                     { value: "KP", label: "KP -  Nghỉ không phép" },
                     { value: "KP2", label: "KP2 -  Nghỉ không phép nửa ngày" },
                     { value: "NB", label: "NB -  Nghỉ bù" },

@@ -32,7 +32,6 @@ class LabourList extends React.Component {
             idLabour: null,
             idLabourAbsent: null,
             showButtonPopover: false,
-            // isLabourAbsentShown: false,
             labourDto: null,
             isLabourOvertimeAttendanceModalShown: false,
             isLabourAttendanceModalShown: false,

@@ -119,7 +119,7 @@ class SideBar extends React.Component {
 												}}><i className="icon-user-tie"></i>
 													<span>Thuộc Về Giám Sát</span></Link></li>
 										</SecuredComponent>
-										<SecuredComponent allowedPermission="admin.labourAttendance.forAttendanceDepart">
+										{/* <SecuredComponent allowedPermission="admin.labourAttendance.forAttendanceDepart">
 											<li className={currentUrl == '/attendanceGeneralScreen' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to={{
 													pathname: '/attendanceGeneralScreen', state: {
@@ -127,7 +127,7 @@ class SideBar extends React.Component {
 													}
 												}}><i className="icon-calendar22"></i>
 													<span>Tổng Chấm Công</span></Link></li>
-										</SecuredComponent>
+										</SecuredComponent> */}
 									</ul>
 								</li>
 							</ul>

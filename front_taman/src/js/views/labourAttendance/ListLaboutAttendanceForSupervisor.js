@@ -4,19 +4,15 @@ import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { Field, formValueSelector } from 'redux-form';
 import { translate } from 'react-i18next';
-import { ScriptUtils, FormatterUtils } from '../../utils/javascriptUtils';
-import TablePagination from '../../components/TablePagination';
+import { ScriptUtils } from '../../utils/javascriptUtils';
 import agent from '../../services/agent';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import ModalLabourNormalAttendance from './ModalLabourNormalAttendance';
-import ModalSetLabourNABreach from './ModalSetLabourNABreach';
 import { PermanentCacheService } from '../../services/middleware';
 import dateFns from 'date-fns';
 import ModalSetLabourAbsent from './ModalSetLabourAbsent';
 import { RenderSelect } from '../../components/formInputs';
 import ModalLabourOvertimeAttendance from './ModalLabourOvertimeAttendance';
-import ModalSetLabourOTBreach from './ModalSetLabourOTBreach';
 import SecuredComponent from '../../components/SecuredComponent';
 
 const selector = formValueSelector('ListLaboutAttendanceForSupervisor');
@@ -62,24 +58,19 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
             isOvertime: false,
             isSetOuttimeModalShown: false,
             isSetOutOvertimeModalShown: false,
-            isSetBreachNAModalShown: false,
-            isSetBreachOTModalShown: false,
             isEditLabourAbsentModalShown: false,
             labourId: null,
             listAllLabour: []
 
         }
-        this.handleShowSetBreachNAModal = this.handleShowSetBreachNAModal.bind(this);
-        this.handleShowSetBreachOTModal = this.handleShowSetBreachOTModal.bind(this);
+        
         this.handleShowOuttimemodal = this.handleShowOuttimemodal.bind(this);
         this.hanleShowOutOvertimemodal = this.hanleShowOutOvertimemodal.bind(this);
         this.updateListLabourAttendanceForSupervisor = this.updateListLabourAttendanceForSupervisor.bind(this);
         this.handleHidemodal = () => {
             this.setState({ isSetOuttimeModalShown: false,
                 isSetOutOvertimeModalShown:false,
-                 isSetBreachNAModalShown: false,
-                  isEditLabourAbsentModalShown: false,
-                  isSetBreachOTModalShown:false,
+                isEditLabourAbsentModalShown: false,
                 idLabourAttendance: null,
                 isOvertime: false });
             this.updateListLabourAttendanceForSupervisor(this.state.labourId);
@@ -219,11 +210,6 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
     }
     // Outtime of normal attendance
     handleShowOuttimemodal(id) {
-        // this.setState({ idDeliveryBillDetail: null,
-        //     OrderItemDto : OrderItemDto
-            
-        // }, () => {
-        // this.setState({isShownModalDeliveryBillDetail:true});
         this.setState({
             idLabourAttendance: id,
         },()=>{
@@ -246,18 +232,7 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
             this.setState({ isSetOutOvertimeModalShown: true})
         });
     }
-    handleShowSetBreachNAModal(id,) {
-            this.setState({
-                isSetBreachNAModalShown: true,
-                idLabourAttendance: id,
-            })
-    }
-    handleShowSetBreachOTModal(id,) {
-        this.setState({
-            isSetBreachOTModalShown: true,
-            idLabourAttendance: id,
-        })
-}
+    
     render() {
         const {t} = this.props;
         const data = this.state.listLabourAttendanceForSupervisor;
@@ -283,18 +258,12 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                     <button type="button" onClick={() => this.hanleShowOutOvertimemodal(item.id)}>{!item.outTime ? "Chấm Giờ Về TC" : "Chỉnh Sửa"}</button>
                 </SecuredComponent>
             };
-            // else if (item.absentStatus) {
-            //     tdType = <button type="button" onClick={() => this.handleShowEditLabourAbsentDay(item.id)}>{"Chỉnh Sửa Ngày Vắng"}</button>
-            // }
             if (item.absentStatus) {
                 trType = { backgroundColor: "#D0D0D0" }
             }
             return (
                 <tr style={item.outTime ? trType : { backgroundColor: "#F5F5DC", trType }} key={item.id}>
-                    {/* <td>{item.id}</td> */}
-                    
                     <td>{tdType}</td>
-
                     <td>{item.labour ? item.labour.fullName : null}</td>
                     <td>{item.project ? item.project.name : null}</td>
                     <td>{item.dateToWork}</td>
@@ -307,7 +276,7 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                     {item.overtimeStatus?<td style={item.overtimeStatus ? { color: 'blue' } : null}>{item.endOvertime}</td>:<td></td>}
                     {item.overtimeStatus?<td style={item.overtimeStatus ? { color: 'blue' } : null}>{item.overtimeStatus ?item.minusLunchHour:0}</td>:<td></td>}
                     {item.overtimeStatus? <td style={item.overtimeStatus ? { color: 'blue' } : null}>{item.totalOvertime}</td>:<td></td>}
-                    
+        
                     <td>{t(item.lateStatus)}</td>
                     <td>{item.note}</td>
                     {!item.absentStatus ? <td className="active-font" target={item.outTime ? "Đã Có Giờ Về" : "Chưa Có Giờ Về"}><center>{item.outTime ? "Đã Có Giờ Về" : "Chưa Có Giờ Về"}</center></td> : <td></td>}
@@ -318,10 +287,6 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                                     <i className="icon-menu9"></i>
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-right">
-                                    <SecuredComponent allowedPermission="admin.labourAttendance.update">
-                                        {!item.overtimeStatus ? <li><a onClick={() => this.handleShowSetBreachNAModal(item.id,true)}><i className="icon-stars"></i>Đánh Giá Nhân Công</a></li> :
-                                        <li><a onClick={() => this.handleShowSetBreachOTModal(item.id)}><i className="icon-stars"></i>Đánh Giá Nhân Công</a></li>}
-                                    </SecuredComponent>
                                     <SecuredComponent allowedPermission="admin.labourAttendance.update">
                                         <li><a onClick={() => this.deleteLabour(item.id, item.fullName)}><i className="icon-cross2"></i>Xóa</a></li>
                                     </SecuredComponent>
@@ -378,22 +343,18 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                         </div>
                         {this.state.isSetOuttimeModalShown ? <ModalLabourNormalAttendance title="Chấm Công" idLabourAttendance={this.state.idLabourAttendance} show={this.state.isSetOuttimeModalShown} onHide={this.handleHidemodal} /> : null}
                         {this.state.isSetOutOvertimeModalShown ? <ModalLabourOvertimeAttendance title="Chấm Công Tăng Ca" idLabourAttendance={this.state.idLabourAttendance}   show={this.state.isSetOutOvertimeModalShown} onHide={this.handleHidemodal} /> : null}
-                        {this.state.isSetBreachNAModalShown ? <ModalSetLabourNABreach title="Đánh Giá Nhân Công" idLabourAttendance={this.state.idLabourAttendance}  show={this.state.isSetBreachNAModalShown} onHide={this.handleHidemodal} /> : null}
-                        {this.state.isSetBreachOTModalShown ? <ModalSetLabourOTBreach title="Đánh Giá Nhân Công" idLabourAttendance={this.state.idLabourAttendance}  show={this.state.isSetBreachOTModalShown} onHide={this.handleHidemodal} /> : null}
                         {this.state.isEditLabourAbsentModalShown ? <ModalSetLabourAbsent title="Ngày Vắng Mặt" idLabourAttendance={this.state.idLabourAttendance} show={this.state.isEditLabourAbsentModalShown} onHide={this.handleHidemodal} /> : null}
                         <div className="panel panel-flat">
                             <table className="table table-bordered table-hover">
                                 <thead>
                                     <tr className="bg-teal">
-                                        {/* <th data-toggle="true">STT</th> */}
-                                        {/* <th data-hide="phone">Hình Ảnh</th> */}
                                         <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         <th rowSpan="2" data-toggle="true">Họ Tên</th>
                                         <th rowSpan="2" data-hide="phone">Dự Án Làm Việc</th>
                                         <th rowSpan="2" data-hide="phone">Ngày Làm Việc</th>
                                         <th colSpan="4" data-hide="phone"><center>Ngày Công Thường</center></th>
                                         <th colSpan="5" data-hide="phone"><center>Ngày Công Tăng Ca</center></th>
-                                        <th rowSpan="2" data-hide="phone">Đi Trể ?</th>
+                                        <th rowSpan="2" data-hide="phone">Đi Trễ</th>
                                         <th rowSpan="2" data-hide="phone">Ghi Chú</th>
                                         <th rowSpan="2" data-hide="phone">Trạng Thái Ngày Công</th>
                                         <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>

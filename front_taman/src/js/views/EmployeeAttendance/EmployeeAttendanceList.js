@@ -156,10 +156,8 @@ const BodyAttendance = (props) => {
                         <br />
                       </div>,
                       <div style={{ paddingBottom: '5px' }}></div>
-                        // SecurityUtils.hasPermission(currentUser, "admin.employeeAttendance.delete") ? <a style={{ color: 'orange' }} onClick={() => handleDeleteAttendance(matchedAttendanceDay.id)}> <i className="icon-bin"></i></a> : null
                       ]
                     })}
-                    {/* <button style={{ fontSize: 12 }} onClick={() => handleShowModalAddAttendance(day, item)}>+</button> */}
 
 
                   </center></td>)
@@ -173,8 +171,6 @@ const BodyAttendance = (props) => {
                             {matchedAttendanceDay.overtimeType}</a>
                         </div>,
                         <div style={{ paddingBottom: '5px' }}></div>
-
-                          // SecurityUtils.hasPermission(currentUser, "admin.employeeAttendance.delete") ? <a style={{ color: 'orange', borderBottom: 12 }} onClick={() => handleDeleteAttendance(matchedAttendanceDay.id)}>  <i className="icon-bin"></i></a> : null
                         ]
                       )
                     })
@@ -375,7 +371,6 @@ class EmployeeAttendanceList extends React.Component {
 
 
 
-
       return (agent.asyncRequests.get('/employeeAttendance/findByDateToWork?dateToWorkStart=' + startDateOfMonth +
         "&dateToWorkEnd=" + endDateOfMonth).then(function (res) {
           var result = res.body.resultData;
@@ -399,10 +394,6 @@ class EmployeeAttendanceList extends React.Component {
         "&dateToWorkEnd=" + endDateOfMonth).then(function (res) {
           var result = res.body.resultData;
           if (result) {
-            // let  sleep= (ms)=> {
-            //   return new Promise(resolve => setTimeout(resolve, ms));
-            // }
-            // await sleep(5000)
             setStateInRequest(result);
             getSumEmployeeAttendance();
           }
