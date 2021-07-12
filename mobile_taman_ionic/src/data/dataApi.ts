@@ -16,14 +16,6 @@ const USERNAME = 'username';
 const API_ROOT = 'http://localhost:8080/api';
 const API_TOKEN = 'http://localhost:8080/oauth/token';
 
-//Production
-// const API_ROOT = 'https://demo1.logenter.com:8087/api';
-// const API_TOKEN = 'https://demo1.logenter.com:8087/oauth/token';
-
-//Demo
-// const API_ROOT = 'https://demo1.logenter.com:8085/api';
-// const API_TOKEN = 'https://demo1.logenter.com:8085/oauth/token';
-
 const encode = encodeURIComponent;
 let getToken = async () => {
   var accessToken = Promise.resolve(Storage.get({ key: ACCESS_TOKEN }));

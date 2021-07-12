@@ -81,8 +81,6 @@ public class UserController extends AbstractController {
 			User user = dtoConverter.convertToUser(userDto); // TODO: Hash password error
 			user.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
 			User newUser = userService.save(user);
-			// saveNewUserProfileFiles(newUser, userDto.getProfiles());
-			// saveNewUserImage(newUser, userDto.getImageUpload());
 			return new RestResult(newUser);
 		} catch (Exception e) {
 			LOGGER.error("Error when adding user.", e);
@@ -154,9 +152,6 @@ public class UserController extends AbstractController {
 				user.get().setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
 			}
 			User updatedUser = userService.save(dtoConverter.convertToUser(userDto));
-//			if (!StringUtils.isEmpty(userDto.getPassword())) {
-//				authorizationServerConfig.removeRefreshToken(user.getEmail());
-//			}
 			updateUserProfile(updatedUser, userDto.getProfiles());
 			updateUserImage(updatedUser, userDto.getImageUpload());
 			return new RestResult(updatedUser);
@@ -279,11 +274,7 @@ public class UserController extends AbstractController {
 		
 		return new RestResult(result);
 	}
-//	 public Predicate toPredicate(Root<Pet> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-//         Join<Pet, Owner> owners = root.join("owners");
-//         criteriaQuery.orderBy(criteriaBuilder.desc(root.get("id")));
-//         return criteriaBuilder.equal(owners.get("name"), ownerName);
-//     }
+
 	@RequestMapping(value = "/user/listAll")
 	public RestResult listAll() {
 		return new RestResult(userRepository.findAll());

@@ -49,17 +49,6 @@ const AddUserPage: React.FC<CourseProps> = ({
   history,
 }) => {
 
-  const [place, setPlace] = useState(Object);
-  const [placeError, setPlaceError] = useState(false);
-  const [dataPlace, setDataPlace] = useState([]);
-  const [startDate, setStartDate] = useState(moment().toISOString());
-  const [endDate, setEndDate] = useState(moment().toISOString());
-  const [timeSlotEnd, setTimeSlotEnd] = useState(moment().toISOString());
-  const [timeSlotStart, setTimeSlotStart] = useState(moment().toISOString());
-  // const [priceAdminTotal, setPriceAdminTotal] = useState<string>("0");
-  const [priceAgentTotal, setPriceAgentTotal] = useState<string>("0");
-  // const [priceHostTotal, setPriceHostTotal] = useState<string>("0");
-
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [messageResult, setMessageResult] = useState("");
@@ -88,22 +77,8 @@ const AddUserPage: React.FC<CourseProps> = ({
     e.preventDefault();
     setFormSubmitted(true);
 
-    if (!place) {
-      setPlaceError(true);
-    }
-
     var url = "/user/add";
     var bodyObject = {
-      // placeId: place ? place.id : null,
-      // agentId: currentUser.userMetaId,
-      // startDate: moment(startDate).format("YYYY-MM-DD"),
-      // endDate: moment(endDate).format("YYYY-MM-DD"),
-      // timeSlotStart: moment(timeSlotStart).format("YYYY-MM-DD HH:mm:ss"),
-      // timeSlotEnd: moment(timeSlotEnd).format("YYYY-MM-DD HH:mm:ss"),
-      // priceAdminTotal: 0,
-      // priceAgentTotal : priceAgentTotal,
-      // priceHostTotal : 0,
-
       email: email,
       password: password,
       fullName: name,
