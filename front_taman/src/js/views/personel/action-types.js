@@ -168,14 +168,6 @@ export const ALL_ROLES = [
             {
                 entityName: "admin.projectCost",
                 keys: [
-                    // C&U : createAndUpdate
-                    // "admin.projectCost.allowAllProjectPayment",
-                    // "admin.projectCost.viewBudgetTotalMoney",
-                    // "admin.projectCost.viewProductTotalMoney",
-                    // "admin.projectCost.viewLabourTotalMoney",
-                    // "admin.projectCost.viewOtherTotalMoney",
-                    // "admin.projectCost.viewConstructionTeamTotalMoney",
-                    // "admin.projectCost.budgetRead",
                     "admin.projectCost.budgetC&U",
                     // "admin.projectCost.productRead",
                     "admin.projectCost.productC&U",
@@ -208,11 +200,10 @@ export const ALL_ROLES = [
             {
                 entityName: "admin.projectPayment",
                 keys: [
-                    // C&U : createAndUpdate
+                    
                     "admin.projectPayment.productC&U",
                     "admin.projectPayment.productDelete",
                     "admin.projectPayment.labourC&U",
-                    // "admin.projectPayment.labourDelete",
                     "admin.projectPayment.otherC&U",
                     "admin.projectPayment.otherDelete",
                     "admin.projectPayment.constructionTeamC&U",

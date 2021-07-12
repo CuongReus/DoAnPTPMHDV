@@ -83,8 +83,7 @@ class PersonelList extends React.Component {
         search = search ? search : "";
         var page = qs.parse(this.props.location.search).page;
         this.getListCompany();
-        // var company = company ? company : "ALL";
-        // var active = active != null ? active : true
+        
         let setStateInRequest = (list) => { this.setState({ listPersonel: list }) }
         return agent.asyncRequests.getPage('/user/findByCompanyIdAndFullNameOrPhoneOrEmail?companyId=' + companyId + "&fullNameOrPhoneOrEmail=" + search + "&isActive=" + active, page
         ).then(function (res) {
@@ -233,9 +232,6 @@ class PersonelList extends React.Component {
                             <i className=" icon-paragraph-justify2 position-left"></i>
                             <span className="text-semibold">Danh sách Nhân Viên</span>
                             <span className="pull-right">
-                                {/* <SecuredComponent allowedPermission="admin.users.setupAnnualLeaveForUser">
-                                    <button className="btn bg-primary" onClick={() => this.handleSetAnnualLeaveForAllUser(null)}>Cài Đặt Ngày Phép</button>
-                                </SecuredComponent> */}
                                 <SecuredComponent allowedPermission="admin.users.create">
                                     <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
                                 </SecuredComponent>
@@ -283,7 +279,6 @@ class PersonelList extends React.Component {
                                 </div>
                             </div>
                             {this.state.isPersonelModalShown ? <ModalPersonel title="Nhân Viên" idUser={this.state.idUser} show={this.state.isPersonelModalShown} onHide={this.handleHidemodal} /> : null}
-                            {this.state.isShownSetupAnnualLeaveModal ? <ModalSetAnnualLeave title="Cài Đặt Ngày Phép Năm" userDto={this.state.userDto} show={this.state.isShownSetupAnnualLeaveModal} onHide={this.handleHidemodal} /> : null}
 
                             <div className="panel panel-flat">
                                 <table style={{ textAlign: 'center' }} className="table table-xxs">
@@ -293,7 +288,6 @@ class PersonelList extends React.Component {
                                             <th data-toggle="phone"><center>Mã Nhân Viên & Họ Tên</center></th>
                                             <th data-hide="phone"><center>Liên Hệ</center></th>
                                             <th data-hide="phone"><center>Địa chỉ Hiện Tại</center></th>
-                                            {/* <th data-hide="phone"><center>Chức Vụ </center></th> */}
                                             <th data-hide="phone"><center>Công Ty </center></th>
                                             <th data-hide="phone"><center>Ngày Phép / Năm</center></th>
                                             <th data-hide="phone"><center>Trạng Thái</center></th>

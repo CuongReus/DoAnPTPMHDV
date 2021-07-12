@@ -218,9 +218,7 @@ class ModalPersonel extends React.Component {
         var dataDepartment = this.state.listAllDepartment;
         var disableDataManipulation = this.state.disableDataManipulation;
         var id = this.props.idUser;
-        // if (SecurityUtils.hasPermission(currentUser, "admin.users.update")) {
-        //     disableDataManipulation = false
-        // }
+        
         var optionCompanies = [];
         dataCompany.map(item => {
             optionCompanies.push({ label: item.code + "-" + item.name, value: item.id })
@@ -234,10 +232,7 @@ class ModalPersonel extends React.Component {
         this.state.listAllDepartment.map(item => {
             optionDepartment.push({ label: item.code + " - " + item.name, value: item.id })
         })
-        // optionEmployees = [];
-        // dataEmployee.map(item => {
-        //     optionEmployees.push({ label: item.fullName + "( " +item.phone +" )", value: item.id })
-        // });
+        
         var newModal = null;
         var dateNow = new Date();
         var optionGender = [
@@ -260,7 +255,7 @@ class ModalPersonel extends React.Component {
                             <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
                                 {/* <fieldset disabled={disableDataManipulation}> */}
                                 <div className="form-group">
-                                    <div style={isSalaryConfig ? { display: 'block' } : { display: 'none' }} className="form-group">
+                                    {/* <div style={isSalaryConfig ? { display: 'block' } : { display: 'none' }} className="form-group">
                                         <Field disabled={true} name="fullName" label="Họ Tên(*)" placeholder="Nhập họ tên người dùng..." component={RenderInputWithDiv}></Field>
                                         <Field disabled={true} name="email" type="email" label="Email(*)" placeholder="Nhập email người dùng..." component={RenderInputWithDiv}></Field>
                                         <Field disabled={true} name="phone" label="Số Điện Thoại" placeholder="Nhập số điện thoại..." component={RenderNumberInput}></Field>
@@ -281,7 +276,7 @@ class ModalPersonel extends React.Component {
                                         <Field name="phoneFee" label="Tiền Điện Thoại" placeholder="Nhập tiền điện thoại..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
                                         <Field name="distanceSupportFee" label="Tiền Đi Công Trường" placeholder="Nhập tiền đi công trường..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
                                     </div>
-                                    <br/>
+                                    <br/> */}
                                     <div style={isSalaryConfig ? { display: 'none' } : { display: 'block ' }} className="form-group">
                                             <div className="tabbable">
                                                 

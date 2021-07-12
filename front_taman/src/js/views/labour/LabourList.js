@@ -166,13 +166,7 @@ class LabourList extends React.Component {
 
         })
     }
-    // handleShowLabourAbsent(labour){
-    //     this.setState({
-    //         isLabourAbsentShown: true,
-    //         labourDto:labour
-
-    //     })
-    // }
+    
     render() {
         const { t, currentUser } = this.props;
         var showButtonPopover = this.state.showButtonPopover;
@@ -209,11 +203,8 @@ class LabourList extends React.Component {
                     //Group labour have project today
                     overPlayTriggerGroup: item.labour,
                     projectTodayList: [item]
-                    //  objSumTotal: { totalQuantitym2OfItem: 0, totalQuantityMdOfItem: 0 } 
-
                 };
                 groupRowProjectToday.push(groupObject);
-
             } else {
                 overPlayTriggerGroup.projectTodayList.push(item);
             }
@@ -225,50 +216,13 @@ class LabourList extends React.Component {
             return (
                 <tr key={item.id}>
                     <td>{currentNo}</td>
-                    
-                    {/* <td><a onClick={() =>
-                        <SecuredComponent allowedPermission="admin.labour.update">
-                            {this.handleShowmodal(item.id)}</SecuredComponent>}>{item.fullName}</a></td> */}
                     <td>{item.fullName}</td>
-                    {/* <td>
-                    {groupRowProjectToday ? groupRowProjectToday.map(OverPlayTrigger => {
-                       if( OverPlayTrigger.overPlayTriggerGroup.id == item.id) { 
-                        var popover =  <Popover id="popover-basic" title={"Nhân Công: " + item.fullName}>{
-                        OverPlayTrigger.projectTodayList.map(projectToday => {
-                             return( 
-                                         <span style={{ color: 'green' }}><center> {projectToday.createdUser.id == currentUser.id ? <Link to={{
-                                            pathname: '/listLabourAttendanceForSupervisor',
-                                            state: {
-                                                currentUser: currentUser
-                                            }
-                                        }}><span style={{color:'orange'}}>{"Dự Án: "+projectToday.project.name}</span><br/>{"CV: "+projectToday.projectDetail.name}</Link> : <span ><span style={{color:'orange'}}>{"Dự Án: "+projectToday.project.name}</span><br/>{"CV: "+projectToday.projectDetail.name}</span>}<br />
-                                            <span>{projectToday.overtimeStatus ? (projectToday.overtimeStatus == "TANG_CA_THUONG_TOI" ? " TC":" CA KHUYA") + " || Bắt Đầu: "+ projectToday.startOvertime   : "Bắt Đầu: " + projectToday.startDatetime}</span>
-                                            <br /></center></span>
-                                   )
-                            })}
-                            </Popover>
-                            
-                        return ( <OverlayTrigger rootClose={true} trigger={['click']} placement="right" overlay={popover}>
-                            <Button variant="success">Xem dự án </Button>
-                        </OverlayTrigger>)
-                    
-                    } } )  
-                  :null}  </td> */}
-
                     <td>{item.companies ? item.companies.map(company => {
                         return <span key={company.id}>{company.name} <br /></span>
                     }) : null}</td>
                     <td>{item.title}</td>
                     <td>{item.phone}</td>
                     <td>{moment(item.birthday).format("DD/MM/YYYY")}</td>
-                    {/* <td>{moment(item.startWorkDate).format("DD/MM/YYYY")}</td>
-                    <td>{item.contractNumber}</td>
-                    <td>{moment(item.contractSignDate).format("DD/MM/YYYY")}</td>
-                    <td>{moment(item.contractEndDate).format("DD/MM/YYYY")}</td>
-                    <td>{FormatterUtils.formatCurrency(item.salaryPerDay)}</td>
-                    <td>{FormatterUtils.formatCurrency(item.salaryMidnight)}</td>
-                    <td>{FormatterUtils.formatCurrency(item.additionSalary)}</td>
-                    <td>{t(item.enoughLabourContract)}</td> */}
                     <td>{item.note}</td>
                     <td className="text-center footable-visible footable-last-column">
                         <ul className="icons-list">
@@ -362,29 +316,17 @@ class LabourList extends React.Component {
                             {this.state.isLabourModalShown ? <ModalLabour title="Nhân Công" idLabour={this.state.idLabour} show={this.state.isLabourModalShown} onHide={this.handleHidemodal} /> : null}
                             {this.state.isLabourAttendanceModalShown ? <ModalLabourNormalAttendance title="Chấm Công" idLabourAttendance={null} listProjectLabourWorkTodayDto={dataProjectToday} show={this.state.isLabourAttendanceModalShown} labourDto={this.state.labourDto} onHide={this.handleHidemodal} /> : null}
                             {this.state.isLabourOvertimeAttendanceModalShown ? <ModalLabourOvertimeAttendance title="Chấm Công Tăng Ca" idLabourAttendance={null} listProjectLabourWorkTodayDto={dataProjectToday} show={this.state.isLabourOvertimeAttendanceModalShown} labourDto={this.state.labourDto} onHide={this.handleHidemodal} /> : null}
-                            {/* {this.state.isLabourAbsentShown ? <ModalSetLabourAbsent title="Nhân Công Vắng Mặt" idLabourAttendance={null} show={this.state.isLabourAbsentShown} labourDto={this.state.labourDto} onHide={this.handleHidemodal} /> : null} */}
 
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
-
-                                            {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th data-toggle="true">Họ Tên</th>
-                                            {/* <th data-toggle="phone"><center>Dự Án Làm Việc Hôm Nay</center></th> */}
                                             <th data-hide="phone">Thuộc công ty</th>
                                             <th data-hide="phone">Công Việc</th>
                                             <th data-hide="phone">Số Điện Thoại</th>
                                             <th data-hide="phone">Ngày Sinh </th>
-                                            {/* <th data-hide="phone">Ngày Bắt Đầu Làm Việc</th>
-                                            <th data-hide="phone">Số Hợp Đồng Lao Động </th>
-                                            <th data-hide="phone">Ngày Ký HĐLĐ</th>
-                                            <th data-hide="phone">Ngày Kết Thúc HĐLĐ</th>
-                                            <th data-hide="phone">Lương / Ngày</th>
-                                            <th data-hide="phone">Lương Tăng Ca Khuya</th>
-                                            <th data-hide="phone">Lượng Phụ Cấp</th>
-                                            <th data-hide="phone">Trạng Thái HĐLĐ</th> */}
                                             <th data-hide="phone">Ghi Chú</th>
                                             <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>

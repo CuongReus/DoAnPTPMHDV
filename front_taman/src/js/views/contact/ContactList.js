@@ -75,10 +75,8 @@ const ContactRows = (props) => {
         <td><button className="icon-arrow-down22" onClick={() => handleShowContactDetails(contactObject.id)}></button></td>
         <td>{currentNo}</td>
         <td>{contactObject.name}</td>
-        {/* <td colSpan="2">{contactObject.taxNumber}</td> */}
         <td>{contactObject.address}</td>
         <td>{t(contactObject.contactStatus)}</td>
-        {/* <td>{contactObject.discountPercent}</td> */}
         <td>{contactObject.note}</td>
         <td className="text-center footable-visible footable-last-column">
             <ul className="icons-list">

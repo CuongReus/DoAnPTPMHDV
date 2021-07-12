@@ -184,14 +184,6 @@ i18n
 
                     // Module ProjectCost & Payment
                     "admin.projectCost": "Thanh Toán Công Việc Dự Án",
-                    // "admin.projectCost.read": "Xem Thanh Toán Công Việc Dự Án",
-                    // "admin.projectCost.allowAllProjectPayment": "Xem Tất Cả Thanh Toán Công Việc Dự Án",
-                    // "admin.projectCost.viewBudgetTotalMoney": "Xem Tổng Tiền Ngân Sách",
-                    // "admin.projectCost.viewProductTotalMoney": "Xem Tổng Tiền TT Vật Tư",
-                    // "admin.projectCost.viewLabourTotalMoney": "Xem Tổng Tiền TT Nhân Công",
-                    // "admin.projectCost.viewOtherTotalMoney": "Xem Tổng Tiền TT Chi Phí Khác",
-                    // "admin.projectCost.viewConstructionTeamTotalMoney": "Xem Tổng Tiền TT Đội Thi Công",
-                    // "admin.projectCost.budgetRead":"Cho Phép Xem Ngân Sách",
                     "admin.projectCost.budgetC&U": "Thêm Mới & Chỉnh Sửa Ngân Sách",
                     "admin.projectCost.productC&U": "Thêm Mới & Chỉnh Sửa Thanh Toán Vật Tư",
                     "admin.projectCost.productDelete": "Xóa Thanh Toán Vật Tư",

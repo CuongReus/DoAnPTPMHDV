@@ -22,10 +22,6 @@ class ConstructionTeamList extends React.Component {
             this.setState({ isConstructionTeamModalShown: false });
             this.updateListConstructionTeam();
         };
-
-
-
-
     };
 
     updateListConstructionTeam() {
@@ -94,7 +90,7 @@ class ConstructionTeamList extends React.Component {
                 var result = res.body.resultData;
                 if (result && !result.error) {
                     alert("Xoá Thành Công !");
-                    window.location.reload(true);
+                    window.location.reload();
                 } else {
                     toast.error("Có lỗi khi xóa dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
                 }
@@ -132,8 +128,6 @@ class ConstructionTeamList extends React.Component {
             return (
                 <tr key={item.id}>
                     <td>{currentNo}</td>
-                    
-                    {/* <td><Link onClick={() => <SecuredComponent allowedPermission="admin.constructionTeam.update"> {this.handleShowmodal(item.id)}</SecuredComponent>}>{item.teamLeaderName}</Link></td> */}
                     <td>{item.teamLeaderName}</td>
                     <td>{item.company?item.company.name:null}</td>
                     <td>{item.specialize}</td>

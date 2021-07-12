@@ -4,16 +4,11 @@ import agent from '../../services/agent';
 import { Modal } from 'react-bootstrap';
 import { RenderInputWithDiv, RenderInputWithGen, RenderTextArea, RenderDatePicker, RenderCheckbox, RenderSelect, RenderNumberInput } from '../../components/formInputs';
 import { Field, reduxForm } from 'redux-form';
-import isEmail from 'sane-email-validation';
-import { StringUtils } from '../../utils/javascriptUtils';
 import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import { LOAD_UPDATING_DEPARTMENT } from './action-types';
-import { FIRE_REDIRECT } from '../../constants/action-types';
-import ListFile from '../../components/ListFile';
-import { isNull } from 'util';
-import moment from 'moment';
+
 
 const validate = values => {
     const errors = {};
@@ -95,7 +90,6 @@ class ModalDepartment extends React.Component {
      };
 
     render() {
-        // const { objectDepartment, listfile, title, onHide } = this.props;
         const { onHide, handleSubmit, submitting, title, invalid } = this.props;
         const modalConfig = {backdrop:'static', show: this.props.show, onHide: this.props.onHide, submitting: this.props.submitting };
         var workOnWeekendStatus =[

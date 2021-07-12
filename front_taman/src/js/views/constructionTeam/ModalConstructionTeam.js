@@ -2,18 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import agent from '../../services/agent';
 import { Modal } from 'react-bootstrap';
-import { RenderInputWithDiv, RenderInputWithGen, RenderTextArea, RenderDatePicker,RenderCheckbox, RenderSelect, RenderNumberInput, RenderMoneyFormat } from '../../components/formInputs';
+import { RenderInputWithDiv, RenderTextArea, RenderSelect } from '../../components/formInputs';
 import { Field, reduxForm } from 'redux-form';
-import isEmail from 'sane-email-validation';
-import { StringUtils } from '../../utils/javascriptUtils';
 import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import {LOAD_UPDATING_CONSTRUCTION_TEAM} from './action-types';
-import {FIRE_REDIRECT } from '../../constants/action-types';
-import ListFile from '../../components/ListFile';
-import { isNull } from 'util';
-import moment from 'moment';
+
 const validate = values => {
     const errors = {};
     if (!values.teamLeaderName) {
@@ -156,11 +151,6 @@ class ModalConstructionTeam extends React.Component {
                     </Modal.Body>
                 </Modal>
             </div>
-        
-       
-
-        
-
         return newModal;
     }
 };

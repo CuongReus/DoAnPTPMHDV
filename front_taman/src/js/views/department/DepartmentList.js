@@ -77,7 +77,7 @@ class DepartmentList extends React.Component {
                 var result = res.body.resultData;
                 if (result && !result.error) {
                     alert("Xoá Thành Công Phòng Ban: " + name);
-                    window.location.reload(true);
+                    window.location.reload();
                 } else {
                     toast.error("Có lỗi khi xóa dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
                 }

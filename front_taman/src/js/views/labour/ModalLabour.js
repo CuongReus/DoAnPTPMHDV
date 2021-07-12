@@ -110,7 +110,6 @@ class ModalLabour extends React.Component {
         var id = this.props.idLabour;
         var url = '/labour/add';
         var bodyObject = {
-            // company: values.company,
             fullName: values.fullName,
             title: values.title,
             salaryMidnight: values.salaryMidnight ? values.salaryMidnight : 0,
@@ -210,10 +209,7 @@ class ModalLabour extends React.Component {
             });
 
         }
-        // optionEmployees = [];
-        // dataEmployee.map(item => {
-        //     optionEmployees.push({ label: item.fullName + "( " +item.phone +" )", value: item.id })
-        // });
+        
         var newModal = null;
        
             
@@ -233,18 +229,18 @@ class ModalLabour extends React.Component {
                                     <Field name="companies"label="Thuộc công ty(*)" placeholder="Chọn công ty..." options={optionCompanies} component={RenderMultiSelect}></Field>
                                     <Field name="title" label="Công Việc" placeholder="Công Việc..." component={RenderInputWithDiv}></Field>
                                     <Field name="phone" label="Số Điện Thoại" placeholder="Nhập số điện thoại..." component={RenderNumberInput}></Field>
-                                    <Field name="identityCardNumber" label="Số Chứng Minh Nhân Dân" placeholder="Nhập số CMND..." component={RenderNumberInput}></Field>
+                                    {/* <Field name="identityCardNumber" label="Số Chứng Minh Nhân Dân" placeholder="Nhập số CMND..." component={RenderNumberInput}></Field> */}
                                     <Field name="birthday"  dateFormat="DD/MM/YYYY" label="Ngày Sinh" component={RenderDatePicker}></Field>
-                                    <Field name="startWorkDate"  dateFormat="DD/MM/YYYY" label="Ngày Bắt Đầu Làm Việc" component={RenderDatePicker}></Field>
+                                    {/* <Field name="startWorkDate"  dateFormat="DD/MM/YYYY" label="Ngày Bắt Đầu Làm Việc" component={RenderDatePicker}></Field>
                                     <Field name="contractNumber" label="Số Hợp Đồng Lao Động" placeholder="Nhập Số HĐLĐ..." component={RenderInputWithDiv}></Field>                                  
                                     <Field name="contractSignDate" dateFormat="DD/MM/YYYY" label="Ngày Ký HĐLĐ" component={RenderDatePicker}></Field>
                                     <Field name="contractEndDate" label="Ngày Kết Thúc HĐLĐ"  component={RenderDatePicker}></Field>
                                     <Field name="salaryMidnight" label="Lương Tăng Ca KHUYA" placeholder="Nhập số tiền lương tăng ca KHUYA.." thousandSeparator={true} component={RenderMoneyFormat}></Field>
                                     <Field name="salaryPerDay" label="Lương / Ngày" placeholder="Nhập số tiền lương trên ngày.." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                    <Field name="additionSalary" label="Lượng Phụ Cấp" placeholder="Nhập lương phụ cấp..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
+                                    <Field name="additionSalary" label="Lượng Phụ Cấp" placeholder="Nhập lương phụ cấp..." thousandSeparator={true} component={RenderMoneyFormat}></Field> */}
                                     {/* TODO Split Screen two col */}
-                                    <Field name="enoughLabourContract" label="Trạng Thái HĐLĐ" options={optionLabourContractStatus} component={RenderSelect} ></Field>
-                                    <Field name="labourContractFile" modalUrl="/uploadLabourContract"  component={ListFile}></Field>
+                                    {/* <Field name="enoughLabourContract" label="Trạng Thái HĐLĐ" options={optionLabourContractStatus} component={RenderSelect} ></Field>
+                                    <Field name="labourContractFile" modalUrl="/uploadLabourContract"  component={ListFile}></Field> */}
                                     <Field name="note" label="Ghi Chú"  placeholder="Nhập ghi chú..."  rows={3} component={RenderTextArea}></Field>
                                     <Field disabled={true} name="createdUserId" label="Người Tạo Bảng"  options={showCreatedUser} component={RenderSelect}></Field>
                                     {id ?<Field disabled={true} name="createdDate" label="Ngày Tạo Bảng"  dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> : null }
