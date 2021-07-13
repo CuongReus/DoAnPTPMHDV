@@ -151,7 +151,6 @@ public class EmployeeAttendanceController extends AbstractController{
 								 + " . số ngày đã nghỉ (phép thưởng TC): " + tongNghiBuDaNghi);
 					 }
 				
-				 
 			 }
 				 newEmployeeAttendance= employeeAttendanceRepository.save(newEmployeeAttendance);
 				 
@@ -160,18 +159,10 @@ public class EmployeeAttendanceController extends AbstractController{
 				 newEmployeeAttendance= employeeAttendanceRepository.save(newEmployeeAttendance);
 			}
 				//Set Leaveletter after User LeaveYear Calc service				
-				List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-					newEmployeeAttendance.getUserId(),
-					timeService.getMonth(newEmployeeAttendance.getDateToWork()), timeService.getYear(newEmployeeAttendance.getDateToWork()));
-			// if (currentEmployeeSalary.isEmpty()) {
-			// 	employeeSalaryService.createNewEmployeeSalaryFromEmployeeAttendance(newEmployeeAttendance);
-			// } else {
-			// 	if(currentEmployeeSalary.get(0).getPaymentStatus() !=null&&"DA_DUYET_THANH_TOAN".equals(currentEmployeeSalary.get(0).getPaymentStatus().toString())) {
-			// 		return new RestResult(true, MESSAGES_LATE_SET_ATTENDANCE);	
-			// 	}else {
-			// 		employeeSalaryService.reloadEmployeeAttendanceSalary(newEmployeeAttendance,currentEmployeeSalary.get(0));
-			// 	}	
-			// }
+				// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
+				// 	newEmployeeAttendance.getUserId(),
+				// 	timeService.getMonth(newEmployeeAttendance.getDateToWork()), timeService.getYear(newEmployeeAttendance.getDateToWork()));
+
 			return new RestResult(newEmployeeAttendance);
 		} catch (Exception e) {
 			LOGGER.error("Lỗi khi chấm công.", e);
@@ -190,19 +181,10 @@ public class EmployeeAttendanceController extends AbstractController{
 				employeeAbsentAttendanceService.addLeaveLetterFromEmployeeAttendanceFrom(updatedEmployeeAttendance);
 			}
 			
-			List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-					updatedEmployeeAttendance.getUserId(),
-					timeService.getMonth(updatedEmployeeAttendance.getDateToWork()), timeService.getYear(updatedEmployeeAttendance.getDateToWork()));
-			// if (currentEmployeeSalary.isEmpty()) {
-			// 	employeeSalaryService.createNewEmployeeSalaryFromEmployeeAttendance(updatedEmployeeAttendance);
-			// } else {
-			// 	if(currentEmployeeSalary.get(0).getPaymentStatus() !=null&&"DA_DUYET_THANH_TOAN".equals(currentEmployeeSalary.get(0).getPaymentStatus().toString())) {
-			// 		return new RestResult(true, MESSAGES_LATE_UPDATE_ATTENDANCE);	
-			// 	}else {
-			// 		employeeSalaryService.reloadEmployeeAttendanceSalary(updatedEmployeeAttendance,currentEmployeeSalary.get(0));
-			// 	}
-				
-			// }
+			// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
+			// 		updatedEmployeeAttendance.getUserId(),
+			// 		timeService.getMonth(updatedEmployeeAttendance.getDateToWork()), timeService.getYear(updatedEmployeeAttendance.getDateToWork()));
+			
 			return new RestResult(updatedEmployeeAttendance);
 		} catch (Exception e) {
 			LOGGER.error("Lỗi khi cập nhật chấm công.", e);
@@ -237,23 +219,23 @@ public class EmployeeAttendanceController extends AbstractController{
 							leaveLetterRepository.deleteById(leaveLetter.getId());
 						}
 				}
-				List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-						employeeAttendance.getUserId(),
-						timeService.getMonth(employeeAttendance.getDateToWork()), timeService.getYear(employeeAttendance.getDateToWork()));
+				// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
+				// 		employeeAttendance.getUserId(),
+				// 		timeService.getMonth(employeeAttendance.getDateToWork()), timeService.getYear(employeeAttendance.getDateToWork()));
 				
-				if (!currentEmployeeSalary.isEmpty()) {
-					employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
-				}
+				// if (!currentEmployeeSalary.isEmpty()) {
+				// 	employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
+				// }
 			}else {
 				employeeAttendanceRepository.deleteById(id);
 				
-				List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-						employeeAttendance.getUserId(),
-						timeService.getMonth(employeeAttendance.getDateToWork()), timeService.getYear(employeeAttendance.getDateToWork()));
+				// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
+				// 		employeeAttendance.getUserId(),
+				// 		timeService.getMonth(employeeAttendance.getDateToWork()), timeService.getYear(employeeAttendance.getDateToWork()));
 				
-				if (!currentEmployeeSalary.isEmpty()) {
-					employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
-				}
+				// if (!currentEmployeeSalary.isEmpty()) {
+				// 	employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
+				// }
 			}
 		} catch (Exception e) {
 			LOGGER.error("Lỗi khi xoá ngày công.", e);
@@ -300,13 +282,7 @@ public class EmployeeAttendanceController extends AbstractController{
 		result =employeeAttendanceRepository.listSumEmployeeAttendanceLeaveDayCalc(dateToWorkStart, dateToWorkEnd);
 		return new RestResult (result);
 	}
-	// @RequestMapping(value= "/employeeAttendance/listSumEmployeeAttendance")
-	// public RestResult listSumEmployeeAttendance(@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date startDate,
-	// 		@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date endDate) {
-	// 	Object result = null;
-	// 	result= employeeAttendanceRepository.listSumEmployeeAttendance(startDate,endDate);
-	// 	return new RestResult(result);
-	// }
+	
 	
 	@RequestMapping(value= "/countEmployeeAttentdence")
 	public RestResult listSumEmployeeAttendance(@RequestParam("id") long id) {
