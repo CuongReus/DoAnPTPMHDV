@@ -156,7 +156,6 @@ class App extends React.Component {
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
                                 <Route path="/listLabour" component={LabourList}/>
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>
-                                {/* <Route path="/attendanceGeneralScreen" component={AttendanceGeneralScreen}/> */}
                                 <Route path="/listEmployeeAttendance" component={EmployeeAttendanceList}/>
                             </Switch>
                         </div>

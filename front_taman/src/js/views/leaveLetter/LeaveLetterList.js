@@ -8,7 +8,7 @@ import TablePagination from '../../components/TablePagination';
 import agent from '../../services/agent';
 import { ScriptUtils, UrlUtils } from '../../utils/javascriptUtils';
 import ModalLeaveLetter from './ModalLeaveLetter';
-import ModalPDFLeaveLetter from './ModalPDFLeaveLetter';
+
 class LeaveLetterList extends React.Component {
     constructor() {
         super();
@@ -209,7 +209,6 @@ class LeaveLetterList extends React.Component {
                             <div className="panel panel-flat">
                             </div>
                             {this.state.isLeaveDayModalShown ? <ModalLeaveLetter title="Đơn Nghỉ Phép" idLeaveLetter={this.state.idLeaveLetter} userDto={userDto} show={this.state.isLeaveDayModalShown} onHide={this.handleHidemodal} /> : null}
-                            {this.state.isPDFModalShown ? <ModalPDFLeaveLetter title="Đơn Nghỉ Phép" leaveLetter={this.state.leaveLetter} show={this.state.isPDFModalShown} onHide={this.handleHidemodal} /> : null}
                             <center>
                                 <h1>Quản Lý Ngày Phép</h1>
                                 <h2>Năm: {year}</h2>
