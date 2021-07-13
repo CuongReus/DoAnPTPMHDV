@@ -90,18 +90,10 @@ public class EmployeeAttendanceController extends AbstractController{
 						 employeeAttendanceDto.getUserId(),
 						 timeService.getFirstDayOfYear(timeService.getYear(newEmployeeAttendance.getDateToWork())),
 						 timeService.getLastDayOfYear(timeService.getYear(newEmployeeAttendance.getDateToWork())));
-				 
-				 SumEmployeeAttendanceDto sumAtt =  employeeAttendanceRepository.sumEmployeeAttendanceLeaveDayCalc(
-						 employeeAttendanceDto.getUserId(),
-						 timeService.getFirstDayOfYear(timeService.getYear(newEmployeeAttendance.getDateToWork())),
-						 timeService.getLastDayOfYear(timeService.getYear(newEmployeeAttendance.getDateToWork())));
+				
 				 
 				 double tongNgayDaNghi = 0;
 				 
-				 double tongPhepThuongTC = sumAtt.getBonusNormalOvertimeAttendance() +
-						 sumAtt.getBonusSunOvertimeAttendance() +
-						 sumAtt.getBonusSatOvertimeAttendance() +
-						 sumAtt.getBonusHolidayOvertimeAttendance();
 				 
 				 for(LeaveLetter leaveLetter :listLeaveMonth ) {
 					 if(leaveLetter.getTotalLeaveDays() != null) {
@@ -141,17 +133,6 @@ public class EmployeeAttendanceController extends AbstractController{
 					 soNgayXinNghi = 0.5;
 				 }
 				 
-				 
-				 if(employeeAttendanceDto.getAttendanceType().equals(AttendanceType.NB) || employeeAttendanceDto.getAttendanceType().equals(AttendanceType.NB2)){
-					 if(tongPhepThuongTC == 0 ) {
-						 return new RestResult(true, "Đã hết phép thưởng tăng ca!");
-					 }
-					 if(tongNghiBuDaNghi +  soNgayXinNghi  > tongPhepThuongTC) {
-						 return new RestResult(true, "Đã hết phép thưởng TC. Số ngày phép thưởng TC :" + tongPhepThuongTC
-								 + " . số ngày đã nghỉ (phép thưởng TC): " + tongNghiBuDaNghi);
-					 }
-				
-			 }
 				 newEmployeeAttendance= employeeAttendanceRepository.save(newEmployeeAttendance);
 				 
 				 employeeAbsentAttendanceService.addLeaveLetterFromEmployeeAttendanceFrom(newEmployeeAttendance);

@@ -160,13 +160,6 @@ i18n
 
                     "admin.Approval.check": "Cho Phép Duyệt",
 
-                    "admin.employeeSalary": "Màn Hình Lương Khối Văn Phòng",
-                    "admin.employeeSalary.read": "Cho phép xem",
-                    "admin.employeeSalary.update": "Cho phép chỉnh sửa các khoản lương",
-                    "admin.employeeSalary.approvalAllPaymentSalary": "Cho phép duyệt thanh toán tất cả nhân viên" ,
-                    "admin.employeeSalary.updateAttendanceCoefficient" : "Cho phép chỉnh sửa hệ số phòng ban" , 
-                    // "admin.employeeSalary.updateSalaryForAll":,
-                    "admin.employeeSalary.readAllEmployeeSalary":"Xem Tất Cả Lương Khối Văn Phòng",
                     "admin.employeeAttendance": "Màn Hình Chấm Công Khối Văn Phòng",
                     "admin.employeeAttendance.read": "Cho phép xem",
                     "admin.employeeAttendance.create":  "Cho phép chấm công",
