@@ -100,12 +100,6 @@ i18n
                     "admin.company.create": "Tạo Mới Công Ty",
                     "admin.company.update": "Chỉnh Sửa Công Ty",
                     "admin.company.delete": "Xóa Công Ty",
-                    "admin.labourSalary": "Lương Nhân Công",
-                    "admin.labourSalary.read": "Xem Lương Nhân Công",
-                    // "admin.labourSalary.create":,
-                    "admin.labourSalary.update": "Chỉnh Sửa Lương Nhân Công",
-                    "admin.labourSalary.approvalAllPaymentSalary": "Duyệt Tất Cả Lương Nhân Công",
-                    // "admin.labourSalary.delete"
                     "admin.project": "Màn Hình Quản Lý Dự Án",
                     "admin.project.read": "Xem thông Tin Dự Án",
                     "admin.project.create": "Thêm Mới Dự Án",

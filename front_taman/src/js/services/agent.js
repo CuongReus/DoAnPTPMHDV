@@ -233,18 +233,6 @@ const LabourApi = {
     getLabour: (id) => requests.get('/labour/' + id)
 };
 
-const LabourSalaryApi = {
-    listLabourSalary: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/labourSalary/list?search=' + encode(search), page, 20);
-    },
-    listAllLabourSalary: () => requests.get('/labourSalary/listAll'),
-    getLabourSalary: (id) => requests.get('/labourSalary/' + id)
-};
-
-
 const LabourAttendanceApi = {
     listLabourAttendance: (search, page) => {
         if (!search) {
@@ -316,7 +304,6 @@ export default {
     EfficiencyApi,
     CompleteApi,
     LabourApi,
-    LabourSalaryApi,
     LabourAttendanceApi,
     EmployeeAttendanceApi,
     DepartmentApi,

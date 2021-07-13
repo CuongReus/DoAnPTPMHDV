@@ -267,21 +267,6 @@ export const ALL_ROLES = [
         ]
     },
     {
-        moduleName: "Quản Lý Lương Nhân Công",
-        entities: [
-            {
-                entityName: "admin.labourSalary",
-                keys: [
-                    "admin.labourSalary.read",
-                    // "admin.labourSalary.create",
-                    "admin.labourSalary.update",
-                    // "admin.labourSalary.delete"
-                    "admin.labourSalary.approvalAllPaymentSalary"
-                ]
-            }
-        ]
-    },
-    {
         moduleName: "Chấm Công Khối Văn Phòng ",
         entities: [
             {
