@@ -158,10 +158,6 @@ public class EmployeeAttendanceController extends AbstractController{
 			}else {
 				 newEmployeeAttendance= employeeAttendanceRepository.save(newEmployeeAttendance);
 			}
-				//Set Leaveletter after User LeaveYear Calc service				
-				// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-				// 	newEmployeeAttendance.getUserId(),
-				// 	timeService.getMonth(newEmployeeAttendance.getDateToWork()), timeService.getYear(newEmployeeAttendance.getDateToWork()));
 
 			return new RestResult(newEmployeeAttendance);
 		} catch (Exception e) {
@@ -180,10 +176,6 @@ public class EmployeeAttendanceController extends AbstractController{
 			if(updatedEmployeeAttendance.getStatus() == AttendanceStatus.VANG_MAT) {
 				employeeAbsentAttendanceService.addLeaveLetterFromEmployeeAttendanceFrom(updatedEmployeeAttendance);
 			}
-			
-			// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-			// 		updatedEmployeeAttendance.getUserId(),
-			// 		timeService.getMonth(updatedEmployeeAttendance.getDateToWork()), timeService.getYear(updatedEmployeeAttendance.getDateToWork()));
 			
 			return new RestResult(updatedEmployeeAttendance);
 		} catch (Exception e) {
@@ -219,23 +211,8 @@ public class EmployeeAttendanceController extends AbstractController{
 							leaveLetterRepository.deleteById(leaveLetter.getId());
 						}
 				}
-				// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-				// 		employeeAttendance.getUserId(),
-				// 		timeService.getMonth(employeeAttendance.getDateToWork()), timeService.getYear(employeeAttendance.getDateToWork()));
-				
-				// if (!currentEmployeeSalary.isEmpty()) {
-				// 	employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
-				// }
 			}else {
 				employeeAttendanceRepository.deleteById(id);
-				
-				// List<EmployeeSalary> currentEmployeeSalary = employeeSalaryRepository.findByUserIdAndMonthAndYear(
-				// 		employeeAttendance.getUserId(),
-				// 		timeService.getMonth(employeeAttendance.getDateToWork()), timeService.getYear(employeeAttendance.getDateToWork()));
-				
-				// if (!currentEmployeeSalary.isEmpty()) {
-				// 	employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
-				// }
 			}
 		} catch (Exception e) {
 			LOGGER.error("Lỗi khi xoá ngày công.", e);

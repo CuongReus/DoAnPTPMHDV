@@ -462,12 +462,8 @@ const CalendarHeader = (props) => {
       <div className="col-md-3">
         <br />
         <div className="btn-group">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={props.prev}
-          >
-            & lt;{" "}
+          <button type="button" className="btn btn-primary" onClick={props.prev}>
+            &lt;{" "}
           </button>{" "}
           <button
             type="button"
@@ -481,7 +477,7 @@ const CalendarHeader = (props) => {
             className="btn btn-primary"
             onClick={props.next}
           >
-            & gt;{" "}
+            &gt;{" "}
           </button>{" "}
         </div>{" "}
         <h3> Tháng {dateFns.format(props.currentDate, "MM / YYYY")} </h3>{" "}
