@@ -810,7 +810,7 @@ class EmployeeAttendanceList extends React.Component {
   render() {
     const firstOfTheWeek = this.state.currentDate;
     const currentUser = this.props.currentUser;
-    // var listSumEmployeeAttendance = this.state.listSumEmployeeAttendance;
+    
     const currentDate = new Date(this.state.currentDate.getTime());
     var itemsPerPage = 4;
     
