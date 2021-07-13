@@ -183,10 +183,7 @@ public class LabourAttendanceController extends AbstractController {
 			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
 			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
 		Object result = null;
-	
 		result =labourAttendanceRepository.findDistinctByDateToWorkBetween(dateToWorkStart, dateToWorkEnd);
-		
-		
 		return new RestResult (result);
 	}
     
@@ -198,7 +195,7 @@ public class LabourAttendanceController extends AbstractController {
 		listAttendanceFollowByLabourIdAndCreatedUser.sort((a1,a2)->a2.getCreatedDate().compareTo(a1.getCreatedDate()));
 		return new RestResult (listAttendanceFollowByLabourIdAndCreatedUser);
 	}
-	
+	//Thuộc về giám sát
 	@RequestMapping(value = "/labourAttendance/findByCreatedUserId")
 	public RestResult listFindByCreatedUserId(@RequestParam("createdUserId") Long createdUserId,
 			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
@@ -216,19 +213,17 @@ public class LabourAttendanceController extends AbstractController {
 	}
 		
 	
-//	That method for LabourCost Modal
-	@RequestMapping(value = "/labourAttendance/findListLabourAttendanceByProjectDetailId")
-	public RestResult findListLabourAttendanceByProjectDetailId(@RequestParam("projectDetailId")Long projectDetailId,
-			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
-			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
-//		Integer month =  timeService.getMonth(dateToWorkStart);
-//		Integer year = timeService.getYear(dateToWorkEnd);
-		Object result =null;
-		
-		result = labourAttendanceRepository.listSumLabourAttendanceByProjectDetailId(projectDetailId, dateToWorkStart, dateToWorkEnd);
-		
-		return new RestResult(result);
 
-	}
+	// @RequestMapping(value = "/labourAttendance/findListLabourAttendanceByProjectDetailId")
+	// public RestResult findListLabourAttendanceByProjectDetailId(@RequestParam("projectDetailId")Long projectDetailId,
+	// 		@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
+	// 		@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
+	// 	Object result =null;
+		
+	// 	result = labourAttendanceRepository.listSumLabourAttendanceByProjectDetailId(projectDetailId, dateToWorkStart, dateToWorkEnd);
+		
+	// 	return new RestResult(result);
+
+	// }
 	
 }

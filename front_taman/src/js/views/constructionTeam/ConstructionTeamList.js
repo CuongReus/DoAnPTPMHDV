@@ -191,20 +191,9 @@ class ConstructionTeamList extends React.Component {
 
                                 <div className="panel-body">
                                 <form className="main-search" role="form">
-                                        <div className="col-md-4">
-                                            <div className="form-group">
-                                                <label className="control-label col-md-3" htmlFor="company">Công Ty</label>
-                                                <div className="col-md-9">
-                                                    <select placeholder="Tất cả" className="select form-control" name="company" defaultValue={company}>
-                                                        <option key="ALL" value="ALL">Tất cả</option>
-                                                        {optionCompany.map(company => <option key={company.value} value={company.value}>{company.label}</option>)}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div className="input-group content-group">
                                             <div className="has-feedback has-feedback-left">
-                                                <input type="text" className="form-control input-xlg" placeholder="Tìm kiếm theo: Tên Đội Trưởng, Số điện thoại,Công Việc..." name="search" defaultValue={search} autoFocus={true} />
+                                                <input type="text" className="form-control input-xlg" placeholder="Tìm kiếm theo: Tên, Số điện thoại..." name="search" defaultValue={search} autoFocus={true} />
                                                 <div className="form-control-feedback">
                                                     <i className="icon-search4 text-muted text-size-base"></i>
                                                 </div>
