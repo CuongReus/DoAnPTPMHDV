@@ -133,7 +133,6 @@ i18n
                     "admin.projectProgress.acceptanceC&U": "Thao Tác Bước 8: Nghiệm Thu",
                     "admin.projectProgress.invoiceVer3C&U": "Thao Tác Bước 9: Hoá Đơn Lần 3",
                     "admin.projectProgress.incurredC&U": "Thao Tác Bước 10: Phát Sinh",
-                    "admin.projectProgress.closeProjectC&U": "Thao Tác Bước 11: Đóng Dự Án",
 
                     "admin.labour": "Màn Hình Quản Lý Nhân Công",
                     "admin.labour.read": "Xem Nhân Công",

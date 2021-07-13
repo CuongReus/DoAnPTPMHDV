@@ -161,7 +161,6 @@ export const ALL_ROLES = [
                     "admin.projectProgress.acceptanceC&U",
                     "admin.projectProgress.invoiceVer3C&U",
                     "admin.projectProgress.incurredC&U",
-                    "admin.projectProgress.closeProjectC&U",
                     "admin.projectProgress.HoachToanHoaDon"
                 ]
             },

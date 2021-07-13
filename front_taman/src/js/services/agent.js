@@ -222,17 +222,6 @@ const CompleteApi = {
     getComplete: (id) => requests.get('/complete/' + id)
 };
 
-const CloseProjectApi = {
-    listCloseProject: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/closeProject/list?search=' + encode(search), page, 20);
-    },
-    listAllCloseProject: () => requests.get('/closeProject/listAll'),
-    getCloseProject: (id) => requests.get('/closeProject/' + id)
-};
-
 const LabourApi = {
     listLabour: (search, page) => {
         if (!search) {
@@ -326,7 +315,6 @@ export default {
     ApprovalApi,
     EfficiencyApi,
     CompleteApi,
-    CloseProjectApi,
     LabourApi,
     LabourSalaryApi,
     LabourAttendanceApi,
