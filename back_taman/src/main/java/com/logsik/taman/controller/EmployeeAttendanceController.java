@@ -107,10 +107,6 @@ public class EmployeeAttendanceController extends AbstractController{
 					 if(leaveLetter.getTotalLeaveDays() != null) {
 						 tongNgayDaNghi += leaveLetter.getTotalLeaveDays();
 					 }
-//					 double tongNgayDuocNghi = month + month * 0.3;
-//					 if(tongNgayDaNghi > tongNgayDuocNghi) {
-//						 return new RestResult(true, "Vượt quá số ngày được nghỉ : " + tongNgayDuocNghi + " / số ngày đã nghỉ : " + tongNgayDaNghi);
-//					 }
 				 }
 				 
 				 double tongPhepNamDaNghi = 0;
@@ -146,13 +142,6 @@ public class EmployeeAttendanceController extends AbstractController{
 				 }
 				 
 				 
-//				 if(employeeAttendanceDto.getAttendanceType().equals(AttendanceType.PN) || employeeAttendanceDto.getAttendanceType().equals(AttendanceType.PN2)){
-//					 if(tongPhepNamDaNghi + soNgayXinNghi > listLeaveYear.get(0).getLastTotalAnnualLeave()) {
-//						 return new RestResult(true, "Đã hết phép năm. Số ngày phép năm :" + listLeaveYear.get(0).getLastTotalAnnualLeave() 
-//								 + " . số ngày đã nghỉ (phép năm) : " + tongPhepNamDaNghi);
-//					 }
-//				 }
-				 
 				 if(employeeAttendanceDto.getAttendanceType().equals(AttendanceType.NB) || employeeAttendanceDto.getAttendanceType().equals(AttendanceType.NB2)){
 					 if(tongPhepThuongTC == 0 ) {
 						 return new RestResult(true, "Đã hết phép thưởng tăng ca!");
@@ -184,7 +173,7 @@ public class EmployeeAttendanceController extends AbstractController{
 			}
 			return new RestResult(newEmployeeAttendance);
 		} catch (Exception e) {
-			LOGGER.error("Error when adding employeeAttendance.", e);
+			LOGGER.error("Lỗi khi chấm công.", e);
 			return new RestResult(true, MESSAGE_CANNOT_SAVE);
 		}
 	}
@@ -215,14 +204,14 @@ public class EmployeeAttendanceController extends AbstractController{
 			}
 			return new RestResult(updatedEmployeeAttendance);
 		} catch (Exception e) {
-			LOGGER.error("Error when updating employeeAttendance.", e);
+			LOGGER.error("Lỗi khi cập nhật chấm công.", e);
 			return new RestResult(true, MESSAGE_CANNOT_SAVE);
 		}
 	}
 
 	@DeleteMapping("/employeeAttendance/{id}")
 	public RestResult deleteemployeeAttendance(@PathVariable("id") Long id) {
-		System.out.println("Delete employeeAttendance with ID = " + id + "...");
+		System.out.println("Xoá ngày công với ID = " + id + "...");
 
 		try {
 			
@@ -264,12 +253,9 @@ public class EmployeeAttendanceController extends AbstractController{
 				if (!currentEmployeeSalary.isEmpty()) {
 					employeeSalaryService.reloadEmployeeAttendanceSalary(employeeAttendance,currentEmployeeSalary.get(0));
 				}
-	//			else {
-	//				employeeSalaryService.reloadEmployeeAttendanceSalary(updatedemployeeAttendance,currentEmployeeSalary.get(0));
-	//			}
 			}
 		} catch (Exception e) {
-			LOGGER.error("Error when delete employeeAttendance.", e);
+			LOGGER.error("Lỗi khi xoá ngày công.", e);
 			return new RestResult(true, MESSAGE_CANNOT_SAVE);
 		}
 
