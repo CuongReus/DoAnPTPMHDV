@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import {reduxForm} from 'redux-form';
-import { BrowserRouter, Router, Route, Link, Switch, Redirect} from 'react-router-dom';
+import { Route, Link, Switch, Redirect} from 'react-router-dom';
 import { store, history } from './store/index';
 import agent from './services/agent';
 import { push } from 'react-router-redux';
@@ -23,8 +23,6 @@ import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
 import LabourList from "./views/labour/LabourList";
-// import LabourSalaryList from "./views/labourSalary/LabourSalaryList";
-// import AttendanceGeneralScreen from "./views/labourAttendance/AttendanceGeneralScreen";
 import ListLaboutAttendanceForSupervisor from "./views/labourAttendance/ListLaboutAttendanceForSupervisor";
 import UserChangePassword from "./views/personel/UserChangePassword";
 import EmployeeAttendanceList from "./views/EmployeeAttendance/EmployeeAttendanceList";
