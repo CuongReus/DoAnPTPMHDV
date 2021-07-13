@@ -507,7 +507,7 @@ class EmployeeAttendanceList extends React.Component {
       currentPage: 1,
       numberOfPage: 1,
       listAllEmployee: [],
-      listSumEmployeeAttendance: [],
+      // listSumEmployeeAttendance: [],
       dayToAttendance: null,
       idEmployeeAttendance: null,
       isShownEmployeeAttendance: false,
@@ -814,7 +814,7 @@ class EmployeeAttendanceList extends React.Component {
   render() {
     const firstOfTheWeek = this.state.currentDate;
     const currentUser = this.props.currentUser;
-    var listSumEmployeeAttendance = this.state.listSumEmployeeAttendance;
+    // var listSumEmployeeAttendance = this.state.listSumEmployeeAttendance;
     const currentDate = new Date(this.state.currentDate.getTime());
     var itemsPerPage = 4;
     
@@ -861,7 +861,7 @@ class EmployeeAttendanceList extends React.Component {
         date={dateArray}
         eachDate={dateIncrement}
         isEmployeeActive={isEmployeeActive}
-        listSumEmployeeAttendance={listSumEmployeeAttendance}
+        // listSumEmployeeAttendance={listSumEmployeeAttendance}
         currentDate={currentDate}
         listEmployee={dataEmployee}
         userId={this.state.userId}

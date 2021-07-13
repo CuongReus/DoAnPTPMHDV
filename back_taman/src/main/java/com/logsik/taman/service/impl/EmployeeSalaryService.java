@@ -35,121 +35,81 @@ public class EmployeeSalaryService {
 	@Autowired
 	private TimeService timeService;
 
-	public EmployeeSalary createNewEmployeeSalaryFromEmployeeAttendance(EmployeeAttendance employeeAttendance) {
-		EmployeeSalary employeeSalary = new EmployeeSalary();
-		User user = userRepository.findById(employeeAttendance.getUserId()).get();
-//			Those are money from user.
-		Long salaryPerMonth = 0L;
-		Long normalOvertimeFee = 0L;
-		Long weekendOvertimeFee = 0L;
-		Long holidayOvertimeFee = 0L;
-		Long insuranceSalary = 0L;
-		Long personalDeduction = 0L;
-		Long familyCircumstanceDeduction = 0L;
-		Long responsibilityAllowance = 0L;
-		Long  lunchFee = 0L;
-		Long  petrolFee =0L;
-		Long  phoneFee=0L;
-		Long  distanceSupportFee=0L; 
-		Float attendanceCoefficient = 0F;
-//			End money from user
-		if (user.getSalaryLevel() != null) {
-			salaryPerMonth = user.getSalaryLevel();
-		}
+	// public EmployeeSalary createNewEmployeeSalaryFromEmployeeAttendance(EmployeeAttendance employeeAttendance) {
+	// 	EmployeeSalary employeeSalary = new EmployeeSalary();
+	// 	User user = userRepository.findById(employeeAttendance.getUserId()).get();
+
+	// 	Long salaryPerMonth = 0L;
+	// 	Long normalOvertimeFee = 0L;
+	// 	Long weekendOvertimeFee = 0L;
+	// 	Long holidayOvertimeFee = 0L;
+	// 	Long insuranceSalary = 0L;
+	// 	Long personalDeduction = 0L;
+	// 	Long familyCircumstanceDeduction = 0L;
+	// 	Long responsibilityAllowance = 0L;
+	// 	Long  lunchFee = 0L;
+	// 	Long  petrolFee =0L;
+	// 	Long  phoneFee=0L;
+	// 	Long  distanceSupportFee=0L; 
+	// 	Float attendanceCoefficient = 0F;
+
+	// 	if (user.getSalaryLevel() != null) {
+	// 		salaryPerMonth = user.getSalaryLevel();
+	// 	}
 		
+	// 	if(user.getDepartment() != null && user.getDepartment().getAttendanceCoefficient() != null) {
+	// 		attendanceCoefficient = user.getDepartment().getAttendanceCoefficient();
+	// 	}
+
+	// 	employeeSalary.setMonth(timeService.getMonth(employeeAttendance.getDateToWork()));
+	// 	employeeSalary.setYear(timeService.getYear(employeeAttendance.getDateToWork()));
+	// 	employeeSalary.setUserId(user.getId());
+	// 	employeeSalary.setSalaryPerMonth(salaryPerMonth);
+	// 	employeeSalary.setLunchFee(lunchFee);
+	// 	employeeSalary.setPetrolFee(petrolFee);
+	// 	employeeSalary.setPhoneFee(phoneFee);
+	// 	employeeSalary.setDistanceSupportFee(distanceSupportFee);
+	// 	employeeSalary.setNormalOvertimeFee(normalOvertimeFee);
+	// 	employeeSalary.setWeekendOvertimeFee(weekendOvertimeFee);
+	// 	employeeSalary.setHolidayOvertimeFee(holidayOvertimeFee);
+	// 	employeeSalary.setAttendanceCoefficient(attendanceCoefficient);
+	// 	employeeSalary.setHolidayFee(0L);
+	// 	employeeSalary.setDiligenceFee(0L);
+	// 	employeeSalary.setInsuranceSalary(insuranceSalary);
+	// 	employeeSalary.setUnionFee(0L);
+	// 	employeeSalary.setBirthdayFee(0L);
+	// 	employeeSalary.setOtherSupportFee(0L);
+	// 	employeeSalary.setPenaltyFee(0L);
+	// 	employeeSalary.setTaxPayable(0L);
+	// 	employeeSalary.setTaxableIncome(0L);
+	// 	employeeSalary.setAssessableIncome(0L);
+	// 	employeeSalary.setOtherMinusFee(0L);
+	// 	employeeSalary.setTotalSalary(0L);
+	// 	employeeSalary.setTotalPersonalInsuranceFee(0L);
+	// 	employeeSalary.setTotalCompanyInsuranceFee(0L);
+	// 	employeeSalary.setActualSalary(0L);
+	// 	employeeSalary.setPersonalDeduction(personalDeduction);
+	// 	employeeSalary.setFamilyCircumstanceDeduction(familyCircumstanceDeduction);
+	// 	employeeSalary.setHolidayLeave(0F);
+	// 	employeeSalary.setAbsentWithoutLeave(0F);
+	// 	employeeSalary.setLeaveYear(0F);
+	// 	employeeSalary.setNormalAttendance(0F);
+	// 	employeeSalary.setNormalOvertimeAttendance(0F); 
+	// 	employeeSalary.setWeekendAttendance(0F);
+	// 	employeeSalary.setHolidayAttendance(0F);
+	// 	employeeSalary.setActualAttendance(0F);
+	// 	employeeSalary.setAbsentWithoutSalary(0F);
+	// 	employeeSalary.setCompensatoryLeave(0F);
+	// 	employeeSalary.setResponsibilityAllowance(responsibilityAllowance);
+	// 	employeeSalary.setPaymentStatus(PaymentStatus.CHUA_DUYET_THANH_TOAN);
+	// 	employeeSalary.setNote(null);
+
+	// 		reloadEmployeeAttendanceSalary(employeeAttendance, employeeSalary);
 		
-		// if (user.getLunchFee() != null) {
-		// 	lunchFee = user.getLunchFee();
-		// }
-		// if (user.getPetrolFee() != null) {
-		// 	petrolFee = user.getPetrolFee();
-		// }
-		// if (user.getPhoneFee() != null) {
-		// 	phoneFee = user.getPhoneFee();
-		// }
-		// if (user.getDistanceSupportFee() != null) {
-		// 	distanceSupportFee = user.getDistanceSupportFee();
-		// }
-		// if (user.getNormalOvertimeFee() != null) {
-		// 	normalOvertimeFee = user.getNormalOvertimeFee();
-		// }
+	// 	EmployeeSalary result = employeeSalaryRepository.save(employeeSalary);
+	// 	return result;
 
-		// if (user.getWeekendOvertimeFee() != null) {
-		// 	weekendOvertimeFee = user.getWeekendOvertimeFee();
-		// }
-
-		// if (user.getHolidayOvertimeFee() != null) {
-		// 	holidayOvertimeFee = user.getHolidayOvertimeFee();
-		// }
-
-		// if (user.getInsuranceSalary() != null) {
-		// 	insuranceSalary = user.getInsuranceSalary();
-		// }
-		if(user.getDepartment() != null && user.getDepartment().getAttendanceCoefficient() != null) {
-			attendanceCoefficient = user.getDepartment().getAttendanceCoefficient();
-		}
-
-		// if (user.getPersonalDeduction() != null) {
-		// 	personalDeduction = user.getPersonalDeduction();
-		// }
-		// if (user.getFamilyCircumstanceDeduction() != null) {
-		// 	familyCircumstanceDeduction = user.getFamilyCircumstanceDeduction();
-		// }
-		// if (user.getResponsibilityAllowance() != null) {
-		// 	responsibilityAllowance = user.getResponsibilityAllowance();
-		// }
-		employeeSalary.setMonth(timeService.getMonth(employeeAttendance.getDateToWork()));
-		employeeSalary.setYear(timeService.getYear(employeeAttendance.getDateToWork()));
-		employeeSalary.setUserId(user.getId());
-		employeeSalary.setSalaryPerMonth(salaryPerMonth);
-		employeeSalary.setLunchFee(lunchFee);
-		employeeSalary.setPetrolFee(petrolFee);
-		employeeSalary.setPhoneFee(phoneFee);
-		employeeSalary.setDistanceSupportFee(distanceSupportFee);
-		employeeSalary.setNormalOvertimeFee(normalOvertimeFee);
-		employeeSalary.setWeekendOvertimeFee(weekendOvertimeFee);
-		employeeSalary.setHolidayOvertimeFee(holidayOvertimeFee);
-		employeeSalary.setAttendanceCoefficient(attendanceCoefficient);
-		employeeSalary.setHolidayFee(0L);
-		employeeSalary.setDiligenceFee(0L);
-		employeeSalary.setInsuranceSalary(insuranceSalary);
-		employeeSalary.setUnionFee(0L);
-		employeeSalary.setBirthdayFee(0L);
-		employeeSalary.setOtherSupportFee(0L);
-		employeeSalary.setPenaltyFee(0L);
-		employeeSalary.setTaxPayable(0L);
-		employeeSalary.setTaxableIncome(0L);
-		employeeSalary.setAssessableIncome(0L);
-		employeeSalary.setOtherMinusFee(0L);
-		employeeSalary.setTotalSalary(0L);
-		employeeSalary.setTotalPersonalInsuranceFee(0L);
-		employeeSalary.setTotalCompanyInsuranceFee(0L);
-		employeeSalary.setActualSalary(0L);
-		employeeSalary.setPersonalDeduction(personalDeduction);
-		employeeSalary.setFamilyCircumstanceDeduction(familyCircumstanceDeduction);
-		employeeSalary.setHolidayLeave(0F);
-		employeeSalary.setAbsentWithoutLeave(0F);
-		employeeSalary.setLeaveYear(0F);
-		employeeSalary.setNormalAttendance(0F);
-		employeeSalary.setNormalOvertimeAttendance(0F); 
-		employeeSalary.setWeekendAttendance(0F);
-		employeeSalary.setHolidayAttendance(0F);
-		employeeSalary.setActualAttendance(0F);
-		employeeSalary.setAbsentWithoutSalary(0F);
-		employeeSalary.setCompensatoryLeave(0F);
-		employeeSalary.setResponsibilityAllowance(responsibilityAllowance);
-		employeeSalary.setPaymentStatus(PaymentStatus.CHUA_DUYET_THANH_TOAN);
-		employeeSalary.setNote(null);
-//		Check Absent Calculate LeaveDay and set attendance if leaveDay greaterThan 0
-//		  {
-//			CalcAbsentDay("ADD_NEW",employeeAttendance,employeeSalary);
-//	
-			reloadEmployeeAttendanceSalary(employeeAttendance, employeeSalary);
-		
-		EmployeeSalary result = employeeSalaryRepository.save(employeeSalary);
-		return result;
-
-	}
+	// }
 
 	public void reloadEmployeeAttendanceSalary(EmployeeAttendance employeeAttendance, EmployeeSalary employeeSalary) {
 		Long userId = employeeAttendance.getUserId();
