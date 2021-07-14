@@ -96,9 +96,4 @@ public class ContactController extends AbstractController {
 
 	}
 	
-//	@RequestMapping(value = "/contact/listFindByStatus")
-//	public RestResult listFindByStatus(@RequestParam("contactStatus") ContactStatus contactStatus) {
-//		return new RestResult(contactRepository.findByStatus(contactStatus));
-//
-//	}
 }

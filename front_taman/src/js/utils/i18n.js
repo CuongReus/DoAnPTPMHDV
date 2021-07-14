@@ -113,7 +113,6 @@ i18n
                     "admin.projectDetail.update": "Cho Phép Thay Đổi Công Việc",
                     "admin.projectDetail.delete": "Cho Phép Xoá Công Việc",
 
-                    "admin.company.goToProjectYear": "Đi đến dự án theo năm",
                     "admin.projectProgress": "Quy Trình Dự Án",
                     "admin.projectProgress.read": "Xem Quy Trình",
                     "admin.projectProgress.HoachToanHoaDon" : "Xem Hoạch Toán Hoá Đơn",

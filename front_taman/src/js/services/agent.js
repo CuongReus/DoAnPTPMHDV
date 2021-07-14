@@ -154,16 +154,6 @@ const ProjectDetailApi = {
     listAllProjectDetail: () => requests.get('/projectDetail/listAll'),
     getProjectDetail: (id) => requests.get('/projectDetail/' + id)
 };
-const ProjectYearApi = {
-    listProjectYear: (search, page) => {
-        if (!search) {
-            search = "";
-        }
-        return requests.getPage('/projectYear/list?search=' + encode(search), page, 20);
-    },
-    listAllProjectYear: () => requests.get('/projectYear/listAll'),
-    getProjectYear: (id) => requests.get('/projectYear/' + id)
-};
 
 const CompanyApi = {
     listCompany: (search, page) => {
@@ -297,7 +287,6 @@ export default {
     LeaveLetterApi,
     ProjectApi,
     ProjectDetailApi,
-    ProjectYearApi,
     CompanyApi,
     ConstructionTeamApi,
     ApprovalApi,
