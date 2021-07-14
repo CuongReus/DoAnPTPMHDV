@@ -401,11 +401,11 @@ class ModalEmployeeAttendance extends React.Component {
                                 <Field disabled={id ? true:false} name="status" label="Trạng Thái" placeholder="Chọn trạng thái..." options={optionStatus} component={RenderSelect} onChangeAction={(value)=>this.handleChangeAttendanceStatus(value)}></Field>
                               
                                 <Field disabled={id ? true:false} name="attendanceType" label="Loại Ngày Công" placeholder="Loại ngày công.." options={optionAttendanceType} component={RenderSelect} onChangeAction={(value)=>{this.handleChangeAttendanceType(value);status == "VANG_MAT" ?this.handleCheckAbsentType(value):null}}></Field>
-                                {status == "VANG_MAT"  && !id ? <span style={{fontStyle:'italic'}}>Tổng Ngày Phép Còn Lại: {totalLeaveYearRemain}  <br/><br/>  </span>:null}
+                                {/* {status == "VANG_MAT"  && !id ? <span style={{fontStyle:'italic'}}>Tổng Ngày Phép Còn Lại: {totalLeaveYearRemain}  <br/><br/>  </span>:null}
                                 {status == "VANG_MAT" && attendanceType? 
-                                // [<Field disabled={true} name="minusLeaveDayStatus" label="Trừ Ngày Phép ?" options={optionMinusLeaveDayStatus} component={RenderSelect}></Field>,
+                            
                                 [<span style={{WebkitTextStroke:'medium'}}>Nghỉ Phép Năm (PN): </span>,<span style={{fontStyle:'italic'}}> Còn ngày phép năm, dù nghỉ nhưng vẫn tính ngày công ! <br/> </span>,
-                                <span style={{WebkitTextStroke:'medium'}}>Nghỉ Không Phép (KP): </span>,<span style={{fontStyle:'italic'}}>Nghỉ không lương hoặc Hết ngày phép năm, nếu nghỉ sẽ không tính ngày công (trừ nghỉ lễ và nghỉ bù)<br/><br/> </span> ]:null}
+                                <span style={{WebkitTextStroke:'medium'}}>Nghỉ Không Phép (KP): </span>,<span style={{fontStyle:'italic'}}>Nghỉ không lương hoặc Hết ngày phép năm, nếu nghỉ sẽ không tính ngày công (trừ nghỉ lễ và nghỉ bù)<br/><br/> </span> ]:null} */}
                               
                                 {isShowOvertimeType? <Field name="overtimeType" disabled={id ? true:false} label="Loại Giờ Làm Việc" placeholder="Chọn loại giờ làm việc.." options={optionOvertimeType} component={RenderSelect}></Field>:null}
                                 <Field name="workPlace" label="Nơi làm việc" placeholder="Chọn nơi làm việc..." options={optionWorkplace} component={RenderSelect}></Field>

@@ -14,11 +14,8 @@ import Script from 'react-load-script';
 import TopBar from "./components/TopBar";
 import SideBar from "./components/SideBar";
 import PersonelList from "./views/personel/PersonelList";
-import RoleList from "./views/personel/RoleList";
-import RoleEdit from "./views/personel/RoleEdit";
 import LeaveLetterList from "./views/leaveLetter/LeaveLetterList";
 import LeaveDayList from "./views/leaveDay/LeaveDayList";
-// import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 
 
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
@@ -145,12 +142,9 @@ class App extends React.Component {
                                 <Route path="/listDepartment" component={DepartmentList}/>
                                 <Route path="/listContact" component={ContactList}/>
                                 <Route path="/listContactDetail" component={ContactDetailList}/>
-                                <Route path="/listRole" component={RoleList}/>
-                                <Route path="/editRole/:id" component={RoleEdit}/>
                                 <Route path="/UserChangePassword" component={UserChangePassword}/>
                                 <Route path="/listLeaveLetter/:id" component={LeaveLetterList}/>
                                 <Route path="/listLeaveDay" component={LeaveDayList}/>
-                                {/* <Route path="/validateLeave/:token" component={ValidateLeaveLetter}/> */}
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
                                 <Route path="/listLabour" component={LabourList}/>
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>

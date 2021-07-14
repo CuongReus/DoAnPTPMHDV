@@ -32,9 +32,6 @@ import { User } from "../pages/user/User";
 
 
 const routes = {
-  appPages: [
-    { title: "Giới Thiệu", path: "/about", icon: informationCircle },
-  ],
   loggedInPages: [
     { title: "Quản Lý Nhân Viên", path: "/listUser", icon: people },
   ],
@@ -108,10 +105,8 @@ const Menu: React.FC<MenuProps> = ({
             <IonTitle>{username ? username : ""}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {username ? //&& SecurityUtils.hasPermission(currentUser, "admin.mobile.admin")
+        {username ?
           <IonContent class="outer-content">
-            <IonListHeader className='custom-list-header'>Menu</IonListHeader>
-            {renderlistItems(routes.appPages)}
             <IonListHeader className='custom-list-header'>Quản Lý Nhân Viên</IonListHeader>
             {isAuthenticated ? renderlistItems(routes.loggedInPages) : renderlistItems(routes.loggedOutPages)}
             <IonListHeader className='custom-list-header'>Quản Lý Ngày Công</IonListHeader>

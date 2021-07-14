@@ -180,7 +180,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
     if(isLoadLabour){
       labour.companies.map((labourCompanies : any) => {
         if (item.projectYear.company.id == labourCompanies.id && item.projectStatus == 'DANG_THUC_THI'){
-          optionProject.push({ label: item.projectYear.company.name + " - " + item.name, id: item.id });
+          optionProject.push({ label: item.name, id: item.id });
         }
       })
     }

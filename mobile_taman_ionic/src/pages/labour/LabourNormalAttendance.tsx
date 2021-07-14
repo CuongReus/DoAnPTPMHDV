@@ -137,8 +137,6 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
             startDatetime: startDateTime ? moment(startDateTime, "HH:mm").format("HH:mm:ss") : "00:00:00",
             endDatetime: "00:00:00",
             totalDatetime: 0,
-            // session: values.session,
-            // overtimeStatus: values.overtimeStatus,
             startOvertime: "00:00:00",
             endOvertime: "00:00:00",
             totalOvertime: 0,
@@ -196,7 +194,7 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
     if(isLoadLabour){
       labour.companies.map((labourCompanies : any) => {
         if (item.projectYear.company.id == labourCompanies.id && item.projectStatus == 'DANG_THUC_THI'){
-          optionProject.push({ label: item.projectYear.company.name + " - " + item.name, id: item.id });
+          optionProject.push({ label: item.name, id: item.id });
         }
       })
     }
@@ -317,23 +315,10 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
                 </p>
               </IonText>
             )}
-            {/* {workDate2Error && (
-              <IonText color="danger">
-                <p className="ion-padding-start">
-                "Hôm Nay Nhân công đang có giờ làm CA THƯỜNG ở dự án khác. Vui lòng chấm ngày khác!
-                </p>
-              </IonText>
-            )} */}
             <IonItem>
               <IonLabel position="stacked" color="success">
                 Giờ bắt đầu (*)
               </IonLabel>
-              {/* <IonDatetime
-                displayFormat="HH:mm"
-                placeholder="Chọn Giờ"
-                value={startDateTime}
-                onIonChange={(e) => {setStartDateTime(e.detail.value!);handleCheckLate(e.detail.value!)}}
-              ></IonDatetime> */}
               <IonInput
                 type="text"
                 value={startDateTime}
@@ -417,26 +402,6 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
                 value={note}
                 onIonChange={(e) => setNote(e.detail.value!)}
               ></IonTextarea>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Người Chấm Công
-              </IonLabel>
-              <IonInput value={currentUser.fullName} disabled></IonInput>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Ngày tạo bảng
-              </IonLabel>
-              <IonDatetime
-                displayFormat="DD/MM/YYYY"
-                placeholder="Chọn Ngày"
-                value={createdDate}
-                onIonChange={(e) => setCreatedDate(e.detail.value!)}
-                disabled
-              ></IonDatetime>
             </IonItem>
           </IonList>
 

@@ -5,14 +5,12 @@ import { translate } from 'react-i18next';
 import { ScriptUtils, UrlUtils, SecurityUtils } from '../../utils/javascriptUtils';
 import TablePagination from '../../components/TablePagination';
 import agent from '../../services/agent';
-import { Link } from 'react-router-dom';
 import ModalPersonel from './ModalPersonel';
 import SecuredComponent from '../../components/SecuredComponent';
 import { connect } from 'react-redux';
 import { LoadingScreen } from '../../components/commonWidgets';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { RenderSelect, RenderSwitch } from '../../components/formInputs';
-import ModalSetAnnualLeave from './ModalSetAnnualLeave';
 import { PermanentCacheService } from '../../services/middleware';
 
 
@@ -179,8 +177,6 @@ class PersonelList extends React.Component {
                     <td style={{ whiteSpace: 'nowrap' }} >{item.code} || {item.fullName}</td>
                     <td>{item.email}<br />{item.phone}</td>
                     <td>{item.currentAddress}</td>
-                    {/* <td>{item.permanentAddress}</td> */}
-                    {/* <td>{item.position}</td> */}
                     <td>{item.company ? item.company.name : null}</td>
                     <td>{item.annualLeaveYear}</td>
                     <td className="active-status">
@@ -201,9 +197,6 @@ class PersonelList extends React.Component {
                                     <SecuredComponent allowedPermission="admin.users.delete">
                                         <li><a onClick={() => this.deletePersonel(item.id, item.fullName)}><i className="icon-cross2"></i>Xóa</a></li>
                                     </SecuredComponent>
-                                    {/* <SecuredComponent allowedPermission="admin.users.setupAnnualLeaveForUser">
-                                    <li><a  onClick={() => this.handleSetAnnualLeaveForAllUser(item)}><i className="icon-file-text"></i>Cài Đặt Ngày Phép</a></li>
-                                </SecuredComponent> */}
                                 </ul>
                             </li>
                         </ul>
