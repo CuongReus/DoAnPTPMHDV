@@ -80,22 +80,7 @@ public class LabourAttendanceController extends AbstractController {
 					}
 				}
 			}
-//			SAVE New labourAttendance
 			newlabourAttendance = labourAttendanceRepository.save(newlabourAttendance);
-			List<LabourSalary> currentLabourSalary = labourSalaryRepository.findByLabourIdAndMonthAndYear(
-					newlabourAttendance.getLabourId(),
-					timeService.getMonth(newlabourAttendance.getDateToWork()), timeService.getYear(newlabourAttendance.getDateToWork()));
-			if (currentLabourSalary.isEmpty()) {
-				labourSalaryService.createNewLabourSalaryFromLabourAttendance(newlabourAttendance);
-			} else {
-				if(currentLabourSalary.get(0).getPaymentStatus() !=null&&"DA_DUYET_THANH_TOAN".equals(currentLabourSalary.get(0).getPaymentStatus().toString())) {
-					return new RestResult(true, MESSAGES_LATE_SET_ATTENDANCE);	
-				}else {
-					labourSalaryService.reloadLabourAttendanceToLabourSalary( newlabourAttendance,currentLabourSalary.get(0));
-				}
-			}
-//		
-			 
 			return new RestResult(newlabourAttendance);
 		} catch (Exception e) {
 			LOGGER.error("Error when adding labourAttendance.", e);
@@ -108,22 +93,6 @@ public class LabourAttendanceController extends AbstractController {
 		try {
 			LabourAttendance source = labourAttendanceRepository.findById(labourAttendanceDto.getId()).get();
 			LabourAttendance updatedLabourAttendance = labourAttendanceRepository.save(dtoConverter.convertToLabourAttendance(labourAttendanceDto));
-
-			List<LabourSalary> currentLabourSalary = labourSalaryRepository.findByLabourIdAndMonthAndYear(
-					labourAttendanceDto.getLabourId(),
-					timeService.getMonth(source.getDateToWork()), timeService.getYear(source.getDateToWork()));
-
-			if (currentLabourSalary.isEmpty()) {
-				labourSalaryService.createNewLabourSalaryFromLabourAttendance(updatedLabourAttendance);
-			} else {
-				if(currentLabourSalary.get(0).getPaymentStatus() !=null &&"DA_DUYET_THANH_TOAN".equals(currentLabourSalary.get(0).getPaymentStatus().toString())) {
-					return new RestResult(true, MESSAGES_LATE_UPDATE_ATTENDANCE);	
-				}else {
-					labourSalaryService.reloadLabourAttendanceToLabourSalary(updatedLabourAttendance,currentLabourSalary.get(0));	
-				}
-				
-			}
-			
 			return new RestResult(updatedLabourAttendance);
 		} catch (Exception e) {
 			LOGGER.error("Error when updating labourAttendance.", e);
@@ -137,16 +106,6 @@ public class LabourAttendanceController extends AbstractController {
 
 		try {
 			Optional<LabourAttendance> source = labourAttendanceRepository.findById(id);
-		
-		
-				List<LabourSalary> currentLabourSalary = labourSalaryRepository.findByLabourIdAndMonthAndYear(
-						source.get().getLabour().getId(),
-						timeService.getMonth(source.get().getDateToWork()), timeService.getYear(source.get().getDateToWork()));
-				
-				if (!currentLabourSalary.isEmpty()) {
-					labourSalaryService.removeLabourAttendanceOnLabourSalary(currentLabourSalary.get(0), source.get());
-				}
-		
 			labourAttendanceRepository.deleteById(id);
 		} catch (Exception e) {
 			LOGGER.error("Error when delete labourAttendance.", e);
@@ -211,19 +170,5 @@ public class LabourAttendanceController extends AbstractController {
 		result = labourAttendanceRepository.findDistinctByDateToWork(dateToWork);
 		return new RestResult (result);
 	}
-		
-	
-
-	// @RequestMapping(value = "/labourAttendance/findListLabourAttendanceByProjectDetailId")
-	// public RestResult findListLabourAttendanceByProjectDetailId(@RequestParam("projectDetailId")Long projectDetailId,
-	// 		@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
-	// 		@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
-	// 	Object result =null;
-		
-	// 	result = labourAttendanceRepository.listSumLabourAttendanceByProjectDetailId(projectDetailId, dateToWorkStart, dateToWorkEnd);
-		
-	// 	return new RestResult(result);
-
-	// }
 	
 }
