@@ -445,8 +445,6 @@ class ModalLabourNormalAttendance extends React.Component {
                                 <Field name="supportTransportFeeStatus" label="Hỗ Trợ Chi Phí Đi Lại" options={optionTransportFeeStatus} component={RenderSelect}></Field>
                                     <Field disabled={true} name="lateStatus" label="Đi Trể ?" options={optionLateStatus} component={RenderSelect}></Field>
                                 <Field name="note" label="Ghi Chú" placeholder="Nhập Ghi Chú..." rows={3} component={RenderTextArea}></Field>
-                                <Field disabled={true} name="createdUserId" label="Người Chấm Công" options={showCreatedUser} component={RenderSelect}></Field>
-                                <Field disabled={true} name="createdDate" label="Ngày Tạo Bảng" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field>
                                 <div style={initialValues.lastedUpdateUserId ? { display: 'block' } : { display: 'none' }}>
                                     <Field disabled={true} name="lastedUpdateUserId" label="Người Chỉnh Sửa Gần Nhất" options={showLastedUpdateUser} component={RenderSelect}></Field>
                                     <Field disabled={true} name="lastedUpdateDate" label="Ngày Chỉnh Sửa Gần Nhất" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> </div>

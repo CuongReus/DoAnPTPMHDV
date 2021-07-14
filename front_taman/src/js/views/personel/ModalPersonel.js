@@ -169,10 +169,10 @@ class ModalPersonel extends React.Component {
             companyId: values.companyId,
             phone: values.phone,
             role: "ADMIN",
-            roles: values.roles ? values.roles.map(item => { return { id: item.value }; }) : null,
+            roles: null,
             birthday: values.birthday,
-            active: values.active,
-            annualLeaveYear: values.annualLeaveYear ? values.annualLeaveYear : 0,
+            active: 1,
+            annualLeaveYear: 0,
             departmentId: values.departmentId,
             currentAddress: values.currentAddress,
             position: values.position,
@@ -255,28 +255,6 @@ class ModalPersonel extends React.Component {
                             <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
                                 {/* <fieldset disabled={disableDataManipulation}> */}
                                 <div className="form-group">
-                                    {/* <div style={isSalaryConfig ? { display: 'block' } : { display: 'none' }} className="form-group">
-                                        <Field disabled={true} name="fullName" label="Họ Tên(*)" placeholder="Nhập họ tên người dùng..." component={RenderInputWithDiv}></Field>
-                                        <Field disabled={true} name="email" type="email" label="Email(*)" placeholder="Nhập email người dùng..." component={RenderInputWithDiv}></Field>
-                                        <Field disabled={true} name="phone" label="Số Điện Thoại" placeholder="Nhập số điện thoại..." component={RenderNumberInput}></Field>
-                                        <Field disabled={true} name="companyId" label="Thuộc công ty(*)" options={optionCompanies} component={RenderSelect} ></Field>
-                                        <Field disabled={true} name="birthday" dateFormat="DD/MM/YYYY" label="Ngày Sinh" component={RenderDatePicker}></Field>
-                                        <Field disabled={true} name="position" label="Chức Vụ" placeholder="Nhập chức vụ..." component={RenderInputWithDiv}></Field>
-                                        <Field disabled={true} name="gender" label="Giới Tính" options={optionGender} component={RenderSelect}></Field>
-                                        <Field name="salaryLevel" label="Mức Lương" placeholder="Nhập mức lương cơ bản..." thousandSeparator={true} component={RenderMoneyFormat} onChangeAction={(value) => this.handleInsuranceSalaryCalc(value, responsibilityAllowance)}></Field>
-                                        <Field name="responsibilityAllowance" label="Phụ Cấp Trách Nhiệm" placeholder="Nhập tiền phụ cấp trách nhiệm..." thousandSeparator={true} component={RenderMoneyFormat} onChangeAction={(value) => this.handleInsuranceSalaryCalc(salaryLevel, value)}></Field>
-                                        <Field disabled={true} name="insuranceSalary" label="Lương Đóng Bảo Hiểm" placeholder="Nhập tiền bảo hiểm..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="normalOvertimeFee" label="Tiền Tăng Ca Thường" placeholder="Nhập tiền tăng ca thường..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="weekendOvertimeFee" label="Tiền Tăng Ca Cuối Tuần" placeholder="Nhập tiền tăng ca cuối tuần..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="holidayOvertimeFee" label="Tiền Tăng Ca Lễ" placeholder="Nhập tiền tăng ca lễ..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="personalDeduction" label="Giảm Trừ Bản Thân" placeholder="Nhập tiền giảm trừ bản thân..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="familyCircumstanceDeduction" label="Giảm Trừ Gia Cảnh" placeholder="Nhập tiền giảm trừ gia cảnh..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="lunchFee" label="Tiền Ăn Trưa" placeholder="Nhập tiền ăn trưa..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="petrolFee" label="Tiền Xăng Xe" placeholder="Nhập tiền xăng xe..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="phoneFee" label="Tiền Điện Thoại" placeholder="Nhập tiền điện thoại..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                        <Field name="distanceSupportFee" label="Tiền Đi Công Trường" placeholder="Nhập tiền đi công trường..." thousandSeparator={true} component={RenderMoneyFormat}></Field>
-                                    </div>
-                                    <br/> */}
                                     <div style={isSalaryConfig ? { display: 'none' } : { display: 'block ' }} className="form-group">
                                             <div className="tabbable">
                                                 
@@ -291,9 +269,9 @@ class ModalPersonel extends React.Component {
                                                         <Field name="gender" label="Giới Tính" options={optionGender} component={RenderSelect}></Field>
                                                         <Field name="companyId" label="Thuộc công ty(*)" options={optionCompanies} component={RenderSelect} ></Field>
                                                         <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
-                                                        <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} name="roles" label="Bộ Phận" placeholder="Chọn bộ phận..." options={optionUserRoles} component={RenderMultiSelect}></Field>
-                                                        <Field name="active" label="Trạng Thái" checkLabel="Đang Làm Việc" component={RenderCheckbox}></Field>
-                                                        <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
+                                                        {/* <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} name="roles" label="Bộ Phận" placeholder="Chọn bộ phận..." options={optionUserRoles} component={RenderMultiSelect}></Field> */}
+                                                        {/* <Field name="active" label="Trạng Thái" checkLabel="Đang Làm Việc" component={RenderCheckbox}></Field> */}
+                                                        {/* <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field> */}
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>
                                                     </div>
                                                 </div>

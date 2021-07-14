@@ -18,7 +18,7 @@ import RoleList from "./views/personel/RoleList";
 import RoleEdit from "./views/personel/RoleEdit";
 import LeaveLetterList from "./views/leaveLetter/LeaveLetterList";
 import LeaveDayList from "./views/leaveDay/LeaveDayList";
-import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
+// import ValidateLeaveLetter from "./views/leaveLetter/ValidateLeaveLetter";
 
 
 import ConstructionTeamList from "./views/constructionTeam/ConstructionTeamList";
@@ -150,7 +150,7 @@ class App extends React.Component {
                                 <Route path="/UserChangePassword" component={UserChangePassword}/>
                                 <Route path="/listLeaveLetter/:id" component={LeaveLetterList}/>
                                 <Route path="/listLeaveDay" component={LeaveDayList}/>
-                                <Route path="/validateLeave/:token" component={ValidateLeaveLetter}/>
+                                {/* <Route path="/validateLeave/:token" component={ValidateLeaveLetter}/> */}
                                 <Route path="/listConstructionTeam" component={ConstructionTeamList}/>
                                 <Route path="/listLabour" component={LabourList}/>
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>
