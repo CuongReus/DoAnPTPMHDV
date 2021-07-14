@@ -41,31 +41,15 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 const DaysInMonth = (props) => {
-  const { listEmployeeAttendance, userId, date } = props;
+  const { listEmployeeAttendance, userId, date } = props
+  
+  var theadAttendance =
 
-  var theadAttendance = (
     <th key={"dayInMonth_"}>
-      {" "}
-      {dateFns.getDay(date) == 0 ? (
-        <span>
-          <center>
-            {" "}
-            {dateFns.format(date, "D")} <br /> {"CN"}{" "}
-          </center>{" "}
-        </span>
-      ) : (
-        <span>
-          <center>
-            {" "}
-            {dateFns.format(date, "D")} <br />{" "}
-            {"T" + (dateFns.getDay(date) + 1)}{" "}
-          </center>{" "}
-        </span>
-      )}{" "}
-    </th>
-  );
-  return [theadAttendance];
-};
+      {dateFns.getDay(date) == 0 ? <span><center>{dateFns.format(date, 'D')} <br />{"CN"}</center></span> :
+        <span><center>{dateFns.format(date, 'D')}<br />{"T" + (dateFns.getDay(date) + 1)}</center></span>} </th>
+  return [theadAttendance]
+}
 
 const BodyAttendance = (props) => {
   const {
@@ -1002,13 +986,13 @@ class EmployeeAttendanceList extends React.Component {
                             onChangeAction={(userId) =>
                               this.updateEmployeeAttendance(userId)
                             }
-                          ></Field>{" "}
-                        </SecuredComponent>{" "}
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
+                          ></Field>
+                        </SecuredComponent>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div
                 style={{
                   position: "sticky",
@@ -1041,8 +1025,8 @@ class EmployeeAttendanceList extends React.Component {
                         }}
                         rowSpan={2}
                       >
-                        STT{" "}
-                      </th>{" "}
+                        STT
+                      </th>
                       <th
                         className="bg-success"
                         style={{
@@ -1051,20 +1035,23 @@ class EmployeeAttendanceList extends React.Component {
                         }}
                         rowSpan={2}
                       >
-                        Tên Nhân Sự{" "}
-                      </th>{" "}
+                        Tên Nhân Sự
+                      </th>
                       <th colSpan={numberOfDays}>
-                        <center> Ngày Trong Tháng </center>{" "}
-                      </th>{" "}
+                        <center> Ngày Trong Tháng </center>
+                      </th>
                       
-                    </tr>{" "}
-                  </thead>{" "}
-                  <tbody> {body} </tbody> <tfoot> </tfoot>{" "}
-                </table>{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+                    </tr>
+                    <tr>
+                      {calendarDays}
+                    </tr>
+                  </thead>
+                  <tbody> {body} </tbody> <tfoot> </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

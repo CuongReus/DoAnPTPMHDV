@@ -351,8 +351,8 @@ class ModalLabourNormalAttendance extends React.Component {
         dataProject.map(item => {
             if (labourDto) {
                     labourDto.companies.map(labourCompanies=>{
-                        if (item.projectYear.company.id == labourCompanies.id) {
-                                optionProject.push({ label: item.projectYear.company.name +" - "+item.name, value: item.id });
+                        if (item.projectYear.company.id == labourCompanies.id && item.projectStatus == 'DANG_THUC_THI') {
+                                optionProject.push({ label: item.name, value: item.id });
                         }
                     })
                
@@ -361,11 +361,14 @@ class ModalLabourNormalAttendance extends React.Component {
             }
 
         })
+        console.log(dataEfficiency);
         // Not Use List ProjectDetail because that make slow performance
         if(dataEfficiency){
             dataEfficiency.map(item=>{
-                if(item.projectDetail.project.id==projectIdSelector){
-                optionProjectDetail.push({label:item.projectDetail.name,value:item.projectDetail.id});
+                if(item.projectDetail !== null){
+                    if(item.projectDetail.project.id==projectIdSelector){
+                        optionProjectDetail.push({label:item.projectDetail.name,value:item.projectDetail.id});
+                        }
                 }
             })
         }
@@ -402,13 +405,9 @@ class ModalLabourNormalAttendance extends React.Component {
             });
 
         }
-        // var optionSessions = [{ label: "Sáng", value: "SANG" }, { label: "Tối", value: "TOI" }];
+        
         var optionLateStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        // var optionNotOvertime = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        // var optionsUniformBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        // var optionSafetyBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        // var optionsConstructionBreach = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }];
-        // var optionAbsentStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
+        
 
         var optionFarConstructionStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]
         var optionTransportFeeStatus = [{ label: "Có", value: "CO" }, { label: "Không", value: "KHONG" }]

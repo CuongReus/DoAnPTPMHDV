@@ -278,7 +278,6 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                     {item.overtimeStatus? <td style={item.overtimeStatus ? { color: 'blue' } : null}>{item.totalOvertime}</td>:<td></td>}
         
                     <td>{t(item.lateStatus)}</td>
-                    <td>{item.note}</td>
                     {!item.absentStatus ? <td className="active-font" target={item.outTime ? "Đã Có Giờ Về" : "Chưa Có Giờ Về"}><center>{item.outTime ? "Đã Có Giờ Về" : "Chưa Có Giờ Về"}</center></td> : <td></td>}
                     <td className="text-center footable-visible footable-last-column">
                         <ul className="icons-list">
@@ -355,7 +354,6 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                                         <th colSpan="4" data-hide="phone"><center>Ngày Công Thường</center></th>
                                         <th colSpan="5" data-hide="phone"><center>Ngày Công Tăng Ca</center></th>
                                         <th rowSpan="2" data-hide="phone">Đi Trễ</th>
-                                        <th rowSpan="2" data-hide="phone">Ghi Chú</th>
                                         <th rowSpan="2" data-hide="phone">Trạng Thái Ngày Công</th>
                                         <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                     </tr>

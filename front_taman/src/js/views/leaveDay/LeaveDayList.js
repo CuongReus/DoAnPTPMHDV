@@ -225,32 +225,32 @@ class LeaveDayList extends React.Component {
 
         var rows = dataPersonel.content ? dataPersonel.content.map(item => {
             currentNo++
-            var lastTotalAnnualLeave = 0;
-            var lastTotalAnnualLeaveRemaining = 0;
-            var bonusNormalOvertimeAttendance = 0;
-		    var bonusSatOvertimeAttendance = 0;
-		    var bonusSunOvertimeAttendance = 0;
-		    var bonusHolidayOvertimeAttendance = 0;
-		    var holidayLeave = 0;
+            // var lastTotalAnnualLeave = 0;
+            // var lastTotalAnnualLeaveRemaining = 0;
+            // var bonusNormalOvertimeAttendance = 0;
+		    // var bonusSatOvertimeAttendance = 0;
+		    // var bonusSunOvertimeAttendance = 0;
+		    // var bonusHolidayOvertimeAttendance = 0;
+		    // var holidayLeave = 0;
 		    var leaveYear = 0;
-		    var absentWithoutLeave = 0;
-		    var compensatoryLeave = 0;
-            dataLeaveDayGroup.map(leaveDayItem =>{
-                if(item.id == leaveDayItem.userId){
-                    lastTotalAnnualLeave =  leaveDayItem.lastTotalAnnualLeave
-                    lastTotalAnnualLeaveRemaining = leaveDayItem.lastTotalAnnualLeaveRemaining;
-                }
-            })
+		    // var absentWithoutLeave = 0;
+		    // var compensatoryLeave = 0;
+            // dataLeaveDayGroup.map(leaveDayItem =>{
+            //     if(item.id == leaveDayItem.userId){
+            //         // lastTotalAnnualLeave =  leaveDayItem.lastTotalAnnualLeave
+            //         lastTotalAnnualLeaveRemaining = leaveDayItem.lastTotalAnnualLeaveRemaining;
+            //     }
+            // })
             dataSumAttendanceForUser.map(sumAttendance=>{
                 if(item.id == sumAttendance.userId){
-                    bonusNormalOvertimeAttendance = sumAttendance.bonusNormalOvertimeAttendance;
-                    bonusSatOvertimeAttendance = sumAttendance.bonusSatOvertimeAttendance;
-                    bonusSunOvertimeAttendance = sumAttendance.bonusSunOvertimeAttendance;
-                    bonusHolidayOvertimeAttendance = sumAttendance.bonusHolidayOvertimeAttendance;
-                    holidayLeave = sumAttendance.holidayLeave;
+                    // bonusNormalOvertimeAttendance = sumAttendance.bonusNormalOvertimeAttendance;
+                    // bonusSatOvertimeAttendance = sumAttendance.bonusSatOvertimeAttendance;
+                    // bonusSunOvertimeAttendance = sumAttendance.bonusSunOvertimeAttendance;
+                    // bonusHolidayOvertimeAttendance = sumAttendance.bonusHolidayOvertimeAttendance;
+                    // holidayLeave = sumAttendance.holidayLeave;
                     leaveYear = sumAttendance.leaveYear;
-                    absentWithoutLeave = sumAttendance.absentWithoutLeave;
-                    compensatoryLeave = sumAttendance.compensatoryLeave;
+                    // absentWithoutLeave = sumAttendance.absentWithoutLeave;
+                    // compensatoryLeave = sumAttendance.compensatoryLeave;
                 }
             })
             return (
@@ -261,57 +261,7 @@ class LeaveDayList extends React.Component {
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
                     <td>
-                        {FormatterUtils.round2Decimals(lastTotalAnnualLeave)}
-                    </td>
-                    <td>
-                        {FormatterUtils.round2Decimals(leaveYear)}
-                    </td>
-                    <td> 
-                        {FormatterUtils.round2Decimals(lastTotalAnnualLeave - leaveYear)}
-                    </td>
-
-                    <td>
-                        {parseFloat(
-                            bonusNormalOvertimeAttendance+
-                            bonusSatOvertimeAttendance+
-                            bonusSunOvertimeAttendance+
-                            bonusHolidayOvertimeAttendance
-                        )}
-                    </td>
-                    <td>
-                        {FormatterUtils.round2Decimals(compensatoryLeave)}
-                    </td>
-                    <td> 
-                        {FormatterUtils.round2Decimals(bonusNormalOvertimeAttendance+
-                            bonusSatOvertimeAttendance+
-                            bonusSunOvertimeAttendance+
-                            bonusHolidayOvertimeAttendance - compensatoryLeave)}
-                    </td>
-
-                    <td> 
-                        {FormatterUtils.round2Decimals((lastTotalAnnualLeave - leaveYear) +
-                            bonusNormalOvertimeAttendance+
-                            bonusSatOvertimeAttendance+
-                            bonusSunOvertimeAttendance+
-                            bonusHolidayOvertimeAttendance - compensatoryLeave)}
-                    </td>
-                
-
-                    <td className="text-center footable-visible footable-last-column">
-                        <ul className="icons-list">
-                            <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                    <i className="icon-menu9"></i>
-                                </a>
-                                <ul className="dropdown-menu dropdown-menu-right">
-
-                                    {currentUser.id == item.id ? <li><a onClick={() => this.handleShowmodal(item.id)}><i className="icon-plus22"></i> Tạo Đơn</a></li> : null}
-                               
-                                    <li>
-                                        <a href={"/listLeaveLetter/" + item.id + "?dateToWorkStart=" +startDateOfYear + "&dateToWorkEnd=" + endDateOfYear +"&year="+ moment(currentDate).format("YYYY") }><i className="icon-file-text2"></i>Xem Lịch Sử Đơn</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        {FormatterUtils.round2Decimals(leaveYear)} ngày
                     </td>
                 </tr> );
         }) :null;
@@ -405,17 +355,17 @@ class LeaveDayList extends React.Component {
                                                 <th data-hide="phone">Email</th>
                                                 <th data-hide="phone">Số Điên Thoại</th>
 
-                                                <th data-hide="phone">Phép Năm</th>
+                                                {/* <th data-hide="phone">Phép Năm</th> */}
                                                 <th data-hide="phone">Đã Nghỉ Phép</th>
-                                                <th data-hide="phone">Phép Năm <br/> Còn Lại</th>
+                                                {/* <th data-hide="phone">Phép Năm <br/> Còn Lại</th>
 
                                                 <th data-hide="phone">Phép Thưởng TC</th>
                                                 <th data-hide="phone">Đã Nghỉ Bù</th>
                                                 <th data-hide="phone">Phép Thưởng TC <br/> Còn Lại</th>
 
-                                                <th data-hide="phone">Tổng Phép <br/> Còn Lại</th>
+                                                <th data-hide="phone">Tổng Phép <br/> Còn Lại</th> */}
                 
-                                                <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
+                                                {/* <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th> */}
                                             </tr>
                                         </thead>
                                         <tbody>

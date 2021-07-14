@@ -28,9 +28,8 @@ import "../EditPage.scss";
 import { loadListLabour } from "./listLabour.actions";
 import { Labour } from "./Labour";
 import moment from "moment";
-import { Plugins } from "@capacitor/core";
 import { toast } from "../../toast";
-import { loadProject, loadListEfficiency, loadLabourById } from "./labourConfig";
+import { loadProject, loadListEfficiency, loadLabourById, loadListAttendanceToday } from "./labourConfig";
 
 
 interface OwnProps extends RouteComponentProps {}
@@ -43,9 +42,9 @@ interface DispatchProps {
   loadListLabour: typeof loadListLabour;
 }
 
-type LabourAttendanceProps = OwnProps & StateProps & DispatchProps;
+type LabourNormalAttendanceProps = OwnProps & StateProps & DispatchProps;
 
-const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
+const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
   loadListLabour,
   history,
 }) => {
@@ -71,8 +70,9 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
   const [dataEfficiency, setDataEfficiency] = useState([]);
   const [loadEfficiency, setLoadEfficiency] = useState(false);
   const [labour, setLabour] = useState(Object);
+  const [isLoadLabour, setIsLoadLabour] = useState(false);
+  const [listAttendanceToday, setListAttendanceToday] = useState([]);
 
-  // const { labourId } = useParams();
   const params : any = useParams();
 
   const currentUser = JSON.parse(localStorage._cap_currentUser);
@@ -102,12 +102,13 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
     loadLabourById(params.labourId).then((labour: any) => {
       if (labour) {
         setLabour(labour);
+        setIsLoadLabour(true)
       }
     });
 
-  }, []);
+  }, [params.labourId]);
 
-  const handleLabourAttendance = async (e: React.FormEvent) => {
+  const handleLabourNormalAttendance = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
     var today = moment(new Date, "YYYY/MM/DD");
@@ -130,12 +131,14 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
     var url = "/labourAttendance/add";
     var bodyObject = {
             labourId: parseInt(params.labourId),
-            projectId: project ? project.id : null,
+            projectId: project ? project : null,
             projectDetailId: projectDetail ? projectDetail : null,
             dateToWork: workDate,
             startDatetime: startDateTime ? moment(startDateTime, "HH:mm").format("HH:mm:ss") : "00:00:00",
             endDatetime: "00:00:00",
             totalDatetime: 0,
+            // session: values.session,
+            // overtimeStatus: values.overtimeStatus,
             startOvertime: "00:00:00",
             endOvertime: "00:00:00",
             totalOvertime: 0,
@@ -165,10 +168,9 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
       if (result && result.id) {
         toast("Chấm Công Thành Công!");
         history.push("/listLabour");
+        loadListLabour();
       } else {
-        // setMessageResult("Lỗi Lưu trữ!");
-        toast("Lỗi Lưu trữ!");
-
+        toast("Đã Có Dự Án Trong Ngày Hôm Nay, Một Ngày Nhân Công Chỉ Có Thể Làm Việc `1 Ca Thường ||  1 Tăng Ca Thường || 1 Tăng Ca Khuya` ");
         setShowToast(true);
       }
     });
@@ -188,13 +190,45 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
     { label: "Không", value: "KHONG" },
   ];
   var optionProjectDetail : any[] = [];
+  var optionProject : any[] = [];
+
+  dataProject.map((item : any) => {
+    if(isLoadLabour){
+      labour.companies.map((labourCompanies : any) => {
+        if (item.projectYear.company.id == labourCompanies.id && item.projectStatus == 'DANG_THUC_THI'){
+          optionProject.push({ label: item.projectYear.company.name + " - " + item.name, id: item.id });
+        }
+      })
+    }
+  })
 
   if(loadEfficiency){
     dataEfficiency.map((item:any)  => {
-      if(item.projectDetail.project.id== project.id){
+      if(item.projectDetail.project.id == project){
         optionProjectDetail.push({label:item.projectDetail.name,id:item.projectDetail.id});
         }
     })
+  }
+
+  const [disabledButtonIfFuture, setDisabledButtonIfFuture] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [workDate1Error, setWorkDate1Error] = useState(false);
+  const [workDate2Error, setWorkDate2Error] = useState(false);
+
+  const checkValidate = (selectedWork : any) => {
+    var futureDate = moment(selectedWork, 'DD-MM-YYYY');
+    var todayDate = moment(new Date().toISOString(), 'DD-MM-YYYY');
+        // todayDate = todayDate.subtract(1, "days");
+    var dDiff = todayDate.diff(futureDate);
+
+    //Nếu nhỏ hơn 0 là ngày trong tương lai
+    if (dDiff < 0){
+      setDisabledButtonIfFuture(true);
+      setWorkDate1Error(true);
+    }else{
+      setDisabledButtonIfFuture(false);
+      setWorkDate1Error(false);
+    }
   }
 
   return  (
@@ -208,7 +242,7 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <form noValidate onSubmit={handleLabourAttendance}>
+        <form noValidate onSubmit={handleLabourNormalAttendance}>
           <IonList>
             <IonItem>
               <IonLabel>
@@ -225,10 +259,10 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
                 placeholder="Chọn Tên Dự Án"
                 onIonChange={(e) => setProject(e.detail.value!)}
               >
-                {dataProject
-                  ? dataProject.map((data: any, index: number) => (
-                      <IonSelectOption key={data.id} value={data}>
-                        {data.name}
+                {optionProject
+                  ? optionProject.map((data: any, index: number) => (
+                      <IonSelectOption key={data.id} value={data.id}>
+                        {data.label}
                       </IonSelectOption>
                     ))
                   : null}
@@ -268,7 +302,7 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
                 displayFormat="DD/MM/YYYY"
                 placeholder="Chọn Ngày"
                 value={workDate}
-                onIonChange={(e) => setWorkDate(e.detail.value!)}
+                onIonChange={(e) => {setWorkDate(e.detail.value!); checkValidate(e.detail.value!);}}
               ></IonDatetime>
             </IonItem>
             {formSubmitted && workDateError && (
@@ -276,7 +310,20 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
                 <p className="ion-padding-start">Không được chấm công ngày tương lai!, vui lòng thử lại!</p>
               </IonText>
             )}
-
+            {workDate1Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                Không được chọn ngày trong tương lai! Vui lòng chọn lại!
+                </p>
+              </IonText>
+            )}
+            {/* {workDate2Error && (
+              <IonText color="danger">
+                <p className="ion-padding-start">
+                "Hôm Nay Nhân công đang có giờ làm CA THƯỜNG ở dự án khác. Vui lòng chấm ngày khác!
+                </p>
+              </IonText>
+            )} */}
             <IonItem>
               <IonLabel position="stacked" color="success">
                 Giờ bắt đầu (*)
@@ -395,7 +442,7 @@ const LabourNormalAttendance: React.FC<LabourAttendanceProps> = ({
 
           <IonRow>
             <IonCol>
-              <IonButton color='success' type="submit" expand="block">
+              <IonButton disabled={disabledButton || disabledButtonIfFuture} color='success' type="submit" expand="block">
                 Chấm Công
               </IonButton>
             </IonCol>
