@@ -172,7 +172,7 @@ class ModalPersonel extends React.Component {
             roles: null,
             birthday: values.birthday,
             active: 1,
-            annualLeaveYear: 0,
+            annualLeaveYear: values.annualLeaveYear ? values.annualLeaveYear : 0,
             departmentId: values.departmentId,
             currentAddress: values.currentAddress,
             position: values.position,
@@ -210,14 +210,10 @@ class ModalPersonel extends React.Component {
         destroy();
     }
     render() {
-        // const { objectUser, listfile, title, onHide } = this.props;
 
         const { handleSubmit, submitting, title, invalid, currentUser, isSalaryConfig, salaryLevel, responsibilityAllowance } = this.props;
         const modalConfig = { backdrop: 'static', show: this.props.show, bsSize: "sm", onHide: this.props.onHide, submitting: this.props.submitting };
         var dataCompany = this.state.listAllCompanys;
-        var dataDepartment = this.state.listAllDepartment;
-        var disableDataManipulation = this.state.disableDataManipulation;
-        var id = this.props.idUser;
         
         var optionCompanies = [];
         dataCompany.map(item => {
@@ -271,7 +267,7 @@ class ModalPersonel extends React.Component {
                                                         <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
                                                         {/* <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} name="roles" label="Bộ Phận" placeholder="Chọn bộ phận..." options={optionUserRoles} component={RenderMultiSelect}></Field> */}
                                                         {/* <Field name="active" label="Trạng Thái" checkLabel="Đang Làm Việc" component={RenderCheckbox}></Field> */}
-                                                        {/* <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field> */}
+                                                        <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>
                                                     </div>
                                                 </div>

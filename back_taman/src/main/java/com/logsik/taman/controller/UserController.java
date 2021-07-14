@@ -87,62 +87,7 @@ public class UserController extends AbstractController {
 			return new RestResult(true, DUPLICATE_EMAIL);
 		}
 	}
-  	@RequestMapping(value = "/user/setAllUserAnnualLeave", method = RequestMethod.POST)
-	public RestResult setAllUserAnnualLeave(@RequestBody AnnualLeaveYearDto annualLeaveYearDto) {
-//		checkAuthorization("admin.users.create");
-		try {
-			
-			userLeaveYearCalcService.updateAllUserTotalAnnualLeaveByYear(annualLeaveYearDto.getAnnualLeaveYear(),annualLeaveYearDto.getYear());
-			return new RestResult("ANNUAL_SETUP_SUCCESS");
-		} catch (Exception e) {
-			LOGGER.error("Error when set up annual leave User.", e);
-			return new RestResult(true, MESSAGE_CANNOT_SAVE);
-		}
-	}
   	
-  	@RequestMapping(value = "/user/setUserAnnualLeaveByUserId", method = RequestMethod.POST)
-	public RestResult setUserAnnualLeaveBy(@RequestBody AnnualLeaveYearDto annualLeaveYearDto) {
-//		checkAuthorization("admin.users.create");
-		try {
-			User user = userRepository.findById(annualLeaveYearDto.getUserId()).get();
-			user.setAnnualLeaveYear(annualLeaveYearDto.getAnnualLeaveYear());
-			userLeaveYearCalcService.updateTotalAnnualLeaveByYearAndUserId(annualLeaveYearDto.getAnnualLeaveYear(),annualLeaveYearDto.getUserId(),annualLeaveYearDto.getYear());
-			userRepository.save(user);
-			return new RestResult("ANNUAL_SETUP_SUCCESS");
-		} catch (Exception e) {
-			LOGGER.error("Error when set up annual leave User.", e);
-			return new RestResult(true, MESSAGE_CANNOT_SAVE);
-		}
-	}
-  	
-	private void saveNewUserProfileFiles(User user, List<UploadFileResponse> profiles) {
-		for (UploadFileResponse file : profiles) {
-			FileUpload userFile = new FileUpload();
-			userFile.setName(file.getFileName());
-			userFile.setFileLocation(file.getFileDownloadUri());
-			userFile.setSize(file.getSize());
-			userFile.setCrmLinkId(user.getId());
-			userFile.setCrmTableName("UserLabourContract");
-			userFile.setUploadBy(user.getCreatedUserEmail());
-//			Set Profile into database to Download and show in List Screen
-//			userFile.setUploadBy(user.getCreatedUserEmail());
-			// user.setLabourContract(file.getFileDownloadUri());
-			fileUploadRepository.save(userFile);
-		}
-	}
-	private void saveNewUserImage(User user, List<UploadFileResponse> imageUpload) {
-		for (UploadFileResponse file : imageUpload) {
-			FileUpload userFile = new FileUpload();
-			userFile.setName(file.getFileName());
-			userFile.setFileLocation(file.getFileDownloadUri());
-			userFile.setSize(file.getSize());
-			userFile.setCrmLinkId(user.getId());
-			userFile.setCrmTableName("UserImage");
-			userFile.setUploadBy(user.getCreatedUserEmail());
-			// user.setImage(file.getFileDownloadUri());
-			fileUploadRepository.save(userFile);
-		}
-	}
 	@RequestMapping(value = "/user/update", method = RequestMethod.POST)
 	public RestResult updateUser(@RequestBody UserDto userDto) {
 //		checkAuthorization("admin.users.update");
@@ -152,8 +97,7 @@ public class UserController extends AbstractController {
 				user.get().setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
 			}
 			User updatedUser = userService.save(dtoConverter.convertToUser(userDto));
-			updateUserProfile(updatedUser, userDto.getProfiles());
-			updateUserImage(updatedUser, userDto.getImageUpload());
+			// updateUserImage(updatedUser, userDto.getImageUpload());
 			return new RestResult(updatedUser);
 		} catch (Exception e) {
 			LOGGER.error("Error when updating.", e);
@@ -179,73 +123,6 @@ public class UserController extends AbstractController {
 		}
 	}
 
-	// Update labour contract
-	private void updateUserProfile(User user, List<UploadFileResponse> newProfiles) {
-		List<FileUpload> currentUserFiles = fileUploadRepository.findByCrmTableNameAndCrmLinkId("UserLabourContract",
-				user.getId());
-		List<String> currentProfiles = currentUserFiles.stream().map(e -> e.getFileLocation())
-				.collect(Collectors.toList());
-		List<String> newProfilesString = newProfiles.stream().map(e -> e.getFileName()).collect(Collectors.toList());
-		for (FileUpload userFile : currentUserFiles) {
-			if (!newProfilesString.contains(userFile.getName())) {
-				fileUploadRepository.delete(userFile);
-			}
-
-		}
-		for (UploadFileResponse newFile : newProfiles) {
-			if (!currentProfiles.contains(newFile.getFileDownloadUri())) {
-				FileUpload userFile = new FileUpload();
-				userFile.setCrmTableName("UserLabourContract");
-				userFile.setCrmLinkId(user.getId());
-				userFile.setName(newFile.getFileName());
-				userFile.setFileLocation(newFile.getFileDownloadUri());
-				userFile.setSize(newFile.getSize());
-				// user.setLabourContract(newFile.getFileDownloadUri());
-				userFile.setUploadBy(user.getLastedUpdateUserEmail());
-				fileUploadRepository.save(userFile);
-			} else if (currentProfiles.contains(newFile.getFileDownloadUri())) {
-				LOGGER.error("Duplicate File Name");
-			}
-		}
-
-	}
-	// End Update Labour ContractController
-
-	// Update User Image
-	private void updateUserImage(User user, List<UploadFileResponse> newImage) {
-		List<FileUpload> currentUserFiles = fileUploadRepository.findByCrmTableNameAndCrmLinkId("UserImage",
-				user.getId());
-		List<String> currentImage = currentUserFiles.stream().map(e -> e.getFileLocation())
-				.collect(Collectors.toList());
-		List<String> newImageString = newImage.stream().map(e -> e.getFileName()).collect(Collectors.toList());
-		for (FileUpload userFile : currentUserFiles) {
-			if (!newImageString.contains(userFile.getName())) {
-
-				fileUploadRepository.delete(userFile);
-
-			}
-
-		}
-		for (UploadFileResponse newFile : newImage) {
-			if (!currentImage.contains(newFile.getFileDownloadUri())) {
-				FileUpload userFile = new FileUpload();
-				userFile.setCrmTableName("UserImage");
-				userFile.setCrmLinkId(user.getId());
-				userFile.setName(newFile.getFileName());
-				userFile.setFileLocation(newFile.getFileDownloadUri());
-				userFile.setSize(newFile.getSize());
-				userFile.setSize(newFile.getSize());
-				// user.setImage(newFile.getFileDownloadUri());
-				userFile.setUploadBy(user.getCreatedUserEmail());
-				fileUploadRepository.save(userFile);
-			} else if (currentImage.contains(newFile.getFileDownloadUri())) {
-				LOGGER.error("Duplicate File Name");
-			}
-
-		}
-
-	}
-
 	// End Update User Image
 	// DeleteMapping
 	@DeleteMapping("/user/{id}")
@@ -264,12 +141,10 @@ public class UserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/user/findByCompanyIdAndFullNameOrPhoneOrEmail")
-//    @PreAuthorize("hasAuthority('ADMIN')")
 	public RestResult listFindByCompanyIdAndFullNameOrPhoneOrEmail(@RequestParam("companyId") String companyId,
 			@RequestParam("fullNameOrPhoneOrEmail") String fullNameOrPhoneOrEmail,
 			@RequestParam("isActive") Boolean isActive,Pageable pageable) {
 		checkAuthorization("admin.users.read");
-//		Object result = null;
 		Page<User> result = userRepository.findAll(new PersonelSpecification(companyId, fullNameOrPhoneOrEmail,isActive),pageable);
 		
 		return new RestResult(result);
