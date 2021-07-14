@@ -38,8 +38,7 @@ public class ContactDetailController extends AbstractController {
 	@RequestMapping(value = "/contactDetail/add", method = RequestMethod.POST)
 	public RestResult add(@RequestBody ContactDetailDto contactDetailDto) {
 		try {
-			ContactDetail newContactDetail = contactDetailRepository.save(dtoConverter.convertToContactDetail(contactDetailDto));
-//			
+			ContactDetail newContactDetail = contactDetailRepository.save(dtoConverter.convertToContactDetail(contactDetailDto));			
 			return new RestResult(newContactDetail);
 		} catch (Exception e) {
 			LOGGER.error("Error when adding contact.", e);
@@ -74,14 +73,12 @@ public class ContactDetailController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/contactDetail/list")
-//	@PreAuthorize("hasAuthority('ADMIN')")
 	public RestResult list(Pageable pageable) {
 		Object result;
 		result = contactDetailRepository.findAll(pageable);
 		return new RestResult(result);
 	}
 	@RequestMapping(value = "/contactDetail/listFindByContactId")
-//	@PreAuthorize("hasAuthority('ADMIN')")
 	public RestResult listFindByContactId(@RequestParam("contactId") Long contactId) {
 		Object result;
 		result = contactDetailRepository.findByContactId(contactId);

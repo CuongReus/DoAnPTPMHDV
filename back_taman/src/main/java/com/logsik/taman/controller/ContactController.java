@@ -80,11 +80,9 @@ public class ContactController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/contact/listFindByContactStatusAndNameOrTaxNumber")
-//  @PreAuthorize("hasAuthority('ADMIN')")
 	public RestResult listFindByContactStatusAndNameOrTaxNumber(
 			@RequestParam("contactStatus") String contactStatus,
 			@RequestParam("nameOrTaxNumber") String nameOrTaxNumber,Pageable pageable) {
-//		Object result = null;
 		Page<Contact> result = contactRepository.findAll(new ContactSpecification(contactStatus, nameOrTaxNumber),pageable);
 		
 		return new RestResult(result);

@@ -76,7 +76,7 @@ public class EfficiencyController extends AbstractController {
 				}
 			}
 			 newEfficiency = efficiencyRepository.save(newEfficiency);
-			saveNewEfficiencyFile(newEfficiency, efficiencyDto.getHandoverWorkUploadFile());
+			// saveNewEfficiencyFile(newEfficiency, efficiencyDto.getHandoverWorkUploadFile());
 			return new RestResult(newEfficiency);
 		} catch (Exception e) {
 			LOGGER.error("Error when adding efficiency.", e);
@@ -86,20 +86,20 @@ public class EfficiencyController extends AbstractController {
 
 	
 
-	private void saveNewEfficiencyFile(Efficiency efficiency, List<UploadFileResponse> handoverWorkUploadFile) {
-		User createdUser = userRepository.findById(efficiency.getCreatedUserId()).get(); 
-		for (UploadFileResponse file : handoverWorkUploadFile) {
-			FileUpload handoverWorkFile = new FileUpload();
-			handoverWorkFile.setName(file.getFileName());
-			handoverWorkFile.setFileLocation(file.getFileDownloadUri());
-			handoverWorkFile.setSize(file.getSize());
-			handoverWorkFile.setCrmLinkId(efficiency.getId());
-			handoverWorkFile.setCrmTableName("Efficient_HandoverWork");
-			efficiency.setHandoverWorkUpload(file.getFileDownloadUri());
-			handoverWorkFile.setUploadBy(createdUser.getEmail());
-			fileUploadRepository.save(handoverWorkFile);
-		}
-	}
+	// private void saveNewEfficiencyFile(Efficiency efficiency, List<UploadFileResponse> handoverWorkUploadFile) {
+	// 	User createdUser = userRepository.findById(efficiency.getCreatedUserId()).get(); 
+	// 	for (UploadFileResponse file : handoverWorkUploadFile) {
+	// 		FileUpload handoverWorkFile = new FileUpload();
+	// 		handoverWorkFile.setName(file.getFileName());
+	// 		handoverWorkFile.setFileLocation(file.getFileDownloadUri());
+	// 		handoverWorkFile.setSize(file.getSize());
+	// 		handoverWorkFile.setCrmLinkId(efficiency.getId());
+	// 		handoverWorkFile.setCrmTableName("Efficient_HandoverWork");
+	// 		efficiency.setHandoverWorkUpload(file.getFileDownloadUri());
+	// 		handoverWorkFile.setUploadBy(createdUser.getEmail());
+	// 		fileUploadRepository.save(handoverWorkFile);
+	// 	}
+	// }
 
 	@RequestMapping(value = "/efficiency/update", method = RequestMethod.POST)
 	public RestResult update(@RequestBody EfficiencyDto efficiencyDto) {
@@ -120,7 +120,7 @@ public class EfficiencyController extends AbstractController {
 			}
 			 updatedEfficiency = efficiencyRepository
 					.save(updatedEfficiency);
-			updateEfficiency(updatedEfficiency, efficiencyDto.getHandoverWorkUploadFile());
+			// updateEfficiency(updatedEfficiency, efficiencyDto.getHandoverWorkUploadFile());
 			return new RestResult(updatedEfficiency);
 		} catch (Exception e) {
 			LOGGER.error("Error when updating efficiency.", e);
@@ -128,36 +128,36 @@ public class EfficiencyController extends AbstractController {
 		}
 	}
 
-	private void updateEfficiency(Efficiency efficiency, List<UploadFileResponse> newHandoverWorkUploadFile) {
-		User lastedUpdateUser = userRepository.findById(efficiency.getLastedUpdateUserId()).get(); 
-		List<FileUpload> currentEfficiencyFiles = fileUploadRepository.findByCrmTableNameAndCrmLinkId("Efficient_HandoverWork",
-				efficiency.getId());
-		List<String> currentEfficiency = currentEfficiencyFiles.stream().map(e -> e.getFileLocation())
-				.collect(Collectors.toList());
-		List<String> newEfficiencyString = newHandoverWorkUploadFile.stream().map(e -> e.getFileName()).collect(Collectors.toList());
-		for (FileUpload efficiencyFile : currentEfficiencyFiles) {
-			if (!newEfficiencyString.contains(efficiencyFile.getName())) {
-				fileUploadRepository.delete(efficiencyFile);
-			}
-		}
-		for (UploadFileResponse newFile : newHandoverWorkUploadFile) {
-			if (!currentEfficiency.contains(newFile.getFileDownloadUri())) {
-				FileUpload efficiencyFile = new FileUpload();
-				efficiencyFile.setCrmTableName("Efficient_HandoverWork");
-				efficiencyFile.setCrmLinkId(efficiency.getId());
-				efficiencyFile.setName(newFile.getFileName());
-				efficiencyFile.setFileLocation(newFile.getFileDownloadUri());
-				efficiencyFile.setSize(newFile.getSize());
-				efficiency.setHandoverWorkUpload(newFile.getFileDownloadUri());
-				efficiencyFile.setUploadBy(lastedUpdateUser.getEmail());
-				fileUploadRepository.save(efficiencyFile);
-			} else if (currentEfficiency.contains(newFile.getFileDownloadUri())) {
-				LOGGER.error("Duplicate File Name");
-			}
+	// private void updateEfficiency(Efficiency efficiency, List<UploadFileResponse> newHandoverWorkUploadFile) {
+	// 	User lastedUpdateUser = userRepository.findById(efficiency.getLastedUpdateUserId()).get(); 
+	// 	List<FileUpload> currentEfficiencyFiles = fileUploadRepository.findByCrmTableNameAndCrmLinkId("Efficient_HandoverWork",
+	// 			efficiency.getId());
+	// 	List<String> currentEfficiency = currentEfficiencyFiles.stream().map(e -> e.getFileLocation())
+	// 			.collect(Collectors.toList());
+	// 	List<String> newEfficiencyString = newHandoverWorkUploadFile.stream().map(e -> e.getFileName()).collect(Collectors.toList());
+	// 	for (FileUpload efficiencyFile : currentEfficiencyFiles) {
+	// 		if (!newEfficiencyString.contains(efficiencyFile.getName())) {
+	// 			fileUploadRepository.delete(efficiencyFile);
+	// 		}
+	// 	}
+	// 	for (UploadFileResponse newFile : newHandoverWorkUploadFile) {
+	// 		if (!currentEfficiency.contains(newFile.getFileDownloadUri())) {
+	// 			FileUpload efficiencyFile = new FileUpload();
+	// 			efficiencyFile.setCrmTableName("Efficient_HandoverWork");
+	// 			efficiencyFile.setCrmLinkId(efficiency.getId());
+	// 			efficiencyFile.setName(newFile.getFileName());
+	// 			efficiencyFile.setFileLocation(newFile.getFileDownloadUri());
+	// 			efficiencyFile.setSize(newFile.getSize());
+	// 			efficiency.setHandoverWorkUpload(newFile.getFileDownloadUri());
+	// 			efficiencyFile.setUploadBy(lastedUpdateUser.getEmail());
+	// 			fileUploadRepository.save(efficiencyFile);
+	// 		} else if (currentEfficiency.contains(newFile.getFileDownloadUri())) {
+	// 			LOGGER.error("Duplicate File Name");
+	// 		}
 
-		}
+	// 	}
 
-	}
+	// }
 
 
 	@DeleteMapping("/efficiency/{id}")
