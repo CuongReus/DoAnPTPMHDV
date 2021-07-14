@@ -61,8 +61,6 @@ public class LabourController extends AbstractController {
 		try {
 			Labour labour = dtoConverter.convertToLabour(labourDto);
 			Labour newLabour = labourRepository.save(labour);
-			saveNewLabourContractFile(newLabour, labourDto.getLabourContractFile());
-
 			return new RestResult(newLabour);
 		} catch (Exception e) {
 			LOGGER.error("Error when adding labour.", e);
@@ -70,66 +68,17 @@ public class LabourController extends AbstractController {
 		}
 	}
 
-	private void saveNewLabourContractFile(Labour labour, List<UploadFileResponse> labourContractFiles) {
-		User createdUser = userRepository.findById(labour.getCreatedUserId()).get(); 
-		for (UploadFileResponse file : labourContractFiles) {
-			FileUpload labourFile = new FileUpload();
-			labourFile.setName(file.getFileName());
-			labourFile.setFileLocation(file.getFileDownloadUri());
-			labourFile.setSize(file.getSize());
-			labourFile.setCrmLinkId(labour.getId());
-			labourFile.setCrmTableName("LabourContractFile");
-			labourFile.setUploadBy(createdUser.getEmail());
-			fileUploadRepository.save(labourFile);
-		}
-	}
-
-
 	@RequestMapping(value = "/labour/update", method = RequestMethod.POST)
 	public RestResult update(@RequestBody LabourDto labourDto) {
 		try {
 			Labour updatedLabour = labourRepository
 					.save(dtoConverter.convertToLabour(labourDto));
-			updateLabourContractFile(updatedLabour, labourDto.getLabourContractFile());
 			return new RestResult(updatedLabour);
 		} catch (Exception e) {
 			LOGGER.error("Error when updating labour.", e);
 			return new RestResult(true, MESSAGE_CANNOT_SAVE);
 		}
 	}
-
-	private void updateLabourContractFile(Labour labour, List<UploadFileResponse> newLabourContractFiles) {
-		User lastedUpdateUser = userRepository.findById(labour.getLastedUpdateUserId()).get(); 
-		List<FileUpload> currentLabourContractFiles = fileUploadRepository
-				.findByCrmTableNameAndCrmLinkId("LabourContractFile", labour.getId());
-		List<String> currentLabourContractString = currentLabourContractFiles.stream().map(e -> e.getFileLocation())
-				.collect(Collectors.toList());
-		List<String> newLabourContractString = newLabourContractFiles.stream().map(e -> e.getFileName())
-				.collect(Collectors.toList());
-		for (FileUpload labourContractFile : currentLabourContractFiles) {
-			if (!newLabourContractString.contains(labourContractFile.getName())) {
-				fileUploadRepository.delete(labourContractFile);
-			}
-		}
-		for (UploadFileResponse newFile : newLabourContractFiles) {
-			if (!currentLabourContractString.contains(newFile.getFileDownloadUri())) {
-				FileUpload labourFile = new FileUpload();
-				labourFile.setCrmTableName("LabourContractFile");
-				labourFile.setCrmLinkId(labour.getId());
-				labourFile.setName(newFile.getFileName());
-				labourFile.setFileLocation(newFile.getFileDownloadUri());
-				labourFile.setSize(newFile.getSize());
-				labourFile.setUploadBy(lastedUpdateUser.getEmail());
-				fileUploadRepository.save(labourFile);
-			} else if (currentLabourContractString.contains(newFile.getFileDownloadUri())) {
-				LOGGER.error("Duplicate File Name");
-			}
-
-		}
-
-	}
-
-	
 	
 	@DeleteMapping("/labour/{id}")
 	public RestResult deletelabour(@PathVariable("id") Long id) throws Exception{
