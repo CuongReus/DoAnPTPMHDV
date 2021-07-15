@@ -456,9 +456,9 @@ class ModalLabourOvertimeAttendance extends React.Component {
                                 }}></Field> : null}
 
                                 <Field name="note" label="Ghi Chú" placeholder="Nhập Ghi Chú..." rows={3} component={RenderTextArea}></Field>
-                                <div style={initialValues.lastedUpdateUserId ? { display: 'block' } : { display: 'none' }}>
+                                {/* <div style={initialValues.lastedUpdateUserId ? { display: 'block' } : { display: 'none' }}>
                                     <Field disabled={true} name="lastedUpdateUserId" label="Người Chỉnh Sửa Gần Nhất" options={showLastedUpdateUser} component={RenderSelect}></Field>
-                                    <Field disabled={true} name="lastedUpdateDate" label="Ngày Chỉnh Sửa Gần Nhất" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> </div>
+                                    <Field disabled={true} name="lastedUpdateDate" label="Ngày Chỉnh Sửa Gần Nhất" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> </div> */}
                                 <div className="text-right">
                                     <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
                                     <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>

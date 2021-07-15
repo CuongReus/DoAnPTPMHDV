@@ -97,7 +97,6 @@ public class UserController extends AbstractController {
 				user.get().setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
 			}
 			User updatedUser = userService.save(dtoConverter.convertToUser(userDto));
-			// updateUserImage(updatedUser, userDto.getImageUpload());
 			return new RestResult(updatedUser);
 		} catch (Exception e) {
 			LOGGER.error("Error when updating.", e);

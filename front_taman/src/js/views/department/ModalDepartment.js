@@ -15,9 +15,6 @@ const validate = values => {
     if (!values.name) {
         errors.name = 'Vui lòng nhập tên phòng ban';
     }
-    if(!values.workOnWeekendStatus){
-        errors.workOnWeekendStatus = 'Vui lòng chọn trạng thái làm việc cuối tuần';
-    }
     return errors;
 };
 

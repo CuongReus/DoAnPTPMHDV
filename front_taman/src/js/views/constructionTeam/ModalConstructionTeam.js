@@ -78,7 +78,6 @@ class ModalConstructionTeam extends React.Component {
             teamLeaderName: values.teamLeaderName,
             specialize : values.specialize,
             leaderPhoneNumber: values.leaderPhoneNumber,
-            bankAccountNumber: values.bankAccountNumber,
             note: values.note
          
         };

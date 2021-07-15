@@ -24,13 +24,7 @@ const validate = (values,props) => {
         }
         if(values.leaveType == "PN2" && parseFloat(diffBetweenTwoDate +0.5) >0.5){
         errors.endLeaveDate = "Tổng ngày nghỉ lớn hơn nữa ngày, vui lòng chọn loại nghỉ phép khác!"
-        } 
-        // if(props.isAttendance){
-        //     if( values.startLeaveDate  < values.endLeaveDate){
-        //         errors.endLeaveDate = "1 lần chỉ được phép xin nghỉ 1 ngày! "
-        //     }
-        // }
-
+        }
      
     }
     if(!values.leaveType){
@@ -129,24 +123,8 @@ class ModalLeaveLetter extends React.Component {
                             updateField("leaveDays", parseFloat(diffBetweenTwoDate + 0.5));
                             this.handleCalcTotalLeaveDay(parseFloat(diffBetweenTwoDate + 0.5),0);
                         }
-                        this.handleCalHolidayAndWeekendDays(holidayAndWeekendDay);
                 }
         };
-        this.handleCalHolidayAndWeekendDays=(arrayHolidayAndWeekendDate)=>{
-            const {updateField} = this.props;
-            if (Array.isArray(arrayHolidayAndWeekendDate)) {
-                var numberOfHoliday = parseFloat(arrayHolidayAndWeekendDate.length);
-                for(var i=0; i < arrayHolidayAndWeekendDate.length; i ++) {
-                    var checkDay = moment(arrayHolidayAndWeekendDate[i]).format('dd');                   
-                    if (checkDay === 'T7') {
-                        numberOfHoliday -= 0.5;
-                    } else if (checkDay === 'CN') {
-                        numberOfHoliday += 0; // Saturday and Sunday has been chosen on the screen
-                    }
-                }
-                updateField("holiday",parseFloat(numberOfHoliday));
-            }
-        }
 
         this.handleCalcTotalLeaveDay = (leaveDays , holiday)=>{
             const {updateField} = this.props;
@@ -202,24 +180,14 @@ class ModalLeaveLetter extends React.Component {
             startLeaveDate: values.startLeaveDate,
             endLeaveDate: values.endLeaveDate,
             leaveDays: values.leaveDays,
-            holiday: values.holiday,
+            holiday: 0,
             startWorkDate: values.startWorkDate,
-            approvedById: values.approvedById,
-            holidayAndWeekendDay: values.holidayAndWeekendDay ? values.holidayAndWeekendDay.map(item => {
-                return moment(item).format("YYYY-MM-DD")
-            }).join(','):null,
-            note: values.note,
+            approvedById: 1,
+            holidayAndWeekendDay: "",
             totalLeaveDays: values.totalLeaveDays,
-            year: values.year,
-            month: values.month,
-            status: values.status,
-            reason: values.reason,
+            status: "DANG_CHO_DUYET",
             leaveType: values.leaveType,
             workPlace: values.workPlace,
-            lastTotalAbsentDay:values.lastTotalAbsentDay,
-	        lastTotalBonusLeaveDay:values.lastTotalBonusLeaveDay,
-	        lastTotalAnnualLeave:values.lastTotalAnnualLeave,
-	        lastTotalAnnualLeaveRemaining:values.lastTotalAnnualLeaveRemaining,
         };
         if (id) {
             url = '/leaveLetter/update';
@@ -244,12 +212,10 @@ class ModalLeaveLetter extends React.Component {
     ///Hide and Clean Value
     handleHideAndClear() {
         const { destroy, onHide } = this.props;
-        // event.preventDefault();
         onHide();
         destroy();
     }
     render() {
-        // const { objectUser, listfile, title, onHide } = this.props;
         const { handleSubmit, submitting, title, invalid, employeeAttendanceDto,userId, endLeaveDate, startLeaveDate,currentUser,status, holiday, leaveDays,leaveType } = this.props;
         const modalConfig = { backdrop: 'static', show: this.props.show,bsSize:"sm",  onHide: this.props.onHide, submitting: this.props.submitting };
         const dataPersonels = this.state.listAllUsers;
@@ -257,19 +223,10 @@ class ModalLeaveLetter extends React.Component {
         if(!dataPersonels){
             return null;
         } 
-        // optionAttendanceType.unshift({ value: "PN", label: "PN - Nghỉ phép năm" }, { value: "PN2", label: "PN2 -  Nghỉ phép năm nửa ngày" })
         var optionLeaveTypes = [
         {label:"Nghỉ phép năm", value:"PN"},
         {label:"Nghỉ phép năm nữa ngày", value:"PN2"},
-        // {label:"Nghỉ bù", value:"ALTERNATIVE_LEAVE"},
-        // {label:"Nghỉ Bệnh(Có bảo hiểm)", value:"SICK_LEAVE"},
-        // {label:"Nghỉ thai sản", value:"MATERNITY_LEAVE"},
-        // {label:"Nghỉ cưới", value:"MARRIAGE_LEAVE"},
-        // {label:"Nghỉ có tang", value:"MOURNING_LEAVE"},
         ];
-        //Load Id On Form 
-        //End Load Id On Form 
-        // alert(holidayAndWeekendDays ?  holidayAndWeekendDays.length: null);
 
         var isEditDate = false;
         if(employeeAttendanceDto){
@@ -308,19 +265,12 @@ class ModalLeaveLetter extends React.Component {
                                 <fieldset disabled={!SecurityUtils.hasPermission(currentUser, "admin.holiday.approvalLetter") && id ? true: false}>
                                 <Field disabled={true} name="userId" label="Tên Nhân Viên" placeholder="Chọn tên nhân viên" options={optionPersonels} component={RenderSelect}></Field>
                                 <Field name="leaveType"  label="Phân Loại Nghỉ Phép (*)" options={optionLeaveTypes} onChangeAction={(value) => this.handleDiffleaveDay(value,startLeaveDate, endLeaveDate)} component={RenderSelect}></Field>
-                                <Field name="reason" label="Lý Do Nghỉ" placeholder="Nhập lý xin nghỉ..."  row={2}  component={RenderTextArea}></Field>
                                 <Field name="workPlace" label="Nơi Làm Việc" placeholder="Nhập Nơi làm việc..."  options={optionWorkplace} component={RenderSelect}></Field>
                                 <Field name="startLeaveDate" disabled={isEditDate} dateFormat="DD/MM/YYYY" label="Nghỉ Phép Từ(*)" onChangeAction={(value) => this.handleDiffleaveDay(leaveType,value, endLeaveDate)} component={RenderDatePicker}></Field>
                                 <Field name="endLeaveDate" dateFormat="DD/MM/YYYY" label="Đến Hết Ngày(*)" onChangeAction={(value) => this.handleDiffleaveDay(leaveType,startLeaveDate, value)} component={RenderDatePicker}></Field>
-                               { startLeaveDate && endLeaveDate ? <Field  name="holidayAndWeekendDay" label="Các Ngày Lễ (Ngày Cuối Tuần)"component={RenderDateMultiPicker} startDateToHide={startLeaveDate} endDateToHide={endLeaveDate} onChangeAction={(value)=>this.handleCalHolidayAndWeekendDays(value)}></Field> :null}
                                 <Field name="leaveDays" disabled={true} label="Số Ngày Nghỉ(*)"  component={RenderNumberInput}     onChangeAction={(value)=>this.handleCalcTotalLeaveDay(value,holiday)}></Field>
-                                <Field disabled={true} name="holiday" label="Ngày Lễ / Cuối Tuần" placeholder="Nhập số ngày lễ, ngày cuối tuần..." onChangeAction={(value)=>this.handleCalcTotalLeaveDay(leaveDays,value)} component={RenderNumberInput}></Field>
                                 <Field name="totalLeaveDays" disabled={true}  label="Tổng Ngày Nghỉ" placeholder="Tổng ngày nghỉ..." component={RenderNumberInput}></Field>
                                 <Field name="startWorkDate" dateFormat="DD/MM/YYYY" label="Ngày Bắt Đầu Đi Làm(*)"  component={RenderDatePickerMinPrev} numberDayAdd={leaveType == "ANNUAL_HOLIDAY_2"? 1 : 0} minDate={endLeaveDate}></Field>
-                                <Field disabled={userId?true:false} name="approvedById" label="Người Duyệt(*)" options={optionApprovers} component={RenderSelect} ></Field>
-                                <Field name="note" label="Ghi Chú" placeholder="Nhập ghi chú..." component={RenderTextArea}></Field>
-                                {/* TODO just user have right permission can see this checkbox */}
-                                <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.holiday.approvalLetter") ?true :false} name="status" label="Trạng Thái Duyệt" options={optionStatus} component={RenderSelect}></Field>
                                 <div className="text-right">
                                     <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
                                     <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>

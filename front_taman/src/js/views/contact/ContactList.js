@@ -401,7 +401,7 @@ class ContactList extends React.Component {
                                         <br/>
                                         <div className="input-group content-group">
                                             <div className="has-feedback has-feedback-left">
-                                                <input type="text" className="form-control input-xlg" placeholder="Tên Khách Hàng, Mã Số Thuế." name="search" defaultValue={search} autoFocus={true} />
+                                                <input type="text" className="form-control input-xlg" placeholder="Nhập tên Khách Hàng..." name="search" defaultValue={search} autoFocus={true} />
                                                 <div className="form-control-feedback">
                                                     <i className="icon-search4 text-muted text-size-base"></i>
                                                 </div>

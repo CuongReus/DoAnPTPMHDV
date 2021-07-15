@@ -75,7 +75,6 @@ public class DepartmentController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/department/list")
-//	@PreAuthorize("hasAuthority('ADMIN')")
 	public RestResult list(@RequestParam("search") String search, Pageable pageable) {
 		Object result;
 		if (search == null) {

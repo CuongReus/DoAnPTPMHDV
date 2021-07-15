@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import { LOAD_UPDATING_EMPLOYEE_ATTENDANCE } from './action-types';
-import ListFile from '../../components/ListFile';
 import moment from 'moment';
 import { SecurityUtils } from '../../utils/javascriptUtils';
 
@@ -264,9 +263,6 @@ class ModalEmployeeAttendance extends React.Component {
             workPlace: values.workPlace,
             lateStatus: values.lateStatus,
             overtimeType: values.overtimeType,
-            // minusLeaveDayStatus: values.minusLeaveDayStatus 
-
-
         };
         if (id) {
             url = '/employeeAttendance/update';
@@ -319,7 +315,7 @@ class ModalEmployeeAttendance extends React.Component {
         
         
         var optionAttendanceType = [];
-        //    Check and load AttendanceType right to position of user in company
+        
         if (dateToWork && status) {
                 if (status == "CO_MAT") {
                     if (weekdays[moment(dateToWork).day()] == "Sunday") {
@@ -343,7 +339,6 @@ class ModalEmployeeAttendance extends React.Component {
                             optionAttendanceType.unshift({ value: "X", label: "X - Đi làm bình thường" },
                             )
                         }
-                        // isShowOvertimeType =true;
                     } else if (weekdays[moment(dateToWork).day()] != "Sunday"
                         && weekdays[moment(dateToWork).day()] != "Saturday") {
                         optionAttendanceType.push({ value: "X", label: "X - Đi làm bình thường" },
@@ -362,9 +357,9 @@ class ModalEmployeeAttendance extends React.Component {
                     { value: "NB", label: "NB -  Nghỉ bù" },
                     { value: "NB2", label: "NB2 -  Nghỉ bù nửa ngày" }
                 ]
-                // if(totalLeaveYearRemain > 0){
+                
                     optionAttendanceType.unshift({ value: "PN", label: "PN - Nghỉ phép năm" }, { value: "PN2", label: "PN2 -  Nghỉ phép năm nửa ngày" })
-                // }
+                
                 }
 
         }
@@ -401,12 +396,6 @@ class ModalEmployeeAttendance extends React.Component {
                                 <Field disabled={id ? true:false} name="status" label="Trạng Thái" placeholder="Chọn trạng thái..." options={optionStatus} component={RenderSelect} onChangeAction={(value)=>this.handleChangeAttendanceStatus(value)}></Field>
                               
                                 <Field disabled={id ? true:false} name="attendanceType" label="Loại Ngày Công" placeholder="Loại ngày công.." options={optionAttendanceType} component={RenderSelect} onChangeAction={(value)=>{this.handleChangeAttendanceType(value);status == "VANG_MAT" ?this.handleCheckAbsentType(value):null}}></Field>
-                                {/* {status == "VANG_MAT"  && !id ? <span style={{fontStyle:'italic'}}>Tổng Ngày Phép Còn Lại: {totalLeaveYearRemain}  <br/><br/>  </span>:null}
-                                {status == "VANG_MAT" && attendanceType? 
-                            
-                                [<span style={{WebkitTextStroke:'medium'}}>Nghỉ Phép Năm (PN): </span>,<span style={{fontStyle:'italic'}}> Còn ngày phép năm, dù nghỉ nhưng vẫn tính ngày công ! <br/> </span>,
-                                <span style={{WebkitTextStroke:'medium'}}>Nghỉ Không Phép (KP): </span>,<span style={{fontStyle:'italic'}}>Nghỉ không lương hoặc Hết ngày phép năm, nếu nghỉ sẽ không tính ngày công (trừ nghỉ lễ và nghỉ bù)<br/><br/> </span> ]:null} */}
-                              
                                 {isShowOvertimeType? <Field name="overtimeType" disabled={id ? true:false} label="Loại Giờ Làm Việc" placeholder="Chọn loại giờ làm việc.." options={optionOvertimeType} component={RenderSelect}></Field>:null}
                                 <Field name="workPlace" label="Nơi làm việc" placeholder="Chọn nơi làm việc..." options={optionWorkplace} component={RenderSelect}></Field>
                                 <Field name="lateStatus" label="Trạng thái đi trể" placeholder="Chọn trạng thái đi trể..." options={optionLateStatus} component={RenderSelect}></Field>

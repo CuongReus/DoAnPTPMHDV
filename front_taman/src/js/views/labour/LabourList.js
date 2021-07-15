@@ -2,18 +2,14 @@ import React from 'react';
 import qs from 'query-string';
 import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
-import { Popover, Overlay, OverlayTrigger, Button } from 'react-bootstrap'
 import { connect } from 'react-redux';
-import { ScriptUtils, FormatterUtils } from '../../utils/javascriptUtils';
+import { ScriptUtils } from '../../utils/javascriptUtils';
 import TablePagination from '../../components/TablePagination';
 import agent from '../../services/agent';
-import { Link } from 'react-router-dom';
 import ModalLabour from './ModalLabour';
 import moment from 'moment';
 import SecuredComponent from '../../components/SecuredComponent';
 import ModalLabourNormalAttendance from '../labourAttendance/ModalLabourNormalAttendance';
-// import ModalSetLabourAbsent from '../labourAttendance/ModalSetLabourAbsent';
-import { LoadingScreen } from '../../components/commonWidgets';
 import ModalLabourOvertimeAttendance from '../labourAttendance/ModalLabourOvertimeAttendance';
 const mapStateToProps = state => ({
     currentUser: state.common.currentUser,

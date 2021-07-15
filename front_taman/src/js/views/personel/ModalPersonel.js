@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import agent from '../../services/agent';
 import { Modal } from 'react-bootstrap';
-import { RenderInputWithDiv, RenderInputWithGen, RenderTextArea, RenderDatePicker, RenderCheckbox, RenderSelect, RenderMultiSelect, RenderNumberInput, RenderInputPassword, RenderMoneyFormat } from '../../components/formInputs';
+import { RenderInputWithDiv, RenderDatePicker, RenderSelect, RenderNumberInput, RenderInputPassword } from '../../components/formInputs';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import isEmail from 'sane-email-validation';
 import { SecurityUtils } from '../../utils/javascriptUtils';
@@ -10,9 +10,7 @@ import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import { LOAD_UPDATING_PERSONEL } from './action-types';
-import { FIRE_REDIRECT } from '../../constants/action-types';
 import moment from 'moment';
-import ListFile from '../../components/ListFile';
 
 const validate = values => {
 
@@ -193,8 +191,7 @@ class ModalPersonel extends React.Component {
                 onHide();
                 toast.info("Lưu Thành Công.", { autoClose: 8000 });
             } else {
-
-                toast.error("Có lỗi khi lưu trữ. Lỗi: " + res.body.errorMessage, { autoClose: 15000 });
+                onHide();
             }
         }, function (err) {
             toast.error("Có lỗi khi lưu trữ. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
@@ -217,7 +214,7 @@ class ModalPersonel extends React.Component {
         
         var optionCompanies = [];
         dataCompany.map(item => {
-            optionCompanies.push({ label: item.code + "-" + item.name, value: item.id })
+            optionCompanies.push({ label: item.name, value: item.id })
         })
 
         var optionUserRoles = [];
@@ -249,11 +246,9 @@ class ModalPersonel extends React.Component {
                     <Modal.Body>
                         {submitting ? <LoadingScreen /> :
                             <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
-                                {/* <fieldset disabled={disableDataManipulation}> */}
                                 <div className="form-group">
                                     <div style={isSalaryConfig ? { display: 'none' } : { display: 'block ' }} className="form-group">
                                             <div className="tabbable">
-                                                
                                                 <div className="tab-content">
                                                 <div className="tab-pane active" id="default-justified-tab1">
                                                         <Field name="code" label="Mã Nhân Viên(*)" placeholder="Nhập mã nhân viên..." component={RenderInputWithDiv}></Field>
@@ -265,8 +260,6 @@ class ModalPersonel extends React.Component {
                                                         <Field name="gender" label="Giới Tính" options={optionGender} component={RenderSelect}></Field>
                                                         <Field name="companyId" label="Thuộc công ty(*)" options={optionCompanies} component={RenderSelect} ></Field>
                                                         <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
-                                                        {/* <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} name="roles" label="Bộ Phận" placeholder="Chọn bộ phận..." options={optionUserRoles} component={RenderMultiSelect}></Field> */}
-                                                        {/* <Field name="active" label="Trạng Thái" checkLabel="Đang Làm Việc" component={RenderCheckbox}></Field> */}
                                                         <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>
                                                     </div>

@@ -213,7 +213,6 @@ class ConstructionTeamList extends React.Component {
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
-                                            {/* <th data-hide="phone">Hình Ảnh</th> */}
                                             <th data-toggle="true">Tên Đội Trưởng</th>
                                             <th data-hide="phone">Công Ty</th>
                                             <th data-hide="phone">Chuyên Môn</th>

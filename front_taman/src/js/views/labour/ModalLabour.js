@@ -163,7 +163,7 @@ class ModalLabour extends React.Component {
         var id = this.props.idLabour;
         var optionCompanies = []; 
         dataCompany.map(item=>{
-            optionCompanies.push({label:item.code +  "-" + item.name,value:item.id})
+            optionCompanies.push({label: item.name,value:item.id})
         })
         var optionLabourContractStatus = [{label: "Chưa Có HĐLĐ", value:"CHUA_CO"},
         {label: "Chưa Đủ", value:"CHUA_DU"},
@@ -174,9 +174,6 @@ class ModalLabour extends React.Component {
         var showLastedUpdateUser = [];
         if (dataUser) {
             dataUser.map(item => {
-                // StartMap
-                // Push created user
-                // alert(createdUserId);
                 if (createdUserId && createdUserId == item.id) {
                     showCreatedUser =[{
                         label: item.fullName + " || " + item.email, value: item.id
@@ -224,11 +221,6 @@ class ModalLabour extends React.Component {
                                     <Field name="phone" label="Số Điện Thoại" placeholder="Nhập số điện thoại..." component={RenderNumberInput}></Field>
                                     <Field name="birthday"  dateFormat="DD/MM/YYYY" label="Ngày Sinh" component={RenderDatePicker}></Field>
                                     <Field name="note" label="Ghi Chú"  placeholder="Nhập ghi chú..."  rows={3} component={RenderTextArea}></Field>
-                                    <Field disabled={true} name="createdUserId" label="Người Tạo Bảng"  options={showCreatedUser} component={RenderSelect}></Field>
-                                    {id ?<Field disabled={true} name="createdDate" label="Ngày Tạo Bảng"  dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> : null }
-                                    <div style={initialValues.lastedUpdateUserId?{display:'block'}:{display:'none'}}>
-                                    <Field disabled={true} name="lastedUpdateUserId" label="Người Chỉnh Sửa Gần Nhất" options={showLastedUpdateUser} component={RenderSelect}></Field>
-                                    <Field disabled={true} name="lastedUpdateDate"  label="Ngày Chỉnh Sửa Gần Nhất " dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> </div>
                                     <div className="text-right">
                                         <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
                                         <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>

@@ -361,7 +361,7 @@ class ModalLabourNormalAttendance extends React.Component {
             }
 
         })
-        console.log(dataEfficiency);
+        
         // Not Use List ProjectDetail because that make slow performance
         if(dataEfficiency){
             dataEfficiency.map(item=>{
@@ -445,9 +445,7 @@ class ModalLabourNormalAttendance extends React.Component {
                                 <Field name="supportTransportFeeStatus" label="Hỗ Trợ Chi Phí Đi Lại" options={optionTransportFeeStatus} component={RenderSelect}></Field>
                                     <Field disabled={true} name="lateStatus" label="Đi Trể ?" options={optionLateStatus} component={RenderSelect}></Field>
                                 <Field name="note" label="Ghi Chú" placeholder="Nhập Ghi Chú..." rows={3} component={RenderTextArea}></Field>
-                                <div style={initialValues.lastedUpdateUserId ? { display: 'block' } : { display: 'none' }}>
-                                    <Field disabled={true} name="lastedUpdateUserId" label="Người Chỉnh Sửa Gần Nhất" options={showLastedUpdateUser} component={RenderSelect}></Field>
-                                    <Field disabled={true} name="lastedUpdateDate" label="Ngày Chỉnh Sửa Gần Nhất" dateFormat="DD/MM/YYYY" component={RenderDatePicker}></Field> </div>
+                                
                                 <div className="text-right">
                                     <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
                                     <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>

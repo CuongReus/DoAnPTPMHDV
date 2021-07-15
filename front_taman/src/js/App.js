@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 import {reduxForm} from 'redux-form';
-import { Route, Link, Switch, Redirect} from 'react-router-dom';
-import { store, history } from './store/index';
+import { Route, Switch, Redirect} from 'react-router-dom';
+import { store } from './store/index';
 import agent from './services/agent';
 import { push } from 'react-router-redux';
 import {ToastContainer, toast} from 'react-toastify';

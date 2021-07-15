@@ -357,8 +357,6 @@ public class DtoConverter {
 		
 		
 		user.setEmail(userDto.getEmail());
-		// user.setImage(userDto.getImage());
-		// user.setLabourContract(userDto.getLabourContract());
 		user.setAnnualLeaveYear(userDto.getAnnualLeaveYear());
 		user.setAbsentDayPerYear(userDto.getAbsentDayPerYear());
 		user.setBonusAnnualLeavePerYear(userDto.getBonusAnnualLeavePerYear());
@@ -371,41 +369,14 @@ public class DtoConverter {
 		user.setAddress(userDto.getAddress());
 		user.setBirthday(userDto.getBirthday());
 		user.setActive(userDto.isActive());
-		// user.setIdentityCardNumber(userDto.getIdentityCardNumber());
-		// user.setIssuedAt(userDto.getIssuedAt());
-		// user.setIssuedDate(userDto.getIssuedDate());
 		user.setGender(userDto.getGender());
-		// user.setPermanentAddress(userDto.getPermanentAddress());
 		user.setCurrentAddress(userDto.getCurrentAddress());
 		user.setStartWorkDate(userDto.getStartWorkDate());
 		user.setPosition(userDto.getPosition());
-		// user.setNumberOfYear(userDto.getNumberOfYear());
-		// user.setJobDescription(userDto.getJobDescription());
-		// user.setDegree(userDto.getDegree());
-		// user.setTrainingPlace(userDto.getTrainingPlace());
-		// user.setProfession(userDto.getProfession());
-		// user.setGraduationYear(userDto.getGraduationYear());
-		// user.setForeignLanguageSkill(userDto.getForeignLanguageSkill());
-		// user.setLevel(userDto.getLevel());
-		// user.setFamilyInformation(userDto.getFamilyInformation());
 		user.setCode(userDto.getCode());
 		user.setCreatedUserEmail(userDto.getCreatedUserEmail());
 		user.setLastedUpdateUserEmail(userDto.getLastedUpdateUserEmail());
 		user.setSalaryLevel(userDto.getSalaryLevel());
-		// user.setPersonalDeduction(userDto.getPersonalDeduction());
-		// user.setFamilyCircumstanceDeduction(userDto.getFamilyCircumstanceDeduction());
-		// user.setNormalOvertimeFee(userDto.getNormalOvertimeFee());
-		// user.setWeekendOvertimeFee(userDto.getWeekendOvertimeFee());
-		// user.setHolidayOvertimeFee(userDto.getHolidayOvertimeFee());
-		// user.setInsuranceSalary(userDto.getInsuranceSalary());
-		// user.setResponsibilityAllowance(userDto.getResponsibilityAllowance());
-		// user.setRank(userDto.getRank());
-		// user.setLunchFee(userDto.getLunchFee());
-		// user.setPetrolFee(userDto.getPetrolFee());
-		// user.setPhoneFee(userDto.getPhoneFee());
-		// user.setDistanceSupportFee(userDto.getDistanceSupportFee());
-		// user.setBankAccountNumber(userDto.getBankAccountNumber());
-		// user.setBankName(userDto.getBankName());
 		
 		if (user.getRoles() != null) {
 			user.getRoles().clear();

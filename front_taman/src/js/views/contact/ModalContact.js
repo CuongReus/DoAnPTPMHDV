@@ -66,11 +66,10 @@ class ModalContact extends React.Component {
         var url = '/contact/add';
         var bodyObject = {
             name: values.name,
-            taxNumber: values.taxNumber,
             address: values.address,
             note: values.note,
             contactStatus: values.contactStatus,
-            discountPercent: (values.contactStatus == 'KH_LE' || values.contactStatus == 'NULL') ? 0 :values.discountPercent,
+            discountPercent: 0,
         };
         if (id) {
             url = '/contact/update';
@@ -123,13 +122,9 @@ class ModalContact extends React.Component {
                         {submitting ? <LoadingScreen /> :
                             <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
                                 <Field name="name" label="Tên" placeholder="Họ tên" component={RenderInputWithDiv}></Field>
-                                <Field name="taxNumber" label="Mã Số Thuế" placeholder="Nhập Mã Số Thuế" component={RenderInputWithDiv}></Field>
                                 <Field name="address" label="Địa Chỉ" placeholder="Nhập Địa Chỉ..." rows={3} component={RenderTextArea}></Field>
                                 <Field name="contactStatus" label="Loại Khách Hàng" options={optionContactStatus} component={RenderSelect}></Field>
-                                {contactStatus == "DAI_LY" ? <Field name="discountPercent" label="Nhập Phần Trăm Chiết Khấu" component={RenderInputWithDiv} onChangeAction={() => this.handle}></Field> : null}
-                                {/* <Field name="company" label="Công Ty" checkLabel="Đang Hoạt Động" component={RenderCheckbox}></Field> */}
                                 <Field name="note" label="Ghi Chú" placeholder="Nhập ghi chú..." component={RenderTextArea}></Field>
-                                {/* <Field disabled={true}  name="trustLevel" label="Mức Độ Tin Tưởng" placeholder="Chọn Chọn Mức Độ Tin Tưởng..." options={optionTrustLevel} component={RenderSelect}></Field> */}
                                 <div className="text-right">
                                     <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
                                     <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>
