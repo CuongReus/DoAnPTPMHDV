@@ -117,8 +117,7 @@ const AddUserPage: React.FC<CourseProps> = ({
 ];
 var optionCompany = [
   { label: "Tâm An", value: "3" },
-  { label: "PCO", value: "4" },
-  { label: "OGA", value: "5" }
+  { label: "PCO", value: "4" }
 ];
 
   return (
@@ -156,7 +155,7 @@ var optionCompany = [
               <IonLabel position="stacked" color="success">
               Mật khẩu (*)
               </IonLabel>
-              <IonInput value={password} placeholder="Nhập mật khẩu" onIonChange={e => setPassword(e.detail.value!)}></IonInput>
+              <IonInput type="password" value={password} placeholder="Nhập mật khẩu" onIonChange={e => setPassword(e.detail.value!)}></IonInput>
             </IonItem>
             <IonItem>
               <IonLabel position="stacked" color="success">

@@ -189,7 +189,6 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
   ];
   var optionProjectDetail : any[] = [];
   var optionProject : any[] = [];
-
   dataProject.map((item : any) => {
     if(isLoadLabour){
       labour.companies.map((labourCompanies : any) => {
@@ -199,7 +198,7 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
       })
     }
   })
-
+  console.log(optionProject);
   if(loadEfficiency){
     dataEfficiency.map((item:any)  => {
       if(item.projectDetail.project.id == project){

@@ -402,12 +402,6 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
                 onIonChange={(e) => setNote(e.detail.value!)}
               ></IonTextarea>
             </IonItem>
-            <IonItem>
-              <IonLabel position="stacked" color="success">
-                Người Chấm Công
-              </IonLabel>
-              <IonInput value={currentUser.fullName} disabled></IonInput>
-            </IonItem>
 
             <IonItem>
               <IonLabel position="stacked" color="success">
