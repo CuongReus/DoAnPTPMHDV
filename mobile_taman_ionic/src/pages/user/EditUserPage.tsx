@@ -52,21 +52,6 @@ const EditUserPage: React.FC<CourseProps> = ({
   const [showToast, setShowToast] = useState(false);
   const [messageResult, setMessageResult] = useState("");
   const [user, setUser] = useState(Object);
-
-  const [currentUser, setCurrentUser] = useState(Object);
-  const params: any = useParams();
-
-  useEffect(() => {
-    AuthService.current().then((user: any) => {
-      setCurrentUser(user);
-    });
-    loadEmployeeById(params.userId).then((user: any) => {
-      if (user) {
-        setUser(user);
-      }
-    });
-  }, [params.userId]);
-
   const [name, setName] = useState<string>();
   const [code, setCode] = useState<string>();
   const [email, setEmail] = useState<string>();
@@ -78,33 +63,56 @@ const EditUserPage: React.FC<CourseProps> = ({
   const [annualLeaveYear, setAnnualLeaveYear] = useState<string>();
   const [address, setAddress] = useState<string>();
 
+  const [currentUser, setCurrentUser] = useState(Object);
+  const params: any = useParams();
 
-  const handleAddCourse = async (e: React.FormEvent) => {
+  useEffect(() => {
+    AuthService.current().then((user: any) => {
+      setCurrentUser(user);
+    });
+    loadEmployeeById(params.userId).then((user: any) => {
+      if (user) {
+        setUser(user);
+        setCode(user.code);
+        setName(user.fullName);
+        setEmail(user.email);
+        setPhone(user.phone);
+        setDateOfBirth(user.birthday);
+        setGender(user.gender);
+        setAnnualLeaveYear(user.annualLeaveYear);
+        setAddress(user.currentAddress);
+      }
+    });
+  }, [params.userId]);
+
+  const handleUpdateUser = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
 
     var url = "/user/update";
     var bodyObject = {
       id: parseInt(params.userId),
-      email: user.email,
+      email: "cuong123@gmail.com",
       fullName: name,
-      companyId: parseInt(user.companyId),
-      phone: user.phone,
+      companyId: user.companyId ? parseInt(user.companyId) : null,
+      password: "123456",
+      phone: phone,
       role: "ADMIN",
       roles: null,
-      birthday: user.birthday,
+      birthday: moment(dateOfBirth).toISOString(),
       active: 1,
-      annualLeaveYear: parseInt(user.annualLeaveYear),
+      annualLeaveYear: annualLeaveYear,
       departmentId: null,
-      currentAddress: user.currentAddress,
+      currentAddress: address,
       position: null,
-      gender: user.gender,
+      gender: gender,
       code: user.code,
       createdUserEmail: currentUser.email,
       lastedUpdateUserEmail: currentUser.email,
     };
 
     asyncRequests.post(url, bodyObject).then((result) => {
+      console.log(result);
       if (result && result.id) {
         toast("Sửa nhân viên thành công!");
         history.push("/listUser");
@@ -126,7 +134,7 @@ var optionCompany = [
   { label: "PCO", value: "4" },
   { label: "OGA", value: "5" }
 ];
-  console.log(user);
+
   return (
     <IonPage id="edituser-page">
       <IonHeader>
@@ -138,13 +146,13 @@ var optionCompany = [
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <form noValidate onSubmit={handleAddCourse}>
+        <form noValidate onSubmit={handleUpdateUser}>
           <IonList>
           <IonItem>
               <IonLabel position="stacked" color="success">
               Mã nhân viên
               </IonLabel>
-              <IonInput value={user.code} placeholder="Nhập mã nhân viên" onIonChange={e => setCode(e.detail.value!)}></IonInput>
+              <IonInput value={code} placeholder="Nhập mã nhân viên" onIonChange={e => setCode(e.detail.value!)}></IonInput>
             </IonItem>
             <IonItem>
               <IonLabel position="stacked" color="success">
@@ -156,13 +164,13 @@ var optionCompany = [
               <IonLabel position="stacked" color="success">
               Email (*)
               </IonLabel>
-              <IonInput value={user.email} placeholder="Nhập email" onIonChange={e => setEmail(e.detail.value!)}></IonInput>
+              <IonInput value={email} placeholder="Nhập email" onIonChange={e => setEmail(e.detail.value!)}></IonInput>
             </IonItem>
             <IonItem>
               <IonLabel position="stacked" color="success">
               Số điện thoại (*)
               </IonLabel>
-              <IonInput value={user.phone} placeholder="Nhập mật khẩu" onIonChange={e => setPhone(e.detail.value!)}></IonInput>
+              <IonInput value={phone} placeholder="Nhập mật khẩu" onIonChange={e => setPhone(e.detail.value!)}></IonInput>
             </IonItem>
             <IonItem>
               <IonLabel position="stacked" color="success">
@@ -171,7 +179,7 @@ var optionCompany = [
               <IonDatetime
                 displayFormat="DD/MM/YYYY"
                 placeholder="Chọn ngày sinh"
-                value={user.birthday}
+                value={dateOfBirth}
                 onIonChange={(e) => setDateOfBirth(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
@@ -180,7 +188,7 @@ var optionCompany = [
                 Giới tính
               </IonLabel>
               <IonSelect
-                value={user.gender}
+                value={gender}
                 placeholder="Chọn giới tính"
                 onIonChange={(e) => setGender(e.detail.value!)}
               >
@@ -195,19 +203,19 @@ var optionCompany = [
               <IonLabel position="stacked" color="success">
               Số ngày phép/năm
               </IonLabel>
-              <IonInput value={user.annualLeaveYear} placeholder="Nhập mã nhân viên" onIonChange={e => setAnnualLeaveYear(e.detail.value!)}></IonInput>
+              <IonInput value={annualLeaveYear} placeholder="Nhập mã nhân viên" onIonChange={e => setAnnualLeaveYear(e.detail.value!)}></IonInput>
             </IonItem>
             <IonItem>
               <IonLabel position="stacked" color="success">
               Địa chỉ
               </IonLabel>
-              <IonInput value={user.currentAddress} placeholder="Nhập địa chỉ" onIonChange={e => setAddress(e.detail.value!)}></IonInput>
+              <IonInput value={address} placeholder="Nhập địa chỉ" onIonChange={e => setAddress(e.detail.value!)}></IonInput>
             </IonItem>
           </IonList>
           <IonRow>
             <IonCol>
               <IonButton color="success" type="submit" expand="block">
-                Thêm
+                Cập nhật
               </IonButton>
             </IonCol>
             <IonCol>

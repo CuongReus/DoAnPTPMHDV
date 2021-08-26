@@ -241,11 +241,6 @@ class LeaveLetterList extends React.Component {
                         </div>
                         <TablePagination data={data} baseUrl={baseUrl} />
                     </div>
-
-
-                    {/* EXPORT TO PDF */}
-
-
                 </div>
 
             </div>

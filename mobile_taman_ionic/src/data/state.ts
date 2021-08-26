@@ -15,7 +15,8 @@ export const initialState: AppState = {
     allTracks: [],
     filteredTracks: [],
     mapCenterId: 0,
-    loading: false
+    loading: false,
+    menuEnabled: true
   },
   user: {
     hasSeenTutorial: false,
@@ -43,7 +44,6 @@ export const reducers = combineReducers({
   user: userReducer,
   listuser: listuserReducer,
   listlabour: listlabourReducer,
-  // listLeaveletter: listuserReducer,
   listEmployeeAttendance: listEmployeeAttendanceReducer
 });
 

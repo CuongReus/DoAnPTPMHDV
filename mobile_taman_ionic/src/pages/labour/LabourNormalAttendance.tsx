@@ -165,7 +165,7 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
     asyncRequests.post(url, bodyObject).then((result) => {
       if (result && result.id) {
         toast("Chấm Công Thành Công!");
-        history.push("/listLabour");
+        history.push("/tabs/listLabour");
         loadListLabour();
       } else {
         toast("Đã Có Dự Án Trong Ngày Hôm Nay, Một Ngày Nhân Công Chỉ Có Thể Làm Việc `1 Ca Thường ||  1 Tăng Ca Thường || 1 Tăng Ca Khuya` ");
@@ -411,7 +411,7 @@ const LabourNormalAttendance: React.FC<LabourNormalAttendanceProps> = ({
               </IonButton>
             </IonCol>
             <IonCol>
-              <IonButton routerLink="/listLabour" color="light" expand="block">
+              <IonButton routerLink="/tabs/listLabour" color="light" expand="block">
                 Bỏ Qua
               </IonButton>
             </IonCol>

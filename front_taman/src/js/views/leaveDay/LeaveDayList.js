@@ -303,14 +303,8 @@ class LeaveDayList extends React.Component {
 
                                                 </span>
                                                 <div className="form-group">
-                                           
-                                                
                                            <label className="control-label col-md-1" htmlFor="company">Công Ty</label>
                                            <div className="col-md-3">
-                                               {/* <select placeholder="Tất cả" className="select form-control" name="company" defaultValue={company}>
-                                                   <option key="ALL" value="ALL">Tất cả</option>
-                                                   {optionCompany.map(company => <option key={company.value} value={company.value}>{company.label}</option>)}
-                                               </select> */}
                                                <Field onChangeAction={(value) => this.setPermanentCache(value, activeSelector)} options={optionCompany} placeholder="Tất cả" component={RenderSelect} name="companyId" ></Field>
                                            </div>
                                                <label style={{ width: '105px' }} className="control-label col-md-2" htmlFor="active">TT Hoạt Động </label>
@@ -321,10 +315,7 @@ class LeaveDayList extends React.Component {
                                               
                                                 </div>  
                                                 <form className="main-search" role="form">
-                                        <div className="col-md-12">
-                                           
-                                        </div>
-                                            <div style={{ height: 200 }}></div>
+                                            <div style={{ height: 100 }}></div>
                                         <div className="row">
                                             <div className="input-group content-group">
                                                 <div className="has-feedback has-feedback-left">

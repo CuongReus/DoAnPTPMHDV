@@ -100,7 +100,7 @@ const EmployeeAttendance: React.FC<EmployeeAttendanceProps> = ({ history , listD
     asyncRequests.post(url, bodyObject).then((result) => {
       if (result && result.id) {
         toast("Chấm Công Thành Công");
-        history.push("/listEmployeeAttendance");
+        history.push("/tabs/listEmployeeAttendance");
       } else {
         toast("Lỗi Lưu trữ!");
         setShowToast(true);

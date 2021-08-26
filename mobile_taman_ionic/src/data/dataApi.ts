@@ -100,6 +100,7 @@ export const asyncRequests = {
         body: JSON.stringify(body)
       });
       const ressultJson = await res.json();
+      console.log(ressultJson);
       return ressultJson.resultData;
     } catch (err) {
       return console.log(err);

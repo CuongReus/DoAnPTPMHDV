@@ -152,7 +152,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
     asyncRequests.post(url, bodyObject).then((result) => {
       if (result && result.id) {
         toast("Chấm Giờ Về Thành Công!");
-        history.push("/listLabourAttendanceForSupervisor");
+        history.push("/tabs/listLabourAttendanceForSupervisor");
         loadListLabourAttendanceForSupervisor(currentUser.id,startDateOfMonth,endDateOfMonth);
       } else {
         // setMessageResult("Lỗi Lưu trữ!");
@@ -366,7 +366,7 @@ const LabourAttendance: React.FC<LabourAttendanceProps> = ({
               </IonButton>
             </IonCol>
             <IonCol>
-              <IonButton routerLink="/listLabourAttendanceForSupervisor" color="light" expand="block">
+              <IonButton routerLink="/tabs/listLabourAttendanceForSupervisor" color="light" expand="block">
                 Bỏ Qua
               </IonButton>
             </IonCol>

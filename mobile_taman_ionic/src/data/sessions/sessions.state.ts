@@ -11,4 +11,5 @@ export interface SessionsState {
   mapCenterId?: number;
   loading?: boolean;
   allTracks: string[];
+  menuEnabled: boolean;
 }

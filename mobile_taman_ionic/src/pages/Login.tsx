@@ -46,7 +46,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn, history, setUsername: setU
           setIsLoggedIn(true);
           setUsernameAction(username);
 
-          history.push('/listUser', { direction: 'none' });
+          history.push('/tabs/listLabour', { direction: 'none' });
           // window.history.replaceState( {}, '', '/listUser')
 
         } else {
@@ -60,23 +60,23 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn, history, setUsername: setU
   return (
     <IonPage id="login-page">
       <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
+        <IonToolbar className='custom-toolbar'>
+          {/* <IonButtons slot="start">
             <IonMenuButton color='success'></IonMenuButton>
-          </IonButtons>
-          <IonTitle>Login</IonTitle>
+          </IonButtons> */}
+          <IonTitle style={{textAlign: 'center'}} className='c-white'>Đăng nhập</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
 
         <div className="login-logo">
-          <img src="assets/img/3.png" alt="Ionic logo" />
+          <img src="assets/img/favicon.png" alt="Ionic logo" />
         </div>
 
         <form noValidate onSubmit={login}>
           <IonList>
             <IonItem>
-              <IonLabel position="stacked" color="success">Username</IonLabel>
+              <IonLabel position="stacked" color="success">Tên tài khoản:</IonLabel>
               <IonInput name="username" type="text" value={username} spellCheck={false} autocapitalize="off" onIonChange={e => setUsername(e.detail.value!)}
                 required>
               </IonInput>
@@ -89,7 +89,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn, history, setUsername: setU
             </IonText>}
 
             <IonItem>
-              <IonLabel position="stacked" color="success">Password</IonLabel>
+              <IonLabel position="stacked" color="success">Mật khẩu:</IonLabel>
               <IonInput name="password" type="password" value={password} onIonChange={e => setPassword(e.detail.value!)}>
               </IonInput>
             </IonItem>
@@ -103,7 +103,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn, history, setUsername: setU
 
           <IonRow>
             <IonCol>
-              <IonButton color="success" type="submit" expand="block">Login</IonButton>
+              <IonButton color="success" type="submit" expand="block">Đăng nhập</IonButton>
             </IonCol>
             {/* <IonCol>
               <IonButton routerLink="/signup" color="light" expand="block">Signup</IonButton>

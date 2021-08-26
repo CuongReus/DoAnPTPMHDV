@@ -23,6 +23,7 @@ import { loadUserData, setIsLoggedIn, setUsername } from './data/user/user.actio
 import { Session } from "./models/Session";
 import About from './pages/About';
 import Account from './pages/Account';
+import MainTabs from './pages/MainTabs';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Support from './pages/Support';
@@ -40,6 +41,7 @@ import LabourOverTimeAttendance from './pages/labour/LabourOverTimeAttendance';
 import EditLabourNormalAttendance from './pages/labour/EditLabourNormalAttendanceForSupervisor';
 import EditLabourOverTimeAttendance from './pages/labour/EditLabourOverTimeAttendanceForSupervisor';
 import ListLabourAttendanceForSupervisor from './pages/labour/ListLabourAttendanceForSupervisor';
+
 /* Theme variables */
 import './theme/variables.css';
 
@@ -71,6 +73,7 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
   useEffect(() => {
     loadUserData();
     loadConfData();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -83,7 +86,7 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
               <Menu />
               {/* {busy ? */}
               <IonRouterOutlet id="main">
-                {/* <Route path="/tabs" component={MainTabs} /> */}
+                <Route path="/tabs" component={MainTabs} />
                 <Route path="/about" component={About} />
                 <Route path="/account" component={Account} />
                 <Route path="/login" component={Login} />
@@ -93,14 +96,13 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, sessions, setIsLoggedIn, 
                 <Route path="/addUser" component={AddUserPage} />
                 <Route path="/editUser/:userId" component={EditUserPage} />
                 <Route path="/employeeAttendance" component={EmployeeAttendance} />
-                {/* <Route path="/editEmployeeAttendance/:employeeAttendanceId" component={EditEmployeeAttendance} /> */}
-                <Route path="/listEmployeeAttendance" component={ListEmployeeAttendancePage} />
-                <Route path="/listLabour" component={ListLabourPage} />
+                {/* <Route path="/listEmployeeAttendance" component={ListEmployeeAttendancePage} /> */}
+                {/* <Route path="/tabs/listLabour" component={ListLabourPage} /> */}
                 <Route path="/labourNormalAttendance/:labourId" component={LabourNormalAttendance} />
                 <Route path="/labourOverTimeAttendance/:labourId" component={LabourOverTimeAttendance} />
                 <Route path="/editLabourNormalAttendance/:labourId" component={EditLabourNormalAttendance} />
                 <Route path="/editLabourOverTimeAttendance/:labourId" component={EditLabourOverTimeAttendance} />
-                <Route path="/listLabourAttendanceForSupervisor" component={ListLabourAttendanceForSupervisor} />
+                {/* <Route path="/listLabourAttendanceForSupervisor" component={ListLabourAttendanceForSupervisor} /> */}
 
                 <Route path="/editLeaveLetter/:userId" component={EditLeaveLetterPage} />
 

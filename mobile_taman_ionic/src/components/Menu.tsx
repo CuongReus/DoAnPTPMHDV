@@ -14,10 +14,8 @@ import {
 } from "@ionic/react";
 import {
   people,
-  informationCircle,
   logIn,
   person,
-  swap,
   construct,
   create,
   briefcase,
@@ -32,14 +30,14 @@ import { User } from "../pages/user/User";
 
 
 const routes = {
-  loggedInPages: [
-    { title: "Quản Lý Nhân Viên", path: "/listUser", icon: people },
-  ],
+  // loggedInPages: [
+  //   { title: "Quản Lý Nhân Viên", path: "/listUser", icon: people },
+  // ],
   labourPages: [
+    { title: "Chấm Công Nhân Công", path: "/tabs/listLabour", icon: construct },
+    { title: "Thuộc Về Giám Sát", path: "/tabs/listLabourAttendanceForSupervisor",icon: person },
     { title: "Chấm Công Văn Phòng", path: "/employeeAttendance", icon: create },
-    { title: "Quản Lý Chấm Công VP", path: "/listEmployeeAttendance", icon: briefcase },
-    { title: "Chấm Công Nhân Công", path: "/listLabour", icon: construct },
-    { title: "Thuộc Về Giám Sát", path: "/listLabourAttendanceForSupervisor",icon: person },
+    { title: "Quản Lý Chấm Công VP", path: "/tabs/listEmployeeAttendance", icon: briefcase },
   ],
   loggedOutPages: [
     { title: "Đăng Xuất", path: "/login", icon: logIn },
@@ -57,6 +55,7 @@ interface StateProps {
   darkMode: boolean;
   isAuthenticated: boolean;
   username: any;
+  menuEnabled: boolean;
 }
 
 interface DispatchProps {
@@ -73,7 +72,7 @@ const Menu: React.FC<MenuProps> = ({
   isAuthenticated,
   username,
   setDarkMode,
-  user,
+  menuEnabled,
 }) => {
   const [disableMenu, setDisableMenu] = useState(false);
   const [currentUser, setCurrentUser] = useState(Object);
@@ -99,7 +98,7 @@ const Menu: React.FC<MenuProps> = ({
   if(username){
 
     return (
-       <IonMenu type="overlay" disabled={disableMenu} contentId="main">
+       <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
         <IonHeader>
           <IonToolbar>
             <IonTitle>{username ? username : ""}</IonTitle>
@@ -107,8 +106,8 @@ const Menu: React.FC<MenuProps> = ({
         </IonHeader>
         {username ?
           <IonContent class="outer-content">
-            <IonListHeader className='custom-list-header'>Quản Lý Nhân Viên</IonListHeader>
-            {isAuthenticated ? renderlistItems(routes.loggedInPages) : renderlistItems(routes.loggedOutPages)}
+            {/* <IonListHeader className='custom-list-header'>Quản Lý Nhân Viên</IonListHeader>
+            {isAuthenticated ? renderlistItems(routes.loggedInPages) : renderlistItems(routes.loggedOutPages)} */}
             <IonListHeader className='custom-list-header'>Quản Lý Ngày Công</IonListHeader>
             {isAuthenticated ? renderlistItems(routes.labourPages) : renderlistItems(routes.loggedOutPages)}
             <IonList>
@@ -131,7 +130,7 @@ const Menu: React.FC<MenuProps> = ({
       </IonMenu>)
     }else{
       return (
-      <IonMenu type="overlay" disabled={disableMenu} contentId="main">
+      <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
         <IonHeader>
           <IonToolbar>
             <IonTitle>Menu </IonTitle>
@@ -152,6 +151,7 @@ export default connect<{}, StateProps, {}>({
     darkMode: state.user.darkMode,
     isAuthenticated: state.user.isLoggedin,
     username: state.user.username,
+    menuEnabled: state.data.menuEnabled
   }),
   mapDispatchToProps: {
     setDarkMode,

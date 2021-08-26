@@ -90,14 +90,14 @@ class ModalPersonel extends React.Component {
         }
         this.handleAdd = this.handleAdd.bind(this);
         this.handleHideAndClear = this.handleHideAndClear.bind(this);
-        this.handleInsuranceSalaryCalc = (salaryLevel, responsibilityAllowance) => {
-            const { updateField } = this.props;
-            var salaryLevel = salaryLevel ? salaryLevel : 0;
-            var responsibilityAllowance = responsibilityAllowance ? responsibilityAllowance : 0;
-            if (salaryLevel || responsibilityAllowance) {
-                updateField("insuranceSalary", parseInt(salaryLevel) + parseInt(responsibilityAllowance));
-            }
-        }
+        // this.handleInsuranceSalaryCalc = (salaryLevel, responsibilityAllowance) => {
+        //     const { updateField } = this.props;
+        //     var salaryLevel = salaryLevel ? salaryLevel : 0;
+        //     var responsibilityAllowance = responsibilityAllowance ? responsibilityAllowance : 0;
+        //     if (salaryLevel || responsibilityAllowance) {
+        //         updateField("insuranceSalary", parseInt(salaryLevel) + parseInt(responsibilityAllowance));
+        //     }
+        // }
     }
 
     componentWillMount() {
