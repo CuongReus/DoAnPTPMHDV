@@ -26,6 +26,8 @@ import EmployeeAttendanceList from "./views/EmployeeAttendance/EmployeeAttendanc
 import DepartmentList from "./views/department/DepartmentList";
 import ContactList from "./views/contact/ContactList";
 import ContactDetailList from "./views/contactDetail/ContactDetailList";
+import SwotItemList from "./views/swotItem/SwotItemList";
+import SwotUserList from "./views/swotUser/SwotUserList";
 
 const mapStateToProps = state => {
     return {
@@ -140,8 +142,10 @@ class App extends React.Component {
                                 <Route path="/login" component={Login}/>
                                 <Route path="/listPersonel" component={PersonelList}/>
                                 <Route path="/listDepartment" component={DepartmentList}/>
+                                <Route path="/listSwotItem" component={SwotItemList}/>
+                                <Route path="/listSwotUser" component={SwotUserList}/>
                                 <Route path="/listContact" component={ContactList}/>
-                                <Route path="/listContactDetail" component={ContactDetailList}/>
+                                {/* <Route path="/listContactDetail" component={ContactDetailList}/> */}
                                 <Route path="/UserChangePassword" component={UserChangePassword}/>
                                 <Route path="/listLeaveLetter/:id" component={LeaveLetterList}/>
                                 <Route path="/listLeaveDay" component={LeaveDayList}/>

@@ -14,6 +14,8 @@ import labourReducer from '../views/labour/reducer'
 import labourAttendanceReducer from '../views/labourAttendance/reducer'
 import employeeAttendanceReducer from '../views/EmployeeAttendance/reducer'
 import departmentReducer from '../views/department/reducer'
+import swotItemReducer from '../views/swotItem/reducer'
+import swotUserReducer from '../views/swotUser/reducer'
 import contactReducer from '../views/contact/reducer'
 import contactDetailReducer from '../views/contactDetail/reducer'
 
@@ -29,6 +31,8 @@ const combinedReducer = combineReducers({
     labourAttendanceReducer: labourAttendanceReducer,
     employeeAttendanceReducer: employeeAttendanceReducer,
     departmentReducer :departmentReducer,
+    swotItemReducer :swotItemReducer,
+    swotUserReducer :swotUserReducer,
     contactReducer: contactReducer,
     contactDetailReducer: contactDetailReducer,
 });

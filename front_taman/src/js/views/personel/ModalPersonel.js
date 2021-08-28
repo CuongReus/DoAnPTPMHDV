@@ -2,15 +2,84 @@ import React from 'react';
 import { connect } from 'react-redux';
 import agent from '../../services/agent';
 import { Modal } from 'react-bootstrap';
-import { RenderInputWithDiv, RenderDatePicker, RenderSelect, RenderNumberInput, RenderInputPassword } from '../../components/formInputs';
+import { RenderInputWithDiv, RenderDatePicker, RenderSelect, RenderTextArea, RenderNumberInput, RenderInputPassword } from '../../components/formInputs';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import isEmail from 'sane-email-validation';
-import { SecurityUtils } from '../../utils/javascriptUtils';
+import { SecurityUtils, UrlUtils } from '../../utils/javascriptUtils';
 import { toast } from 'react-toastify';
 import { translate } from 'react-i18next';
 import { LoadingScreen } from '../../components/commonWidgets';
 import { LOAD_UPDATING_PERSONEL } from './action-types';
+import SecuredComponent from '../../components/SecuredComponent';
 import moment from 'moment';
+import TablePagination from '../../components/TablePagination';
+
+const SwotItemRows = (props) => {
+    const { currentNo,
+        swotItemObject,
+        t,
+        swotItemListByUserId,
+    } = props;
+    return ([<tr key={1}>
+        <td>{currentNo}</td>
+        {/* <td>{swotItemObject ? swotItemObject.swotItem.title : null}</td> */}
+        <td>{swotItemObject.swotItem.title}</td>
+        <td>
+            {/* <span class="label label-success">{swotItemObject.swotItem.swotType}</span> */}
+            {(function() {
+                    if (swotItemObject.swotItem.swotType === 'STRENGTH') {
+                      return (
+                        (
+                            <span className="label label-success">{t(swotItemObject.swotItem.swotType)}</span>
+                        )
+                      )
+                    }else if(swotItemObject.swotItem.swotType === 'WEAKNESS'){
+                        return (
+                            (
+                                <span className="label label-danger">{t(swotItemObject.swotItem.swotType)}</span>
+                            )
+                    )}else if(swotItemObject.swotItem.swotType === 'OPPORTUNITY'){
+                        return (
+                            (
+                                <span className="label label-primary">{t(swotItemObject.swotItem.swotType)}</span>
+                            )
+                    )}else{
+                        return (
+                            (
+                                <span className="label label-warning">{t(swotItemObject.swotItem.swotType)}</span>
+                            )
+                    )}
+                  })()}
+        </td>
+        <td>{swotItemObject.numberOfYears}</td>
+        <td>{swotItemObject.note}</td>
+        <td className="text-center footable-visible footable-last-column">
+            <ul className="icons-list">
+                <li className="dropdown">
+                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                        <i className="icon-menu9"></i>
+                    </a>
+                    <ul className="dropdown-menu dropdown-menu-right">
+                        {/* {SecurityUtils.hasPermission(currentUser, "admin.users.update") || currentUser.id == item.id ?
+                            <li><a onClick={() => this.handleShowmodal(item.id)}><i className="icon-pencil"></i>Sửa</a></li> : null}
+                        <SecuredComponent allowedPermission="admin.users.delete">
+                            <li><a onClick={() => this.deletePersonel(item.id, item.fullName)}><i className="icon-cross2"></i>Xóa</a></li>
+                        </SecuredComponent> */}
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    </tr>])
+}
+
+let getSwotItemByUserId = (listSwotItemByUserId, userId) => {
+    for (var i = 0; i < listSwotItemByUserId.length; i++) {
+        if (listSwotItemByUserId[i].userId == userId) {
+            return listSwotItemByUserId[i];
+        }
+    }
+    return null;
+}
 
 const validate = values => {
 
@@ -86,18 +155,11 @@ class ModalPersonel extends React.Component {
             listAllCompanys: [],
             listAllRoles: [],
             listAllDepartment: [],
+            listSwotItemByUserId: [],
             disableDataManipulation: true
         }
         this.handleAdd = this.handleAdd.bind(this);
         this.handleHideAndClear = this.handleHideAndClear.bind(this);
-        // this.handleInsuranceSalaryCalc = (salaryLevel, responsibilityAllowance) => {
-        //     const { updateField } = this.props;
-        //     var salaryLevel = salaryLevel ? salaryLevel : 0;
-        //     var responsibilityAllowance = responsibilityAllowance ? responsibilityAllowance : 0;
-        //     if (salaryLevel || responsibilityAllowance) {
-        //         updateField("insuranceSalary", parseInt(salaryLevel) + parseInt(responsibilityAllowance));
-        //     }
-        // }
     }
 
     componentWillMount() {
@@ -109,7 +171,8 @@ class ModalPersonel extends React.Component {
         return (
             this.getListCompany(),
             this.getListRoles(),
-            this.getListDepartment()
+            this.getListDepartment(),
+            this.getListSwotItemByUserId()
         )
 
     }
@@ -144,6 +207,21 @@ class ModalPersonel extends React.Component {
     getListRoles() {
         let setStateInRequest = (list) => { this.setState({ listAllRoles: list }) }
         return agent.asyncRequests.get("/role/listAll").then(function (res) {
+            var result = res.body.resultData;
+            if (result) {
+                setStateInRequest(result);
+            } else {
+                toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
+            }
+        }, function (err) {
+            toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
+        });
+    }
+
+    getListSwotItemByUserId() {
+        var id = this.props.idUser;
+        let setStateInRequest = (list) => { this.setState({ listSwotItemByUserId: list }) }
+        return agent.asyncRequests.get("/swotUser/listFindByUserId?userId=" + id).then(function (res) {
             var result = res.body.resultData;
             if (result) {
                 setStateInRequest(result);
@@ -207,9 +285,11 @@ class ModalPersonel extends React.Component {
         destroy();
     }
     render() {
-
+        const data = this.state.listSwotItemByUserId;
+        const {t} = this.props;
+        var baseUrl = UrlUtils.getPathWithParamsNotPaging();
         const { handleSubmit, submitting, title, invalid, currentUser, isSalaryConfig, salaryLevel, responsibilityAllowance } = this.props;
-        const modalConfig = { backdrop: 'static', show: this.props.show, bsSize: "sm", onHide: this.props.onHide, submitting: this.props.submitting };
+        const modalConfig = { backdrop: 'static', show: this.props.show, bsSize: "xS", onHide: this.props.onHide, submitting: this.props.submitting };
         var dataCompany = this.state.listAllCompanys;
         
         var optionCompanies = [];
@@ -233,6 +313,19 @@ class ModalPersonel extends React.Component {
             { label: "Nữ", value: "FEMALE" },
             { label: "Khác", value: "OTHER" }
         ];
+        var currentNo = 0;
+        var rows = data.map((item, index) => {
+            currentNo = currentNo + 1;
+            return (
+                // here is table body / Row
+                <SwotItemRows key={currentNo}
+                    index={index}
+                    t={t}
+                    swotItemObject={item}
+                    swotItemListByUserId={getSwotItemByUserId(this.state.listSwotItemByUserId, currentUser.id)}
+                    currentNo={currentNo} ></SwotItemRows>
+            );
+        });
 
         newModal =
             <div style={{ width: '30%' }}>
@@ -248,10 +341,20 @@ class ModalPersonel extends React.Component {
                             <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
                                 <div className="form-group">
                                     <div style={isSalaryConfig ? { display: 'none' } : { display: 'block ' }} className="form-group">
-                                            <div className="tabbable">
-                                                <div className="tab-content">
+                                        <div className="tabbable">
+                                            <ul className="nav nav-tabs nav-tabs-highlight nav-justified mb-0">
+                                                <ul className="nav nav-tabs nav-tabs-solid nav-tabs-component">
+                                                    <li className="active" style={{width: 50 + '%', textAlign: 'center'}}>
+                                                        <a href="#default-justified-tab1" data-toggle="tab">Thông Tin Tổng Quát</a>
+                                                    </li>
+                                                    <li style={{width: 50 + '%', textAlign: 'center'}}>
+                                                        <a href="#default-justified-tab2" data-toggle="tab">Đánh Giá SWOT nhân viên</a>
+                                                    </li>
+                                                </ul>
+                                            </ul>
+                                            <div className="tab-content">
                                                 <div className="tab-pane active" id="default-justified-tab1">
-                                                        <Field name="code" label="Mã Nhân Viên(*)" placeholder="Nhập mã nhân viên..." component={RenderInputWithDiv}></Field>
+                                                <Field name="code" label="Mã Nhân Viên(*)" placeholder="Nhập mã nhân viên..." component={RenderInputWithDiv}></Field>
                                                         <Field name="fullName" label="Họ Tên(*)" placeholder="Nhập họ tên người dùng..." component={RenderInputWithDiv}></Field>
                                                         <Field name="email" type="email" label="Email(*)" placeholder="Nhập email người dùng..." component={RenderInputWithDiv}></Field>
                                                         <Field name="password" label="Mật khẩu(*)" placeholder="Nhập mật khẩu..." component={RenderInputPassword}></Field>
@@ -262,16 +365,55 @@ class ModalPersonel extends React.Component {
                                                         <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
                                                         <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-
-                                <div className="text-right">
+                                                        <div className="text-right">
                                     <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
                                     {/* <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button> */}
                                     <button type="submit" className="btn bg-orange" disabled={submitting}>Lưu</button>
+                                </div>
+                                                </div>
+                                                <div className="tab-pane" id="default-justified-tab2">
+                                                <div className="page-header">
+                                                    <h4>
+                                                        <i className=" icon-paragraph-justify2 position-left"></i>
+                                                        <span className="text-semibold">Đánh giá SWOT</span>
+                                                        <span className="pull-right">
+                                                            <SecuredComponent allowedPermission="admin.users.create">
+                                                                <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                                            </SecuredComponent>
+                                                        </span>
+                                                    </h4>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        {/* {this.state.isPersonelModalShown ? <ModalPersonel title="Nhân Viên" idUser={this.state.idUser} show={this.state.isPersonelModalShown} onHide={this.handleHidemodal} /> : null} */}
+
+                                                        <div className="panel panel-flat">
+                                                            <table style={{ textAlign: 'center' }} className="table table-xxs">
+                                                                <thead>
+                                                                <tr className="bg-teal">
+                                                                    <th data-toggle="true">STT</th>
+                                                                    <th data-hide="phone"><center>Tiêu đề</center></th>
+                                                                    <th data-hide="phone"><center>Loại</center></th>
+                                                                    <th data-hide="phone"><center>Năm kinh nghiệm</center></th>
+                                                                    <th data-hide="phone"><center>Ghi chú</center></th>
+                                                                    <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                {rows}
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                        {/* <TablePagination data={data} baseUrl={baseUrl} /> */}
+                                                        
+                                                    </div>  
+                                                </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         }

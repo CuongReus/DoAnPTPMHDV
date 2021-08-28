@@ -21,6 +21,7 @@ import com.logsik.taman.domain.Efficiency;
 import com.logsik.taman.domain.EmployeeAttendance;
 import com.logsik.taman.domain.EmployeeSalary;
 import com.logsik.taman.domain.FileUpload;
+import com.logsik.taman.domain.Job;
 import com.logsik.taman.domain.Labour;
 import com.logsik.taman.domain.LabourAttendance;
 import com.logsik.taman.domain.LabourSalary;
@@ -29,6 +30,9 @@ import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
 import com.logsik.taman.domain.Role;
+import com.logsik.taman.domain.SwotItem;
+import com.logsik.taman.domain.SwotJob;
+import com.logsik.taman.domain.SwotUser;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.ApprovalDto;
 import com.logsik.taman.dtos.CloseProjectDto;
@@ -40,6 +44,7 @@ import com.logsik.taman.dtos.DepartmentDto;
 import com.logsik.taman.dtos.EfficiencyDto;
 import com.logsik.taman.dtos.EmployeeAttendanceDto;
 import com.logsik.taman.dtos.EmployeeSalaryDto;
+import com.logsik.taman.dtos.JobDto;
 import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.LabourSalaryDto;
@@ -48,6 +53,9 @@ import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
 import com.logsik.taman.dtos.RoleDto;
+import com.logsik.taman.dtos.SwotItemDto;
+import com.logsik.taman.dtos.SwotJobDto;
+import com.logsik.taman.dtos.SwotUserDto;
 import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.dtos.UserDto;
 import com.logsik.taman.repository.ApprovalRepository;
@@ -57,9 +65,13 @@ import com.logsik.taman.repository.ConstructionTeamRepository;
 import com.logsik.taman.repository.ContactDetailRepository;
 import com.logsik.taman.repository.ContactRepository;
 import com.logsik.taman.repository.DepartmentRepository;
+import com.logsik.taman.repository.SwotItemRepository;
+import com.logsik.taman.repository.SwotJobRepository;
+import com.logsik.taman.repository.SwotUserRepository;
 import com.logsik.taman.repository.EfficiencyRepository;
 import com.logsik.taman.repository.EmployeeAttendanceRepository;
 import com.logsik.taman.repository.EmployeeSalaryRepository;
+import com.logsik.taman.repository.JobRepository;
 import com.logsik.taman.repository.LabourAttendanceRepository;
 import com.logsik.taman.repository.LabourRepository;
 import com.logsik.taman.repository.LabourSalaryRepository;
@@ -121,6 +133,14 @@ public class DtoConverter {
 	private LeaveLetterRepository leaveLetterRepository;
 	@Autowired
 	private DepartmentRepository departmentRepository;
+	@Autowired
+	private SwotItemRepository swotItemRepository;
+	@Autowired
+	private SwotUserRepository swotUserRepository;
+	@Autowired
+	private JobRepository jobRepository;
+	@Autowired
+	private SwotJobRepository swotJobRepository;
 
 	@PostConstruct
 	private void postConstruct() {
@@ -264,9 +284,51 @@ public class DtoConverter {
 		modelMapper.map(departmentDto, department);
 		return department;
 	}
+	
+	public SwotItem convertToSwotItem(SwotItemDto swotItemDto) {
+		SwotItem swotItem = null;
+		if (swotItemDto.getId() != null) {
+			swotItem = swotItemRepository.findById(swotItemDto.getId()).get();
+		} else {
+			swotItem = new SwotItem();
+		}
+		modelMapper.map(swotItemDto, swotItem);
+		return swotItem;
+	}
+	
+	public SwotUser convertToSwotUser(SwotUserDto swotUserDto) {
+		SwotUser swotUser = null;
+		if (swotUserDto.getId() != null) {
+			swotUser = swotUserRepository.findById(swotUserDto.getId()).get();
+		} else {
+			swotUser = new SwotUser();
+		}
+		modelMapper.map(swotUserDto, swotUser);
+		return swotUser;
+	}
+	
+	public Job convertToJob(JobDto jobDto) {
+		Job job = null;
+		if (jobDto.getId() != null) {
+			job = jobRepository.findById(jobDto.getId()).get();
+		} else {
+			job = new Job();
+		}
+		modelMapper.map(jobDto, job);
+		return job;
+	}
+	
+	public SwotJob convertToSwotJob(SwotJobDto swotJobDto) {
+		SwotJob swotJob = null;
+		if (swotJobDto.getId() != null) {
+			swotJob = swotJobRepository.findById(swotJobDto.getId()).get();
+		} else {
+			swotJob = new SwotJob();
+		}
+		modelMapper.map(swotJobDto, swotJob);
+		return swotJob;
+	}
 
-	
-	
 	public LeaveLetter convertToLeaveLetter(LeaveLetterDto  leaveLetterDto) {
 		LeaveLetter leaveLetter = null;
 		if (leaveLetterDto.getId() != null) {

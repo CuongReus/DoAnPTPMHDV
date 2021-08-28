@@ -38,6 +38,12 @@ i18n
                     "admin.department.update": "Sửa phòng ban",
                     "admin.department.delete": "Xóa phòng ban",
 
+                    // "admin.swotUser": "Màn Hình Quản Lý SWOT",
+                    // "admin.swotUser.read": "Xem SWOT",
+                    // "admin.swotUser.create": "Thêm mới SWOT",
+                    // "admin.swotUser.update": "Sửa SWOT",
+                    // "admin.swotUser.delete": "Xóa SWOT",
+
                     "admin.roles": "Màn Hình Phân Quyền",
                     "admin.roles.read": "Xem phân quyền",
                     "admin.roles.create": "Thêm mới phân quyền",
@@ -256,6 +262,11 @@ i18n
                     "CHI_PHI_KHAC": "Chi Phí Khác",
                     "VAT_TU": "Vật Tư",
 
+                    //SwotType
+                    "STRENGTH": "Điểm mạnh",
+                    "WEAKNESS": "Điểm yếu",
+                    "OPPORTUNITY": "Cơ hội",
+                    "THREAT": "Thách thức",
                 }
             }
         },

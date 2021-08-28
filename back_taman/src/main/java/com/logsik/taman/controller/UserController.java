@@ -143,7 +143,7 @@ public class UserController extends AbstractController {
 	public RestResult listFindByCompanyIdAndFullNameOrPhoneOrEmail(@RequestParam("companyId") String companyId,
 			@RequestParam("fullNameOrPhoneOrEmail") String fullNameOrPhoneOrEmail,
 			@RequestParam("isActive") Boolean isActive,Pageable pageable) {
-		checkAuthorization("admin.users.read");
+//		checkAuthorization("admin.users.read");
 		Page<User> result = userRepository.findAll(new PersonelSpecification(companyId, fullNameOrPhoneOrEmail,isActive),pageable);
 		
 		return new RestResult(result);

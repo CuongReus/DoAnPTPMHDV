@@ -46,7 +46,7 @@ class SideBar extends React.Component {
 									<Link to='/#'><i
 										className="icon-user"></i> <span>Quản Lý Nhân Sự</span></Link>
 									<ul>
-										<SecuredComponent allowedPermission="admin.users.read">
+										<SecuredComponent allowedPermission="admin.department.read">
 											<li className={currentUrl == '/listPersonel' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listPersonel'><i className="icon-users"></i>
 													<span>Nhân Sự</span></Link>
@@ -56,6 +56,18 @@ class SideBar extends React.Component {
 											<li className={currentUrl == '/listDepartment' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listDepartment'><i className="icon-magazine"></i>
 													<span>Phòng Ban</span></Link>
+											</li>
+										</SecuredComponent>
+										<SecuredComponent allowedPermission="admin.department.read">
+											<li className={currentUrl == '/listSwotItem' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/listSwotItem'><i className="icon-users4"></i>
+													<span>Danh Mục SWOT</span></Link>
+											</li>
+										</SecuredComponent>
+										<SecuredComponent allowedPermission="aadmin.department.read">
+											<li className={currentUrl == '/listSwotUser' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/listSwotUser'><i className="icon-users4"></i>
+													<span>SWOT</span></Link>
 											</li>
 										</SecuredComponent>
 										{/* <SecuredComponent allowedPermission="admin.roles.read">

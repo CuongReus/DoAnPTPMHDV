@@ -256,6 +256,28 @@ const DepartmentApi = {
     getDepartment: (id) => requests.get('/department/' + id)
 };
 
+const SwotItemApi = {
+    listSwotItem: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/swotItem/list?search=' + encode(search), page, 20);
+    },
+    listAllSwotItem: () => requests.get('/swotItem/listAll'),
+    getSwotItem: (id) => requests.get('/swotItem/' + id)
+};
+
+const SwotUserApi = {
+    listSwotUser: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/swotUser/list?search=' + encode(search), page, 20);
+    },
+    listAllSwotUser: () => requests.get('/swotUser/listAll'),
+    getSwotUser: (id) => requests.get('/swotUser/' + id)
+};
+
 const ContactApi = {
     listContact: (search, page) => {
         if (!search) {
@@ -296,6 +318,8 @@ export default {
     LabourAttendanceApi,
     EmployeeAttendanceApi,
     DepartmentApi,
+    SwotItemApi,
+    SwotUserApi,
     ContactApi,
     ContactDetailApi,
     setToken: _token => { token = _token },
