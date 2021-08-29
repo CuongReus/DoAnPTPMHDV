@@ -391,9 +391,6 @@ class ModalPersonel extends React.Component {
                                                     <li className="active" style={{width: 50 + '%', textAlign: 'center'}}>
                                                         <a href="#default-justified-tab1" data-toggle="tab">Thông Tin Tổng Quát</a>
                                                     </li>
-                                                    {/* {idUser ? <li style={{width: 50 + '%', textAlign: 'center'}}>
-                                                        <a href="#default-justified-tab2" data-toggle="tab">Đánh Giá SWOT nhân viên</a>
-                                                    </li> : null} */}
                                                     <li style={{width: 50 + '%', textAlign: 'center'}}>
                                                         <a href="#default-justified-tab2" data-toggle="tab">Đánh Giá SWOT nhân viên</a>
                                                     </li>
@@ -426,9 +423,6 @@ class ModalPersonel extends React.Component {
                                                             {idUser ? <SecuredComponent allowedPermission="admin.users.create">
                                                                 <button type="button" style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowModalSwot()}>Thêm Mới SWOT</button>
                                                             </SecuredComponent> : null}
-                                                            {/* // <SecuredComponent allowedPermission="admin.users.create">
-                                                            //     <button type="button" style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowModalSwot()}>Thêm Mới SWOT</button>
-                                                            // </SecuredComponent> */}
                                                         </span>
                                                     </h4>
                                                 </div>

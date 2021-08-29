@@ -29,6 +29,7 @@ import ContactDetailList from "./views/contactDetail/ContactDetailList";
 import SwotItemList from "./views/swotItem/SwotItemList";
 import SwotUserList from "./views/swotUser/SwotUserList";
 import JobList from "./views/job/JobList";
+import SwotJobList from "./views/swotJob/SwotJobList";
 
 const mapStateToProps = state => {
     return {
@@ -145,6 +146,7 @@ class App extends React.Component {
                                 <Route path="/listDepartment" component={DepartmentList}/>
                                 <Route path="/listSwotItem" component={SwotItemList}/>
                                 <Route path="/listSwotUser" component={SwotUserList}/>
+                                <Route path="/listSwotJob" component={SwotJobList}/>
                                 <Route path="/listJob" component={JobList}/>
                                 <Route path="/listContact" component={ContactList}/>
                                 {/* <Route path="/listContactDetail" component={ContactDetailList}/> */}

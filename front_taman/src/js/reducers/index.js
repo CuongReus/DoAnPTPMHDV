@@ -16,6 +16,7 @@ import employeeAttendanceReducer from '../views/EmployeeAttendance/reducer'
 import departmentReducer from '../views/department/reducer'
 import swotItemReducer from '../views/swotItem/reducer'
 import swotUserReducer from '../views/swotUser/reducer'
+import swotJobReducer from '../views/swotJob/reducer'
 import contactReducer from '../views/contact/reducer'
 import contactDetailReducer from '../views/contactDetail/reducer'
 import jobReducer from '../views/job/reducer'
@@ -34,6 +35,7 @@ const combinedReducer = combineReducers({
     departmentReducer :departmentReducer,
     swotItemReducer :swotItemReducer,
     swotUserReducer :swotUserReducer,
+    swotJobReducer :swotJobReducer,
     jobReducer :jobReducer,
     contactReducer: contactReducer,
     contactDetailReducer: contactDetailReducer,

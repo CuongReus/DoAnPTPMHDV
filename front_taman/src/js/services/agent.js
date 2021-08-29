@@ -289,6 +289,17 @@ const JobApi = {
     getJob: (id) => requests.get('/job/' + id)
 };
 
+const SwotJobApi = {
+    listSwotJob: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/swotJob/list?search=' + encode(search), page, 20);
+    },
+    listAllSwotJob: () => requests.get('/swotJob/listAll'),
+    getSwotJob: (id) => requests.get('/swotJob/' + id)
+};
+
 const ContactApi = {
     listContact: (search, page) => {
         if (!search) {
@@ -332,6 +343,7 @@ export default {
     SwotItemApi,
     SwotUserApi,
     JobApi,
+    SwotJobApi,
     ContactApi,
     ContactDetailApi,
     setToken: _token => { token = _token },

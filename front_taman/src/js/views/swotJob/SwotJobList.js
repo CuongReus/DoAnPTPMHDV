@@ -7,32 +7,33 @@ import TablePagination from '../../components/TablePagination';
 import agent from '../../services/agent';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ModalJob from './ModalJob';
+import ModalSwotJob from './ModalSwotJob';
 import SecuredComponent from '../../components/SecuredComponent';
 const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
 });
 const mapDispatchToProps = dispatch => ({
 });
-class JobList extends React.Component {
+class SwotJobList extends React.Component {
     constructor() {
         super();
         this.state = {
-            listJob: null,
-            isJobListModalShown: false,
+            listSwotJob: null,
+            isSwotJobListModalShown: false,
         }
         this.handleShowmodal = this.handleShowmodal.bind(this);
         this.handleHidemodal = () => {
-            this.setState({ isJobModalShown: false });
-            this.updateListJob();
+            this.setState({ isSwotJobModalShown: false });
+            this.updateListSwotJob();
         }
     };
 
-    updateListJob() {
-        var search = qs.parse(this.props.location.search).search;
-        var page = qs.parse(this.props.location.search).page;
-        let setStateInRequest = (list) => { this.setState({ listJob: list }) }
-        return (agent.JobApi.listJob(search, page
+    updateListSwotJob() {
+        // var search = qs.parse(this.props.location.search).search;
+        var search = '';
+        var page = 0;
+        let setStateInRequest = (list) => { this.setState({ listSwotJob: list }) }
+        return (agent.SwotJobApi.listSwotJob(search, page
         ).then(function (res) {
             var result = res.body.resultData;
             if (result) {
@@ -47,10 +48,12 @@ class JobList extends React.Component {
     };
 
     componentWillMount() {
-        var search = qs.parse(this.props.location.search).search;
-        var page = qs.parse(this.props.location.search).page;
-        let setStateInRequest = (list) => { this.setState({ listJob: list }) }
-        return agent.JobApi.listJob(search, page
+        // var search = qs.parse(this.props.location.search).search;
+        var search = '';
+        // var page = qs.parse(this.props.location.search).page;
+        var page = 0;
+        let setStateInRequest = (list) => { this.setState({ listSwotJob: list }) }
+        return agent.SwotJobApi.listSwotJob(search, page
         ).then(function (res) {
             var result = res.body.resultData;
             if (result) {
@@ -67,16 +70,16 @@ class JobList extends React.Component {
         ScriptUtils.loadFootable();
     };
 
-    //Delete Job Function
-    deleteJob(id, name) {
+    //Delete SwotJob Function
+    deleteSwotJob(id, name) {
 
-        if (confirm("Bạn có chắc sẽ xoá Nghề nghiệp: " + "'" + name + "'")) {
-            var url = `/job/${id}`;
+        if (confirm("Bạn có chắc sẽ xoá Danh mục Swot: " + "'" + name + "'")) {
+            var url = `/swotJob/${id}`;
             return agent.asyncRequests.del(url
             ).then(function (res) {
                 var result = res.body.resultData;
                 if (result && !result.error) {
-                    alert("Xoá Thành Công Phòng Ban: " + name);
+                    alert("Xoá Thành Công Danh Mục SWOT: " + name);
                     window.location.reload();
                 } else {
                     toast.error("Có lỗi khi xóa dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
@@ -90,21 +93,22 @@ class JobList extends React.Component {
 
     handleShowmodal(id) {
         this.setState({
-            isJobModalShown: true,
-            idJob: id
+            isSwotJobModalShown: true,
+            idSwotJob: id
         })
     };
 
     handleHidemodal() {
         this.setState({
-            isJobModalShown: false
+            isSwotJobModalShown: false
         })
     };
 
     render() {
-        const data = this.state.listJob;
+        const data = this.state.listSwotJob;
         const {t} = this.props;
-        var page = qs.parse(this.props.location.search).page;
+        // var page = qs.parse(this.props.location.search).page;
+        var page = 0
         if(!page){
             page = 1;
         }
@@ -117,7 +121,34 @@ class JobList extends React.Component {
             return (
                 <tr key={item.id}>
                     <td>{currentNo}</td>
-                    <td>{item.title}</td>
+                    <td>{item.swotItem.title}</td>
+                    {/* <td><span class="label label-success">{t(item.swotType)}</span></td> */}
+                    <td>
+                    {(function() {
+                    if (item.swotItem.swotType === 'STRENGTH') {
+                      return (
+                        (
+                            <span className="label label-success">{t(item.swotItem.swotType)}</span>
+                        )
+                      )
+                    }else if(item.swotItem.swotType === 'WEAKNESS'){
+                        return (
+                            (
+                                <span className="label label-danger">{t(item.swotItem.swotType)}</span>
+                            )
+                    )}else if(item.swotItem.swotType === 'OPPORTUNITY'){
+                        return (
+                            (
+                                <span className="label label-primary">{t(item.swotItem.swotType)}</span>
+                            )
+                    )}else{
+                        return (
+                            (
+                                <span className="label label-warning">{t(item.swotItem.swotType)}</span>
+                            )
+                    )}
+                  })()}
+                    </td>
                     <td>{item.description}</td>
                     <td className="text-center footable-visible footable-last-column">
                         <ul className="icons-list">
@@ -130,7 +161,7 @@ class JobList extends React.Component {
                                     <li><a onClick={() => this.handleShowmodal(item.id)}><i className="icon-pencil"></i>Sửa Thông Tin</a></li>
                                     </SecuredComponent>
                                     <SecuredComponent allowedPermission="admin.department.delete">
-                                    <li><a onClick={() => this.deleteJob(item.id, item.name)}><i className="icon-cross2"></i>Xóa</a></li>
+                                    <li><a onClick={() => this.deleteSwotJob(item.id, item.name)}><i className="icon-cross2"></i>Xóa</a></li>
                                     </SecuredComponent>
                                 </ul>
                             </li>
@@ -139,7 +170,7 @@ class JobList extends React.Component {
                 </tr>);
         });
 
-        var search = qs.parse(this.props.location.search).search;
+        // var search = qs.parse(this.props.location.search).search;
 
         return (
             <div className="content-wrapper">
@@ -147,7 +178,7 @@ class JobList extends React.Component {
                     <div className="page-header">
                         <h4>
                             <i className=" icon-paragraph-justify2 position-left"></i>
-                            <span className="text-semibold">Danh sách nghề nghiệp</span>
+                            <span className="text-semibold">Đánh giá SWOT nhân viên</span>
                             <span className="pull-right">
                             <SecuredComponent allowedPermission="admin.department.create">
                                 <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
@@ -157,33 +188,17 @@ class JobList extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-12">
-                            <div className="panel panel-flat">
 
-                                <div className="panel-body">
-                                    <form className="main-search" role="form">
-                                        <div className="input-group content-group">
-                                            <div className="has-feedback has-feedback-left">
-                                                <input type="text" className="form-control input-xlg" placeholder="Tìm Kiếm Theo: Tên nghề nghiệp" name="search" defaultValue={search} autoFocus={true} />
-                                                <div className="form-control-feedback">
-                                                    <i className="icon-search4 text-muted text-size-base"></i>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-btn">
-                                                <button type="submit" className="btn bg-teal btn-xlg">Tìm</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            {this.state.isJobModalShown ? <ModalJob title="Nghề Nghiệp" idJob={this.state.idJob} show={this.state.isJobModalShown} onHide={this.handleHidemodal} /> : null}
+                            {this.state.isSwotJobModalShown ? <ModalSwotJob title="Danh Mục SWOT" idSwotJob={this.state.idSwotJob} show={this.state.isSwotJobModalShown} onHide={this.handleHidemodal} /> : null}
 
                             <div className="panel panel-flat">
                                 <table className="table table-togglable table-hover">
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
-                                            <th data-toggle="true">Nghề Nghiệp</th>
-                                            <th data-hide="phone">Mô Tả Nghề Nghiệp</th>
+                                            <th data-toggle="true">Tiêu đề</th>
+                                            <th data-toggle="true">Loại</th>
+                                            <th data-hide="phone">Ghi chú</th>
                                             <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>
                                         </tr>
                                     </thead>
@@ -192,7 +207,7 @@ class JobList extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <TablePagination data={data} baseUrl="/listJob" />
+                            {/* <TablePagination data={data} baseUrl="/listSwotJob" /> */}
                         </div>
                     </div>
                 </div>
@@ -203,4 +218,4 @@ class JobList extends React.Component {
 }
 
 export default translate('translations')(connect(
-    mapStateToProps, mapDispatchToProps)(JobList));
+    mapStateToProps, mapDispatchToProps)(SwotJobList));

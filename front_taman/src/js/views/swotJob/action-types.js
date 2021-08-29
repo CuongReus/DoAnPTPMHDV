@@ -1,0 +1,4 @@
+export const LOAD_UPDATING_SWOT_JOB = 'LOAD_UPDATING_SWOT_JOB';
+
+
+

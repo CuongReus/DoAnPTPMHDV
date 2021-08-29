@@ -73,6 +73,13 @@ public class SwotJobController extends AbstractController {
 
 		return new RestResult("ok");
 	}
+	
+	@RequestMapping(value = "/swotJob/listFindByJobId")
+	public RestResult listFindByJobId(@RequestParam("jobId") Long jobId) {
+		Object result;
+		result = swotJobRepository.findByJobId(jobId);
+		return new RestResult(result);
+	}
 
 	@RequestMapping(value = "/swotJob/list")
 	public RestResult list(@RequestParam("search") String search, Pageable pageable) {
