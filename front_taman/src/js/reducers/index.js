@@ -18,6 +18,7 @@ import swotItemReducer from '../views/swotItem/reducer'
 import swotUserReducer from '../views/swotUser/reducer'
 import contactReducer from '../views/contact/reducer'
 import contactDetailReducer from '../views/contactDetail/reducer'
+import jobReducer from '../views/job/reducer'
 
 const combinedReducer = combineReducers({
     form: formReducer,
@@ -33,6 +34,7 @@ const combinedReducer = combineReducers({
     departmentReducer :departmentReducer,
     swotItemReducer :swotItemReducer,
     swotUserReducer :swotUserReducer,
+    jobReducer :jobReducer,
     contactReducer: contactReducer,
     contactDetailReducer: contactDetailReducer,
 });

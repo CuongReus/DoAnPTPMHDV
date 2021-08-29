@@ -183,8 +183,6 @@ class ModalPersonel extends React.Component {
             } else {
                 toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
             }
-        }, function (err) {
-            toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
         });
     };
 
@@ -332,7 +330,7 @@ class ModalPersonel extends React.Component {
         const data = this.state.listSwotItemByUserId;
         const {t} = this.props;
         var baseUrl = UrlUtils.getPathWithParamsNotPaging();
-        const { handleSubmit, submitting, title, invalid, currentUser, isSalaryConfig, salaryLevel, responsibilityAllowance } = this.props;
+        const { handleSubmit, submitting, title, invalid, currentUser, isSalaryConfig, idUser } = this.props;
         const modalConfig = { backdrop: 'static', show: this.props.show, bsSize: "xS", onHide: this.props.onHide, submitting: this.props.submitting };
         var dataCompany = this.state.listAllCompanys;
         
@@ -393,6 +391,9 @@ class ModalPersonel extends React.Component {
                                                     <li className="active" style={{width: 50 + '%', textAlign: 'center'}}>
                                                         <a href="#default-justified-tab1" data-toggle="tab">Thông Tin Tổng Quát</a>
                                                     </li>
+                                                    {/* {idUser ? <li style={{width: 50 + '%', textAlign: 'center'}}>
+                                                        <a href="#default-justified-tab2" data-toggle="tab">Đánh Giá SWOT nhân viên</a>
+                                                    </li> : null} */}
                                                     <li style={{width: 50 + '%', textAlign: 'center'}}>
                                                         <a href="#default-justified-tab2" data-toggle="tab">Đánh Giá SWOT nhân viên</a>
                                                     </li>
@@ -422,9 +423,12 @@ class ModalPersonel extends React.Component {
                                                         <i className=" icon-paragraph-justify2 position-left"></i>
                                                         <span className="text-semibold">Đánh giá SWOT</span>
                                                         <span className="pull-right">
-                                                            <SecuredComponent allowedPermission="admin.users.create">
+                                                            {idUser ? <SecuredComponent allowedPermission="admin.users.create">
                                                                 <button type="button" style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowModalSwot()}>Thêm Mới SWOT</button>
-                                                            </SecuredComponent>
+                                                            </SecuredComponent> : null}
+                                                            {/* // <SecuredComponent allowedPermission="admin.users.create">
+                                                            //     <button type="button" style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowModalSwot()}>Thêm Mới SWOT</button>
+                                                            // </SecuredComponent> */}
                                                         </span>
                                                     </h4>
                                                 </div>
@@ -445,7 +449,7 @@ class ModalPersonel extends React.Component {
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                {rows}
+                                                                {idUser ? rows : null}
                                                                 </tbody>
 
                                                             </table>
