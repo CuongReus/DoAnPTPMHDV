@@ -13,7 +13,7 @@ import { LOAD_UPDATING_SWOT_ITEM } from './action-types';
 const validate = values => {
     const errors = {};
     if (!values.title) {
-        errors.title = 'Vui lòng nhập tiêu đề!';
+        errors.title = 'Vui lòng nhập tên danh mục SWOT!';
     }
     return errors;
 };

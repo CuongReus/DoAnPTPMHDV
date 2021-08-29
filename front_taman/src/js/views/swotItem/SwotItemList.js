@@ -210,7 +210,7 @@ class SwotItemList extends React.Component {
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>
-                                            <th data-toggle="true">Tiêu đề</th>
+                                            <th data-toggle="true">Tên danh mục SWOT</th>
                                             <th data-toggle="true">Loại</th>
                                             <th data-hide="phone">Mô Tả Danh Mục</th>
                                             <th className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>

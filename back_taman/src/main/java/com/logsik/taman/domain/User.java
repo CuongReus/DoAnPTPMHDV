@@ -45,6 +45,13 @@ public class User implements Serializable {
 	
 	@Column(name="company_id")
 	private Long companyId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "job_id",updatable=false,insertable=false)
+	private Job job;
+	
+	@Column(name="job_id")
+	private Long jobId;
 
 	@Column
 	private String email;
@@ -95,9 +102,6 @@ public class User implements Serializable {
 
 	@Column
 	private boolean isActive = false;
-	// @Lob
-	// @Column(columnDefinition = "longtext")
-	// private String note;
 
 	@Column(length = 100)
 	private String rememberToken;
@@ -106,23 +110,9 @@ public class User implements Serializable {
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 
-	// @Column(name = "identity_card_number")
-	// private Long identityCardNumber;
-
-	// @Column(name = "issued_date")
-	// @Temporal(TemporalType.DATE)
-	// private Date issuedDate;
-
-	// @Column(name = "issued_at")
-	// private String issuedAt;
-
 	@Column(name = "gender")
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-
-	// @Lob
-	// @Column(name = "permanent_address", columnDefinition = "longtext")
-	// private String permanentAddress;
 
 	@Lob
 	@Column(name = "current_address", columnDefinition = "longtext")
@@ -133,35 +123,6 @@ public class User implements Serializable {
 
 	@Column(name = "position")
 	private String position;
-
-	// @Column(name = "number_of_year")
-	// private Integer numberOfYear;
-
-	// @Lob
-	// @Column(name = "job_description", columnDefinition = "longtext")
-	// private String jobDescription;
-
-	// @Column(name = "degree")
-	// private String degree;
-
-	// @Column(name = "training_place")
-	// private String trainingPlace;
-
-	// @Column(name = "profession")
-	// private String profession;
-
-	// @Column(name = "graduation_year")
-	// private Integer graduationYear;
-
-	// @Column(name = "foreign_language_skill")
-	// private String foreignLanguageSkill;
-
-	// @Column(name = "level")
-	// private String level;
-
-	// @Lob
-	// @Column(name = "family_information", columnDefinition = "longtext")
-	// private String familyInformation;
 
 	@Column(name = "code")
 	private String code;
@@ -174,66 +135,6 @@ public class User implements Serializable {
 	@Column
 	private Long salaryLevel;
 
-	// @Column
-	// private Long personalDeduction;
-
-	// @Column
-	// private Long familyCircumstanceDeduction;
-
-	// @Column
-	// private Long normalOvertimeFee;
-
-	// @Column
-	// private Long weekendOvertimeFee;
-
-	// @Column
-	// private Long holidayOvertimeFee;
-
-	// @Column
-	// private Long insuranceSalary;
-	
-	// @Column
-	// private Long responsibilityAllowance;
-	
-	// @Column
-	// private Integer rank;
-	
-	// @Column(name="lunch_fee")
-	// private Long  lunchFee;
-	
-	// @Column(name="petrol_fee")
-	// private Long  petrolFee;
-	
-	// @Column(name="phone_fee")
-	// private Long  phoneFee;
-	// @Column(name="distance_support_fee")
-	// private Long  distanceSupportFee;
-	
-	// @Column(name="bank_account_number")
-	// private String bankAccountNumber;
-	
-	// @Column(name="bank_name")
-	// private String bankName;
-	
-
-	
-
-	// public String getBankAccountNumber() {
-	// 	return bankAccountNumber;
-	// }
-
-	// public void setBankAccountNumber(String bankAccountNumber) {
-	// 	this.bankAccountNumber = bankAccountNumber;
-	// }
-
-	// public String getBankName() {
-	// 	return bankName;
-	// }
-
-	// public void setBankName(String bankName) {
-	// 	this.bankName = bankName;
-	// }
-
 	public Long getId() {
 		return id;
 	}
@@ -242,14 +143,6 @@ public class User implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	// public String getImage() {
-	// 	return image;
-	// }
-
-	// public void setImage(String image) {
-	// 	this.image = image;
-	// }
 
 	public Company getCompany() {
 		return company;
@@ -315,10 +208,6 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
-	
-
-	
-
 	public Float getAnnualLeaveYear() {
 		return annualLeaveYear;
 	}
@@ -343,14 +232,6 @@ public class User implements Serializable {
 		this.isActive = isActive;
 	}
 
-	// public String getNote() {
-	// 	return note;
-	// }
-
-	// public void setNote(String note) {
-	// 	this.note = note;
-	// }
-
 	public String getRememberToken() {
 		return rememberToken;
 	}
@@ -358,14 +239,6 @@ public class User implements Serializable {
 	public void setRememberToken(String rememberToken) {
 		this.rememberToken = rememberToken;
 	}
-
-	// public String getLabourContract() {
-	// 	return labourContract;
-	// }
-
-	// public void setLabourContract(String labourContract) {
-	// 	this.labourContract = labourContract;
-	// }
 
 	public List<Role> getRoles() {
 		return roles;
@@ -375,30 +248,6 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 
-	// public Long getIdentityCardNumber() {
-	// 	return identityCardNumber;
-	// }
-
-	// public void setIdentityCardNumber(Long identityCardNumber) {
-	// 	this.identityCardNumber = identityCardNumber;
-	// }
-
-	// public Date getIssuedDate() {
-	// 	return issuedDate;
-	// }
-
-	// public void setIssuedDate(Date issuedDate) {
-	// 	this.issuedDate = issuedDate;
-	// }
-
-	// public String getIssuedAt() {
-	// 	return issuedAt;
-	// }
-
-	// public void setIssuedAt(String issuedAt) {
-	// 	this.issuedAt = issuedAt;
-	// }
-
 	public Gender getGender() {
 		return gender;
 	}
@@ -406,14 +255,6 @@ public class User implements Serializable {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-
-	// public String getPermanentAddress() {
-	// 	return permanentAddress;
-	// }
-
-	// public void setPermanentAddress(String permanentAddress) {
-	// 	this.permanentAddress = permanentAddress;
-	// }
 
 	public String getCurrentAddress() {
 		return currentAddress;
@@ -438,78 +279,6 @@ public class User implements Serializable {
 	public void setPosition(String position) {
 		this.position = position;
 	}
-
-	// public Integer getNumberOfYear() {
-	// 	return numberOfYear;
-	// }
-
-	// public void setNumberOfYear(Integer numberOfYear) {
-	// 	this.numberOfYear = numberOfYear;
-	// }
-
-	// public String getJobDescription() {
-	// 	return jobDescription;
-	// }
-
-	// public void setJobDescription(String jobDescription) {
-	// 	this.jobDescription = jobDescription;
-	// }
-
-	// public String getTrainingPlace() {
-	// 	return trainingPlace;
-	// }
-
-	// public void setTrainingPlace(String trainingPlace) {
-	// 	this.trainingPlace = trainingPlace;
-	// }
-
-	// public String getProfession() {
-	// 	return profession;
-	// }
-
-	// public void setProfession(String profession) {
-	// 	this.profession = profession;
-	// }
-
-	// public Integer getGraduationYear() {
-	// 	return graduationYear;
-	// }
-
-	// public void setGraduationYear(Integer graduationYear) {
-	// 	this.graduationYear = graduationYear;
-	// }
-
-	// public String getForeignLanguageSkill() {
-	// 	return foreignLanguageSkill;
-	// }
-
-	// public void setForeignLanguageSkill(String foreignLanguageSkill) {
-	// 	this.foreignLanguageSkill = foreignLanguageSkill;
-	// }
-
-	// public String getDegree() {
-	// 	return degree;
-	// }
-
-	// public void setDegree(String degree) {
-	// 	this.degree = degree;
-	// }
-
-	// public String getLevel() {
-	// 	return level;
-	// }
-
-	// public void setLevel(String level) {
-	// 	this.level = level;
-	// }
-
-	// public String getFamilyInformation() {
-	// 	return familyInformation;
-	// }
-
-	// public void setFamilyInformation(String familyInformation) {
-	// 	this.familyInformation = familyInformation;
-	// }
 
 	public String getCode() {
 		return code;
@@ -543,62 +312,6 @@ public class User implements Serializable {
 		this.salaryLevel = salaryLevel;
 	}
 
-	// public Long getPersonalDeduction() {
-	// 	return personalDeduction;
-	// }
-
-	// public void setPersonalDeduction(Long personalDeduction) {
-	// 	this.personalDeduction = personalDeduction;
-	// }
-
-	// public Long getFamilyCircumstanceDeduction() {
-	// 	return familyCircumstanceDeduction;
-	// }
-
-	// public void setFamilyCircumstanceDeduction(Long familyCircumstanceDeduction) {
-	// 	this.familyCircumstanceDeduction = familyCircumstanceDeduction;
-	// }
-
-	// public Long getNormalOvertimeFee() {
-	// 	return normalOvertimeFee;
-	// }
-
-	// public void setNormalOvertimeFee(Long normalOvertimeFee) {
-	// 	this.normalOvertimeFee = normalOvertimeFee;
-	// }
-
-	// public Long getWeekendOvertimeFee() {
-	// 	return weekendOvertimeFee;
-	// }
-
-	// public void setWeekendOvertimeFee(Long weekendOvertimeFee) {
-	// 	this.weekendOvertimeFee = weekendOvertimeFee;
-	// }
-
-	// public Long getHolidayOvertimeFee() {
-	// 	return holidayOvertimeFee;
-	// }
-
-	// public void setHolidayOvertimeFee(Long holidayOvertimeFee) {
-	// 	this.holidayOvertimeFee = holidayOvertimeFee;
-	// }
-
-	// public Long getInsuranceSalary() {
-	// 	return insuranceSalary;
-	// }
-
-	// public void setInsuranceSalary(Long insuranceSalary) {
-	// 	this.insuranceSalary = insuranceSalary;
-	// }
-
-	// public Long getResponsibilityAllowance() {
-	// 	return responsibilityAllowance;
-	// }
-
-	// public void setResponsibilityAllowance(Long responsibilityAllowance) {
-	// 	this.responsibilityAllowance = responsibilityAllowance;
-	// }
-
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
@@ -606,47 +319,6 @@ public class User implements Serializable {
 	public Department getDepartment() {
 		return department;
 	}
-
-	// public Integer getRank() {
-	// 	return rank;
-	// }
-
-	// public void setRank(Integer rank) {
-	// 	this.rank = rank;
-	// }
-
-	// public Long getLunchFee() {
-	// 	return lunchFee;
-	// }
-
-	// public void setLunchFee(Long lunchFee) {
-	// 	this.lunchFee = lunchFee;
-	// }
-
-	// public Long getPetrolFee() {
-	// 	return petrolFee;
-	// }
-
-	// public void setPetrolFee(Long petrolFee) {
-	// 	this.petrolFee = petrolFee;
-	// }
-
-
-	// public Long getPhoneFee() {
-	// 	return phoneFee;
-	// }
-
-	// public void setPhoneFee(Long phoneFee) {
-	// 	this.phoneFee = phoneFee;
-	// }
-
-	// public Long getDistanceSupportFee() {
-	// 	return distanceSupportFee;
-	// }
-
-	// public void setDistanceSupportFee(Long distanceSupportFee) {
-	// 	this.distanceSupportFee = distanceSupportFee;
-	// }
 
 	public Long getCompanyId() {
 		return companyId;
@@ -687,9 +359,22 @@ public class User implements Serializable {
 	public void setAnnualLeaveNumberRemaining(Float annualLeaveNumberRemaining) {
 		this.annualLeaveNumberRemaining = annualLeaveNumberRemaining;
 	}
-	
-	
-	
+
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
+	public Long getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(Long jobId) {
+		this.jobId = jobId;
+	}
 	
 	
 }

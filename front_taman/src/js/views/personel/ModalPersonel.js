@@ -24,7 +24,6 @@ const SwotItemRows = (props) => {
     } = props;
     return ([<tr key={1}>
         <td>{currentNo}</td>
-        {/* <td>{swotItemObject ? swotItemObject.swotItem.title : null}</td> */}
         <td>{swotItemObject.swotItem.title}</td>
         <td>
             {/* <span class="label label-success">{swotItemObject.swotItem.swotType}</span> */}
@@ -162,6 +161,7 @@ class ModalPersonel extends React.Component {
             listAllRoles: [],
             listAllDepartment: [],
             listSwotItemByUserId: [],
+            listAllJobs: [],
             disableDataManipulation: true,
             isSwotUserModalShown: false,
         }
@@ -196,7 +196,8 @@ class ModalPersonel extends React.Component {
             this.getListCompany(),
             this.getListRoles(),
             this.getListDepartment(),
-            this.getListSwotItemByUserId()
+            this.getListSwotItemByUserId(),
+            this.getListJob()
         )
 
     }
@@ -204,6 +205,20 @@ class ModalPersonel extends React.Component {
     getListCompany() {
         let setStateInRequest = (list) => { this.setState({ listAllCompanys: list }) }
         return agent.asyncRequests.get("/company/listAll").then(function (res) {
+            var result = res.body.resultData;
+            if (result) {
+                setStateInRequest(result);
+            } else {
+                toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
+            }
+        }, function (err) {
+            toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
+        });
+    }
+
+    getListJob() {
+        let setStateInRequest = (list) => { this.setState({ listAllJobs: list }) }
+        return agent.asyncRequests.get("/job/listAll").then(function (res) {
             var result = res.body.resultData;
             if (result) {
                 setStateInRequest(result);
@@ -285,6 +300,7 @@ class ModalPersonel extends React.Component {
             password: values.password,
             fullName: values.fullName,
             companyId: values.companyId,
+            jobId: values.jobId,
             phone: values.phone,
             role: "ADMIN",
             roles: null,
@@ -347,6 +363,10 @@ class ModalPersonel extends React.Component {
         this.state.listAllDepartment.map(item => {
             optionDepartment.push({ label: item.code + " - " + item.name, value: item.id })
         })
+        var optionJobs = [];
+        this.state.listAllJobs.map(item => {
+            optionJobs.push({ label: item.title, value: item.id })
+        })
         
         var newModal = null;
         var dateNow = new Date();
@@ -406,6 +426,7 @@ class ModalPersonel extends React.Component {
                                                         <Field name="birthday" dateFormat="DD/MM/YYYY" label="Ngày Sinh" component={RenderDatePicker}></Field>
                                                         <Field name="gender" label="Giới Tính" options={optionGender} component={RenderSelect}></Field>
                                                         <Field name="companyId" label="Thuộc công ty(*)" options={optionCompanies} component={RenderSelect} ></Field>
+                                                        <Field name="jobId" label="Nghề nghiệp(*)" options={optionJobs} component={RenderSelect} ></Field>
                                                         <Field name="departmentId" disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.update") ? true : false} label="Thuộc Phòng Ban" placeholder="Chọn phòng ban..." options={optionDepartment} component={RenderSelect}></Field>
                                                         <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>

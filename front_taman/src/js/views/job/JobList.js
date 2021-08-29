@@ -70,7 +70,7 @@ class JobList extends React.Component {
     //Delete Job Function
     deleteJob(id, name) {
 
-        if (confirm("Bạn có chắc sẽ xoá Nghề nghiệp: " + "'" + name + "'")) {
+        if (confirm("Bạn có chắc sẽ xoá Nghề nghiệp này: ")) {
             var url = `/job/${id}`;
             return agent.asyncRequests.del(url
             ).then(function (res) {

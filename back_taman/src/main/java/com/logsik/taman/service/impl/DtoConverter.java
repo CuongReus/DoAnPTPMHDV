@@ -424,6 +424,7 @@ public class DtoConverter {
 		user.setBonusAnnualLeavePerYear(userDto.getBonusAnnualLeavePerYear());
 		user.setAnnualLeaveNumberRemaining(userDto.getAnnualLeaveNumberRemaining());
 		user.setCompanyId(userDto.getCompanyId());
+		user.setJobId(userDto.getJobId());
 		user.setDepartmentId(userDto.getDepartmentId());
 		user.setFullName(userDto.getFullName());
 		user.setPhone(userDto.getPhone());
