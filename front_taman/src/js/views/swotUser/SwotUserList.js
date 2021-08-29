@@ -29,8 +29,9 @@ class SwotUserList extends React.Component {
     };
 
     updateListSwotUser() {
-        var search = qs.parse(this.props.location.search).search;
-        var page = qs.parse(this.props.location.search).page;
+        // var search = qs.parse(this.props.location.search).search;
+        var search = '';
+        var page = 0;
         let setStateInRequest = (list) => { this.setState({ listSwotUser: list }) }
         return (agent.SwotUserApi.listSwotUser(search, page
         ).then(function (res) {
@@ -47,8 +48,10 @@ class SwotUserList extends React.Component {
     };
 
     componentWillMount() {
-        var search = qs.parse(this.props.location.search).search;
-        var page = qs.parse(this.props.location.search).page;
+        // var search = qs.parse(this.props.location.search).search;
+        var search = '';
+        // var page = qs.parse(this.props.location.search).page;
+        var page = 0;
         let setStateInRequest = (list) => { this.setState({ listSwotUser: list }) }
         return agent.SwotUserApi.listSwotUser(search, page
         ).then(function (res) {
@@ -104,7 +107,8 @@ class SwotUserList extends React.Component {
     render() {
         const data = this.state.listSwotUser;
         const {t} = this.props;
-        var page = qs.parse(this.props.location.search).page;
+        // var page = qs.parse(this.props.location.search).page;
+        var page = 0
         if(!page){
             page = 1;
         }
@@ -168,7 +172,7 @@ class SwotUserList extends React.Component {
                 </tr>);
         });
 
-        var search = qs.parse(this.props.location.search).search;
+        // var search = qs.parse(this.props.location.search).search;
 
         return (
             <div className="content-wrapper">
@@ -206,7 +210,7 @@ class SwotUserList extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <TablePagination data={data} baseUrl="/listSwotUser" />
+                            {/* <TablePagination data={data} baseUrl="/listSwotUser" /> */}
                         </div>
                     </div>
                 </div>

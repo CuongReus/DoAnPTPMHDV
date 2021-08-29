@@ -39,7 +39,7 @@ class ModalSwotUser extends React.Component {
             objSwotUser: null,
             listAllSwotItem: [],
         }
-        this.handleAdd = this.handleAdd.bind(this);
+        this.handleAddSwot = this.handleAddSwot.bind(this);
         this.handleHideAndClear = this.handleHideAndClear.bind(this);
     };
 
@@ -68,13 +68,14 @@ class ModalSwotUser extends React.Component {
         )
     };
 
-    handleAdd(values) {
+    handleAddSwot(values) {
         var onHide = this.props.onHide;
         var id = this.props.idSwotUser;
+        var idUser = this.props.idUser;
         var url = '/swotUser/add';
         var bodyObject = {
             swotItemId: values.swotItemId,
-            userId: 1,
+            userId: idUser,
             numberOfYears: values.numberOfYears,
             note: values.note
         };
@@ -105,13 +106,13 @@ class ModalSwotUser extends React.Component {
      };
 
     render() {
-        const { onHide, handleSubmit, submitting, title, invalid } = this.props;
+        const { onHide, handleSubmit, submitting, title, invalid, idUser } = this.props;
         const modalConfig = {backdrop:'static', show: this.props.show, onHide: this.props.onHide, submitting: this.props.submitting };
         var optionSwotItem = [];
         this.state.listAllSwotItem.map(item => {
-            console.log(item);
             optionSwotItem.push({ label: item.title + " - " + item.swotType, value: item.id })
         })
+        
         var newModal = null;
             newModal =
                 <div style={{ width: '30%' }}>
@@ -123,8 +124,8 @@ class ModalSwotUser extends React.Component {
                             <Modal.Title id="contained-modal-title-sm"><center>Thông Tin {title}</center></Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            {submitting ? <LoadingScreen /> :
-                                <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
+                            {/* {submitting ? <LoadingScreen /> :
+                                <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAddSwot)}>
                                     <Field name="swotItemId" label="Danh mục SWOT" placeholder="Chọn danh mục SWOT..." options={optionSwotItem} component={RenderSelect}></Field>
                                     <Field name="numberOfYears" label="Số năm kinh nghiệm" placeholder="Nhập số năm kinh nghiệm..." component={RenderNumberInput}></Field>
                                     <Field name="note" label="Ghi chú" placeholder="Nhập ghi chú" rows={3} component={RenderTextArea}></Field>
@@ -133,7 +134,16 @@ class ModalSwotUser extends React.Component {
                                         <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>
                                     </div>
                                 </form>
-                            }
+                            } */}
+                            <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAddSwot)}>
+                                    <Field name="swotItemId" label="Danh mục SWOT" placeholder="Chọn danh mục SWOT..." options={optionSwotItem} component={RenderSelect}></Field>
+                                    <Field name="numberOfYears" label="Số năm kinh nghiệm" placeholder="Nhập số năm kinh nghiệm..." component={RenderNumberInput}></Field>
+                                    <Field name="note" label="Ghi chú" placeholder="Nhập ghi chú" rows={3} component={RenderTextArea}></Field>
+                                    <div className="text-right">
+                                        <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
+                                        <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button>
+                                    </div>
+                            </form>
                         </Modal.Body>
                     </Modal>
                 </div>

@@ -12,13 +12,15 @@ import { LoadingScreen } from '../../components/commonWidgets';
 import { LOAD_UPDATING_PERSONEL } from './action-types';
 import SecuredComponent from '../../components/SecuredComponent';
 import moment from 'moment';
+import ModalSwotUser from '../swotUser/ModalSwotUser';
 import TablePagination from '../../components/TablePagination';
 
 const SwotItemRows = (props) => {
     const { currentNo,
         swotItemObject,
         t,
-        swotItemListByUserId,
+        handleShowModalSwot,
+        deleteSwotUser,
     } = props;
     return ([<tr key={1}>
         <td>{currentNo}</td>
@@ -60,11 +62,17 @@ const SwotItemRows = (props) => {
                         <i className="icon-menu9"></i>
                     </a>
                     <ul className="dropdown-menu dropdown-menu-right">
-                        {/* {SecurityUtils.hasPermission(currentUser, "admin.users.update") || currentUser.id == item.id ?
-                            <li><a onClick={() => this.handleShowmodal(item.id)}><i className="icon-pencil"></i>Sửa</a></li> : null}
-                        <SecuredComponent allowedPermission="admin.users.delete">
-                            <li><a onClick={() => this.deletePersonel(item.id, item.fullName)}><i className="icon-cross2"></i>Xóa</a></li>
+                        {/* {SecurityUtils.hasPermission(currentUser, "admin.users.update") || currentUser.id == swotItemObject.id ?
+                            <li><a onClick={() => this.handleShowModalSwot(swotItemObject.id)}><i className="icon-pencil"></i>Sửa</a></li> : null} */}
+                        {/* <SecuredComponent allowedPermission="admin.users.update">
+                            <li><a onClick={() => this.handleShowModalSwot(swotItemObject.id)}><i className="icon-pencil"></i>Sửa</a></li>
                         </SecuredComponent> */}
+                        <SecuredComponent allowedPermission="admin.contact.update">
+                            <li><a onClick={() => handleShowModalSwot(swotItemObject.id)}><i className="icon-pencil"></i>Sửa Thông Tin</a></li>
+                        </SecuredComponent>
+                        <SecuredComponent allowedPermission="admin.users.delete">
+                            <li><a onClick={() => deleteSwotUser(swotItemObject.id)}><i className="icon-cross2"></i>Xóa</a></li>
+                        </SecuredComponent>
                     </ul>
                 </li>
             </ul>
@@ -130,8 +138,6 @@ const mapStateToProps = state => {
         currentUser: state.common.currentUser,
         salaryLevel: selector(state, "salaryLevel"),
         responsibilityAllowance: selector(state, "responsibilityAllowance")
-
-
     };
 };
 
@@ -156,11 +162,31 @@ class ModalPersonel extends React.Component {
             listAllRoles: [],
             listAllDepartment: [],
             listSwotItemByUserId: [],
-            disableDataManipulation: true
+            disableDataManipulation: true,
+            isSwotUserModalShown: false,
         }
         this.handleAdd = this.handleAdd.bind(this);
         this.handleHideAndClear = this.handleHideAndClear.bind(this);
+        this.handleShowModalSwot = this.handleShowModalSwot.bind(this);
+        this.handleHideModalSwot = this.handleHideModalSwot.bind(this);
+        this.deleteSwotUser = this.deleteSwotUser.bind(this);
+        this.getListSwotItemByUserId = this.getListSwotItemByUserId.bind(this);
     }
+
+    getListSwotItemByUserId() {
+        var id = this.props.idUser;
+        let setStateInRequest = (list) => { this.setState({ listSwotItemByUserId: list }) }
+        return agent.asyncRequests.get("/swotUser/listFindByUserId?userId=" + id).then(function (res) {
+            var result = res.body.resultData;
+            if (result) {
+                setStateInRequest(result);
+            } else {
+                toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
+            }
+        }, function (err) {
+            toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
+        });
+    };
 
     componentWillMount() {
         const { loadPersonel } = this.props;
@@ -218,20 +244,38 @@ class ModalPersonel extends React.Component {
         });
     }
 
-    getListSwotItemByUserId() {
-        var id = this.props.idUser;
-        let setStateInRequest = (list) => { this.setState({ listSwotItemByUserId: list }) }
-        return agent.asyncRequests.get("/swotUser/listFindByUserId?userId=" + id).then(function (res) {
-            var result = res.body.resultData;
-            if (result) {
-                setStateInRequest(result);
-            } else {
-                toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
-            }
-        }, function (err) {
-            toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
+    deleteSwotUser(id) {
+        var _this = this;
+        if (confirm("Bạn có chắc sẽ xoá ?")) {
+            var url = `/swotUser/${id}`;
+            return agent.asyncRequests.del(url
+            ).then(function (res) {
+                var result = res.body.resultData;
+                if (result && !result.error) {
+                    alert("Xoá Thành Công.");
+                    _this.getListSwotItemByUserId();
+                } else {
+                    toast.error("Có lỗi khi xóa dữ liệu. Lỗi: " + result.errorMessage, { autoClose: 15000 });
+                }
+            }, function (err) {
+                toast.error("Không thể xóa dữ liệu đang được sử dụng từ màn hình khác!", { autoClose: 15000 });
+            });
+        } else {
+        }
+    };
+
+    handleShowModalSwot(id) {
+        this.setState({
+            isSwotUserModalShown: true,
+            idSwotUser: id
+        })
+    };
+    handleHideModalSwot() {
+        this.setState({
+            isSwotUserModalShown: false
         });
-    }
+        this.getListSwotItemByUserId();
+    };
 
     handleAdd(values) {
         const { currentUser } = this.props;
@@ -319,6 +363,9 @@ class ModalPersonel extends React.Component {
             return (
                 // here is table body / Row
                 <SwotItemRows key={currentNo}
+                    handleShowModalSwot={this.handleShowModalSwot}
+                    handleHideModalSwot={this.handleHideModalSwot}
+                    deleteSwotUser={this.deleteSwotUser}
                     index={index}
                     t={t}
                     swotItemObject={item}
@@ -326,7 +373,6 @@ class ModalPersonel extends React.Component {
                     currentNo={currentNo} ></SwotItemRows>
             );
         });
-
         newModal =
             <div style={{ width: '30%' }}>
                 <Modal
@@ -338,7 +384,7 @@ class ModalPersonel extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
                         {submitting ? <LoadingScreen /> :
-                            <form className="form-horizontal" role="form" onSubmit={handleSubmit(this.handleAdd)}>
+                            <form className="form-horizontal">
                                 <div className="form-group">
                                     <div style={isSalaryConfig ? { display: 'none' } : { display: 'block ' }} className="form-group">
                                         <div className="tabbable">
@@ -366,26 +412,25 @@ class ModalPersonel extends React.Component {
                                                         <Field disabled={!SecurityUtils.hasPermission(currentUser, "admin.users.setupAnnualLeaveForUser") ? true :false} name="annualLeaveYear" label="Số Ngày Phép / Năm" placeholder="Nhập số ngày phép của nhân viên / năm..." component={RenderNumberInput}></Field>
                                                         <Field name="currentAddress" label="Địa Chỉ Hiện Tại" placeholder="Nhập địa chỉ hiện tại..." component={RenderInputWithDiv}></Field>
                                                         <div className="text-right">
-                                    <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
-                                    {/* <button type="submit" className="btn bg-orange" disabled={submitting || invalid}>Lưu</button> */}
-                                    <button type="submit" className="btn bg-orange" disabled={submitting}>Lưu</button>
-                                </div>
+                                                    <button type="button" className="btn btn-link" onClick={this.handleHideAndClear} >Hủy</button>
+                                                    <button type="button" className="btn bg-orange" disabled={submitting} onClick={handleSubmit(this.handleAdd)}>Lưu</button>
                                                 </div>
-                                                <div className="tab-pane" id="default-justified-tab2">
+                                                </div>
+                                            <div className="tab-pane" id="default-justified-tab2">
                                                 <div className="page-header">
                                                     <h4>
                                                         <i className=" icon-paragraph-justify2 position-left"></i>
                                                         <span className="text-semibold">Đánh giá SWOT</span>
                                                         <span className="pull-right">
                                                             <SecuredComponent allowedPermission="admin.users.create">
-                                                                <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                                                                <button type="button" style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowModalSwot()}>Thêm Mới SWOT</button>
                                                             </SecuredComponent>
                                                         </span>
                                                     </h4>
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-md-12">
-                                                        {/* {this.state.isPersonelModalShown ? <ModalPersonel title="Nhân Viên" idUser={this.state.idUser} show={this.state.isPersonelModalShown} onHide={this.handleHidemodal} /> : null} */}
+                                                    {this.state.isSwotUserModalShown ? <ModalSwotUser title="Thêm Swot nhân viên" idSwotUser={this.state.idSwotUser} show={this.state.isSwotUserModalShown} idUser={this.props.idUser} onHide={this.handleHideModalSwot} /> : null}
 
                                                         <div className="panel panel-flat">
                                                             <table style={{ textAlign: 'center' }} className="table table-xxs">
@@ -409,7 +454,7 @@ class ModalPersonel extends React.Component {
                                                         
                                                     </div>  
                                                 </div>
-                                                </div>
+                                            </div>
                                                 
                                             </div>
                                         </div>
