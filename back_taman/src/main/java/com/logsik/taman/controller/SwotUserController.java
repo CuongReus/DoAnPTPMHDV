@@ -1,5 +1,9 @@
 package com.logsik.taman.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +17,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.logsik.taman.domain.Job;
+import com.logsik.taman.domain.SwotItem;
+import com.logsik.taman.domain.SwotJob;
 import com.logsik.taman.domain.SwotUser;
+import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.SwotUserDto;
+import com.logsik.taman.dtos.QueryUserJob;
 import com.logsik.taman.dtos.RestResult;
+import com.logsik.taman.repository.SwotJobRepository;
 import com.logsik.taman.repository.SwotUserRepository;
+import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.repository.SwotUserRepository;
 import com.logsik.taman.repository.SwotUserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
@@ -28,6 +39,12 @@ public class SwotUserController extends AbstractController {
 
 	@Autowired
 	private SwotUserRepository swotUserRepository;
+	
+	@Autowired
+	private SwotJobRepository swotJobRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private DtoConverter dtoConverter;
@@ -94,5 +111,49 @@ public class SwotUserController extends AbstractController {
 	@RequestMapping(value = "/swotUser/listAll")
 	public RestResult listAll() {
 		return new RestResult(swotUserRepository.findAll());
+	}
+	
+	public class UserJobMatchedDto {
+		public User user;
+		public List<SwotItem> matchedSwotItems = new ArrayList<>();
+	}
+	public class FindMatchedUserJobResult {
+		public List<SwotJob> swotItemsOfSelectedJob = new ArrayList<>();
+		public List<UserJobMatchedDto> userJobMatchedList = new ArrayList<>();
+	}
+	@RequestMapping(value = "/swotUser/findMachedUserJob")
+	public RestResult findMatchedUserJob(@RequestBody QueryUserJob queryUserJob) {
+		FindMatchedUserJobResult result = new FindMatchedUserJobResult();
+		result.swotItemsOfSelectedJob = swotJobRepository.findByJobId(queryUserJob.getSelectedJobId());
+		List<UserJobMatchedDto> userJobList = new ArrayList<>();
+		
+		List<User> users = userRepository.findByJobIdInAndIsActive(queryUserJob.getCurrentJobIds(), true);
+		List<Long> userIds = new ArrayList<>();
+		for (User user: users) {
+			userIds.add(user.getId());
+		}
+		
+		List<SwotUser> swotUsers = swotUserRepository.findByUserIdIn(userIds);
+		for (SwotUser swotUser: swotUsers) {
+			UserJobMatchedDto userJobDto = getUserJobMatched(userJobList, swotUser);
+			if (userJobDto == null) {
+				userJobDto = new UserJobMatchedDto();
+				userJobDto.user = swotUser.getUser();
+				userJobList.add(userJobDto);
+			}
+			userJobDto.matchedSwotItems.add(swotUser.getSwotItem());
+		}
+		
+		result.userJobMatchedList = userJobList;
+		return new RestResult(result);
+	}
+
+	private UserJobMatchedDto getUserJobMatched(List<UserJobMatchedDto> userJobList, SwotUser swotUser) {
+		for (UserJobMatchedDto dto: userJobList) {
+			if (dto.user.getId().equals(swotUser.getUserId())) {
+				return dto;
+			}
+		}
+		return null;
 	}
 }

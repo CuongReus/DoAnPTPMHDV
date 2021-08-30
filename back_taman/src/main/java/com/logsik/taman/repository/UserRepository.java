@@ -37,5 +37,8 @@ public interface UserRepository extends BaseRepository<User, Long>, JpaSpecifica
 	//Load Data on form
 	@EntityGraph(attributePaths = { "company","roles","department","job"})
 	Optional<User> findById(Long id);
+	
+	@EntityGraph(attributePaths = { "company","roles","department","job"})
+	List<User> findByJobIdInAndIsActive(List<Long> jobIds, Boolean isActive);
 
 }

@@ -16,7 +16,7 @@ public interface SwotJobRepository extends BaseRepository<SwotJob, Long> {
 	@EntityGraph(attributePaths= {"swotItem","job"})
 	List<SwotJob>findBySwotItemId(Long swotItemId);
 	@EntityGraph(attributePaths= {"swotItem","job"})
-	List<SwotJob>findByJobId(Long jobId);
+	List<SwotJob> findByJobId(Long jobId);
 	@EntityGraph(attributePaths= {"swotItem","job"})
 	List<SwotJob> findAll();
 }
