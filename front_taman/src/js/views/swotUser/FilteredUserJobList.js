@@ -105,7 +105,7 @@ class FilteredUserJobList extends React.Component {
         userJobResult.userJobMatchedList.map(item => {
             var row = <tr key={item.user.id}>
                 <td>{item.user.id}</td>
-                <td style={{ whiteSpace: 'nowrap' }} >{item.code} || {item.fullName}</td>
+                <td style={{ whiteSpace: 'nowrap' }} >{item.user.code} || {item.user.fullName}</td>
                 <td>{item.user.email}<br />{item.phone}</td>
                 <td>{item.user.currentAddress}</td>
                 <td>{item.user.job ? item.user.job.title : ""}</td>
