@@ -19,6 +19,7 @@ public interface SwotUserRepository extends BaseRepository<SwotUser, Long> {
 	List<SwotUser>findBySwotItemId(Long swotItemId);
 	@EntityGraph(attributePaths= {"swotItem","user"})
 	List<SwotUser>findByUserId(Long userId);
+	
 	@EntityGraph(attributePaths= {"swotItem","user"})
 	List<SwotUser> findAll();
 	

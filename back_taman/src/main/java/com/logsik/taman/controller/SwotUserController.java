@@ -121,19 +121,24 @@ public class SwotUserController extends AbstractController {
 		public List<SwotJob> swotItemsOfSelectedJob = new ArrayList<>();
 		public List<UserJobMatchedDto> userJobMatchedList = new ArrayList<>();
 	}
-	@RequestMapping(value = "/swotUser/findMachedUserJob")
+	@RequestMapping(value = "/swotUser/findMachedUserJob", method = RequestMethod.POST)
 	public RestResult findMatchedUserJob(@RequestBody QueryUserJob queryUserJob) {
 		FindMatchedUserJobResult result = new FindMatchedUserJobResult();
 		result.swotItemsOfSelectedJob = swotJobRepository.findByJobId(queryUserJob.getSelectedJobId());
 		List<UserJobMatchedDto> userJobList = new ArrayList<>();
 		
-		List<User> users = userRepository.findByJobIdInAndIsActive(queryUserJob.getCurrentJobIds(), true);
-		List<Long> userIds = new ArrayList<>();
-		for (User user: users) {
-			userIds.add(user.getId());
+		List<SwotUser> swotUsers = new ArrayList<>();
+		if (!queryUserJob.getCurrentJobIds().isEmpty()) {
+			List<Long> userIds = new ArrayList<>();
+			List<User> users = userRepository.findByJobIdInAndIsActive(queryUserJob.getCurrentJobIds(), true);
+			for (User user: users) {
+				userIds.add(user.getId());
+			}
+			swotUsers = swotUserRepository.findByUserIdIn(userIds);
+		} else {
+			swotUsers = swotUserRepository.findAll();
 		}
 		
-		List<SwotUser> swotUsers = swotUserRepository.findByUserIdIn(userIds);
 		for (SwotUser swotUser: swotUsers) {
 			UserJobMatchedDto userJobDto = getUserJobMatched(userJobList, swotUser);
 			if (userJobDto == null) {
@@ -141,11 +146,31 @@ public class SwotUserController extends AbstractController {
 				userJobDto.user = swotUser.getUser();
 				userJobList.add(userJobDto);
 			}
-			userJobDto.matchedSwotItems.add(swotUser.getSwotItem());
+			if (containsSwotItem(result.swotItemsOfSelectedJob, swotUser.getSwotItem())) {
+				userJobDto.matchedSwotItems.add(swotUser.getSwotItem());
+			}			
 		}
-		
+		userJobList
+		.sort((a1,a2) -> {
+			if (a2.matchedSwotItems.size() > a1.matchedSwotItems.size()) {
+				return 1;
+			} else if (a2.matchedSwotItems.size() < a1.matchedSwotItems.size()) {
+				return -1;
+			} else {
+				return 0;
+			}
+		});
 		result.userJobMatchedList = userJobList;
 		return new RestResult(result);
+	}
+
+	private boolean containsSwotItem(List<SwotJob> swotItemsOfSelectedJob, SwotItem swotItem) {
+		for (SwotJob swotJob : swotItemsOfSelectedJob) {
+			if (swotJob.getSwotItemId().equals(swotItem.getId())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private UserJobMatchedDto getUserJobMatched(List<UserJobMatchedDto> userJobList, SwotUser swotUser) {

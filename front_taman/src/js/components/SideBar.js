@@ -70,12 +70,21 @@ class SideBar extends React.Component {
 													<span>SWOT</span></Link>
 											</li>
 										</SecuredComponent>
+										
 										<SecuredComponent allowedPermission="admin.department.read">
 											<li className={currentUrl == '/listJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listJob'><i className="icon-magazine"></i>
 													<span>Nghề nghiệp</span></Link>
 											</li>
 										</SecuredComponent>
+
+										<SecuredComponent allowedPermission="admin.department.read">
+											<li className={currentUrl == '/findMachedUserJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/findMachedUserJob'><i className="icon-users4"></i>
+													<span>Chọn nhân sự nghề nghiệp</span></Link>
+											</li>
+										</SecuredComponent>
+										
 										{/* <SecuredComponent allowedPermission="admin.roles.read">
 											<li className={currentUrl == '/listRole' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listRole'><i className="icon-user-check"></i>

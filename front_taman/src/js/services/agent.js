@@ -37,7 +37,7 @@ const tokenPlugin = req => {
 const requests = {
     del: url =>
         superagent.del(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin).then(responseBody),
-    get: url =>
+    get: (url) =>
         superagent.get(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin).then(responseBody),
     put: (url, body) =>
         superagent.put(`${getApiRoot()}${url}`, body).withCredentials().use(tokenPlugin).then(responseBody),
@@ -62,7 +62,7 @@ const requests = {
 const asyncRequests = {
     del: url =>
         superagent.del(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin),
-    get: url =>
+    get: (url) =>
         superagent.get(`${getApiRoot()}${url}`).withCredentials().use(tokenPlugin),
     put: (url, body) =>
         superagent.put(`${getApiRoot()}${url}`, body).withCredentials().use(tokenPlugin),
@@ -286,7 +286,27 @@ const JobApi = {
         return requests.getPage('/job/list?search=' + encode(search), page, 20);
     },
     listAllJob: () => requests.get('/job/listAll'),
-    getJob: (id) => requests.get('/job/' + id)
+    getJob: (id) => requests.get('/job/' + id),
+    loadOptionsComboBox: (objectClass) => { // optionJob in constructor
+        let setStateInRequest = (list) => { objectClass.setState({optionJob: list }) }
+        return (asyncRequests.get('/job/listAll').then(function (res) {
+          var result = res.body.resultData;
+          if (result) {
+            var optionJob = [];
+            if (result) {
+                result.map(item => {
+                    optionJob.push({ label: item.title, value: item.id })
+                })
+            }
+            setStateInRequest(optionJob);
+          }
+          else {
+            toast.error("Có lỗi khi tải dữ liệu. Lỗi: " + res.body.errorMessage, { autoClose: 15000 });
+          }
+        }, function (err) {
+          toast.error("Có lỗi khi tải dữ liệu. Quý khách vui lòng kiểm tra kết nối internet và thử lại. Hoặc liên hệ quản trị viên.", { autoClose: 15000 });
+        }))
+    }
 };
 
 const SwotJobApi = {
