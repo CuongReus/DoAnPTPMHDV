@@ -108,6 +108,7 @@ class FilteredUserJobList extends React.Component {
                 <td style={{ whiteSpace: 'nowrap' }} >{item.code} || {item.fullName}</td>
                 <td>{item.user.email}<br />{item.phone}</td>
                 <td>{item.user.currentAddress}</td>
+                <td>{item.user.job ? item.user.job.title : ""}</td>
                 {/* <td>{item.user.company ? item.user.company.name : null}</td> */}
                 <td><a onClick={() => _this.handleShowSwotItemUser(item.user.id)}>{item.matchedSwotItems.length} / {userJobResult.swotItemsOfSelectedJob.length}</a> </td>
                 <td className="text-center footable-visible footable-last-column">
@@ -136,7 +137,7 @@ class FilteredUserJobList extends React.Component {
                     <td></td>
                     <td>{isMatched ? "Tương đồng" : "Chưa có"}</td>
                     <td>{swotItem.swotType}</td>
-                    <td colSpan="2">{swotItem.title}</td>
+                    <td colSpan="3">{swotItem.title}</td>
                     <td></td>
                 </tr>
 
@@ -194,7 +195,8 @@ class FilteredUserJobList extends React.Component {
                                             <th data-toggle="true">STT</th>
                                             <th data-toggle="phone"><center>Mã Nhân Viên & Họ Tên</center></th>
                                             <th data-hide="phone"><center>Liên Hệ</center></th>
-                                            <th data-hide="phone"><center>Địa chỉ Hiện Tại</center></th>
+                                            <th data-hide="phone"><center>Địa chỉ</center></th>
+                                            <th data-hide="phone"><center>Công Việc Hiện Tại</center></th>
                                             {/* <th data-hide="phone"><center>Công Ty </center></th> */}
                                             <th data-hide="phone"><center>Swot phù hợp</center></th>
                                             

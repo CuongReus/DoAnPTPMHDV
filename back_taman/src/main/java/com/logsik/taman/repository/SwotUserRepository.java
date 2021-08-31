@@ -11,18 +11,18 @@ import com.logsik.taman.domain.ContactDetail;
 import com.logsik.taman.domain.SwotUser;
 
 public interface SwotUserRepository extends BaseRepository<SwotUser, Long> {
-	@EntityGraph(attributePaths = { "swotItem","user" })
+	@EntityGraph(attributePaths = { "swotItem","user","user.job"})
 	Page<SwotUser> findById(Long id, Pageable pageable);
-	@EntityGraph(attributePaths = { "swotItem","user" })
+	@EntityGraph(attributePaths = { "swotItem","user","user.job"})
 	Page<SwotUser> findAll(Pageable pageable);
-	@EntityGraph(attributePaths= {"swotItem","user"})
+	@EntityGraph(attributePaths= {"swotItem","user","user.job"})
 	List<SwotUser>findBySwotItemId(Long swotItemId);
-	@EntityGraph(attributePaths= {"swotItem","user"})
+	@EntityGraph(attributePaths= {"swotItem","user","user.job"})
 	List<SwotUser>findByUserId(Long userId);
 	
-	@EntityGraph(attributePaths= {"swotItem","user"})
+	@EntityGraph(attributePaths= {"swotItem","user","user.job"})
 	List<SwotUser> findAll();
 	
-	@EntityGraph(attributePaths= {"swotItem","user"})
+	@EntityGraph(attributePaths= {"swotItem","user","user.job"})
 	List<SwotUser> findByUserIdIn(List<Long> userIds);
 }
