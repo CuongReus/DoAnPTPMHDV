@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th8 29, 2021 lúc 03:07 PM
+-- Thời gian đã tạo: Th9 08, 2021 lúc 06:28 PM
 -- Phiên bản máy phục vụ: 10.4.10-MariaDB
 -- Phiên bản PHP: 7.3.12
 
@@ -551,7 +551,7 @@ CREATE TABLE IF NOT EXISTS `department` (
   `attendance_coefficient` float DEFAULT NULL,
   `work_on_weekend_status` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `department`
@@ -568,7 +568,8 @@ INSERT INTO `department` (`id`, `name`, `note`, `code`, `attendance_coefficient`
 (10, 'Phòng Ban Demo', 'abc', 'PC11', 28, 'CO'),
 (11, 'Phòng Ban Test', 'abcd', 'PBDM', 30, 'CO'),
 (12, 'Tài Chính Kế Toán', NULL, 'xxxx', 0, 'KHONG'),
-(17, 'Phòng Công Nghệ Thông Tin', 'Phòng phụ trách về mảng CNTT của công ty ', 'PIS', 28, 'CO');
+(17, 'Phòng Công Nghệ Thông Tin', 'Phòng phụ trách về mảng CNTT của công ty ', 'PIS', 28, 'CO'),
+(20, 'Phòng Điều Chuyển', 'asdadwad asdasdw', 'PDC', 18, 'CO');
 
 -- --------------------------------------------------------
 
@@ -988,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `employee_attendance` (
   `leave_letter_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_user_employeeAttendance` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `employee_attendance`
@@ -1025,7 +1026,10 @@ INSERT INTO `employee_attendance` (`id`, `user_id`, `date_to_work`, `attendance_
 (31, 98, '2021-08-02', 'X', 'Công Trường', 'CO_MAT', NULL, 'KHONG', NULL, NULL),
 (32, 1, '2021-08-20', 'X2', 'Văn Phòng', 'CO_MAT', NULL, 'KHONG', NULL, NULL),
 (33, 1, '2021-08-21', 'X2', 'Văn Phòng', 'CO_MAT', NULL, 'KHONG', NULL, NULL),
-(34, 1, '2021-08-17', 'X', 'Văn Phòng', 'CO_MAT', NULL, 'KHONG', NULL, NULL);
+(34, 1, '2021-08-17', 'X', 'Văn Phòng', 'CO_MAT', NULL, 'KHONG', NULL, NULL),
+(35, 83, '2021-09-01', 'X', 'Văn Phòng', 'CO_MAT', NULL, 'KHONG', NULL, NULL),
+(36, 84, '2021-09-02', 'X', 'Văn Phòng', 'CO_MAT', NULL, 'KHONG', NULL, NULL),
+(37, 96, '2021-09-02', 'X', 'Công Trường', 'CO_MAT', NULL, 'KHONG', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5556,7 +5560,7 @@ CREATE TABLE IF NOT EXISTS `job` (
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `job`
@@ -5565,7 +5569,10 @@ CREATE TABLE IF NOT EXISTS `job` (
 INSERT INTO `job` (`id`, `title`, `description`) VALUES
 (1, 'Job số 1', 'Mô tả job số 1'),
 (2, 'Job số 2', 'Mô tả job số 2'),
-(5, 'Lập Trình Viên', 'nghề lập trình viên');
+(5, 'Lập Trình Viên', 'nghề lập trình viên'),
+(6, 'Quản trị kinh doanh', 'đây là nghề quản trị kinh doanh'),
+(7, 'Hướng dẫn viên du lịch', 'Đây là nghề hướng dẫn viên du lịch'),
+(8, 'Kỹ Thuật Viên', 'Đây là mô tả nghề kỹ thuật viên');
 
 -- --------------------------------------------------------
 
@@ -5665,7 +5672,7 @@ CREATE TABLE IF NOT EXISTS `labour_attendance` (
   KEY `fk_presenceMember_labour` (`labour_id`),
   KEY `fk_presenceMember_project` (`project_id`),
   KEY `FK_labourAttendance_projectDetail` (`project_detail_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `labour_attendance`
@@ -5683,7 +5690,9 @@ INSERT INTO `labour_attendance` (`id`, `labour_id`, `project_id`, `start_datetim
 (18, 77, 164, '01:00:00', '10:30:00', '2021-08-19', 8.5, NULL, NULL, '17:00:00', '17:00:00', 0, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-08-19', '2021-08-20', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 1, 1, 618),
 (19, 77, 164, '17:00:00', '17:00:00', '2021-08-19', 0, NULL, 'TANG_CA_THUONG_TOI', '11:10:00', '13:10:00', 2, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-08-19', '2021-08-20', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 1, NULL, 618),
 (20, 76, 164, '01:15:00', '10:15:00', '2021-08-20', 7, NULL, NULL, '17:00:00', '17:00:00', 0, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-08-20', '2021-08-21', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 1, 2, 619),
-(21, 76, 164, '17:00:00', '17:00:00', '2021-08-21', 0, NULL, 'TANG_CA_THUONG_TOI', '11:15:00', '17:00:00', 0, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-08-21', '2021-08-21', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 0, 0, 618);
+(21, 76, 164, '17:00:00', '17:00:00', '2021-08-21', 0, NULL, 'TANG_CA_THUONG_TOI', '11:15:00', '17:00:00', 0, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-08-21', '2021-08-21', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 0, 0, 618),
+(22, 76, 164, '01:00:00', '17:00:00', '2021-09-06', 0, NULL, NULL, '17:00:00', '17:00:00', 0, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-09-06', '2021-09-06', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 0, 0, 619),
+(23, 77, 165, '01:00:00', '10:30:00', '2021-09-05', 8.5, NULL, NULL, '17:00:00', '17:00:00', 0, 'KHONG', '17:00:00', 0, NULL, NULL, 1, 1, '2021-09-05', '2021-09-06', NULL, 'KHONG', 'KHONG', NULL, 'KHONG', NULL, 'KHONG', NULL, NULL, 'KHONG', 'KHONG', NULL, 1, 1, 620);
 
 -- --------------------------------------------------------
 
@@ -6659,7 +6668,7 @@ CREATE TABLE IF NOT EXISTS `swot_item` (
   `swot_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `swot_item`
@@ -6672,7 +6681,10 @@ INSERT INTO `swot_item` (`id`, `title`, `swot_type`, `description`) VALUES
 (4, 'Tiếng Anh Tốt', 'OPPORTUNITY', 'đây là mô tả danh mục t.a'),
 (5, 'Lười', 'THREAT', 'đây là demo thách thức'),
 (6, 'Giao tiếp giỏi', 'STRENGTH', 'giao tiếp tốt'),
-(7, 'Phân tích giỏi', 'STRENGTH', 'adadawasdw');
+(7, 'Phân tích giỏi', 'STRENGTH', 'adadawasdw'),
+(8, 'Bán hàng tốt', 'STRENGTH', 'Đây là danh mục SWOT bán hàng tốt UPDATE'),
+(9, 'Giỏi toán', 'STRENGTH', 'giỏi toán'),
+(10, 'Giỏi code', 'STRENGTH', 'asdawasd');
 
 -- --------------------------------------------------------
 
@@ -6689,7 +6701,7 @@ CREATE TABLE IF NOT EXISTS `swot_job` (
   PRIMARY KEY (`id`),
   KEY `job_id` (`job_id`),
   KEY `swot_item_id` (`swot_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `swot_job`
@@ -6701,7 +6713,13 @@ INSERT INTO `swot_job` (`id`, `job_id`, `swot_item_id`, `description`) VALUES
 (3, 1, 1, 'xxxxxxx xxxxx 1-1'),
 (5, 2, 4, 'abasca'),
 (6, 5, 4, 'phải giỏi tiếng anh'),
-(7, 5, 7, 'giỏi toán');
+(7, 5, 7, 'giỏi toán'),
+(8, 6, 1, 'asdasdw'),
+(9, 6, 3, 'qwedasd'),
+(10, 7, 6, 'asdas'),
+(11, 7, 7, 'qweqwe'),
+(12, 8, 7, 'đây là kỹ năng cần thiết cho nghề kỹ thuật viên'),
+(13, 6, 6, 'asdadadasd');
 
 -- --------------------------------------------------------
 
@@ -6712,14 +6730,14 @@ INSERT INTO `swot_job` (`id`, `job_id`, `swot_item_id`, `description`) VALUES
 DROP TABLE IF EXISTS `swot_user`;
 CREATE TABLE IF NOT EXISTS `swot_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `swot_item_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
+  `swot_item_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `number_of_years` int(11) DEFAULT NULL,
   `note` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `swot_item_id` (`swot_item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `swot_user`
@@ -6727,9 +6745,16 @@ CREATE TABLE IF NOT EXISTS `swot_user` (
 
 INSERT INTO `swot_user` (`id`, `swot_item_id`, `user_id`, `number_of_years`, `note`) VALUES
 (3, 4, 1, 9, 'test demo'),
-(6, 1, NULL, 1, 'Kinh nghiem'),
 (9, 3, 97, 9, '9 năm kn'),
-(15, 5, 1, 4, 'nasdasdasd');
+(15, 5, 1, 4, 'nasdasdasd'),
+(16, 1, 73, 5, 'asdasdasd'),
+(17, 3, 73, 7, 'awdasdawd'),
+(18, 6, 73, 4, 'xxxxxx'),
+(19, 6, 80, 4, 'asdasd'),
+(20, 6, 98, 10, 'tiếng anh rất tốt'),
+(21, 7, 80, 5, 'phân tích rất tốt'),
+(22, 8, 102, 15, 'asdwad'),
+(23, 6, 102, 10, 'asdasdasdasd');
 
 -- --------------------------------------------------------
 
@@ -6774,7 +6799,6 @@ INSERT INTO `user_role` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`)
 (717, 66, 7, NULL, NULL),
 (718, 74, 7, NULL, NULL),
 (719, 45, 7, NULL, NULL),
-(726, 80, 2, NULL, NULL),
 (740, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -6828,7 +6852,7 @@ CREATE TABLE IF NOT EXISTS `user_table` (
   KEY `fk_user_userCreated` (`created_user_email`),
   KEY `department_id` (`department_id`),
   KEY `job_id` (`job_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `user_table`
@@ -6854,20 +6878,21 @@ INSERT INTO `user_table` (`id`, `email`, `company_id`, `job_id`, `password`, `ro
 (58, 'thudha@tamaninterior.com', 3, NULL, '$2a$10$yunW2IEyYslGkbNoVItoKOzQ5fnaAcMPqGk/i2HVU4YGwR.HSP09i', 'ADMIN', 'Đặng Hoàng Anh Thư', NULL, '0702224890', NULL, 5, 0, 0, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, 'FEMALE', NULL, '189/14/12C Hoàng Hoa Thám, Phường 6, Quận Bình Thạnh, TP.HCM', NULL, 'Kế toán nội bộ', 'TA-TD-01', 'phuongphan@tamaninterior.com', 'phuongphan@tamaninterior.com', NULL, NULL, 0, 0, 0, 0, 0, 0),
 (73, 'maihv@pco.asia', 4, NULL, '$2a$10$/svc8lzAVNRjogZ/FqStgub7r/7s6.eLKNgVz.081HlYzr96yIPMO', 'ADMIN', 'Huỳnh Văn Mãi', '1997-03-28', '0396535423', NULL, 21, 0, 1, NULL, NULL, 5, NULL, NULL, 385681864, '2015-02-27', 'Bạc Liêu', 'MALE', 'Ấp 19, Xã Phong Thạnh,TX.Giá Rai,TP.Bạc Liêu', '274/10 Bùi Đình Túy,Phường 12,Quận Bình Thạnh,TPHCM', '2020-08-24', 'Kỹ sư công trình', 'PCO-MHV-01', 'phuongphan@tamaninterior.com', 'phuongphan@tamaninterior.com', NULL, NULL, 4800000, 4800000, 0, 0, 0, 0),
 (74, 'trungtv@pco.asia', 4, NULL, '$2a$10$49CZzX8L26aePnbtKsohe.D5xKmlxhl1.ewqARSa2ayfbEPjLHmL6', 'ADMIN', 'Trần Vĩnh Trung', '1993-10-03', '0358027755', NULL, 12, 0, 0, NULL, NULL, 5, NULL, NULL, 225554182, '2018-11-21', 'Khánh Hòa', 'MALE', '', NULL, '2020-08-31', 'Kỹ sư công trình', 'PCO-TTV-01', 'phuongphan@tamaninterior.com', 'phuongphan@tamaninterior.com', NULL, NULL, 5500000, 7000000, 1500000, 0, 0, 0),
-(80, 'maicuong@gmail.com', 3, NULL, '$2a$10$nyZrpDFkAdWkSoqy2CkGC.IqXeSEokckamqNQKM56HIRfkFDiBBji', 'ADMIN', 'Mai Trí Cường', '1989-07-02', '0989718370', NULL, 28, 0, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 Man Thiện', NULL, NULL, 'TC11', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
+(80, 'maicuong@gmail.com', 3, 8, '$2a$10$nyZrpDFkAdWkSoqy2CkGC.IqXeSEokckamqNQKM56HIRfkFDiBBji', 'ADMIN', 'Mai Trí Cường', '1989-07-01', '0989718370', NULL, 28, 0, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 Man Thiện', NULL, NULL, 'TC11', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (82, 'cuongtrest@gmail.com', 4, NULL, '$2a$10$4jXwvnIWPq0xZ5PZe9j/PeXMk5ENGS8VanfBH0qagX1f0hiAL5wqS', 'ADMIN', 'Cường Test 01', '1989-07-07', '0256412547', NULL, 28, 0, 1, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdasd asdasdad 12', NULL, NULL, 'asd152', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (83, 'cuongtest02@gmail.comasd', 3, NULL, '$2a$10$ZUDGRqDMR78wnELvfL2uEO.1Nj.A9obj0/Pqan76Dvj02zeMGkl0G', 'ADMIN', 'Cường Test 02', '1989-07-07', '0558741235', NULL, 28, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdasd adasdasd 12', NULL, NULL, 'Test02', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (84, 'tc011@gmail.com', 3, NULL, '$2a$10$1gf59Ah8Yz.r6eZd8/J08OgxuR6Ag00Tjvq2KxdwNjVPqJyx5svNO', 'ADMIN', 'Trí Cường 1100', '1989-07-06', '02564125874', NULL, 28, 0, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'adasd adadasd 11', NULL, NULL, 'TC01100', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (85, 'tricuongtest01@gmail.com', 3, NULL, '$2a$10$UL/vaKY1OWQQmQkXs/8cWucNy8kKom8TyNg3K/8MEq1YfmEWW5z8q', 'ADMIN', 'Mai Trí Cường Testss', '1992-07-09', '0989718370', NULL, 30, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 man thien', NULL, NULL, 'TC1105', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
-(86, 'xxxx@gmail.com', 3, NULL, '$2a$10$YJprOpnREBrOsQsYqorCSO8cHQkU3qC4eY7VYoGZG/EiqzummgUHS', 'ADMIN', 'tên đổi rồi nè', '1988-07-10', 'xxxxxx', NULL, 29, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'xxxxxx xxxxxx', NULL, NULL, 'xxxxx', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (90, 'cuong123@gmail.com', 3, NULL, '$2a$10$rOSNoG//v8rYuuJaPVdUjOtcXsayoiG9nUXGDZYJlc/GG7WwFqYwO', 'ADMIN', 'Nguyễn Văn Tèo', '1989-07-03', '0989564523', NULL, 25, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdasd asdasd 12358', NULL, NULL, 'qdasd', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (92, 'meonguyen@gmail.com', 3, NULL, '$2a$10$YtiCgrvw.6.NmLIJJpd1J.3f1YhGrzUYW/4JwbIwiOqj1KZ70iLtm', 'ADMIN', 'Nguyễn Thị Mèo', '1989-07-04', '0545879865', NULL, 30, 0, 1, NULL, NULL, 12, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 man thien, q.9', NULL, NULL, 'Meo00', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (95, 'tynguyen@gmail.com', 3, NULL, '$2a$10$E6abbFj4Hh.KrCrok6eP..TUuC9Q.8AWgj57xVVQsogh9uZL8.dbK', 'ADMIN', 'Nguyễn Tuổi Tý 11', '1989-07-13', '0989718370', NULL, 28, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 Man Thiện', NULL, NULL, 'NVT11', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (96, 'xoai@gmail.com', 3, NULL, '$2a$10$u70ClwVGdP4YhYtrmmtuiOnHhYoWaFL9VlpwcVA8W9P6VqdfgnkLe', 'ADMIN', 'Dương Văn Xoài', '1991-07-15', '0989718370', NULL, 28, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdasd asdasd 97', NULL, NULL, 'TE', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
 (97, 'coc@gmail.com', 3, NULL, '$2a$10$p8S.iwD7au8lqH0MkIrjf.QjrEFR9/70NYPaXHpsvimCSZyRx7.8i', 'ADMIN', 'Dương Thị Cóc', '1989-07-14', '02558416587', NULL, 28, 0, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 Lê Văn Việt', NULL, NULL, 'COC', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
-(98, 'tricuong1105@gmail.com', 3, NULL, '$2a$10$EppUqyOdMqoXfRbLLSJRW.HrzqKQeYHfUfaaBe9jo4.QHhJTaehdu', 'ADMIN', 'Trí Cường Mai update', '2000-07-25', '0989718375', NULL, 28, 0, 1, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '20 Vũ Tông Phan', NULL, NULL, 'MTC11', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
-(99, 'qweq@gmail.com', 3, NULL, '$2a$10$FHSdgXP4.SxBDJ1ZaPfc/eYvFvrYpHrYlAk/TfXYeBcpX1GIf.t8.', 'ADMIN', 'ertere', '1989-10-19', '025646458', NULL, 28, 0, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdqwwq qweq 231', NULL, NULL, 'qweqwe', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
-(100, 'nguyenmit@gmail.com', 3, 5, '$2a$10$aN5tptBcH1sZqd7p6TBsaOg2L0MJQ3hBTcdF2hctEDiQ6zA7Ah6LS', 'ADMIN', 'Nguyễn Văn Mít', '1998-08-06', '0256365489', NULL, 25, 0, 1, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdasd qweqwe asd 97', NULL, NULL, 'MMMTT', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL);
+(98, 'tricuong1105@gmail.com', 3, NULL, '$2a$10$EppUqyOdMqoXfRbLLSJRW.HrzqKQeYHfUfaaBe9jo4.QHhJTaehdu', 'ADMIN', 'Trí Cường Mai update rồi nè', '2000-07-24', '0989718375', NULL, 28, 0, 1, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '20 Vũ Tông Phan', NULL, NULL, 'MTC11', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
+(99, 'qweq@gmail.com', 3, NULL, '$2a$10$FHSdgXP4.SxBDJ1ZaPfc/eYvFvrYpHrYlAk/TfXYeBcpX1GIf.t8.', 'ADMIN', 'Tên đã update', '1989-10-18', '025646458', NULL, 28, 0, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdqwwq qweq 231', NULL, NULL, 'Test02', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
+(100, 'nguyenmit@gmail.com', 3, 5, '$2a$10$aN5tptBcH1sZqd7p6TBsaOg2L0MJQ3hBTcdF2hctEDiQ6zA7Ah6LS', 'ADMIN', 'Nguyễn Văn Mít', '1998-08-06', '0256365489', NULL, 25, 0, 1, NULL, NULL, 11, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, 'asdasd qweqwe asd 97', NULL, NULL, 'MMMTT', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
+(101, 'asdwasdwasd@gmail.com', 3, 7, '$2a$10$300bWYEicso7Kl/I8VVE2etvkqxgqtfYdutj3b5WgGrhHhr/tzEy.', 'ADMIN', 'Nguyễn Gấu Mập', '1989-08-29', '0587459658', NULL, 15, 0, 1, NULL, NULL, 17, NULL, NULL, NULL, NULL, NULL, 'MALE', NULL, '97 man thiện', NULL, NULL, 'MTC11', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL),
+(102, 'adadsad@gmail.com', 3, 6, '$2a$10$5lQSCdbqXGiSvCYlJckFsOFn66Lg1wUowLDuykP0x4NhC47jKIBI.', 'ADMIN', 'Dương Thị Hương', '1989-09-05', '0989718370', NULL, 15, 0, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 'FEMALE', NULL, '97 man thien', NULL, NULL, 'testxxx', 'admin@tamaninterior.com', 'admin@tamaninterior.com', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL);
 
 --
 -- Các ràng buộc cho các bảng đã đổ
