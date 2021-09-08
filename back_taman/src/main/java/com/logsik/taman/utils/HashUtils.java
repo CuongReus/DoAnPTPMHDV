@@ -2,9 +2,7 @@ package com.logsik.taman.utils;
 
 import org.hashids.Hashids;
 
-/**
- * Created by phamcongbang on 16/05/2018.
- */
+
 public class HashUtils {
     private static String ALPHABET = "ABCDEFGHIKLMNPQRSTVXYZ1234567890";
     public static String hashNumber(Long number) {

@@ -358,7 +358,7 @@ class ModalEmployeeAttendance extends React.Component {
                     { value: "NB2", label: "NB2 -  Nghỉ bù nửa ngày" }
                 ]
                 
-                    optionAttendanceType.unshift({ value: "PN", label: "PN - Nghỉ phép năm" }, { value: "PN2", label: "PN2 -  Nghỉ phép năm nửa ngày" })
+                    // optionAttendanceType.unshift({ value: "PN", label: "PN - Nghỉ phép năm" }, { value: "PN2", label: "PN2 -  Nghỉ phép năm nửa ngày" })
                 
                 }
 

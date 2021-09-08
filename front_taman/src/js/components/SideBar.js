@@ -64,26 +64,12 @@ class SideBar extends React.Component {
 													<span>Danh Mục SWOT</span></Link>
 											</li>
 										</SecuredComponent>
-										<SecuredComponent allowedPermission="aadmin.department.read">
+										{/* <SecuredComponent allowedPermission="admin.department.read">
 											<li className={currentUrl == '/listSwotUser' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listSwotUser'><i className="icon-users4"></i>
 													<span>SWOT</span></Link>
 											</li>
-										</SecuredComponent>
-										
-										<SecuredComponent allowedPermission="admin.department.read">
-											<li className={currentUrl == '/listJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listJob'><i className="icon-magazine"></i>
-													<span>Nghề nghiệp</span></Link>
-											</li>
-										</SecuredComponent>
-
-										<SecuredComponent allowedPermission="admin.department.read">
-											<li className={currentUrl == '/findMachedUserJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/findMachedUserJob'><i className="icon-users4"></i>
-													<span>Chọn nhân sự nghề nghiệp</span></Link>
-											</li>
-										</SecuredComponent>
+										</SecuredComponent> */}
 										
 										{/* <SecuredComponent allowedPermission="admin.roles.read">
 											<li className={currentUrl == '/listRole' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
@@ -91,12 +77,12 @@ class SideBar extends React.Component {
 													<span>Phân Quyền Hệ Thống</span></Link>
 											</li>
 										</SecuredComponent> */}
-										<SecuredComponent allowedPermission="admin.holiday.read">
+										{/* <SecuredComponent allowedPermission="admin.holiday.read">
 											<li className={currentUrl == '/listLeaveDay' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listLeaveDay'><i className="icon-certificate"></i>
 													<span>Quản Lý Ngày Phép</span></Link>
 											</li>
-										</SecuredComponent>
+										</SecuredComponent> */}
 									</ul>
 								</li>
 								<li><a href="#"><i className="icon-city"></i> <span>Thông Tin Đối Tác </span></a>
@@ -157,6 +143,22 @@ class SideBar extends React.Component {
 										</SecuredComponent> */}
 									</ul>
 								</li>
+								<li><a href="#"><i className="icon-city"></i> <span>Quản lý nghề nghiệp </span></a>
+									<ul>
+										<SecuredComponent allowedPermission="admin.department.read">
+											<li className={currentUrl == '/listJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/listJob'><i className="icon-magazine"></i>
+													<span>Nghề nghiệp</span></Link>
+											</li>
+										</SecuredComponent>
+
+										<SecuredComponent allowedPermission="admin.department.read">
+											<li className={currentUrl == '/findMachedUserJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/findMachedUserJob'><i className="icon-users4"></i>
+													<span>Chọn nhân sự nghề nghiệp</span></Link>
+											</li>
+										</SecuredComponent>
+									</ul></li>
 							</ul>
 						</div>
 					</div>

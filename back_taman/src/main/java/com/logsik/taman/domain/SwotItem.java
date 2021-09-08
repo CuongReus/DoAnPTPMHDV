@@ -68,8 +68,4 @@ public class SwotItem implements Serializable {
 		this.swotType = swotType;
 	}
 
-	
-	
-	
-
 }

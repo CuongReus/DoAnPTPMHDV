@@ -2,14 +2,13 @@ package com.logsik.taman.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,16 +23,12 @@ import com.logsik.taman.config.AuthorizationServerConfig;
 import com.logsik.taman.config.BCrypt;
 import com.logsik.taman.domain.FileUpload;
 import com.logsik.taman.domain.User;
-import com.logsik.taman.dtos.AnnualLeaveYearDto;
 import com.logsik.taman.dtos.RestResult;
-import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.dtos.UserDto;
 import com.logsik.taman.queries.PersonelSpecification;
-import com.logsik.taman.repository.CompanyRepository;
 import com.logsik.taman.repository.FileUploadRepository;
 import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
-import com.logsik.taman.service.impl.UserLeaveYearCalcService;
 import com.logsik.taman.service.impl.UserServiceImpl;
 
 @RestController
@@ -50,20 +45,12 @@ public class UserController extends AbstractController {
 
 	@Autowired
 	private FileUploadRepository fileUploadRepository;
-	@Autowired
-	private CompanyRepository companyRepository;
 
 	@Autowired
 	private DtoConverter dtoConverter;
 
 	@Autowired
-	private TokenStore tokenStore;
-
-	@Autowired
 	private AuthorizationServerConfig authorizationServerConfig;
-	
-	@Autowired
-	private UserLeaveYearCalcService userLeaveYearCalcService;
 
 	@RequestMapping("user/{id}")
 	public RestResult findById(@PathVariable(value = "id") Long id) {
@@ -122,7 +109,6 @@ public class UserController extends AbstractController {
 		}
 	}
 
-	// End Update User Image
 	// DeleteMapping
 	@DeleteMapping("/user/{id}")
 	public RestResult deleteUser(@PathVariable("id") Long id) {

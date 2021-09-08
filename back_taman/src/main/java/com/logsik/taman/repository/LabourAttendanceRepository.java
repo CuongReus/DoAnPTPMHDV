@@ -41,16 +41,6 @@ public interface LabourAttendanceRepository extends BaseRepository<LabourAttenda
 	List<LabourAttendance> findDistinctByDateToWork(Date dateToWork);
 	
 	
-	
-	
-//	@Query("select new com.logsik.taman.dtos.SumLabourAttendanceDto(la.labour,"
-//			+ "la.projectDetail.id,"
-//			+ "SUM(la.totalDatetime),"
-//			+ "SUM(CASE WHEN la.overtimeStatus = 'TANG_CA_THUONG_TOI' THEN la.totalOvertime ELSE 0 END),"
-//			+ "SUM(CASE WHEN la.overtimeStatus = 'TANG_CA_KHUYA' THEN la.totalOvertime ELSE 0 END)) "
-//			+ "from com.logsik.taman.domain.LabourAttendance la  WHERE la.labour.id =?1 AND la.projectDetail.id =?2 AND la.dateToWork BETWEEN ?3 AND ?4 ")
-//	SumLabourAttendanceDto sumAttendanceByProjectDetail(Long labourId,Long projectDetailId,Date startDate, Date endDate);
-//	
 	@Query("select new com.logsik.taman.dtos.SumLabourAttendanceDto(la.labour,"
 			+ "SUM(la.totalDatetime),"
 			+ "SUM(CASE WHEN la.overtimeStatus = 'TANG_CA_THUONG_TOI' THEN la.totalOvertime ELSE 0 END),"

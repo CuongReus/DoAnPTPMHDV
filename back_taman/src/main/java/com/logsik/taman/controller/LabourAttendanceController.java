@@ -18,14 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.logsik.taman.domain.LabourAttendance;
-import com.logsik.taman.domain.LabourSalary;
 import com.logsik.taman.dtos.LabourAttendanceDto;
 import com.logsik.taman.dtos.RestResult;
 import com.logsik.taman.repository.LabourAttendanceRepository;
-import com.logsik.taman.repository.LabourSalaryRepository;
 import com.logsik.taman.service.impl.DtoConverter;
-import com.logsik.taman.service.impl.LabourSalaryService;
-import com.logsik.taman.service.impl.TimeService;
+
 @RestController
 @RequestMapping("/api")
 public class LabourAttendanceController extends AbstractController {
@@ -38,15 +35,7 @@ public class LabourAttendanceController extends AbstractController {
 	private LabourAttendanceRepository labourAttendanceRepository;
 
 	@Autowired
-	private LabourSalaryRepository labourSalaryRepository; 
-	@Autowired
 	private DtoConverter dtoConverter;
-	
-	@Autowired
-	private LabourSalaryService labourSalaryService;
-	
-	@Autowired
-	private TimeService timeService;
 
 	@RequestMapping("labourAttendance/{id}")
 	public RestResult findById(@PathVariable(value = "id") Long id) {
@@ -124,26 +113,6 @@ public class LabourAttendanceController extends AbstractController {
 	@RequestMapping(value = "/labourAttendance/listAll")
 	public RestResult listAll() {
 		return new RestResult (labourAttendanceRepository.findAll());
-	}
-	@RequestMapping(value = "/labourAttendance/findByLabourId")
-	public RestResult listFindByLabourId(@RequestParam("labourId") Long labourId,
-			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
-			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
-		Object result = null;
-		
-		result =labourAttendanceRepository.findDistinctByLabourIdAndDateToWorkBetween(labourId, dateToWorkStart, dateToWorkEnd);
-		
-		
-		return new RestResult (result);
-	}
-	
-	@RequestMapping(value = "/labourAttendance/findByDateToWork")
-	public RestResult listFindByDateToWork(
-			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkStart,
-			@DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss") Date dateToWorkEnd) {
-		Object result = null;
-		result =labourAttendanceRepository.findDistinctByDateToWorkBetween(dateToWorkStart, dateToWorkEnd);
-		return new RestResult (result);
 	}
     
 	@RequestMapping(value = "/labourAttendance/findByLabourIdAndCreatedUserId")

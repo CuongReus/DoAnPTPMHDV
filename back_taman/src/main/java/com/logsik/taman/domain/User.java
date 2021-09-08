@@ -36,9 +36,6 @@ public class User implements Serializable {
 	@Access(AccessType.PROPERTY)
 	private Long id;
 
-	// @Column
-	// private String image;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id",updatable=false,insertable=false)
 	private Company company;
@@ -76,9 +73,6 @@ public class User implements Serializable {
 
 	@Column(length = 1024)
 	private String address;
-
-	// @Column
-	// private String labourContract;
 
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name="department_id",updatable=false,insertable=false)

@@ -292,7 +292,7 @@ class ModalJob extends React.Component {
                                                 </div>
                                                 <div className="row">
                                                     <div className="col-md-12">
-                                                    {this.state.isSwotJobModalShown ? <ModalSwotJob title="Thêm Swot nhân viên" idSwotJob={this.state.idSwotJob} show={this.state.isSwotJobModalShown} idJob={this.props.idJob} onHide={this.handleHideModalSwot} /> : null}
+                                                    {this.state.isSwotJobModalShown ? <ModalSwotJob title="SWOT nghề nghiệp" idSwotJob={this.state.idSwotJob} show={this.state.isSwotJobModalShown} idJob={this.props.idJob} onHide={this.handleHideModalSwot} /> : null}
 
                                                         <div className="panel panel-flat">
                                                             <table style={{ textAlign: 'center' }} className="table table-xxs">

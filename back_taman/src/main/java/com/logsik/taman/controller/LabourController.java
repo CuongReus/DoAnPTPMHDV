@@ -2,7 +2,6 @@ package com.logsik.taman.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.logsik.taman.domain.FileUpload;
 import com.logsik.taman.domain.Labour;
-import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.LabourDto;
 import com.logsik.taman.dtos.RestResult;
-import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.queries.LabourSpecification;
 import com.logsik.taman.repository.FileUploadRepository;
 import com.logsik.taman.repository.LabourRepository;
-import com.logsik.taman.repository.UserRepository;
 import com.logsik.taman.service.impl.DtoConverter;
 
 
@@ -45,8 +41,6 @@ public class LabourController extends AbstractController {
 	@Autowired
 	private FileUploadRepository fileUploadRepository;
 
-	@Autowired
-	private UserRepository userRepository;
 	@RequestMapping("labour/{id}")
 	public RestResult findById(@PathVariable(value = "id") Long id) {
 		Optional<Labour> labour = labourRepository.findById(id);
