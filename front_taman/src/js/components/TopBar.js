@@ -24,8 +24,8 @@ class TopBar  extends React.Component {
                 </div>);
         }
         return (
-            <div className="navbar navbar-default header-highlight">
-                <div className="navbar-header">
+            <div className="navbar navbar-inverse header-highlight">
+                <div className="navbar-header bg-menu">
                    <a className="navbar-brand" href="/">
                    </a>
                     <ul className="nav navbar-nav visible-xs-block">
@@ -40,7 +40,7 @@ class TopBar  extends React.Component {
                                 className="icon-arrow-left52"></i></a></li>
                     </ul>
                     <p className="navbar-text">
-                        <span className="label bg-success">Đang Hoạt Động</span>
+                        <span className="label bg-teal">Đang Hoạt Động</span>
                     </p>
 
                     <ul className="nav navbar-nav navbar-right">

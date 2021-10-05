@@ -217,21 +217,23 @@ class PersonelList extends React.Component {
         return (
 
             <div className="content-wrapper">
-
-
-                <div className="content">
-                    <div className="page-header">
-                        <h4>
-                            <i className=" icon-paragraph-justify2 position-left"></i>
-                            <span className="text-semibold">Danh sách Nhân Viên</span>
-                            <span className="pull-right">
-                                <SecuredComponent allowedPermission="admin.users.create">
-                                    <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
-                                </SecuredComponent>
-                            </span>
-                        </h4>
+                <div className="page-header page-header-default">
+                <div className="breadcrumb-line">
+                    <ul className="breadcrumb">
+                        <li><a href=""><i className="icon-home2 position-left"></i> Home</a> </li>
+                        <li className="active">Quản lý nhân sự</li>
+                        <li className="active">Danh sách nhân viên</li>
+                    </ul>
+                    <div className="heading-elements">
+                        <div className="heading-btn-group">
+                        <SecuredComponent allowedPermission="admin.users.create">
+                            <button style={{ marginLeft: '10px' }} className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                        </SecuredComponent>
+                        </div>
                     </div>
-
+                </div>
+                </div>
+                <div className="content">
                     <div className="row">
                         <div className="col-md-12">
                             <div className="panel panel-flat">
@@ -274,7 +276,7 @@ class PersonelList extends React.Component {
                             {this.state.isPersonelModalShown ? <ModalPersonel title="Nhân Viên" idUser={this.state.idUser} show={this.state.isPersonelModalShown} onHide={this.handleHidemodal} /> : null}
 
                             <div className="panel panel-flat">
-                                <table style={{ textAlign: 'center' }} className="table table-xxs">
+                                <table style={{ textAlign: 'center' }} className="table table-togglable table-bordered">
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>

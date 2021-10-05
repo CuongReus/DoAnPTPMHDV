@@ -3292,7 +3292,7 @@ li + .dropdown-header.highlight,
   margin-bottom: -1px;
 }
 .header-highlight .navbar-header:not([class*=bg-]) {
-  background-color: black;
+  /* background-color: black; */
   -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.1) inset, 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
   box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.1) inset, 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
 }

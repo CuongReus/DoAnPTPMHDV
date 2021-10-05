@@ -304,15 +304,16 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
         }
         return (
             <div className="content-wrapper">
+                <div className="page-header page-header-default">
+                <div className="breadcrumb-line">
+                    <ul className="breadcrumb">
+                        <li><a href=""><i className="icon-home2 position-left"></i> Home</a> </li>
+                        <li className="active">Quản lý ngày công</li>
+                        <li className="active">Danh sách ngày công nhân công</li>
+                    </ul>
+                </div>
+                </div>
                 <div className="content">
-                    <div className="page-header">
-                        <h4>
-                            <i className=" icon-paragraph-justify2 position-left"></i>
-                            <span className="text-semibold">Danh Sách Ngày Công Nhân Công</span>
-                            <span className="pull-right">
-                            </span>
-                        </h4>
-                    </div>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="panel panel-flat">
@@ -344,7 +345,7 @@ class ListLaboutAttendanceForSupervisor extends React.Component {
                         {this.state.isSetOutOvertimeModalShown ? <ModalLabourOvertimeAttendance title="Chấm Công Tăng Ca" idLabourAttendance={this.state.idLabourAttendance}   show={this.state.isSetOutOvertimeModalShown} onHide={this.handleHidemodal} /> : null}
                         {this.state.isEditLabourAbsentModalShown ? <ModalSetLabourAbsent title="Ngày Vắng Mặt" idLabourAttendance={this.state.idLabourAttendance} show={this.state.isEditLabourAbsentModalShown} onHide={this.handleHidemodal} /> : null}
                         <div className="panel panel-flat">
-                            <table className="table table-bordered table-hover">
+                            <table className="table table-bordered table-bordered">
                                 <thead>
                                     <tr className="bg-teal">
                                         <th rowSpan="2" className="text-center footable-visible footable-last-column" style={{ width: '30px' }}><i className="icon-menu-open2"></i></th>

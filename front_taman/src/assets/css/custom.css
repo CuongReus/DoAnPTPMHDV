@@ -281,3 +281,10 @@
     .div-scroll-1 {height: 1px; }
     .div-scroll-2 {width:1000px; height: 200px;
     overflow: auto;}
+.navigation > li > ul li.active > a, .navigation > li > ul li.active > a:hover, .navigation > li > ul li.active > a:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .page-header-default .breadcrumb-line:not([class*=bg-]) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

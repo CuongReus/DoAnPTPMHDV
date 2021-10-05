@@ -171,18 +171,23 @@ class SwotItemList extends React.Component {
 
         return (
             <div className="content-wrapper">
-                <div className="content">
-                    <div className="page-header">
-                        <h4>
-                            <i className=" icon-paragraph-justify2 position-left"></i>
-                            <span className="text-semibold">Danh sách danh mục SWOT</span>
-                            <span className="pull-right">
-                            <SecuredComponent allowedPermission="admin.department.create">
-                                <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
-                            </SecuredComponent>
-                            </span>
-                        </h4>
+                <div className="page-header page-header-default">
+                <div className="breadcrumb-line">
+                    <ul className="breadcrumb">
+                        <li><a href=""><i className="icon-home2 position-left"></i> Home</a> </li>
+                        <li className="active">Quản lý nhân sự</li>
+                        <li className="active">Danh sách danh mục SWOT</li>
+                    </ul>
+                    <div className="heading-elements">
+                        <div className="heading-btn-group">
+                        <SecuredComponent allowedPermission="admin.department.create">
+                            <button className="btn bg-teal" onClick={() => this.handleShowmodal()}>Thêm Mới</button>
+                        </SecuredComponent>
+                        </div>
                     </div>
+                </div>
+                </div>
+                <div className="content">
                     <div className="row">
                         <div className="col-md-12">
                             <div className="panel panel-flat">
@@ -206,7 +211,7 @@ class SwotItemList extends React.Component {
                             {this.state.isSwotItemModalShown ? <ModalSwotItem title="Danh Mục SWOT" idSwotItem={this.state.idSwotItem} show={this.state.isSwotItemModalShown} onHide={this.handleHidemodal} /> : null}
 
                             <div className="panel panel-flat">
-                                <table className="table table-togglable table-hover">
+                                <table className="table table-togglable table-bordered">
                                     <thead>
                                         <tr className="bg-teal">
                                             <th data-toggle="true">STT</th>

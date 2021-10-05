@@ -7,9 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-/**
- * Created by phamcongbang on 15/03/2018.
- */
+
 @Component
 public class CustomPasswordEncoder implements PasswordEncoder {
 	private final Log logger = LogFactory.getLog(getClass());

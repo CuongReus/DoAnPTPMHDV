@@ -20,20 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.logsik.taman.domain.EmployeeAttendance;
-import com.logsik.taman.domain.EmployeeSalary;
 import com.logsik.taman.domain.LeaveLetter;
 import com.logsik.taman.dtos.EmployeeAttendanceDto;
 import com.logsik.taman.dtos.RestResult;
-import com.logsik.taman.dtos.SumEmployeeAttendanceDto;
 import com.logsik.taman.enums.AttendanceStatus;
 import com.logsik.taman.enums.AttendanceType;
 import com.logsik.taman.enums.TypeOfLeave;
 import com.logsik.taman.repository.EmployeeAttendanceRepository;
-import com.logsik.taman.repository.EmployeeSalaryRepository;
 import com.logsik.taman.repository.LeaveLetterRepository;
 import com.logsik.taman.service.impl.DtoConverter;
 import com.logsik.taman.service.impl.EmployeeAbsentAttendanceService;
-import com.logsik.taman.service.impl.EmployeeSalaryService;
 import com.logsik.taman.service.impl.TimeService;
 
 @RestController
@@ -41,14 +37,9 @@ import com.logsik.taman.service.impl.TimeService;
 @Transactional
 public class EmployeeAttendanceController extends AbstractController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeAttendanceController.class);
-	private static final String MESSAGES_LATE_SET_ATTENDANCE = "Không được chấm công nhân viên này khi đã được duyệt thanh toán! Vui lòng liên hệ Ban Giám Đốc để biết rõ thông tin.";
-	private static final String MESSAGES_LATE_UPDATE_ATTENDANCE = "Không được chỉnh sửa ngày công nhân viên này khi đã được duyệt thanh toán! Vui lòng liên hệ Ban Giám Đốc để biết rõ thông tin.";
 
 	@Autowired
 	private EmployeeAttendanceRepository employeeAttendanceRepository;
-	
-	@Autowired
-	private EmployeeSalaryRepository employeeSalaryRepository;
 	
 	@Autowired
 	private LeaveLetterRepository leaveLetterRepository;
@@ -58,9 +49,6 @@ public class EmployeeAttendanceController extends AbstractController{
 	
 	@Autowired
 	private TimeService timeService;
-	
-	@Autowired
-	private EmployeeSalaryService employeeSalaryService;
 	
 	@Autowired
 	private EmployeeAbsentAttendanceService employeeAbsentAttendanceService;
@@ -77,7 +65,7 @@ public class EmployeeAttendanceController extends AbstractController{
 	public RestResult add(@RequestBody EmployeeAttendanceDto employeeAttendanceDto) {
 		try {
 			EmployeeAttendance newEmployeeAttendance=  dtoConverter.convertToEmployeeAttendance(employeeAttendanceDto);
-			
+//			Check vang mat de tinh ngay phep
 			if(newEmployeeAttendance.getStatus() == AttendanceStatus.VANG_MAT) {
 				 int month = timeService.getMonth(newEmployeeAttendance.getDateToWork());
 				 

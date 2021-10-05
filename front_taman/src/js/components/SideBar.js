@@ -36,7 +36,7 @@ class SideBar extends React.Component {
 		}
 		var currentUrl = this.state.currentUrl;
 		return (
-			<div className="sidebar sidebar-main">
+			<div className="sidebar sidebar-main bg-menu">
 				<div className="sidebar-content">
 					<div className="sidebar-category sidebar-category-visible">
 						<div className="category-content no-padding">
@@ -64,27 +64,24 @@ class SideBar extends React.Component {
 													<span>Danh Mục SWOT</span></Link>
 											</li>
 										</SecuredComponent>
-										{/* <SecuredComponent allowedPermission="admin.department.read">
-											<li className={currentUrl == '/listSwotUser' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listSwotUser'><i className="icon-users4"></i>
-													<span>SWOT</span></Link>
-											</li>
-										</SecuredComponent> */}
-										
-										{/* <SecuredComponent allowedPermission="admin.roles.read">
-											<li className={currentUrl == '/listRole' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listRole'><i className="icon-user-check"></i>
-													<span>Phân Quyền Hệ Thống</span></Link>
-											</li>
-										</SecuredComponent> */}
-										{/* <SecuredComponent allowedPermission="admin.holiday.read">
-											<li className={currentUrl == '/listLeaveDay' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listLeaveDay'><i className="icon-certificate"></i>
-													<span>Quản Lý Ngày Phép</span></Link>
-											</li>
-										</SecuredComponent> */}
 									</ul>
 								</li>
+								<li><a href="#"><i className="icon-city"></i> <span>Quản lý nghề nghiệp </span></a>
+									<ul>
+										<SecuredComponent allowedPermission="admin.department.read">
+											<li className={currentUrl == '/listJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/listJob'><i className="icon-magazine"></i>
+													<span>Nghề nghiệp</span></Link>
+											</li>
+										</SecuredComponent>
+
+										<SecuredComponent allowedPermission="admin.department.read">
+											<li className={currentUrl == '/findMachedUserJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/findMachedUserJob'><i className="icon-users4"></i>
+													<span>Điều chuyển nhân sự</span></Link>
+											</li>
+										</SecuredComponent>
+									</ul></li>
 								<li><a href="#"><i className="icon-city"></i> <span>Thông Tin Đối Tác </span></a>
 									<ul>
 										<SecuredComponent allowedPermission="admin.contact.read">
@@ -110,7 +107,7 @@ class SideBar extends React.Component {
 														currentUser: currentUser
 													}
 												}}><i className="icon-hammer-wrench"></i>
-													<span>Nhân Công & Chấm Công</span></Link></li>
+													<span>Khối Nhân Công</span></Link></li>
 										</SecuredComponent>
 										<SecuredComponent allowedPermission="admin.employeeAttendance.read">
 											<li className={currentUrl == '/listEmployeeAttendance' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
@@ -120,7 +117,7 @@ class SideBar extends React.Component {
 														currentUser: currentUser
 													}
 												}}><i className="icon-hammer-wrench"></i>
-													<span>Chấm Công khối văn phòng</span></Link></li>
+													<span>Khối Văn Phòng</span></Link></li>
 										</SecuredComponent>
 										<SecuredComponent allowedPermission="admin.labourAttendance.forSupervisor">
 											<li className={currentUrl == '/listLabourAttendanceForSupervisor' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
@@ -132,33 +129,8 @@ class SideBar extends React.Component {
 												}}><i className="icon-user-tie"></i>
 													<span>Thuộc Về Giám Sát</span></Link></li>
 										</SecuredComponent>
-										{/* <SecuredComponent allowedPermission="admin.labourAttendance.forAttendanceDepart">
-											<li className={currentUrl == '/attendanceGeneralScreen' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to={{
-													pathname: '/attendanceGeneralScreen', state: {
-														currentUser: currentUser
-													}
-												}}><i className="icon-calendar22"></i>
-													<span>Tổng Chấm Công</span></Link></li>
-										</SecuredComponent> */}
 									</ul>
 								</li>
-								<li><a href="#"><i className="icon-city"></i> <span>Quản lý nghề nghiệp </span></a>
-									<ul>
-										<SecuredComponent allowedPermission="admin.department.read">
-											<li className={currentUrl == '/listJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/listJob'><i className="icon-magazine"></i>
-													<span>Nghề nghiệp</span></Link>
-											</li>
-										</SecuredComponent>
-
-										<SecuredComponent allowedPermission="admin.department.read">
-											<li className={currentUrl == '/findMachedUserJob' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
-												<Link to='/findMachedUserJob'><i className="icon-users4"></i>
-													<span>Chọn nhân sự nghề nghiệp</span></Link>
-											</li>
-										</SecuredComponent>
-									</ul></li>
 							</ul>
 						</div>
 					</div>

@@ -41,15 +41,31 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 const DaysInMonth = (props) => {
-  const { listEmployeeAttendance, userId, date } = props
-  
-  var theadAttendance =
+  const { listEmployeeAttendance, userId, date } = props;
 
+  var theadAttendance = (
     <th key={"dayInMonth_"}>
-      {dateFns.getDay(date) == 0 ? <span><center>{dateFns.format(date, 'D')} <br />{"CN"}</center></span> :
-        <span><center>{dateFns.format(date, 'D')}<br />{"T" + (dateFns.getDay(date) + 1)}</center></span>} </th>
-  return [theadAttendance]
-}
+      {" "}
+      {dateFns.getDay(date) == 0 ? (
+        <span>
+          <center>
+            {" "}
+            {dateFns.format(date, "D")} <br /> {"CN"}{" "}
+          </center>{" "}
+        </span>
+      ) : (
+        <span>
+          <center>
+            {" "}
+            {dateFns.format(date, "D")} <br />{" "}
+            {"T" + (dateFns.getDay(date) + 1)}{" "}
+          </center>{" "}
+        </span>
+      )}{" "}
+    </th>
+  );
+  return [theadAttendance];
+};
 
 const BodyAttendance = (props) => {
   const {
@@ -446,22 +462,16 @@ const CalendarHeader = (props) => {
       <div className="col-md-3">
         <br />
         <div className="btn-group">
-          <button type="button" className="btn btn-primary" onClick={props.prev}>
-            &lt;{" "}
-          </button>{" "}
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={props.today}
-          >
-            Tháng Hiện Tại{" "}
+          <button type="button" className="btn btn-primary" onClick={props.prev}>&lt;</button>
+          <button type="button" className="btn btn-primary" onClick={props.today}>
+            Tháng Hiện Tại
           </button>{" "}
           <button
             type="button"
             className="btn btn-primary"
             onClick={props.next}
           >
-            &gt;{" "}
+            &gt;
           </button>{" "}
         </div>{" "}
         <h3> Tháng {dateFns.format(props.currentDate, "MM / YYYY")} </h3>{" "}
@@ -541,8 +551,12 @@ class EmployeeAttendanceList extends React.Component {
         employeeAttendanceDto: employeeAttendanceObj,
       });
     };
-    this.handleShowModalAddAttendance = this.handleShowModalAddAttendance.bind(this);
-    this.handleShowModalEditAttendance = this.handleShowModalEditAttendance.bind(this);
+    this.handleShowModalAddAttendance = this.handleShowModalAddAttendance.bind(
+      this
+    );
+    this.handleShowModalEditAttendance = this.handleShowModalEditAttendance.bind(
+      this
+    );
     this.updateEmployeeAttendance = this.updateEmployeeAttendance.bind(this);
     this.handleHideAttendanceModal = () => {
       this.updateEmployeeAttendance(this.state.userId);
@@ -587,7 +601,7 @@ class EmployeeAttendanceList extends React.Component {
       isLoading: true,
     });
     var currentDate = this.state.currentDate;
-    
+
     var startDateOfMonth = moment(dateFns.startOfMonth(currentDate)).format(
       "YYYY-MM-DD-HH:mm:ss"
     );
@@ -794,14 +808,14 @@ class EmployeeAttendanceList extends React.Component {
   render() {
     const firstOfTheWeek = this.state.currentDate;
     const currentUser = this.props.currentUser;
-    
+
     const currentDate = new Date(this.state.currentDate.getTime());
     var itemsPerPage = 4;
-    
+
     // pagination for contractItems
     var listEmployeeAttendance = this.state.listEmployeeAttendance;
     var isEmployeeActive = this.props.isEmployeeActive;
-    
+
     if (!currentUser) {
       return null;
     }
@@ -877,12 +891,20 @@ class EmployeeAttendanceList extends React.Component {
     var currentNo = (page - 1) * 20;
     return (
       <div className="content-wrapper">
-        <div className="content">
-          <div className="page-header">
-            <h4>
-              <span className="text-semibold"> Quản Lý Ngày Công </span>{" "}
-            </h4>{" "}
+        <div className="page-header page-header-default">
+          <div className="breadcrumb-line">
+            <ul className="breadcrumb">
+              <li>
+                <a href="">
+                  <i className="icon-home2 position-left"> </i> Home{" "}
+                </a>{" "}
+              </li>{" "}
+              <li className="active"> Quản lý ngày công </li>{" "}
+              <li className="active"> Khối văn phòng </li>{" "}
+            </ul>{" "}
           </div>{" "}
+        </div>{" "}
+        <div className="content">
           <div className="row">
             <div className="col-md-12">
               <div className="panel panel-flat">
@@ -901,8 +923,8 @@ class EmployeeAttendanceList extends React.Component {
                           next={this.next}
                           prev={this.prev}
                           today={this.today}
-                        />{" "}
-                      </span>{" "}
+                        />
+                      </span>
                       <br />
                       <span style={wrapperStyle}>
                         <label
@@ -912,14 +934,14 @@ class EmployeeAttendanceList extends React.Component {
                           className="control-label col-md-2"
                           htmlFor="active"
                         >
-                          TT Hoạt Động{" "}
-                        </label>{" "}
+                          TT Hoạt Động
+                        </label>
                         <div className="col-md-3">
                           <Field
                             component={RenderSwitch}
                             name="isEmployeeActive"
-                          ></Field>{" "}
-                        </div>{" "}
+                          ></Field>
+                        </div>
                       </span>
                       {this.state.isShownEmployeeAttendance ? (
                         <ModalEmployeeAttendance
@@ -934,12 +956,12 @@ class EmployeeAttendanceList extends React.Component {
                           show={this.state.isShownEmployeeAttendance}
                           onHide={this.handleHideAttendanceModal}
                         />
-                      ) : null}{" "}
+                      ) : null}
                       {this.state.isLoading ? (
                         <ModalLoading
                           show={this.state.isLoading}
                         ></ModalLoading>
-                      ) : null}{" "}
+                      ) : null}
                       {this.state.isEditEmployeeAttendanceModal ? (
                         <ModalEmployeeAttendance
                           title="Chỉnh Sửa Ngày Công"
@@ -969,7 +991,7 @@ class EmployeeAttendanceList extends React.Component {
                           onHide={this.handleHideAttendanceModal}
                           isAttendance={true}
                         />
-                      ) : null}
+                      ) : null}{" "}
                       <br
                         style={{
                           lineHeight: "100px",
@@ -1001,8 +1023,8 @@ class EmployeeAttendanceList extends React.Component {
                 }}
                 className="scroll-wrapper1"
               >
-                <div className="div-scroll-1"> </div>{" "}
-              </div>{" "}
+                <div className="div-scroll-1"> </div>
+              </div>
               <div
                 style={{
                   overflow: "auto",
@@ -1018,40 +1040,37 @@ class EmployeeAttendanceList extends React.Component {
                   <thead>
                     <tr>
                       <th
-                        className="bg-success"
+                        className="bg-teal"
                         style={{
                           position: "sticky",
                           left: 0,
                         }}
                         rowSpan={2}
                       >
-                        STT
-                      </th>
+                        STT{" "}
+                      </th>{" "}
                       <th
-                        className="bg-success"
+                        className="bg-teal"
                         style={{
                           position: "sticky",
                           left: 38,
                         }}
                         rowSpan={2}
                       >
-                        Tên Nhân Sự
-                      </th>
+                        Tên Nhân Sự{" "}
+                      </th>{" "}
                       <th colSpan={numberOfDays}>
-                        <center> Ngày Trong Tháng </center>
-                      </th>
-                      
-                    </tr>
-                    <tr>
-                      {calendarDays}
-                    </tr>
-                  </thead>
+                        <center> Ngày Trong Tháng </center>{" "}
+                      </th>{" "}
+                    </tr>{" "}
+                    <tr> {calendarDays} </tr>{" "}
+                  </thead>{" "}
                   <tbody> {body} </tbody> <tfoot> </tfoot>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+                </table>{" "}
+              </div>{" "}
+            </div>{" "}
+          </div>{" "}
+        </div>{" "}
       </div>
     );
   }

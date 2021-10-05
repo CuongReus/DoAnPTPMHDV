@@ -2,7 +2,6 @@ package com.logsik.taman.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +27,6 @@ import com.logsik.taman.service.impl.DtoConverter;
 public class LabourAttendanceController extends AbstractController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LabourAttendanceController.class);
 	private static final String MESSAGES_SAME_TIME = " Một Ngày Nhân Công Chỉ Có Thể Làm Việc `1 Ca Thường ||  1 Tăng Ca Thường || 1 Tăng Ca Khuya` ";
-	private static final String MESSAGES_LATE_SET_ATTENDANCE = "Không được chấm công nhân công này khi đã được duyệt thanh toán! Vui lòng liên hệ Ban Giám Đốc để biết rõ thông tin.";
-	private static final String MESSAGES_LATE_UPDATE_ATTENDANCE = "Không được chỉnh sửa ngày công nhân công này khi đã được duyệt thanh toán! Vui lòng liên hệ Ban Giám Đốc để biết rõ thông tin.";
 
 	@Autowired
 	private LabourAttendanceRepository labourAttendanceRepository;
@@ -80,7 +77,7 @@ public class LabourAttendanceController extends AbstractController {
 	@RequestMapping(value = "/labourAttendance/update", method = RequestMethod.POST)
 	public RestResult update(@RequestBody LabourAttendanceDto labourAttendanceDto) {
 		try {
-			LabourAttendance source = labourAttendanceRepository.findById(labourAttendanceDto.getId()).get();
+//			LabourAttendance source = labourAttendanceRepository.findById(labourAttendanceDto.getId()).get();
 			LabourAttendance updatedLabourAttendance = labourAttendanceRepository.save(dtoConverter.convertToLabourAttendance(labourAttendanceDto));
 			return new RestResult(updatedLabourAttendance);
 		} catch (Exception e) {
@@ -94,7 +91,7 @@ public class LabourAttendanceController extends AbstractController {
 		System.out.println("Delete labourAttendance with ID = " + id + "...");
 
 		try {
-			Optional<LabourAttendance> source = labourAttendanceRepository.findById(id);
+//			Optional<LabourAttendance> source = labourAttendanceRepository.findById(id);
 			labourAttendanceRepository.deleteById(id);
 		} catch (Exception e) {
 			LOGGER.error("Error when delete labourAttendance.", e);

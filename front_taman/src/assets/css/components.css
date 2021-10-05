@@ -155,7 +155,7 @@ a.badge,
   }
 }
 .sidebar-main {
-  background-color: #000000;
+  /* background-color: #000000; */
   z-index: 99;
 }
 .sidebar-secondary {

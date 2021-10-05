@@ -38,7 +38,8 @@ const createRenderer = render => ({ input, meta, label, isVerticalLabel, iconCla
                 <label className="control-label">{label}</label>
                 {render(input, label, rest)}
                 {meta.error && meta.invalid ?
-                    <span className="help-block has-error">{meta.error}</span> : null}
+                    // <span className="help-block has-error">{meta.error}</span> : null}
+                    <label id="basic-error" class="validation-error-label" for="basic">{meta.error}</label> : null}
             </div>
         </div>);
 }
@@ -65,7 +66,8 @@ const createRenderer = render => ({ input, meta, label, isVerticalLabel, iconCla
                     <i className={[iconClass, "text-muted"].join(" ")}></i>
                 </div>
                 {meta.error && meta.touched ?
-                    <span className="help-block has-error">{meta.error}</span> : null}
+                    // <span className="help-block has-error">{meta.error}</span> : null}
+                    <label id="basic-error" class="validation-error-label" for="basic">{meta.error}</label> : null}
             </div>
         );
     }
@@ -87,7 +89,8 @@ const createRenderer = render => ({ input, meta, label, isVerticalLabel, iconCla
             return <div className="form-group">
             {render(input, label, rest)}
             {meta.error && meta.touched ?
-                <span className="help-block has-error">{meta.error}</span> : null}
+                // <span className="help-block has-error">{meta.error}</span> : null}
+                <label id="basic-error" class="validation-error-label" for="basic">{meta.error}</label> : null}
         </div>
         }
       

@@ -148,19 +148,16 @@ class FilteredUserJobList extends React.Component {
         return (
 
             <div className="content-wrapper">
-
-
+                <div className="page-header page-header-default">
+                <div className="breadcrumb-line">
+                    <ul className="breadcrumb">
+                        <li><a href=""><i className="icon-home2 position-left"></i> Home</a> </li>
+                        <li className="active">Quản lý nhân sự</li>
+                        <li className="active">Danh sách nhân viên</li>
+                    </ul>
+                </div>
+                </div>
                 <div className="content">
-                    <div className="page-header">
-                        <h4>
-                            <i className=" icon-paragraph-justify2 position-left"></i>
-                            <span className="text-semibold">Danh sách Nhân Viên</span>
-                            <span className="pull-right">
-                                
-                            </span>
-                        </h4>
-                    </div>
-
                     <div className="row">
                         <div className="col-md-12">
                             <div className="panel panel-flat">
