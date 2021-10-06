@@ -88,6 +88,20 @@ class SideBar extends React.Component {
 											<li className={currentUrl == '/listContact' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
 												<Link to='/listContact'><i className="icon-phone2"></i> <span>Khách Hàng</span></Link></li>
 										</SecuredComponent>
+										<SecuredComponent allowedPermission="admin.contact.read">
+											<li className={currentUrl == '/calendarPage' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/calendarPage'>
+													<i className="icon-calendar"></i>
+													<span>Lịch Hẹn</span></Link>
+											</li>
+										</SecuredComponent>
+										<SecuredComponent allowedPermission="admin.contact.read">
+											<li className={currentUrl == '/calendarTypePage' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/calendarTypePage'>
+													<i className="icon-calendar"></i>
+													<span>Loại Lịch</span></Link>
+											</li>
+										</SecuredComponent>
 									</ul></li>
 								<li><a href="#"><i className="icon-users4"></i> <span>Quản Lý Đội Thi Công</span></a>
 									<ul>
@@ -129,6 +143,14 @@ class SideBar extends React.Component {
 												}}><i className="icon-user-tie"></i>
 													<span>Thuộc Về Giám Sát</span></Link></li>
 										</SecuredComponent>
+									</ul>
+								</li>
+								<li><a href="#"><i className="icon-users4"></i> <span>Quản Lý Tài Sản</span></a>
+									<ul>
+
+									<li className={currentUrl == '/listResourceItem' ? 'active' : ''} onClick={() => this.onChangeMenu()}>
+												<Link to='/listResourceItem'><i className="icon-price-tags"></i>
+													<span>Danh Sách Tài Nguyên</span></Link></li>
 									</ul>
 								</li>
 							</ul>

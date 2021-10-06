@@ -342,6 +342,39 @@ const ContactDetailApi = {
     getContactDetail: (id) => requests.get('/contactDetail/' + id)
 };
 
+const CalendarTypeApi = {
+    listCalendarType: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/calendarType/list?search=' + encode(search), page, 20);
+    },
+    listAllCalendarType: () => requests.get('/calendarType/listAll'),
+    getCalendarType: (id) => requests.get('/calendarType/' + id),
+};
+
+const CalendarBookingApi = {
+    listCalendarBooking: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/calendarBooking/list?search=' + encode(search), page, 20);
+    },
+    listAllCalendarBooking: () => requests.get('/calendarBooking/listAll'),
+    getCalendarBooking: (id) => requests.get('/calendarBooking/' + id),
+};
+
+const ResourceItemAPI = {
+    listResourceItem: (search, page) => {
+        if (!search) {
+            search = "";
+        }
+        return requests.getPage('/resourceItem/list?search=' + encode(search), page, 50);
+    },
+    listAll: () => requests.get('/resourceItem/listAll'),
+    getResourceItem: (id) => requests.get('/resourceItem/' + id)
+};
+
 
 export default {
     asyncRequests,
@@ -366,6 +399,9 @@ export default {
     SwotJobApi,
     ContactApi,
     ContactDetailApi,
+    CalendarTypeApi,
+    CalendarBookingApi,
+    ResourceItemAPI,
     setToken: _token => { token = _token },
     setBackendUrl,
     getBackendUrl,

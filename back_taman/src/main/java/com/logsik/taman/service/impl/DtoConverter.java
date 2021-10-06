@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.logsik.taman.domain.Approval;
+import com.logsik.taman.domain.CalenderBooking;
+import com.logsik.taman.domain.CalenderType;
 import com.logsik.taman.domain.CloseProject;
 import com.logsik.taman.domain.Company;
 import com.logsik.taman.domain.ConstructionTeam;
@@ -29,12 +31,15 @@ import com.logsik.taman.domain.LeaveLetter;
 import com.logsik.taman.domain.Project;
 import com.logsik.taman.domain.ProjectDetail;
 import com.logsik.taman.domain.ProjectYear;
+import com.logsik.taman.domain.ResourceItem;
 import com.logsik.taman.domain.Role;
 import com.logsik.taman.domain.SwotItem;
 import com.logsik.taman.domain.SwotJob;
 import com.logsik.taman.domain.SwotUser;
 import com.logsik.taman.domain.User;
 import com.logsik.taman.dtos.ApprovalDto;
+import com.logsik.taman.dtos.CalenderBookingDTO;
+import com.logsik.taman.dtos.CalenderTypeDTO;
 import com.logsik.taman.dtos.CloseProjectDto;
 import com.logsik.taman.dtos.CompanyDto;
 import com.logsik.taman.dtos.ConstructionTeamDto;
@@ -52,6 +57,7 @@ import com.logsik.taman.dtos.LeaveLetterDto;
 import com.logsik.taman.dtos.ProjectDetailDto;
 import com.logsik.taman.dtos.ProjectDto;
 import com.logsik.taman.dtos.ProjectYearDto;
+import com.logsik.taman.dtos.ResourceItemDTO;
 import com.logsik.taman.dtos.RoleDto;
 import com.logsik.taman.dtos.SwotItemDto;
 import com.logsik.taman.dtos.SwotJobDto;
@@ -59,6 +65,8 @@ import com.logsik.taman.dtos.SwotUserDto;
 import com.logsik.taman.dtos.UploadFileResponse;
 import com.logsik.taman.dtos.UserDto;
 import com.logsik.taman.repository.ApprovalRepository;
+import com.logsik.taman.repository.CalenderBookingRepository;
+import com.logsik.taman.repository.CalenderTypeRepository;
 import com.logsik.taman.repository.CloseProjectRepository;
 import com.logsik.taman.repository.CompanyRepository;
 import com.logsik.taman.repository.ConstructionTeamRepository;
@@ -79,12 +87,10 @@ import com.logsik.taman.repository.LeaveLetterRepository;
 import com.logsik.taman.repository.ProjectDetailRepository;
 import com.logsik.taman.repository.ProjectRepository;
 import com.logsik.taman.repository.ProjectYearRepository;
+import com.logsik.taman.repository.ResourceItemRepository;
 import com.logsik.taman.repository.RoleRepository;
 import com.logsik.taman.repository.UserRepository;
 
-/**
- * Created by phamcongbang on 10/04/2018.
- */
 @Service
 public class DtoConverter {
 	@Autowired
@@ -539,4 +545,51 @@ public class DtoConverter {
 	}
 
 	// ******************************End Labour File******************************
+//	******************************Calender Type******************************
+	
+	@Autowired
+	private CalenderTypeRepository calenderTypeRepository;
+
+	public CalenderType convertToCalenderType(CalenderTypeDTO calenderTypeDTO) {
+		CalenderType calenderType = null;
+		if (calenderTypeDTO.getId() != null) {
+			calenderType = calenderTypeRepository.findById(calenderTypeDTO.getId()).get();
+		} else {
+			calenderType = new CalenderType();
+		}
+		modelMapper.map(calenderTypeDTO, calenderType);
+		return calenderType;
+	}
+	
+///	******************************Calender Type******************************
+
+	@Autowired
+	private CalenderBookingRepository calenderBookingRepository;
+
+	public CalenderBooking convertToCalenderBooking(CalenderBookingDTO calenderBookingDTO) {
+		CalenderBooking calenderBooking = null;
+		if (calenderBookingDTO.getId() != null) {
+			calenderBooking = calenderBookingRepository.findById(calenderBookingDTO.getId()).get();
+		} else {
+			calenderBooking = new CalenderBooking();
+		}
+		modelMapper.map(calenderBookingDTO, calenderBooking);
+		return calenderBooking;
+	}
+
+	// ResourceItem
+	@Autowired
+	private ResourceItemRepository resourceItemRepository;
+	
+	public ResourceItem convertToResourceItem(ResourceItemDTO resourceItemDTO) {
+		ResourceItem resourceItem = null;
+		if (resourceItemDTO.getId() != null) {
+			resourceItem = resourceItemRepository.findById(resourceItemDTO.getId()).get();
+		} else {
+			resourceItem = new ResourceItem();
+		}
+		modelMapper.map(resourceItemDTO, resourceItem);
+		return resourceItem;
+	}
+	
 }

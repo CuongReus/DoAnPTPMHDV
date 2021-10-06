@@ -20,6 +20,8 @@ import swotJobReducer from '../views/swotJob/reducer'
 import contactReducer from '../views/contact/reducer'
 import contactDetailReducer from '../views/contactDetail/reducer'
 import jobReducer from '../views/job/reducer'
+import calendarReducer from '../views/calendar/reducer';
+import resourceItemReducer from '../views/resourceItem/reducer'
 
 const combinedReducer = combineReducers({
     form: formReducer,
@@ -39,6 +41,8 @@ const combinedReducer = combineReducers({
     jobReducer :jobReducer,
     contactReducer: contactReducer,
     contactDetailReducer: contactDetailReducer,
+    calendarReducer: calendarReducer,
+    resourceItemReducer: resourceItemReducer,
 });
 
 const crossSliceReducer = (state, action) => {

@@ -267,6 +267,10 @@ i18n
                     "WEAKNESS": "Điểm yếu",
                     "OPPORTUNITY": "Cơ hội",
                     "THREAT": "Thách thức",
+
+                    "DEVICE": "Thiết bị - Dụng cụ",
+                    "ROOM": "Cơ sở vật chất",
+                    "OTHER": "Tài nguyên khác",
                 }
             }
         },

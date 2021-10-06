@@ -37,7 +37,7 @@ const createRenderer = render => ({ input, meta, label, isVerticalLabel, iconCla
             <div>
                 <label className="control-label">{label}</label>
                 {render(input, label, rest)}
-                {meta.error && meta.invalid ?
+                {meta.error && meta.touched ?
                     // <span className="help-block has-error">{meta.error}</span> : null}
                     <label id="basic-error" class="validation-error-label" for="basic">{meta.error}</label> : null}
             </div>
@@ -757,34 +757,32 @@ const RenderDatePickerMinPrev = createRenderer((input, label, { disabled,numberD
     )
 });
 
-// const RenderDisableRangeDatePicker = createRenderer((input, label, { disabled, type, dateFormat, placeholder, onChangeAction, minDate, maxDate , isBirthday}) => {
-  
-//     var today = new Date();
-//     function handleChangeDate(value) {
-//         if (onChangeAction) {
-//             onChangeAction(value);
-//         }
-//         input.onChange(value)
-//     }
-//         if(isBirthday){
-//             // minDate =  moment(minDate, "DD-MM-YYYY").minute(468, 'months');
-//             maxDate = moment(today, "DD-MM-YYYY").add(-216, 'months');
-//         }
-//     return (
-//         <DatePicker
-//             type={type}
-//             disabled={disabled}
-//             selected={input.value}
-//             dateFormat={dateFormat}
-//             onChange={handleChangeDate}
-//             minDate = {minDate}
-//             maxDate = {maxDate}
-//             // minDate =  {minDate ? moment(minDate, "DD-MM-YYYY").add(300, 'months') : null}
-//             // maxDate = {maxDate ? moment(minDate, "DD-MM-YYYY").add(1, 'months') : null}
-//             className="form-control">
-//         </DatePicker>
-//     )
-// });
+const RenderDatePickerWithTime = createRenderer((input, label, { disabled, onChangeAction }) => {
+
+    function handleChangeDate(value) {
+        if (onChangeAction) {
+            onChangeAction(value);
+        }
+        input.onChange(value)
+    }
+    return (
+        <div>
+            <DatePicker
+                timeFormat="HH:mm"
+                disabled={disabled}
+                selected={input.value}
+                dateFormat="DD/MM/YYYY HH:mm"
+                onChange={handleChangeDate}
+                showTimeSelect
+                timeIntervals={15}
+                className="form-control">
+
+
+            </DatePicker>
+        </div>
+
+    )
+});
 
 
 export {
@@ -816,6 +814,7 @@ export {
     RenderNumberInputPhone,
     RenderDatePickerMinPrev,
     RenderSwitch,
+    RenderDatePickerWithTime,
     RenderDateMultiPicker
     // RenderDisableRangeDatePicker 
 }

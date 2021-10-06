@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.text.ParseException;
 
 import org.springframework.stereotype.Service;
 
@@ -219,5 +220,10 @@ public class TimeService {
 		}
 		
 		return dayOfWeek;
+	}
+
+	public Date parseStringToDateTime(String dateString) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);  
+		return date;
 	}
 }

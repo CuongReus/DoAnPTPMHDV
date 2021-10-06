@@ -31,6 +31,9 @@ import SwotUserList from "./views/swotUser/SwotUserList";
 import JobList from "./views/job/JobList";
 import SwotJobList from "./views/swotJob/SwotJobList";
 import FilteredUserJobList from "./views/swotUser/FilteredUserJobList";
+import CalendarTypePage from "./views/calendarType/CalendarTypePage";
+import CalenderPage from "./views/calendar/CalenderPage";
+import ListResourceItem from "./views/resourceItem/ListResourceItem";
 
 const mapStateToProps = state => {
     return {
@@ -159,6 +162,9 @@ class App extends React.Component {
                                 <Route path="/listLabour" component={LabourList}/>
                                 <Route path="/listLabourAttendanceForSupervisor" component={ListLaboutAttendanceForSupervisor}/>
                                 <Route path="/listEmployeeAttendance" component={EmployeeAttendanceList}/>
+                                <Route path="/calendarTypePage" component={CalendarTypePage}/>
+                                <Route path="/calendarPage" component={CalenderPage}/>
+                                <Route path="/listResourceItem" component={ListResourceItem}/>
                             </Switch>
                         </div>
                     </div>
